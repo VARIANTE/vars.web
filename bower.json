@@ -8,6 +8,10 @@
   "authors": [
     "Andrew Wei <andrew@variante.io>"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VARIANTE/VARSjs.git"
+  },
   "ignore": [
     "**/.*",
     "node_modules",

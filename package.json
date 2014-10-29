@@ -7,6 +7,10 @@
   "authors": [
     "Andrew Wei <andrew@variante.io>"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VARIANTE/VARSjs.git"
+  },
   "devDependencies": {
     "requirejs": "~2.1.15",
     "gulp": "~3.8.9",
