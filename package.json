@@ -1,0 +1,16 @@
+{
+  "name": "vars.js",
+  "version": "0.1.0",
+  "homepage": "http://variante.io",
+  "license": "MIT",
+  "private": true,
+  "authors": [
+    "Andrew Wei <andrew@variante.io>"
+  ],
+  "devDependencies": {
+    "requirejs": "~2.1.15",
+    "gulp": "~3.8.9",
+    "gulp-clean": "~0.3.1",
+    "gulp-load-plugins": "~0.7.0"
+  }
+}
