@@ -150,6 +150,8 @@ define
                 window.addEventListener('resize', _onWindowResize.bind(this));
                 window.addEventListener('scroll', _onWindowScroll.bind(this));
             }
+
+            this.init();
         }
 
         /**
