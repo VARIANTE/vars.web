@@ -128,7 +128,7 @@ define
             {
                 if (this.responsive)
                 {
-                    this.setDirty(DirtyTYpe.SIZE);
+                    this.setDirty(DirtyType.SIZE);
                 }
             }
 
