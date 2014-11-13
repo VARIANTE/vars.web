@@ -36,6 +36,12 @@ define
             Object.defineProperty(this, 'view', { value: view || null, writable: false });
 
             /**
+             * Indicates whether this ViewController auto responds to window behaviors.
+             * @type {bool}
+             */
+            Object.defineProperty(this, 'responsive', { value: false, writable: true });
+
+            /**
              * Data providers of this ViewController instance.
              * @type {*}
              */
@@ -112,6 +118,40 @@ define
                     }
                 }
             };
+
+            /**
+             * @private
+             * Handler invoked when the window resizes.
+             * @param  {object} event
+             */
+            function _onWindowResize(event)
+            {
+                if (this.responsive)
+                {
+                    this.setDirty(DirtyTYpe.SIZE);
+                }
+            }
+
+            /**
+             * @private
+             * Handler invoked when the window scrolls.
+             * @param  {object} event
+             */
+            function _onWindowScroll(event)
+            {
+                if (this.responsive)
+                {
+                    this.setDirty(DirtyType.POSITION);
+                }
+            }
+
+            if (window)
+            {
+                window.addEventListener('resize', _onWindowResize.bind(this));
+                window.addEventListener('scroll', _onWindowScroll.bind(this));
+            }
+
+            this.init();
         }
 
         /**
