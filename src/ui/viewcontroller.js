@@ -148,6 +148,7 @@ define
             if (window)
             {
                 window.addEventListener('resize', _onWindowResize.bind(this));
+                window.addEventListener('orientationchange', _onWindowResize.bind(this));
                 window.addEventListener('scroll', _onWindowScroll.bind(this));
             }
 
