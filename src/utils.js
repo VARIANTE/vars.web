@@ -23,7 +23,7 @@ define
          */
         function assert(condition, message)
         {
-            if (!condition)
+            if (!condition && this.debug)
             {
                 throw message || '[vars]: Assertion failed.';
             }
@@ -34,7 +34,7 @@ define
          */
         function log()
         {
-            if (self.debug && window.console && console.log)
+            if (this.debug && window.console && console.log)
             {
                 Function.apply.call(console.log, console, arguments);
             }
@@ -119,6 +119,23 @@ define
 
             return size;
         } api.sizeOf = sizeOf;
+
+        /**
+         * Checks if a given object is equal to null (type-insensitive).
+         * @param  {object}  object
+         * @return {boolean}
+         */
+        function isNull(object)
+        {
+            if (object === undefined || object === null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        } api.isNull = isNull;
 
         /**
          * Detects touch screens.
