@@ -151,13 +151,11 @@ define
                 window.addEventListener('orientationchange', _onWindowResize.bind(this));
                 window.addEventListener('scroll', _onWindowScroll.bind(this));
             }
-
-            this.init();
         }
 
         /**
          * @public
-         * Initializes this ViewController instance.
+         * Initializes this ViewController instance. Must manually invoke.
          */
         ViewController.prototype.init = function()
         {
