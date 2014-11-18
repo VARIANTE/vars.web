@@ -92,7 +92,7 @@ define
                 }
                 else
                 {
-                    requestAnimationFrame(this.update.bind(this));
+                    rAF(this.update.bind(this));
                 }
             };
 
@@ -122,46 +122,42 @@ define
             /**
              * @private
              * Custom requestAnimationFrame implementation.
-             * @param {function} callback
+             * @param  {function} callback
              */
-            var requestAnimationFrame = window.requestAnimationFrame       ||
-                                        window.webkitRequestAnimationFrame ||
-                                        window.mozRequestAnimationFrame    ||
-                                        window.oRequestAnimationFrame      ||
-                                        window.msRequestAnimationFrame     ||
-                                        function(callback)
-                                        {
-                                            if (window)
-                                            {
-                                               window.setTimeout(callback, 10);
-                                            }
-                                        };
+            var rAF = (window && window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame) ||
+                        function(callback)
+                        {
+                            if (window)
+                            {
+                                window.setTimeout(callback, 10.0);
+                            }
+                        };
 
             /**
              * @private
              * Handler invoked when the window resizes.
              * @param  {object} event
              */
-            function _onWindowResize(event)
+            var _onWindowResize = function(event)
             {
                 if (this.responsive)
                 {
                     this.setDirty(DirtyType.SIZE);
                 }
-            }
+            };
 
             /**
              * @private
              * Handler invoked when the window scrolls.
              * @param  {object} event
              */
-            function _onWindowScroll(event)
+            var _onWindowScroll = function(event)
             {
                 if (this.responsive)
                 {
                     this.setDirty(DirtyType.POSITION);
                 }
-            }
+            };
 
             if (window)
             {
