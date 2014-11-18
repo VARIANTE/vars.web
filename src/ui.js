@@ -23,7 +23,7 @@ define
         api.ViewController = ViewController;
 
         /**
-         * Translates a DOM element in 2D.
+         * Translates a DOM element.
          * @param  {object} element     Target DOM element
          * @param  {object} properties  Translation properties: top/right/bottom/left/units
          *                              (if any is specified, value must be number, else if object is undefined,
@@ -31,7 +31,7 @@ define
          * @param  {object} constraints Translation constraints: top/right/bottom/left/units
          * @return {object} Translated properties.
          */
-        function translate2D(element, properties, constraints)
+        function translate(element, properties, constraints)
         {
             if (properties)
             {
@@ -97,11 +97,11 @@ define
 
                 return { top: 'initial', right: 'initial', bottom: 'initial', left: 'initial' };
             }
-        } api.translate2D = translate2D;
+        } api.translate = translate;
 
         /**
          * @todo Account for cases when either width or height is unspecified.
-         * Transforms a DOM element in 2D.
+         * Transforms a DOM element.
          * @param  {object} element     Target DOM element.
          * @param  {object} properties  Transformation properties: width/height/units/aspectRatio
          *                              (if any is specified, value must be number, else if object is undefined,
@@ -109,7 +109,7 @@ define
          * @param  {object} constraints Transformation constraints: width/height/units (optional, but must be numbers)
          * @return {object} Transformed properties.
          */
-        function transform2D(element, properties, constraints)
+        function transform(element, properties, constraints)
         {
             if (properties)
             {
@@ -179,7 +179,109 @@ define
 
                 return { width: 'initial', height: 'initial' };
             }
-        } api.transform2D = transform2D;
+        } api.transform = transform;
+
+        /**
+         * Gets the rect of the viewport (FOV).
+         * @return {object} Object containing top, left, bottom, right, width, height.
+         */
+        function getViewportRect()
+        {
+            utils.assert(window && document, 'Window or document undefined.');
+
+            if (!window || !document) return null;
+
+            var rect = {};
+
+            if ($)
+            {
+                rect.width  = $(window).innerWidth();
+                rect.height = $(window).innerHeight();
+                rect.top    = $(window).scrollTop();
+                rect.left   = $(window).scrollLeft();
+                rect.bottom = rect.top + rect.height;
+                rect.right  = rect.left + rect.width;
+            }
+            else
+            {
+                rect.width  = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+                rect.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+                rect.top    = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+                rect.left   = (window.pageXOffset !== undefined) ? window.pageXOffset : (document.documentElement || document.body.parentNode || document.body).scrollLeft;
+                rect.bottom = rect.top + rect.height;
+                rect.right  = rect.left + rect.width;
+            }
+
+            return rect;
+        }
+
+        /**
+         * Gets the rect of a given element.
+         * @param  {object} element
+         * @return {object} Object containing top, left, bottom, right, width, height.
+         */
+        function getRect(element)
+        {
+            utils.assert(element, 'Invalid element specified.');
+            utils.assert(window && document, 'Window or document undefined.');
+
+            if (!element || !window || !document) return null;
+
+            if (element === window || ($ && (element === $(window)))) return getViewportRect();
+
+            var fov = getViewportRect();
+            var rect = {};
+
+            rect.width  = (element.outerWidth) ? element.outerWidth() : element.getBoundingClientRect().width;
+            rect.height = (element.outerHeight) ? element.outerHeight() : element.getBoundingClientRect().height;
+            rect.top    = (element.offset) ? element.offset().top : element.getBoundingClientRect().top - fov.y;
+            rect.left   = (element.offset) ? element.offset().left : element.getBoundingClientRect().left - fov.x;
+            rect.bottom = rect.top + rect.height;
+            rect.right  = rect.left + rect.width;
+
+            return rect;
+        } api.getRect = getRect;
+
+        /**
+         * Computes the intersecting rect of 2 given elements. If only 1 element is specified, the other
+         * element will default to the current viewport.
+         * @param  {object} element1
+         * @param  {object} element1
+         * @return {object} Object containing width, height.
+         */
+        function getIntersectRect(element1, element2)
+        {
+            utils.assert(element1 || element2, 'Invalid elements specified.');
+            utils.assert(window && document, 'Window or document undefined.');
+
+            if (!(element1 || element2) || !(window && document)) return null;
+
+            var rect1 = getRect(element1 || window);
+            var rect2 = getRect(element2 || window);
+
+            if (!rect1 || !rect2) return null;
+
+            var rect = {};
+
+            rect.width  = Math.max(0.0, Math.min(rect1.right, rect2.right) - Math.max(rect1.left, rect2.left));
+            rect.height = Math.max(0.0, Math.min(rect1.bottom, rect2.bottom) - Math.max(rect1.top, rect2.top));
+            rect.top    = Math.max(rect1.top, rect2.top);
+            rect.left   = Math.max(rect1.left, rect2.left);
+            rect.bottom = rect.top + rect.height;
+            rect.right  = rect.left + rect.width;
+
+            if (rect.width*rect.height === 0)
+            {
+                rect.width  = 0;
+                rect.height = 0;
+                rect.top    = 0;
+                rect.left   = 0;
+                rect.bottom = 0;
+                rect.right  = 0;
+            }
+
+            return rect;
+        } api.getIntersectRect = getIntersectRect;
 
         return api;
     }
