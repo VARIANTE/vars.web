@@ -121,6 +121,24 @@ define
 
             /**
              * @private
+             * Custom requestAnimationFrame implementation.
+             * @param {function} callback
+             */
+            var requestAnimationFrame = window.requestAnimationFrame       ||
+                                        window.webkitRequestAnimationFrame ||
+                                        window.mozRequestAnimationFrame    ||
+                                        window.oRequestAnimationFrame      ||
+                                        window.msRequestAnimationFrame     ||
+                                        function(callback)
+                                        {
+                                            if (window)
+                                            {
+                                               window.setTimeout(callback, 10);
+                                            }
+                                        };
+
+            /**
+             * @private
              * Handler invoked when the window resizes.
              * @param  {object} event
              */
