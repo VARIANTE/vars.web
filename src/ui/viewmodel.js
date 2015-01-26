@@ -16,33 +16,33 @@ define
     {
         /**
          * @constructor
-         * Creates a new ViewController instance.
+         * Creates a new ViewModel instance.
          */
-        function ViewController(view)
+        function ViewModel(view)
         {
             var mDirtyTable = 0;
             var mData;
 
             /**
-             * Name of this ViewController instance.
+             * Name of this ViewModel instance.
              * @type {object}
              */
             Object.defineProperty(this, 'name', { value: '', writable: true });
 
             /**
-             * View of this ViewController instance.
+             * View of this ViewModel instance.
              * @type {object}
              */
             Object.defineProperty(this, 'view', { value: view || null, writable: false });
 
             /**
-             * Indicates whether this ViewController auto responds to window behaviors.
+             * Indicates whether this ViewModel auto responds to window behaviors.
              * @type {bool}
              */
             Object.defineProperty(this, 'responsive', { value: false, writable: true });
 
             /**
-             * Data providers of this ViewController instance.
+             * Data providers of this ViewModel instance.
              * @type {*}
              */
             Object.defineProperty(this, 'data',
@@ -169,18 +169,18 @@ define
 
         /**
          * @public
-         * Initializes this ViewController instance. Must manually invoke.
+         * Initializes this ViewModel instance. Must manually invoke.
          */
-        ViewController.prototype.init = function()
+        ViewModel.prototype.init = function()
         {
             this.setDirty(DirtyType.ALL);
         };
 
         /**
          * @public
-         * Destroys this ViewController instance.
+         * Destroys this ViewModel instance.
          */
-        ViewController.prototype.destroy = function()
+        ViewModel.prototype.destroy = function()
         {
 
         };
@@ -189,7 +189,7 @@ define
          * @protected
          * Handler invoked whenever a visual update is required.
          */
-        ViewController.prototype.update = function()
+        ViewModel.prototype.update = function()
         {
             // reset the dirty status of all
             this.setDirty(0);
@@ -197,14 +197,14 @@ define
 
         /**
          * @protected
-         * Gets the string representation of this ViewController instance.
+         * Gets the string representation of this ViewModel instance.
          * @return {string}
          */
-        ViewController.prototype.toString = function()
+        ViewModel.prototype.toString = function()
         {
-            return '[ViewController{' + this.name + '}]';
+            return '[ViewModel{' + this.name + '}]';
         };
 
-        return ViewController;
+        return ViewModel;
     }
 );

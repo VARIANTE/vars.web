@@ -11,16 +11,16 @@ define
 (
     [
         'utils',
-        'ui/viewcontroller'
+        'ui/viewmodel'
     ],
-    function(utils, ViewController)
+    function(utils, ViewModel)
     {
         var api = function(obj)
         {
             return obj;
         };
 
-        api.ViewController = ViewController;
+        api.ViewModel = ViewModel;
 
         /**
          * Translates a DOM element.
