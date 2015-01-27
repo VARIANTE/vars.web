@@ -213,7 +213,7 @@ define
             }
 
             return rect;
-        }
+        } api.getViewportRect = getViewportRect;
 
         /**
          * Gets the rect of a given element.
