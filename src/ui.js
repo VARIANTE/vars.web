@@ -106,7 +106,7 @@ define
          * @param  {object} properties  Transformation properties: width/height/units/aspectRatio
          *                              (if any is specified, value must be number, else if object is undefined,
          *                              all transformation styles will be reset to 'initial')
-         * @param  {object} constraints Transformation constraints: width/height/units (optional, but must be numbers)
+         * @param  {object} constraints Transformation constraints: width/height/units/type (optional, but must be numbers)
          * @return {object} Transformed properties.
          */
         function transform(element, properties, constraints)
@@ -121,28 +121,62 @@ define
                 var aspectRatio = (properties.aspectRatio) ? Number(properties.aspectRatio) : properties.width/properties.height;
                 var maxW = properties.width;
                 var maxH = properties.height;
+                var minW = properties.width;
+                var minH = properties.height;
+                var type = 'contain';
 
                 if (constraints)
                 {
                     utils.assert(constraints.width || !isNaN(constraints.width), 'Width constraint must be a number.');
                     utils.assert(constraints.height || !isNaN(constraints.height), 'Height constraint must be a number.');
 
-                    if (constraints.width) maxW = Math.min(constraints.width, maxW);
-                    if (constraints.height) maxH = Math.min(constraints.height, maxH);
+                    if (constraints.type && constraints.type === 'cover')
+                    {
+                        type = 'cover';
+
+                        if (constraints.width) minW = Math.min(constraints.width, minW);
+                        if (constraints.width) minH = Math.min(constraints.height, minH);
+                    }
+                    else
+                    {
+                        if (constraints.width) maxW = Math.min(constraints.width, maxW);
+                        if (constraints.height) maxH = Math.min(constraints.height, maxH);
+                    }
                 }
 
-                var w = (maxW > maxH) ? maxH * aspectRatio : maxW;
-                var h = (maxW > maxH) ? maxH : maxW / aspectRatio;
+                var w, h;
 
-                if (w > maxW)
+                if (type === 'contain')
                 {
-                    w = maxW;
-                    h = w / aspectRatio;
+                    w = (maxW > maxH) ? maxH * aspectRatio : maxW;
+                    h = (maxW > maxH) ? maxH : maxW / aspectRatio;
+
+                    if (w > maxW)
+                    {
+                        w = maxW;
+                        h = w / aspectRatio;
+                    }
+                    else if (h > maxH)
+                    {
+                        h = maxH;
+                        w = h * aspectRatio;
+                    }
                 }
-                else if (h > maxH)
+                else
                 {
-                    h = maxH;
-                    w = h * aspectRatio;
+                    w = (minW > minH) ? minH * aspectRatio : minW;
+                    h = (minW > minH) ? minH : minW / aspectRatio;
+
+                    if (w < minW)
+                    {
+                        w = minW;
+                        h = w / aspectRatio;
+                    }
+                    else if (h < minH)
+                    {
+                        h = minH;
+                        w = h * aspectRatio;
+                    }
                 }
 
                 if (element)
