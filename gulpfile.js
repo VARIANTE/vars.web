@@ -27,11 +27,57 @@ gulp.task
 );
 
 /**
- * Build task.
+ * Build (debug) task.
  */
 gulp.task
 (
-    'build',
+    'build-debug',
+    function()
+    {
+        r.optimize
+        (
+            {
+                // All paths used by the r.js optimizer will be relative to this base URL.
+                baseUrl: config.src,
+
+                // File of the distributed library.
+                out: config.dist + '/' + config.name + '.js',
+
+                // Paths of modules.
+                paths:
+                {
+                    almond: '../bower_components/almond/almond'
+                },
+
+                // Modules included in the distributed library.
+                include: ['almond', config.name],
+
+                // Wrapper for AMD, CommonJS and browser compatibility.
+                wrap:
+                {
+                    startFile: config.src + '/_start.js',
+                    endFile:   config.src + '/_end.js'
+                },
+
+                // Option to minify JS files.
+                optimize: 'none',
+
+                // Option to strip comments.
+                preserveLicenseComments: false,
+
+                // Option to generate source maps for the original modules.
+                generateSourceMaps: false
+            }
+        );
+    }
+);
+
+/**
+ * Build (release) task.
+ */
+gulp.task
+(
+    'build-release',
     function()
     {
         r.optimize
@@ -95,6 +141,6 @@ gulp.task
     ],
     function()
     {
-        gulp.start('build');
+        gulp.start('build-release');
     }
 );

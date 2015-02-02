@@ -127,8 +127,8 @@ define
 
                 if (constraints)
                 {
-                    utils.assert(constraints.width || !isNaN(constraints.width), 'Width constraint must be a number.');
-                    utils.assert(constraints.height || !isNaN(constraints.height), 'Height constraint must be a number.');
+                    utils.assert(!constraints.width || !isNaN(constraints.width), 'Width constraint must be a number.');
+                    utils.assert(!constraints.height || !isNaN(constraints.height), 'Height constraint must be a number.');
 
                     if (constraints.type && constraints.type === 'cover')
                     {

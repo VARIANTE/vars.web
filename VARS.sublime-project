@@ -12,7 +12,13 @@
     [
         {
             "cmd": ["gulp"],
-            "name": "Gulp",
+            "name": "Gulp (release)",
+            "working_dir": "${project_path}",
+            "path": "/usr/local/bin"
+        },
+        {
+            "cmd": ["gulp", "build-debug"],
+            "name": "Gulp (debug)",
             "working_dir": "${project_path}",
             "path": "/usr/local/bin"
         }

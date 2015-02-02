@@ -10,9 +10,11 @@
 define
 (
     [
-        '../enums/dirtytype'
+        '../utils',
+        '../enums/dirtytype',
+        '../ui/viewupdatedelegate'
     ],
-    function(DirtyType)
+    function(utils, DirtyType, ViewUpdateDelegate)
     {
         /**
          * @constructor
@@ -20,152 +22,98 @@ define
          */
         function ViewModel(view)
         {
-            var mDirtyTable = 0;
-            var mData;
+            utils.log('[ViewModel]::new(', view, ')');
 
-            /**
-             * Name of this ViewModel instance.
-             * @type {object}
-             */
-            Object.defineProperty(this, 'name', { value: '', writable: true });
+            this.view = view;
 
-            /**
-             * View of this ViewModel instance.
-             * @type {object}
-             */
-            Object.defineProperty(this, 'view', { value: view || null, writable: false });
-
-            /**
-             * Indicates whether this ViewModel auto responds to window behaviors.
-             * @type {bool}
-             */
-            Object.defineProperty(this, 'responsive', { value: false, writable: true });
-
-            /**
-             * Data providers of this ViewModel instance.
-             * @type {*}
-             */
-            Object.defineProperty(this, 'data',
-            {
-                get: function()
-                {
-                    return mData;
-                }.bind(this),
-                set: function(value)
-                {
-                    mData = value;
-                    this.setDirty(DirtyType.DATA);
-                }.bind(this)
-            });
-
-            /**
-             * @privileged
-             * Sets a dirty type as dirty.
-             * @param {number} dirtyType
-             */
-            this.setDirty = function(dirtyType, validateNow)
-            {
-                if (this.isDirty(dirtyType) && !validateNow)
-                {
-                    return;
-                }
-
-                switch (dirtyType)
-                {
-                    case DirtyType.NONE:
-                    case DirtyType.ALL:
-                    {
-                        mDirtyTable = dirtyType;
-                        break;
-                    }
-
-                    default:
-                    {
-                        mDirtyTable |= dirtyType;
-                        break;
-                    }
-                }
-
-                if (validateNow)
-                {
-                    this.update();
-                }
-                else
-                {
-                    rAF(this.update.bind(this));
-                }
-            };
-
-            /**
-             * @privileged
-             * Checks dirty status of a given dirty type.
-             * @param  {number}  dirtyType [description]
-             * @return {boolean}
-             */
-            this.isDirty = function(dirtyType)
-            {
-                switch (dirtyType)
-                {
-                    case DirtyType.NONE:
-                    case DirtyType.ALL:
-                    {
-                        return mDirtyTable == dirtyType;
-                    }
-
-                    default:
-                    {
-                        return ((dirtyType & mDirtyTable) !== 0);
-                    }
-                }
-            };
-
-            /**
-             * @private
-             * Custom requestAnimationFrame implementation.
-             * @param  {function} callback
-             */
-            var rAF = (window && window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame) ||
-                        function(callback)
-                        {
-                            if (window)
-                            {
-                                window.setTimeout(callback, 10.0);
-                            }
-                        };
-
-            /**
-             * @private
-             * Handler invoked when the window resizes.
-             * @param  {object} event
-             */
-            var _onWindowResize = function(event)
-            {
-                if (this.responsive)
-                {
-                    this.setDirty(DirtyType.SIZE);
-                }
-            };
-
-            /**
-             * @private
-             * Handler invoked when the window scrolls.
-             * @param  {object} event
-             */
-            var _onWindowScroll = function(event)
-            {
-                if (this.responsive)
-                {
-                    this.setDirty(DirtyType.POSITION);
-                }
-            };
-
-            if (window)
-            {
-                window.addEventListener('resize', _onWindowResize.bind(this));
-                window.addEventListener('orientationchange', _onWindowResize.bind(this));
-                window.addEventListener('scroll', _onWindowScroll.bind(this));
-            }
+            this.init();
         }
+
+        /**
+         * @property
+         * View of this ViewModel instance.
+         * @type {object}
+         */
+        Object.defineProperty(ViewModel.prototype, 'view', { value: null, writable: true });
+
+        /**
+         * @property
+         * Name of this ViewModel instance.
+         * @type {object}
+         */
+        Object.defineProperty(ViewModel.prototype, 'name', { value: '', writable: true });
+
+        /**
+         * @property
+         * Data providers of this ViewModel instance.
+         * @type {*}
+         */
+        Object.defineProperty(ViewModel.prototype, 'data',
+        {
+            get: function()
+            {
+                return this._data;
+            },
+            set: function(value)
+            {
+                // Create normal property directly on the object (not on the prototype).
+                Object.defineProperty(this, '_data', {
+                    value: value,
+                    writable: true
+                });
+
+                this.viewUpdateDelegate.setDirty(DirtyType.DATA);
+            }
+        });
+
+        Object.defineProperty(ViewModel.prototype, 'viewUpdateDelegate',
+        {
+            get: function()
+            {
+                if (!this._viewUpdateDelegate)
+                {
+                    Object.defineProperty(this, '_viewUpdateDelegate',
+                    {
+                        value: new ViewUpdateDelegate(this.view),
+                        writable: false
+                    });
+
+                    this._viewUpdateDelegate.onUpdate = this.update.bind(this);
+                }
+
+                return this._viewUpdateDelegate;
+            }
+        });
+
+        /**
+         * @property
+         * Indicates whether this ViewModel auto responds to window behaviors.
+         * @type {bool}
+         */
+        Object.defineProperty(ViewModel.prototype, 'responsive',
+        {
+            get: function()
+            {
+                return this.viewUpdateDelegate.responsive;
+            },
+            set: function(value)
+            {
+                this.viewUpdateDelegate.responsive = value;
+            }
+        });
+
+        /**
+         * @property
+         * Determines whether the view is dirty with specified dirty type(s).
+         * @type {function}
+         */
+        Object.defineProperty(ViewModel.prototype, 'isDirty',
+        {
+            get: function()
+            {
+                return this.viewUpdateDelegate.isDirty;
+            }
+        });
 
         /**
          * @public
@@ -173,7 +121,9 @@ define
          */
         ViewModel.prototype.init = function()
         {
-            this.setDirty(DirtyType.ALL);
+            utils.log('[ViewModel]::init()');
+
+            this.viewUpdateDelegate.init();
         };
 
         /**
@@ -182,17 +132,18 @@ define
          */
         ViewModel.prototype.destroy = function()
         {
+            utils.log('[ViewModel]::destroy()');
 
+            this.viewUpdateDelegate.destroy();
         };
 
         /**
-         * @protected
+         * @public
          * Handler invoked whenever a visual update is required.
          */
         ViewModel.prototype.update = function()
         {
-            // reset the dirty status of all
-            this.setDirty(0);
+            utils.log('[ViewModel]::update()');
         };
 
         /**
