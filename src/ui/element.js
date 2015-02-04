@@ -45,14 +45,41 @@ Object.defineProperty(Element.prototype, 'element',
 
 /**
  * @property
- * Name of this Element instance.
- * @type {object}
+ * ID of this Element instance.
+ * @type {string}
  */
-Object.defineProperty(Element.prototype, 'name', { value: '', writable: true });
+Object.defineProperty(Element.prototype, 'id',
+{
+    get: function()
+    {
+        return this.element.id;
+    },
+    set: function(value)
+    {
+        this.element.setAttribute('id', value);
+    }
+});
 
 /**
  * @property
- * Indicates whether this Element instance generates debug data.
+ * Class of this Element instance.
+ * @type {string}
+ */
+Object.defineProperty(Element.prototype, 'id',
+{
+    get: function()
+    {
+        return this.element.className;
+    },
+    set: function(value)
+    {
+        this.element.className = value;
+    }
+});
+
+/**
+ * @property
+ * Specifies whether this Element instance generates debug data.
  * @type {object}
  */
 Object.defineProperty(Element.prototype, 'debug',
@@ -71,7 +98,7 @@ Object.defineProperty(Element.prototype, 'debug',
 
 /**
  * @property
- * Data providers of this Element instance.
+ * Specifies the data providers of this Element instance.
  * @type {*}
  */
 Object.defineProperty(Element.prototype, 'data',
@@ -110,7 +137,7 @@ Object.defineProperty(Element.prototype, 'updateDelegate',
 
 /**
  * @property
- * Indicates whether this Element auto responds to window behaviors.
+ * Specifies whether this Element auto responds to window behaviors.
  * @type {bool}
  */
 Object.defineProperty(Element.prototype, 'responsive',
