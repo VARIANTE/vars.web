@@ -119,17 +119,31 @@ function ElementUpdateDelegate(element)
      * @privileged
      * Handler invoked whenever a visual update is required.
      */
-    this.update = function()
+    this.update = function(callback)
     {
-        if (this.debug) utils.log('[ElementUpdateDelegate]::update()');
-
-        if (this.onUpdate)
+        if (callback && typeof callback === 'function')
         {
-            this.onUpdate.call(null, mDirtyTable);
+            if (this._updateCallback)
+            {
+                this._updateCallback = value;
+            }
+            else
+            {
+                Object.defineProperty(this, '_updateCallback', { value: callback, writable: true });
+            }
         }
+        else
+        {
+            if (this.debug) utils.log('[ElementUpdateDelegate]::update()');
 
-        // Reset the dirty status of all types.
-        this.setDirty(0);
+            if (this._updateCallback)
+            {
+                this._updateCallback.call(null, mDirtyTable);
+            }
+
+            // Reset the dirty status of all types.
+            this.setDirty(0);
+        }
     };
 
     /**
@@ -194,13 +208,6 @@ Object.defineProperty(ElementUpdateDelegate.prototype, 'element', { value: null,
  * @type {bool}
  */
 Object.defineProperty(ElementUpdateDelegate.prototype, 'responsive', { value: false, writable: true });
-
-/**
- * @property
- * Callback method everytime this ElementUpdateDelegate instance updates.
- * @type {function}
- */
-Object.defineProperty(ElementUpdateDelegate.prototype, 'onUpdate', { value: null, writable: true });
 
 return ElementUpdateDelegate; }
 );

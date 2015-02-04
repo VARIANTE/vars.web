@@ -101,7 +101,7 @@ Object.defineProperty(Element.prototype, 'updateDelegate',
         {
             Object.defineProperty(this, '_updateDelegate', { value: new ElementUpdateDelegate(this.element), writable: false });
 
-            this._updateDelegate.onUpdate = this.update.bind(this);
+            this._updateDelegate.update(this.update.bind(this));
         }
 
         return this._updateDelegate;
