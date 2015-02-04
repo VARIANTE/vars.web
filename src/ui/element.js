@@ -48,7 +48,7 @@ Object.defineProperty(Element.prototype, 'element',
  * ID of this Element instance.
  * @type {string}
  */
-Object.defineProperty(Element.prototype, 'id',
+Object.defineProperty(Element.prototype, 'uuid',
 {
     get: function()
     {
