@@ -169,35 +169,7 @@ Object.defineProperty(Video.prototype, 'source',
 });
 
 /**
- * @public
- * Initializes this Video instance. Must manually invoke.
- */
-Video.prototype.init = function()
-{
-    if (this.debug) utils.log('[Video]::init()');
-
-    if (!this.element)
-    {
-        this.element = document.createElement('video');
-    }
-
-    parent.prototype.init.call(this);
-};
-
-/**
- * @public
- * Destroys this Video instance.
- */
-Video.prototype.destroy = function()
-{
-    if (this.debug) utils.log('[Video]::destroy()');
-
-    parent.prototype.destroy.call(this);
-};
-
-/**
- * @public
- * Handler invoked whenever a visual update is required.
+ * @inheritDoc
  */
 Video.prototype.update = function(dirtyTypes)
 {
@@ -214,6 +186,14 @@ Video.prototype.update = function(dirtyTypes)
     }
 
     parent.prototype.update.call(this, dirtyTypes);
+};
+
+/**
+ * @inheritDoc
+ */
+Video.prototype.factory = function()
+{
+    return document.createElement('video');
 };
 
 /**

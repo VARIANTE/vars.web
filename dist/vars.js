@@ -1,1 +1,1728 @@
-!function(t,e){var i=e;"undefined"!=typeof module&&module.exports?module.exports=i:(i.utils.namespace("io").variante=i,t.vars=i)}("undefined"!=typeof window?window:this,function(){var t,e,i;return function(n){function o(t,e){return v.call(t,e)}function r(t,e){var i,n,o,r,s,u,a,l,d,p,c,h=e&&e.split("/"),f=b.map,m=f&&f["*"]||{};if(t&&"."===t.charAt(0))if(e){for(h=h.slice(0,h.length-1),t=t.split("/"),s=t.length-1,b.nodeIdCompat&&D.test(t[s])&&(t[s]=t[s].replace(D,"")),t=h.concat(t),d=0;d<t.length;d+=1)if(c=t[d],"."===c)t.splice(d,1),d-=1;else if(".."===c){if(1===d&&(".."===t[2]||".."===t[0]))break;d>0&&(t.splice(d-1,2),d-=2)}t=t.join("/")}else 0===t.indexOf("./")&&(t=t.substring(2));if((h||m)&&f){for(i=t.split("/"),d=i.length;d>0;d-=1){if(n=i.slice(0,d).join("/"),h)for(p=h.length;p>0;p-=1)if(o=f[h.slice(0,p).join("/")],o&&(o=o[n])){r=o,u=d;break}if(r)break;!a&&m&&m[n]&&(a=m[n],l=d)}!r&&a&&(r=a,u=l),r&&(i.splice(0,u,r),t=i.join("/"))}return t}function s(t,e){return function(){var i=O.call(arguments,0);return"string"!=typeof i[0]&&1===i.length&&i.push(null),h.apply(n,i.concat([t,e]))}}function u(t){return function(e){return r(e,t)}}function a(t){return function(e){g[t]=e}}function l(t){if(o(y,t)){var e=y[t];delete y[t],w[t]=!0,c.apply(n,e)}if(!o(g,t)&&!o(w,t))throw new Error("No "+t);return g[t]}function d(t){var e,i=t?t.indexOf("!"):-1;return i>-1&&(e=t.substring(0,i),t=t.substring(i+1,t.length)),[e,t]}function p(t){return function(){return b&&b.config&&b.config[t]||{}}}var c,h,f,m,g={},y={},b={},w={},v=Object.prototype.hasOwnProperty,O=[].slice,D=/\.js$/;f=function(t,e){var i,n=d(t),o=n[0];return t=n[1],o&&(o=r(o,e),i=l(o)),o?t=i&&i.normalize?i.normalize(t,u(e)):r(t,e):(t=r(t,e),n=d(t),o=n[0],t=n[1],o&&(i=l(o))),{f:o?o+"!"+t:t,n:t,pr:o,p:i}},m={require:function(t){return s(t)},exports:function(t){var e=g[t];return"undefined"!=typeof e?e:g[t]={}},module:function(t){return{id:t,uri:"",exports:g[t],config:p(t)}}},c=function(t,e,i,r){var u,d,p,c,h,b,v=[],O=typeof i;if(r=r||t,"undefined"===O||"function"===O){for(e=!e.length&&i.length?["require","exports","module"]:e,h=0;h<e.length;h+=1)if(c=f(e[h],r),d=c.f,"require"===d)v[h]=m.require(t);else if("exports"===d)v[h]=m.exports(t),b=!0;else if("module"===d)u=v[h]=m.module(t);else if(o(g,d)||o(y,d)||o(w,d))v[h]=l(d);else{if(!c.p)throw new Error(t+" missing "+d);c.p.load(c.n,s(r,!0),a(d),{}),v[h]=g[d]}p=i?i.apply(g[t],v):void 0,t&&(u&&u.exports!==n&&u.exports!==g[t]?g[t]=u.exports:p===n&&b||(g[t]=p))}else t&&(g[t]=i)},t=e=h=function(t,e,i,o,r){if("string"==typeof t)return m[t]?m[t](e):l(f(t,e).f);if(!t.splice){if(b=t,b.deps&&h(b.deps,b.callback),!e)return;e.splice?(t=e,e=i,i=null):t=n}return e=e||function(){},"function"==typeof i&&(i=o,o=r),o?c(n,t,e,i):setTimeout(function(){c(n,t,e,i)},4),h},h.config=function(t){return h(t)},t._defined=g,i=function(t,e,i){e.splice||(i=e,e=[]),o(g,t)||o(y,t)||(y[t]=[t,e,i])},i.amd={jQuery:!0}}(),i("almond",function(){}),i("enums/dirtytype",{NONE:0,POSITION:1,SIZE:2,LAYOUT:4,STATE:8,DATA:16,LOCALE:32,DEPTH:64,CONFIG:128,STYLE:256,CUSTOM:512,ALL:4294967295}),i("enums",["enums/dirtytype"],function(t){var e=function(t){return t};return e.DirtyType=t,e}),i("utils",[],function(){function t(t,e){if(!t&&this.debug)throw e||"[vars]: Assertion failed."}function e(){this.debug&&window.console&&console.log&&Function.apply.call(console.log,console,arguments)}function i(e,i){t("string"==typeof e,"Invalid identifiers specified."),t("undefined"==typeof i||"object"==typeof i,"Invalid scope specified.");for(var n=e.split("."),o=void 0===i||null===i?window:i,r=0;r<n.length;r++)o=o[n[r]]||(o[n[r]]={});return o}function n(t,e){return t.prototype=Object.create(e.prototype),t.prototype.constructor=t,e}function o(t){if(void 0!==t.length)return t.length;var e=0;switch(typeof t){case"object":if(null!==t&&void 0!==t)for(var i in t)e++;break;case"number":e=(""+t).length;break;default:e=0}return e}function r(t){return void 0===t||null===t?!0:!1}function s(){return"ontouchstart"in window.document.documentElement}var u={};return u.assert=t,u.log=e,u.namespace=i,u.inherit=n,u.sizeOf=o,u.isNull=r,u.isTouchEnabled=s,u}),i("ui/elementupdatedelegate",["../utils","../enums/dirtytype"],function(t,e){function i(i){this.debug&&t.log("[ElementUpdateDelegate]::new(",i,")");var n=0;this.element=i,this.setDirty=function(i,r){if(this.debug&&t.log("[ElementUpdateDelegate]::setDirty(",i,r,")"),!this.isDirty(i)||r){switch(i){case e.NONE:case e.ALL:n=i;break;default:n|=i}r?this.update():o(this.update.bind(this))}},this.isDirty=function(i){switch(this.debug&&t.log("[ElementUpdateDelegate]::isDirty(",i,n,")"),i){case e.NONE:case e.ALL:return n==i;default:return 0!==(i&n)}},this.init=function(){this.debug&&t.log("[ElementUpdateDelegate]::init()"),window&&(window.addEventListener("resize",r.bind(this)),window.addEventListener("orientationchange",r.bind(this)),window.addEventListener("scroll",s.bind(this))),this.setDirty(e.ALL)},this.destroy=function(){this.debug&&t.log("[ElementUpdateDelegate]::destroy()"),this.onUpdate=null},this.update=function(e){e&&"function"==typeof e?this._updateCallback?this._updateCallback=value:Object.defineProperty(this,"_updateCallback",{value:e,writable:!0}):(this.debug&&t.log("[ElementUpdateDelegate]::update()"),this._updateCallback&&this._updateCallback.call(null,n),this.setDirty(0))};var o=window&&window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(e){this.debug&&t.log("[ElementUpdateDelegate]::_requestAnimationFrame(",e,")"),window&&window.setTimeout(e,10)},r=function(){this.responsive&&this.setDirty(e.SIZE)},s=function(){this.responsive&&this.setDirty(e.POSITION)}}return Object.defineProperty(i.prototype,"debug",{value:!1,writable:!0}),Object.defineProperty(i.prototype,"element",{value:null,writable:!0}),Object.defineProperty(i.prototype,"responsive",{value:!1,writable:!0}),i}),i("ui/element",["../utils","../enums/dirtytype","../ui/elementupdatedelegate"],function(t,e,i){function n(e){this.debug&&t.log("[Element]::new(",e,")"),this.element=e,this.init()}return Object.defineProperty(n.prototype,"element",{get:function(){return this._element},set:function(e){t.assert(!this._element,"Element cannot be overwritten."),Object.defineProperty(this,"_element",{value:e,writable:!0}),this.updateDelegate.element=e}}),Object.defineProperty(n.prototype,"id",{get:function(){return this.element.id},set:function(t){this.element.setAttribute("id",t)}}),Object.defineProperty(n.prototype,"class",{get:function(){return this.element.className},set:function(t){this.element.className=t}}),Object.defineProperty(n.prototype,"debug",{get:function(){return this._debug},set:function(t){Object.defineProperty(this,"_debug",{value:t,writable:!0}),this.updateDelegate.debug=t}}),Object.defineProperty(n.prototype,"data",{get:function(){return this._data},set:function(t){Object.defineProperty(this,"_data",{value:t,writable:!0}),this.updateDelegate.setDirty(e.DATA)}}),Object.defineProperty(n.prototype,"updateDelegate",{get:function(){return this._updateDelegate||(Object.defineProperty(this,"_updateDelegate",{value:new i(this.element),writable:!1}),this._updateDelegate.update(this.update.bind(this))),this._updateDelegate}}),Object.defineProperty(n.prototype,"responsive",{get:function(){return this.updateDelegate.responsive},set:function(t){this.updateDelegate.responsive=t}}),Object.defineProperty(n.prototype,"isDirty",{get:function(){return this.updateDelegate.isDirty}}),n.prototype.init=function(){this.debug&&t.log("[Element]::init()"),this.element||(this.element=document.createElement("div")),this.updateDelegate.init()},n.prototype.destroy=function(){this.debug&&t.log("[Element]::destroy()"),this.updateDelegate.destroy()},n.prototype.update=function(){this.debug&&t.log("[Element]::update()")},n.prototype.toString=function(){return"[Element{"+this.name+"}]"},n}),i("ui/video",["../utils","../enums/dirtytype","../ui/element"],function(t,e,i){function n(e){vars.ui.Element.call(this,e),this.debug&&t.log("[Video]::new(",e,")"),t.assert(!e||e instanceof HTMLVideoElement,"Invalid element type specified. Must be an instance of HTMLVideoElement.")}var o=t.inherit(n,i);return n.PRELOAD={AUTO:"auto",METADATA:"metada",NONE:"none"},Object.defineProperty(n.prototype,"autoplay",{get:function(){return this.element.autoplay},set:function(t){this.element.autoplay=t,this.updateDelegate.setDirty(e.CUSTOM)}}),Object.defineProperty(n.prototype,"controls",{get:function(){return this.element.controls},set:function(t){this.element.controls=t,this.updateDelegate.setDirty(e.CUSTOM)}}),Object.defineProperty(n.prototype,"loop",{get:function(){return this.element.loop},set:function(t){this.element.loop=t,this.updateDelegate.setDirty(e.CUSTOM)}}),Object.defineProperty(n.prototype,"muted",{get:function(){return this.element.muted},set:function(t){this.element.muted=t,this.updateDelegate.setDirty(e.CUSTOM)}}),Object.defineProperty(n.prototype,"poster",{get:function(){return this.element.poster},set:function(t){this.element.poster=t,this.updateDelegate.setDirty(e.CUSTOM)}}),Object.defineProperty(n.prototype,"preload",{get:function(){return this.element.preload},set:function(t){this.element.preload=t,this.updateDelegate.setDirty(e.CUSTOM)}}),Object.defineProperty(n.prototype,"source",{get:function(){return this._source},set:function(t){Object.defineProperty(this,"_source",{value:t,writable:!0}),this.updateDelegate.setDirty(e.DATA)}}),n.prototype.init=function(){this.debug&&t.log("[Video]::init()"),this.element||(this.element=document.createElement("video")),o.prototype.init.call(this)},n.prototype.destroy=function(){this.debug&&t.log("[Video]::destroy()"),o.prototype.destroy.call(this)},n.prototype.update=function(i){this.debug&&t.log("[Video]::update()"),this.isDirty(e.DATA)&&this._updateSource(),this.isDirty(e.CUSTOM),o.prototype.update.call(this,i)},n.prototype._updateSource=function(){var t,e,i=this.element.getElementsByTagName("source");for(e=i.length,t=0;e>t;t++){var n=i[t];this.element.removeChild(n)}if(this.source)for(e=this.source.length,t=0;e>t;t++){var o=document.createElement("source"),r=this.source[t].src,s=this.source[t].type,u=r.split(".").pop();o.setAttribute("src",r),o.setAttribute("type",s||"video/"+u),this.element.appendChild(o)}},n}),i("ui",["utils","ui/element","ui/video"],function(t,e,i){function n(e,i,n){if(i){t.assert(!i.top||!isNaN(i.top),"Top property must be a number."),t.assert(!i.right||!isNaN(i.right),"Right property must be a number."),t.assert(!i.bottom||!isNaN(i.bottom),"Bottom property must be a number."),t.assert(!i.left||!isNaN(i.left),"Left property must be a number.");var o=i.units||"px";n&&(t.assert(!n.top||!isNaN(n.top),"Top constraint must be a number."),t.assert(!n.right||!isNaN(n.right),"Right constraint must be a number."),t.assert(!n.bottom||!isNaN(n.bottom),"Bottom constraint must be a number."),t.assert(!n.left||!isNaN(n.left),"Left constraint must be a number."));var r=n&&n.top?Math.min(i.top,n.top):i.top,s=n&&n.right?Math.min(i.right,n.right):i.right,u=n&&n.bottom?Math.min(i.bottom,n.bottom):i.bottom,a=n&&n.left?Math.min(i.left,n.left):i.left;return e&&(e.style?(e.style.top=String(r)+o,e.style.right=String(s)+o,e.style.bottom=String(u)+o,e.style.left=String(a)+o):e.css&&(e.css({top:String(r)+o}),e.css({right:String(s)+o}),e.css({bottom:String(u)+o}),e.css({left:String(a)+o}))),{top:r,right:s,bottom:u,left:a}}return e&&(e.style?(e.style.top="initial",e.style.right="initial",e.style.bottom="initial",e.style.left="initial"):e.css&&(e.css({top:"initial"}),e.css({right:"initial"}),e.css({bottom:"initial"}),e.css({left:"initial"}))),{top:"initial",right:"initial",bottom:"initial",left:"initial"}}function o(e,i,n){if(i){t.assert(!i.width||!isNaN(i.width),"Width property must be a number."),t.assert(!i.height||!isNaN(i.height),"Height property must be a number."),t.assert(!i.aspectRatio||!isNaN(i.aspectRatio),"Aspect ratio property must be a number.");var o=i.units||"px",r=i.aspectRatio?Number(i.aspectRatio):i.width/i.height,s=i.width,u=i.height,a=i.width,l=i.height,d="contain";n&&(t.assert(!n.width||!isNaN(n.width),"Width constraint must be a number."),t.assert(!n.height||!isNaN(n.height),"Height constraint must be a number."),n.type&&"cover"===n.type?(d="cover",n.width&&(a=Math.min(n.width,a)),n.width&&(l=Math.min(n.height,l))):(n.width&&(s=Math.min(n.width,s)),n.height&&(u=Math.min(n.height,u))));var p,c;return"contain"===d?(p=s>u?u*r:s,c=s>u?u:s/r,p>s?(p=s,c=p/r):c>u&&(c=u,p=c*r)):(p=a>l?l*r:a,c=a>l?l:a/r,a>p?(p=a,c=p/r):l>c&&(c=l,p=c*r)),e&&(e.style?(i.width&&(e.style.width=String(p)+o),i.height&&(e.style.height=String(c)+o)):e.css&&(i.width&&e.css({width:String(p)+o}),i.height&&e.css({height:String(c)+o}))),{width:p,height:c}}return e&&(e.style?(e.style.width="initial",e.style.height="initial"):e.css&&(e.css({width:"initial"}),e.css({height:"initial"}))),{width:"initial",height:"initial"}}function r(){if(t.assert(window&&document,"Window or document undefined."),!window||!document)return null;var e={};return $?(e.width=$(window).innerWidth(),e.height=$(window).innerHeight(),e.top=$(window).scrollTop(),e.left=$(window).scrollLeft(),e.bottom=e.top+e.height,e.right=e.left+e.width):(e.width=Math.max(document.documentElement.clientWidth,window.innerWidth||0),e.height=Math.max(document.documentElement.clientHeight,window.innerHeight||0),e.top=void 0!==window.pageYOffset?window.pageYOffset:(document.documentElement||document.body.parentNode||document.body).scrollTop,e.left=void 0!==window.pageXOffset?window.pageXOffset:(document.documentElement||document.body.parentNode||document.body).scrollLeft,e.bottom=e.top+e.height,e.right=e.left+e.width),e}function s(e){if(t.assert(e,"Invalid element specified."),t.assert(window&&document,"Window or document undefined."),!e||!window||!document)return null;if(e===window||$&&e===$(window))return r();var i=r(),n={};return n.width=e.outerWidth?e.outerWidth():e.getBoundingClientRect().width,n.height=e.outerHeight?e.outerHeight():e.getBoundingClientRect().height,n.top=e.offset?e.offset().top:e.getBoundingClientRect().top-i.y,n.left=e.offset?e.offset().left:e.getBoundingClientRect().left-i.x,n.bottom=n.top+n.height,n.right=n.left+n.width,n}function u(e,i){if(t.assert(e||i,"Invalid elements specified."),t.assert(window&&document,"Window or document undefined."),!e&&!i||!window||!document)return null;var n=s(e||window),o=s(i||window);if(!n||!o)return null;var r={};return r.width=Math.max(0,Math.min(n.right,o.right)-Math.max(n.left,o.left)),r.height=Math.max(0,Math.min(n.bottom,o.bottom)-Math.max(n.top,o.top)),r.top=Math.max(n.top,o.top),r.left=Math.max(n.left,o.left),r.bottom=r.top+r.height,r.right=r.left+r.width,r.width*r.height===0&&(r.width=0,r.height=0,r.top=0,r.left=0,r.bottom=0,r.right=0),r}var a=function(t){return t};return a.Element=e,a.Video=i,a.translate=n,a.transform=o,a.getViewportRect=r,a.getRect=s,a.getIntersectRect=u,a}),i("vars",["enums","ui","utils"],function(t,e,i){var n=function(t){return t};return Object.defineProperty(n,"enums",{value:t,writable:!1}),Object.defineProperty(n,"ui",{value:e,writable:!1}),Object.defineProperty(n,"utils",{value:i,writable:!1}),Object.defineProperty(n,"version",{value:"0.1.0",writable:!1}),Object.defineProperty(n,"debug",{get:function(){return n.utils.debug}.bind(this),set:function(t){n.utils.debug=t}.bind(this)}),n}),e("vars")}());
+/**
+ *  vars.js
+ *  (c) VARIANTE (http://variante.io)
+ *
+ *  Start file for r.js.
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+(function(root, factory, undefined)
+{
+    var vars = factory;
+
+    // Check if using AMD.
+    if (typeof module !== 'undefined' && module.exports)
+    {
+        module.exports = vars;
+    }
+    // Browser (?).
+    else
+    {
+        vars.utils.namespace('io').variante = vars;
+        root.vars = vars;
+    }
+}((typeof window !== 'undefined') ? window : this, function() {/**
+ * @license almond 0.3.0 Copyright (c) 2011-2014, The Dojo Foundation All Rights Reserved.
+ * Available via the MIT or new BSD license.
+ * see: http://github.com/jrburke/almond for details
+ */
+//Going sloppy to avoid 'use strict' string cost, but strict practices should
+//be followed.
+/*jslint sloppy: true */
+/*global setTimeout: false */
+
+var requirejs, require, define;
+(function (undef) {
+    var main, req, makeMap, handlers,
+        defined = {},
+        waiting = {},
+        config = {},
+        defining = {},
+        hasOwn = Object.prototype.hasOwnProperty,
+        aps = [].slice,
+        jsSuffixRegExp = /\.js$/;
+
+    function hasProp(obj, prop) {
+        return hasOwn.call(obj, prop);
+    }
+
+    /**
+     * Given a relative module name, like ./something, normalize it to
+     * a real name that can be mapped to a path.
+     * @param {String} name the relative name
+     * @param {String} baseName a real name that the name arg is relative
+     * to.
+     * @returns {String} normalized name
+     */
+    function normalize(name, baseName) {
+        var nameParts, nameSegment, mapValue, foundMap, lastIndex,
+            foundI, foundStarMap, starI, i, j, part,
+            baseParts = baseName && baseName.split("/"),
+            map = config.map,
+            starMap = (map && map['*']) || {};
+
+        //Adjust any relative paths.
+        if (name && name.charAt(0) === ".") {
+            //If have a base name, try to normalize against it,
+            //otherwise, assume it is a top-level require that will
+            //be relative to baseUrl in the end.
+            if (baseName) {
+                //Convert baseName to array, and lop off the last part,
+                //so that . matches that "directory" and not name of the baseName's
+                //module. For instance, baseName of "one/two/three", maps to
+                //"one/two/three.js", but we want the directory, "one/two" for
+                //this normalization.
+                baseParts = baseParts.slice(0, baseParts.length - 1);
+                name = name.split('/');
+                lastIndex = name.length - 1;
+
+                // Node .js allowance:
+                if (config.nodeIdCompat && jsSuffixRegExp.test(name[lastIndex])) {
+                    name[lastIndex] = name[lastIndex].replace(jsSuffixRegExp, '');
+                }
+
+                name = baseParts.concat(name);
+
+                //start trimDots
+                for (i = 0; i < name.length; i += 1) {
+                    part = name[i];
+                    if (part === ".") {
+                        name.splice(i, 1);
+                        i -= 1;
+                    } else if (part === "..") {
+                        if (i === 1 && (name[2] === '..' || name[0] === '..')) {
+                            //End of the line. Keep at least one non-dot
+                            //path segment at the front so it can be mapped
+                            //correctly to disk. Otherwise, there is likely
+                            //no path mapping for a path starting with '..'.
+                            //This can still fail, but catches the most reasonable
+                            //uses of ..
+                            break;
+                        } else if (i > 0) {
+                            name.splice(i - 1, 2);
+                            i -= 2;
+                        }
+                    }
+                }
+                //end trimDots
+
+                name = name.join("/");
+            } else if (name.indexOf('./') === 0) {
+                // No baseName, so this is ID is resolved relative
+                // to baseUrl, pull off the leading dot.
+                name = name.substring(2);
+            }
+        }
+
+        //Apply map config if available.
+        if ((baseParts || starMap) && map) {
+            nameParts = name.split('/');
+
+            for (i = nameParts.length; i > 0; i -= 1) {
+                nameSegment = nameParts.slice(0, i).join("/");
+
+                if (baseParts) {
+                    //Find the longest baseName segment match in the config.
+                    //So, do joins on the biggest to smallest lengths of baseParts.
+                    for (j = baseParts.length; j > 0; j -= 1) {
+                        mapValue = map[baseParts.slice(0, j).join('/')];
+
+                        //baseName segment has  config, find if it has one for
+                        //this name.
+                        if (mapValue) {
+                            mapValue = mapValue[nameSegment];
+                            if (mapValue) {
+                                //Match, update name to the new value.
+                                foundMap = mapValue;
+                                foundI = i;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (foundMap) {
+                    break;
+                }
+
+                //Check for a star map match, but just hold on to it,
+                //if there is a shorter segment match later in a matching
+                //config, then favor over this star map.
+                if (!foundStarMap && starMap && starMap[nameSegment]) {
+                    foundStarMap = starMap[nameSegment];
+                    starI = i;
+                }
+            }
+
+            if (!foundMap && foundStarMap) {
+                foundMap = foundStarMap;
+                foundI = starI;
+            }
+
+            if (foundMap) {
+                nameParts.splice(0, foundI, foundMap);
+                name = nameParts.join('/');
+            }
+        }
+
+        return name;
+    }
+
+    function makeRequire(relName, forceSync) {
+        return function () {
+            //A version of a require function that passes a moduleName
+            //value for items that may need to
+            //look up paths relative to the moduleName
+            var args = aps.call(arguments, 0);
+
+            //If first arg is not require('string'), and there is only
+            //one arg, it is the array form without a callback. Insert
+            //a null so that the following concat is correct.
+            if (typeof args[0] !== 'string' && args.length === 1) {
+                args.push(null);
+            }
+            return req.apply(undef, args.concat([relName, forceSync]));
+        };
+    }
+
+    function makeNormalize(relName) {
+        return function (name) {
+            return normalize(name, relName);
+        };
+    }
+
+    function makeLoad(depName) {
+        return function (value) {
+            defined[depName] = value;
+        };
+    }
+
+    function callDep(name) {
+        if (hasProp(waiting, name)) {
+            var args = waiting[name];
+            delete waiting[name];
+            defining[name] = true;
+            main.apply(undef, args);
+        }
+
+        if (!hasProp(defined, name) && !hasProp(defining, name)) {
+            throw new Error('No ' + name);
+        }
+        return defined[name];
+    }
+
+    //Turns a plugin!resource to [plugin, resource]
+    //with the plugin being undefined if the name
+    //did not have a plugin prefix.
+    function splitPrefix(name) {
+        var prefix,
+            index = name ? name.indexOf('!') : -1;
+        if (index > -1) {
+            prefix = name.substring(0, index);
+            name = name.substring(index + 1, name.length);
+        }
+        return [prefix, name];
+    }
+
+    /**
+     * Makes a name map, normalizing the name, and using a plugin
+     * for normalization if necessary. Grabs a ref to plugin
+     * too, as an optimization.
+     */
+    makeMap = function (name, relName) {
+        var plugin,
+            parts = splitPrefix(name),
+            prefix = parts[0];
+
+        name = parts[1];
+
+        if (prefix) {
+            prefix = normalize(prefix, relName);
+            plugin = callDep(prefix);
+        }
+
+        //Normalize according
+        if (prefix) {
+            if (plugin && plugin.normalize) {
+                name = plugin.normalize(name, makeNormalize(relName));
+            } else {
+                name = normalize(name, relName);
+            }
+        } else {
+            name = normalize(name, relName);
+            parts = splitPrefix(name);
+            prefix = parts[0];
+            name = parts[1];
+            if (prefix) {
+                plugin = callDep(prefix);
+            }
+        }
+
+        //Using ridiculous property names for space reasons
+        return {
+            f: prefix ? prefix + '!' + name : name, //fullName
+            n: name,
+            pr: prefix,
+            p: plugin
+        };
+    };
+
+    function makeConfig(name) {
+        return function () {
+            return (config && config.config && config.config[name]) || {};
+        };
+    }
+
+    handlers = {
+        require: function (name) {
+            return makeRequire(name);
+        },
+        exports: function (name) {
+            var e = defined[name];
+            if (typeof e !== 'undefined') {
+                return e;
+            } else {
+                return (defined[name] = {});
+            }
+        },
+        module: function (name) {
+            return {
+                id: name,
+                uri: '',
+                exports: defined[name],
+                config: makeConfig(name)
+            };
+        }
+    };
+
+    main = function (name, deps, callback, relName) {
+        var cjsModule, depName, ret, map, i,
+            args = [],
+            callbackType = typeof callback,
+            usingExports;
+
+        //Use name if no relName
+        relName = relName || name;
+
+        //Call the callback to define the module, if necessary.
+        if (callbackType === 'undefined' || callbackType === 'function') {
+            //Pull out the defined dependencies and pass the ordered
+            //values to the callback.
+            //Default to [require, exports, module] if no deps
+            deps = !deps.length && callback.length ? ['require', 'exports', 'module'] : deps;
+            for (i = 0; i < deps.length; i += 1) {
+                map = makeMap(deps[i], relName);
+                depName = map.f;
+
+                //Fast path CommonJS standard dependencies.
+                if (depName === "require") {
+                    args[i] = handlers.require(name);
+                } else if (depName === "exports") {
+                    //CommonJS module spec 1.1
+                    args[i] = handlers.exports(name);
+                    usingExports = true;
+                } else if (depName === "module") {
+                    //CommonJS module spec 1.1
+                    cjsModule = args[i] = handlers.module(name);
+                } else if (hasProp(defined, depName) ||
+                           hasProp(waiting, depName) ||
+                           hasProp(defining, depName)) {
+                    args[i] = callDep(depName);
+                } else if (map.p) {
+                    map.p.load(map.n, makeRequire(relName, true), makeLoad(depName), {});
+                    args[i] = defined[depName];
+                } else {
+                    throw new Error(name + ' missing ' + depName);
+                }
+            }
+
+            ret = callback ? callback.apply(defined[name], args) : undefined;
+
+            if (name) {
+                //If setting exports via "module" is in play,
+                //favor that over return value and exports. After that,
+                //favor a non-undefined return value over exports use.
+                if (cjsModule && cjsModule.exports !== undef &&
+                        cjsModule.exports !== defined[name]) {
+                    defined[name] = cjsModule.exports;
+                } else if (ret !== undef || !usingExports) {
+                    //Use the return value from the function.
+                    defined[name] = ret;
+                }
+            }
+        } else if (name) {
+            //May just be an object definition for the module. Only
+            //worry about defining if have a module name.
+            defined[name] = callback;
+        }
+    };
+
+    requirejs = require = req = function (deps, callback, relName, forceSync, alt) {
+        if (typeof deps === "string") {
+            if (handlers[deps]) {
+                //callback in this case is really relName
+                return handlers[deps](callback);
+            }
+            //Just return the module wanted. In this scenario, the
+            //deps arg is the module name, and second arg (if passed)
+            //is just the relName.
+            //Normalize module name, if it contains . or ..
+            return callDep(makeMap(deps, callback).f);
+        } else if (!deps.splice) {
+            //deps is a config object, not an array.
+            config = deps;
+            if (config.deps) {
+                req(config.deps, config.callback);
+            }
+            if (!callback) {
+                return;
+            }
+
+            if (callback.splice) {
+                //callback is an array, which means it is a dependency list.
+                //Adjust args if there are dependencies
+                deps = callback;
+                callback = relName;
+                relName = null;
+            } else {
+                deps = undef;
+            }
+        }
+
+        //Support require(['a'])
+        callback = callback || function () {};
+
+        //If relName is a function, it is an errback handler,
+        //so remove it.
+        if (typeof relName === 'function') {
+            relName = forceSync;
+            forceSync = alt;
+        }
+
+        //Simulate async callback;
+        if (forceSync) {
+            main(undef, deps, callback, relName);
+        } else {
+            //Using a non-zero value because of concern for what old browsers
+            //do, and latest browsers "upgrade" to 4 if lower value is used:
+            //http://www.whatwg.org/specs/web-apps/current-work/multipage/timers.html#dom-windowtimers-settimeout:
+            //If want a value immediately, use require('id') instead -- something
+            //that works in almond on the global level, but not guaranteed and
+            //unlikely to work in other AMD implementations.
+            setTimeout(function () {
+                main(undef, deps, callback, relName);
+            }, 4);
+        }
+
+        return req;
+    };
+
+    /**
+     * Just drops the config on the floor, but returns req in case
+     * the config return value is used.
+     */
+    req.config = function (cfg) {
+        return req(cfg);
+    };
+
+    /**
+     * Expose module registry for debugging and tooling
+     */
+    requirejs._defined = defined;
+
+    define = function (name, deps, callback) {
+
+        //This module may not have dependencies
+        if (!deps.splice) {
+            //deps is not an array, so probably means
+            //an object literal or factory function for
+            //the value. Adjust args.
+            callback = deps;
+            deps = [];
+        }
+
+        if (!hasProp(defined, name) && !hasProp(waiting, name)) {
+            waiting[name] = [name, deps, callback];
+        }
+    };
+
+    define.amd = {
+        jQuery: true
+    };
+}());
+
+define("almond", function(){});
+
+/**
+ *  vars.js
+ *  (c) VARIANTE (http://variante.io)
+ *
+ *  UI dirty types.
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+define
+(
+    'enums/dirtytype',{
+        NONE:        0x00000000,
+        POSITION:    1 << 0,
+        SIZE:        1 << 1,
+        LAYOUT:      1 << 2,
+        STATE:       1 << 3,
+        DATA:        1 << 4,
+        LOCALE:      1 << 5,
+        DEPTH:       1 << 6,
+        CONFIG:      1 << 7,
+        STYLE:       1 << 8,
+        CUSTOM:      1 << 9,
+        ALL:         0xFFFFFFFF
+    }
+);
+/**
+ *  vars.js
+ *  (c) VARIANTE (http://variante.io)
+ *
+ *  Library enums.
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+define
+(
+    'enums',[
+        'enums/dirtytype'
+    ],
+    function(dirtytype)
+    {
+        var api = function(obj)
+        {
+            return obj;
+        };
+
+        api.DirtyType = dirtytype;
+
+        return api;
+    }
+);
+/**
+ *  vars.js
+ *  (c) VARIANTE (http://variante.io)
+ *
+ *  Utilities.
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+define
+(
+    'utils',[
+
+    ],
+    function()
+    {
+        var api = {};
+
+        /**
+         * Asserts the specified condition and throws a warning if assertion fails.
+         * @param  {bool}   condition   Condition to validate against.
+         * @param  {string} message     (Optional) Message to be displayed when assertion fails.
+         */
+        function assert(condition, message)
+        {
+            if (!condition && this.debug)
+            {
+                throw message || '[vars]: Assertion failed.';
+            }
+        } api.assert = assert;
+
+        /**
+         * Logs to console.
+         */
+        function log()
+        {
+            if (this.debug && window.console && console.log)
+            {
+                Function.apply.call(console.log, console, arguments);
+            }
+        } api.log = log;
+
+        /**
+         * Creates the specified namespace in the specified scope.
+         * @param  {string} identifiers Namespace identifiers with parts separated by dots.
+         * @param  {object} scope       (Optional) Object to create namespace in (defaults to window).
+         * @return {object}             Reference tothe created namespace.
+         */
+        function namespace(identifiers, scope)
+        {
+            assert(typeof identifiers === 'string', 'Invalid identifiers specified.');
+            assert(typeof scope === 'undefined' || typeof scope === 'object', 'Invalid scope specified.');
+
+            var groups = identifiers.split('.');
+            var currentScope = (scope === undefined || scope === null) ? window : scope;
+
+            for (var i = 0; i < groups.length; i++)
+            {
+                currentScope = currentScope[groups[i]] || (currentScope[groups[i]] = {});
+            }
+
+            return currentScope;
+        } api.namespace = namespace;
+
+        /**
+         * Sets up prototypal inheritance between a child class and a parent class.
+         * @param  {object} child   Child class (function)
+         * @param  {object} parent  Parent class (function)
+         * @return {object}         Parent class (function).
+         */
+        function inherit(child, parent)
+        {
+            child.prototype = Object.create(parent.prototype);
+            child.prototype.constructor = child;
+
+            return parent;
+        } api.inherit = inherit;
+
+        /**
+         * Gets the number of keys in a given object.
+         * @param  {*}      object  Any object type.
+         * @return {number}         Size of specified object (depending on the object type,
+         *                          it can be the number of keys in a plain object, number
+         *                          of elements in an array, number of characters in a
+         *                          string, number of digits in a number, and 0 for all
+         *                          other types.
+         */
+        function sizeOf(object)
+        {
+            // if object internally has length property, use it
+            if (object.length !== undefined) return object.length;
+
+            var size = 0;
+
+            switch (typeof object)
+            {
+                case 'object':
+                {
+                    if (object !== null && object !== undefined)
+                    {
+                        for (var k in object) size++;
+                    }
+
+                    break;
+                }
+
+                case 'number':
+                {
+                    size = ('' + object).length;
+                    break;
+                }
+
+                default:
+                {
+                    size = 0;
+                    break;
+                }
+            }
+
+            return size;
+        } api.sizeOf = sizeOf;
+
+        /**
+         * Checks if a given object is equal to null (type-insensitive).
+         * @param  {object}  object
+         * @return {boolean}
+         */
+        function isNull(object)
+        {
+            if (object === undefined || object === null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        } api.isNull = isNull;
+
+        /**
+         * Detects touch screens.
+         * @return {boolean}
+         */
+        function isTouchEnabled()
+        {
+            return ('ontouchstart' in window.document.documentElement);
+        } api.isTouchEnabled = isTouchEnabled;
+
+        return api;
+    }
+);
+/**
+ *  vars.js
+ *  (c) VARIANTE (http://variante.io)
+ *
+ *  Delegate for managing update calls of a VARS modeled element.
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+define('ui/elementupdatedelegate',['../utils', '../enums/dirtytype'], function(utils, DirtyType) {
+
+/**
+ * @constructor
+ * Creates a new ElementUpdateDelegate instance.
+ */
+function ElementUpdateDelegate(element)
+{
+    if (this.debug) utils.log('[ElementUpdateDelegate]::new(', element, ')');
+
+    var mDirtyTable = 0;
+
+    this.element = element;
+
+    /**
+     * @privileged
+     * Sets a dirty type as dirty.
+     * @param {number} dirtyType
+     */
+    this.setDirty = function(dirtyType, validateNow)
+    {
+        if (this.debug) utils.log('[ElementUpdateDelegate]::setDirty(', dirtyType, validateNow, ')');
+
+        if (this.isDirty(dirtyType) && !validateNow)
+        {
+            return;
+        }
+
+        switch (dirtyType)
+        {
+            case DirtyType.NONE:
+            case DirtyType.ALL:
+            {
+                mDirtyTable = dirtyType;
+                break;
+            }
+
+            default:
+            {
+                mDirtyTable |= dirtyType;
+                break;
+            }
+        }
+
+        if (validateNow)
+        {
+            this.update();
+        }
+        else
+        {
+            _requestAnimationFrame(this.update.bind(this));
+        }
+    };
+
+    /**
+     * @privileged
+     * Checks dirty status of a given dirty type.
+     * @param  {number}  dirtyType [description]
+     * @return {boolean}
+     */
+    this.isDirty = function(dirtyType)
+    {
+        if (this.debug) utils.log('[ElementUpdateDelegate]::isDirty(', dirtyType, mDirtyTable, ')');
+
+        switch (dirtyType)
+        {
+            case DirtyType.NONE:
+            case DirtyType.ALL:
+            {
+                return (mDirtyTable == dirtyType);
+            }
+
+            default:
+            {
+                return ((dirtyType & mDirtyTable) !== 0);
+            }
+        }
+    };
+
+    /**
+     * @privileged
+     * Initializes this ElementUpdateDelegate instance. Must manually invoke.
+     */
+    this.init = function()
+    {
+        if (this.debug) utils.log('[ElementUpdateDelegate]::init()');
+
+        if (window)
+        {
+            window.addEventListener('resize', _onWindowResize.bind(this));
+            window.addEventListener('orientationchange', _onWindowResize.bind(this));
+            window.addEventListener('scroll', _onWindowScroll.bind(this));
+        }
+
+        this.setDirty(DirtyType.ALL);
+    };
+
+    /**
+     * @privileged
+     * Destroys this ElementUpdateDelegate instance.
+     */
+    this.destroy = function()
+    {
+        if (this.debug) utils.log('[ElementUpdateDelegate]::destroy()');
+
+        this.onUpdate = null;
+    };
+
+    /**
+     * @privileged
+     * Handler invoked whenever a visual update is required.
+     */
+    this.update = function(callback)
+    {
+        if (callback && typeof callback === 'function')
+        {
+            if (this._updateCallback)
+            {
+                this._updateCallback = value;
+            }
+            else
+            {
+                Object.defineProperty(this, '_updateCallback', { value: callback, writable: true });
+            }
+        }
+        else
+        {
+            if (this.debug) utils.log('[ElementUpdateDelegate]::update()');
+
+            if (this._updateCallback)
+            {
+                this._updateCallback.call(null, mDirtyTable);
+            }
+
+            // Reset the dirty status of all types.
+            this.setDirty(0);
+        }
+    };
+
+    /**
+     * @private
+     * Custom requestAnimationFrame implementation.
+     * @param  {function} callback
+     */
+    var _requestAnimationFrame = (window && window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame) || function(callback)
+    {
+        if (this.debug) utils.log('[ElementUpdateDelegate]::_requestAnimationFrame(', callback, ')');
+
+        if (window)
+        {
+            window.setTimeout(callback, 10.0);
+        }
+    };
+
+    /**
+     * @private
+     * Handler invoked when the window resizes.
+     * @param  {object} event
+     */
+    var _onWindowResize = function(event)
+    {
+        if (this.responsive)
+        {
+            this.setDirty(DirtyType.SIZE);
+        }
+    };
+
+    /**
+     * @private
+     * Handler invoked when the window scrolls.
+     * @param  {object} event
+     */
+    var _onWindowScroll = function(event)
+    {
+        if (this.responsive)
+        {
+            this.setDirty(DirtyType.POSITION);
+        }
+    };
+}
+
+/**
+ * @property
+ * Indicates whether this ElementUpdateDelegate instance generates debug data.
+ * @type {object}
+ */
+Object.defineProperty(ElementUpdateDelegate.prototype, 'debug', { value: false, writable: true });
+
+/**
+ * @property
+ * View of this ElementUpdateDelegate instance.
+ * @type {object}
+ */
+Object.defineProperty(ElementUpdateDelegate.prototype, 'element', { value: null, writable: true });
+
+/**
+ * @property
+ * Indicates whether this ElementUpdateDelegate auto responds to window behaviors.
+ * @type {bool}
+ */
+Object.defineProperty(ElementUpdateDelegate.prototype, 'responsive', { value: false, writable: true });
+
+return ElementUpdateDelegate; }
+);
+/**
+ *  vars.js
+ *  (c) VARIANTE (http://variante.io)
+ *
+ *  View model of any DOM element.
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+define('ui/element',['../utils', '../enums/dirtytype', '../ui/elementupdatedelegate'], function(utils, DirtyType, ElementUpdateDelegate) {
+
+/**
+ * @constructor
+ * Creates a new Element instance.
+ */
+function Element(element)
+{
+    if (this.debug) utils.log('[Element]::new(', element, ')');
+
+    this.element = element;
+    this.init();
+}
+
+/**
+ * @property
+ * View of this Element instance.
+ * @type {object}
+ */
+Object.defineProperty(Element.prototype, 'element',
+{
+    get: function()
+    {
+        return this._element;
+    },
+    set: function(value)
+    {
+        // Ensure that this is not overwritable.
+        utils.assert(!this._element, 'Element cannot be overwritten.');
+
+        Object.defineProperty(this, '_element', { value: value, writable: true });
+
+        this.updateDelegate.element = value;
+    }
+});
+
+/**
+ * @property
+ * ID of this Element instance.
+ * @type {string}
+ */
+Object.defineProperty(Element.prototype, 'id',
+{
+    get: function()
+    {
+        return this.element.id;
+    },
+    set: function(value)
+    {
+        this.element.setAttribute('id', value);
+    }
+});
+
+/**
+ * @property
+ * Class of this Element instance.
+ * @type {string}
+ */
+Object.defineProperty(Element.prototype, 'class',
+{
+    get: function()
+    {
+        return this.element.className;
+    },
+    set: function(value)
+    {
+        this.element.className = value;
+    }
+});
+
+/**
+ * @property
+ * Specifies whether this Element instance generates debug data.
+ * @type {object}
+ */
+Object.defineProperty(Element.prototype, 'debug',
+{
+    get: function()
+    {
+        return this._debug;
+    },
+    set: function(value)
+    {
+        Object.defineProperty(this, '_debug', { value: value, writable: true });
+
+        this.updateDelegate.debug = value;
+    }
+});
+
+/**
+ * @property
+ * Specifies the data providers of this Element instance.
+ * @type {*}
+ */
+Object.defineProperty(Element.prototype, 'data',
+{
+    get: function()
+    {
+        return this._data;
+    },
+    set: function(value)
+    {
+        Object.defineProperty(this, '_data', { value: value, writable: true });
+
+        this.updateDelegate.setDirty(DirtyType.DATA);
+    }
+});
+
+/**
+ * @property
+ * ViewUpdateDelegate instance.
+ * @type {ViewUpdateDelegate}
+ */
+Object.defineProperty(Element.prototype, 'updateDelegate',
+{
+    get: function()
+    {
+        if (!this._updateDelegate)
+        {
+            Object.defineProperty(this, '_updateDelegate', { value: new ElementUpdateDelegate(this.element), writable: false });
+
+            this._updateDelegate.update(this.update.bind(this));
+        }
+
+        return this._updateDelegate;
+    }
+});
+
+/**
+ * @property
+ * Specifies whether this Element auto responds to window behaviors.
+ * @type {bool}
+ */
+Object.defineProperty(Element.prototype, 'responsive',
+{
+    get: function()
+    {
+        return this.updateDelegate.responsive;
+    },
+    set: function(value)
+    {
+        this.updateDelegate.responsive = value;
+    }
+});
+
+/**
+ * @property
+ * Determines whether the element is dirty with specified dirty type(s).
+ * @type {function}
+ */
+Object.defineProperty(Element.prototype, 'isDirty',
+{
+    get: function()
+    {
+        return this.updateDelegate.isDirty;
+    }
+});
+
+/**
+ * @public
+ * Initializes this Element instance. Must manually invoke.
+ */
+Element.prototype.init = function()
+{
+    if (this.debug) utils.log('[Element]::init()');
+
+    if (!this.element)
+    {
+        this.element = this.factory();
+    }
+
+    this.updateDelegate.init();
+};
+
+/**
+ * @public
+ * Destroys this Element instance.
+ */
+Element.prototype.destroy = function()
+{
+    if (this.debug) utils.log('[Element]::destroy()');
+
+    this.updateDelegate.destroy();
+};
+
+/**
+ * @public
+ * Handler invoked whenever a visual update is required.
+ */
+Element.prototype.update = function()
+{
+    if (this.debug) utils.log('[Element]::update()');
+};
+
+/**
+ * @public
+ * Creates the associated DOM element from scratch.
+ * @return {Element}
+ */
+Element.prototype.factory = function()
+{
+    return document.createElement('div');
+};
+
+/**
+ * @protected
+ * Gets the string representation of this Element instance.
+ * @return {string}
+ */
+Element.prototype.toString = function()
+{
+    return '[Element{' + this.name + '}]';
+};
+
+return Element; });
+/**
+ *  vars.js
+ *  (c) VARIANTE (http://variante.io)
+ *
+ *  View model of DOM 'video' element.
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+define('ui/video',['../utils', '../enums/dirtytype', '../ui/element'], function(utils, DirtyType, Element) {
+
+/**
+ * @constructor
+ * Creates a new Video instance.
+ */
+function Video(element)
+{
+    vars.ui.Element.call(this, element);
+
+    if (this.debug) utils.log('[Video]::new(', element, ')');
+
+    utils.assert(!element || (element instanceof HTMLVideoElement), 'Invalid element type specified. Must be an instance of HTMLVideoElement.');
+}
+
+var parent = utils.inherit(Video, Element);
+
+/**
+ * @static
+ * Constants for the 'preload' attribute.
+ * @type {object}
+ * @see  http://www.w3schools.com/tags/tag_video.asp
+ */
+Video.PRELOAD =
+{
+    AUTO:     'auto',
+    METADATA: 'metada',
+    NONE:     'none'
+};
+
+/**
+ * @property
+ * Specifies that the video will start playing as soon as it is ready.
+ * @type {boolean}
+ */
+Object.defineProperty(Video.prototype, 'autoplay',
+{
+    get: function()
+    {
+        return this.element.autoplay;
+    },
+    set: function(value)
+    {
+        this.element.autoplay = value;
+        this.updateDelegate.setDirty(DirtyType.CUSTOM);
+    }
+});
+
+/**
+ * @property
+ * Specifies that video controls should be displayed (such as a play/pause button etc).
+ * @type {boolean}
+ */
+Object.defineProperty(Video.prototype, 'controls',
+{
+    get: function()
+    {
+        return this.element.controls;
+    },
+    set: function(value)
+    {
+        this.element.controls = value;
+        this.updateDelegate.setDirty(DirtyType.CUSTOM);
+    }
+});
+
+/**
+ * @property
+ * Specifies that the video will start over again, every time it is finished.
+ * @type {boolean}
+ */
+Object.defineProperty(Video.prototype, 'loop',
+{
+    get: function()
+    {
+        return this.element.loop;
+    },
+    set: function(value)
+    {
+        this.element.loop = value;
+        this.updateDelegate.setDirty(DirtyType.CUSTOM);
+    }
+});
+
+/**
+ * @property
+ * Specifies that the audio output of the video should be muted.
+ * @type {boolean}
+ */
+Object.defineProperty(Video.prototype, 'muted',
+{
+    get: function()
+    {
+        return this.element.muted;
+    },
+    set: function(value)
+    {
+        this.element.muted = value;
+        this.updateDelegate.setDirty(DirtyType.CUSTOM);
+    }
+});
+
+/**
+ * @property
+ * Specifies an image to be shown while the video is downloading, or until the user hits the play button.
+ * @type {string}   URL of image
+ */
+Object.defineProperty(Video.prototype, 'poster',
+{
+    get: function()
+    {
+        return this.element.poster;
+    },
+    set: function(value)
+    {
+        this.element.poster = value;
+        this.updateDelegate.setDirty(DirtyType.CUSTOM);
+    }
+});
+
+/**
+ * @property
+ * Specifies if and how the author thinks the video should be loaded when the page loads
+ * @type {string}   See Video.AUTOPLAY
+ */
+Object.defineProperty(Video.prototype, 'preload',
+{
+    get: function()
+    {
+        return this.element.preload;
+    },
+    set: function(value)
+    {
+        this.element.preload = value;
+        this.updateDelegate.setDirty(DirtyType.CUSTOM);
+    }
+});
+
+/**
+ * @property
+ * Array of sources containing elements in the form of:
+ *     Object
+ *     {
+ *         src: {PATH_OF_SOURCE} (String)
+ *         type: {TYPE_OF_SOURCE} (String)
+ *     }
+ * @type {array}
+ */
+Object.defineProperty(Video.prototype, 'source',
+{
+    get: function()
+    {
+        return this._source;
+    },
+    set: function(value)
+    {
+        Object.defineProperty(this, '_source', { value: value, writable: true });
+        this.updateDelegate.setDirty(DirtyType.DATA);
+    }
+});
+
+/**
+ * @inheritDoc
+ */
+Video.prototype.update = function(dirtyTypes)
+{
+    if (this.debug) utils.log('[Video]::update()');
+
+    if (this.isDirty(DirtyType.DATA))
+    {
+        this._updateSource();
+    }
+
+    if (this.isDirty(DirtyType.CUSTOM))
+    {
+
+    }
+
+    parent.prototype.update.call(this, dirtyTypes);
+};
+
+/**
+ * @inheritDoc
+ */
+Video.prototype.factory = function()
+{
+    return document.createElement('video');
+};
+
+/**
+ * @private
+ * Updates the sources in this Video instance.
+ */
+Video.prototype._updateSource = function()
+{
+    var i;
+    var arrlen;
+
+    // Update source(s).
+    var oldSources = this.element.getElementsByTagName('source');
+
+    arrlen = oldSources.length;
+
+    for (i = 0; i < arrlen; i++)
+    {
+        var oldSource = oldSources[i];
+
+        this.element.removeChild(oldSource);
+    }
+
+    if (!this.source) return;
+
+    arrlen = this.source.length;
+
+    for (i = 0; i < arrlen; i++)
+    {
+        var newSource = document.createElement('source');
+        var path = this.source[i].src;
+        var type = this.source[i].type;
+        var ext = path.split('.').pop();
+
+        newSource.setAttribute('src', path);
+        newSource.setAttribute('type', type || 'video/'+ext);
+
+        this.element.appendChild(newSource);
+    }
+};
+
+return Video; });
+
+/**
+ *  vars.js
+ *  (c) VARIANTE (http://variante.io)
+ *
+ *  UI classes.
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+define('ui',['utils', 'ui/element', 'ui/video'], function(utils, Element, Video) {
+
+var api = function(obj)
+{
+    return obj;
+};
+
+api.Element = Element;
+api.Video = Video;
+
+/**
+ * Translates a DOM element.
+ * @param  {object} element     Target DOM element
+ * @param  {object} properties  Translation properties: top/right/bottom/left/units
+ *                              (if any is specified, value must be number, else if object is undefined,
+ *                              all transformation styles will be reset to 'initial')
+ * @param  {object} constraints Translation constraints: top/right/bottom/left/units
+ * @return {object} Translated properties.
+ */
+function translate(element, properties, constraints)
+{
+    if (properties)
+    {
+        utils.assert(!properties.top || !isNaN(properties.top), 'Top property must be a number.');
+        utils.assert(!properties.right || !isNaN(properties.right), 'Right property must be a number.');
+        utils.assert(!properties.bottom || !isNaN(properties.bottom), 'Bottom property must be a number.');
+        utils.assert(!properties.left || !isNaN(properties.left), 'Left property must be a number.');
+
+        var units = properties.units || 'px';
+
+        if (constraints)
+        {
+            utils.assert(!constraints.top || !isNaN(constraints.top), 'Top constraint must be a number.');
+            utils.assert(!constraints.right || !isNaN(constraints.right), 'Right constraint must be a number.');
+            utils.assert(!constraints.bottom || !isNaN(constraints.bottom), 'Bottom constraint must be a number.');
+            utils.assert(!constraints.left || !isNaN(constraints.left), 'Left constraint must be a number.');
+        }
+
+        var top = (constraints && constraints.top) ? Math.min(properties.top, constraints.top) : properties.top;
+        var right = (constraints && constraints.right) ? Math.min(properties.right, constraints.right) : properties.right;
+        var bottom = (constraints && constraints.bottom) ? Math.min(properties.bottom, constraints.bottom) : properties.bottom;
+        var left = (constraints && constraints.left) ? Math.min(properties.left, constraints.left) : properties.left;
+
+        if (element)
+        {
+            if (element.style)
+            {
+                element.style.top = String(top) + units;
+                element.style.right = String(right) + units;
+                element.style.bottom = String(bottom) + units;
+                element.style.left = String(left) + units;
+            }
+            else if (element.css)
+            {
+                element.css({ 'top': String(top) + units });
+                element.css({ 'right': String(right) + units });
+                element.css({ 'bottom': String(bottom) + units });
+                element.css({ 'left': String(left) + units });
+            }
+        }
+
+        return { top: top, right: right, bottom: bottom, left: left };
+    }
+    else
+    {
+        if (element)
+        {
+            if (element.style)
+            {
+                element.style.top = 'initial';
+                element.style.right = 'initial';
+                element.style.bottom = 'initial';
+                element.style.left = 'initial';
+            }
+            else if (element.css)
+            {
+                element.css({ 'top': 'initial' });
+                element.css({ 'right': 'initial' });
+                element.css({ 'bottom': 'initial' });
+                element.css({ 'left': 'initial' });
+            }
+        }
+
+        return { top: 'initial', right: 'initial', bottom: 'initial', left: 'initial' };
+    }
+} api.translate = translate;
+
+/**
+ * @todo Account for cases when either width or height is unspecified.
+ * Transforms a DOM element.
+ * @param  {object} element     Target DOM element.
+ * @param  {object} properties  Transformation properties: width/height/units/aspectRatio
+ *                              (if any is specified, value must be number, else if object is undefined,
+ *                              all transformation styles will be reset to 'initial')
+ * @param  {object} constraints Transformation constraints: width/height/units/type (optional, but must be numbers)
+ * @return {object} Transformed properties.
+ */
+function transform(element, properties, constraints)
+{
+    if (properties)
+    {
+        utils.assert(!properties.width || !isNaN(properties.width), 'Width property must be a number.');
+        utils.assert(!properties.height || !isNaN(properties.height), 'Height property must be a number.');
+        utils.assert(!properties.aspectRatio || !isNaN(properties.aspectRatio), 'Aspect ratio property must be a number.');
+
+        var units = properties.units || 'px';
+        var aspectRatio = (properties.aspectRatio) ? Number(properties.aspectRatio) : properties.width/properties.height;
+        var maxW = properties.width;
+        var maxH = properties.height;
+        var minW = properties.width;
+        var minH = properties.height;
+        var type = 'contain';
+
+        if (constraints)
+        {
+            utils.assert(!constraints.width || !isNaN(constraints.width), 'Width constraint must be a number.');
+            utils.assert(!constraints.height || !isNaN(constraints.height), 'Height constraint must be a number.');
+
+            if (constraints.type && constraints.type === 'cover')
+            {
+                type = 'cover';
+
+                if (constraints.width) minW = Math.min(constraints.width, minW);
+                if (constraints.width) minH = Math.min(constraints.height, minH);
+            }
+            else
+            {
+                if (constraints.width) maxW = Math.min(constraints.width, maxW);
+                if (constraints.height) maxH = Math.min(constraints.height, maxH);
+            }
+        }
+
+        var w, h;
+
+        if (type === 'contain')
+        {
+            w = (maxW > maxH) ? maxH * aspectRatio : maxW;
+            h = (maxW > maxH) ? maxH : maxW / aspectRatio;
+
+            if (w > maxW)
+            {
+                w = maxW;
+                h = w / aspectRatio;
+            }
+            else if (h > maxH)
+            {
+                h = maxH;
+                w = h * aspectRatio;
+            }
+        }
+        else
+        {
+            w = (minW > minH) ? minH * aspectRatio : minW;
+            h = (minW > minH) ? minH : minW / aspectRatio;
+
+            if (w < minW)
+            {
+                w = minW;
+                h = w / aspectRatio;
+            }
+            else if (h < minH)
+            {
+                h = minH;
+                w = h * aspectRatio;
+            }
+        }
+
+        if (element)
+        {
+            if (element.style)
+            {
+                if (properties.width) element.style.width = String(w) + units;
+                if (properties.height) element.style.height = String(h) + units;
+            }
+            else if (element.css)
+            {
+                if (properties.width) element.css({ 'width': String(w) + units });
+                if (properties.height) element.css({ 'height': String(h) + units });
+            }
+        }
+
+        return { width: w, height: h };
+    }
+    else
+    {
+        if (element)
+        {
+            if (element.style)
+            {
+                element.style.width = 'initial';
+                element.style.height = 'initial';
+            }
+            else if (element.css)
+            {
+                element.css({ 'width': 'initial' });
+                element.css({ 'height': 'initial' });
+            }
+        }
+
+        return { width: 'initial', height: 'initial' };
+    }
+} api.transform = transform;
+
+/**
+ * Gets the rect of the viewport (FOV).
+ * @return {object} Object containing top, left, bottom, right, width, height.
+ */
+function getViewportRect()
+{
+    utils.assert(window && document, 'Window or document undefined.');
+
+    if (!window || !document) return null;
+
+    var rect = {};
+
+    if ($)
+    {
+        rect.width  = $(window).innerWidth();
+        rect.height = $(window).innerHeight();
+        rect.top    = $(window).scrollTop();
+        rect.left   = $(window).scrollLeft();
+        rect.bottom = rect.top + rect.height;
+        rect.right  = rect.left + rect.width;
+    }
+    else
+    {
+        rect.width  = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+        rect.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+        rect.top    = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+        rect.left   = (window.pageXOffset !== undefined) ? window.pageXOffset : (document.documentElement || document.body.parentNode || document.body).scrollLeft;
+        rect.bottom = rect.top + rect.height;
+        rect.right  = rect.left + rect.width;
+    }
+
+    return rect;
+} api.getViewportRect = getViewportRect;
+
+/**
+ * Gets the rect of a given element.
+ * @param  {object} element
+ * @return {object} Object containing top, left, bottom, right, width, height.
+ */
+function getRect(element)
+{
+    utils.assert(element, 'Invalid element specified.');
+    utils.assert(window && document, 'Window or document undefined.');
+
+    if (!element || !window || !document) return null;
+
+    if (element === window || ($ && (element === $(window)))) return getViewportRect();
+
+    var fov = getViewportRect();
+    var rect = {};
+
+    rect.width  = (element.outerWidth) ? element.outerWidth() : element.getBoundingClientRect().width;
+    rect.height = (element.outerHeight) ? element.outerHeight() : element.getBoundingClientRect().height;
+    rect.top    = (element.offset) ? element.offset().top : element.getBoundingClientRect().top - fov.y;
+    rect.left   = (element.offset) ? element.offset().left : element.getBoundingClientRect().left - fov.x;
+    rect.bottom = rect.top + rect.height;
+    rect.right  = rect.left + rect.width;
+
+    return rect;
+} api.getRect = getRect;
+
+/**
+ * Computes the intersecting rect of 2 given elements. If only 1 element is specified, the other
+ * element will default to the current viewport.
+ * @param  {object} element1
+ * @param  {object} element1
+ * @return {object} Object containing width, height.
+ */
+function getIntersectRect(element1, element2)
+{
+    utils.assert(element1 || element2, 'Invalid elements specified.');
+    utils.assert(window && document, 'Window or document undefined.');
+
+    if (!(element1 || element2) || !(window && document)) return null;
+
+    var rect1 = getRect(element1 || window);
+    var rect2 = getRect(element2 || window);
+
+    if (!rect1 || !rect2) return null;
+
+    var rect = {};
+
+    rect.width  = Math.max(0.0, Math.min(rect1.right, rect2.right) - Math.max(rect1.left, rect2.left));
+    rect.height = Math.max(0.0, Math.min(rect1.bottom, rect2.bottom) - Math.max(rect1.top, rect2.top));
+    rect.top    = Math.max(rect1.top, rect2.top);
+    rect.left   = Math.max(rect1.left, rect2.left);
+    rect.bottom = rect.top + rect.height;
+    rect.right  = rect.left + rect.width;
+
+    if (rect.width*rect.height === 0)
+    {
+        rect.width  = 0;
+        rect.height = 0;
+        rect.top    = 0;
+        rect.left   = 0;
+        rect.bottom = 0;
+        rect.right  = 0;
+    }
+
+    return rect;
+} api.getIntersectRect = getIntersectRect;
+
+return api; });
+
+/**
+ *  vars.js
+ *  (c) VARIANTE (http://variante.io)
+ *
+ *  Main library API.
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+define
+(
+    'vars',[
+        'enums',
+        'ui',
+        'utils',
+    ],
+    function(enums, ui, utils)
+    {
+        var vars = function(obj)
+        {
+            return obj;
+        };
+
+        /**
+         * Load utils module.
+         * @type {object}
+         */
+        Object.defineProperty(vars, 'enums', { value: enums, writable: false });
+
+        /**
+         * Load ui module.
+         * @type {object}
+         */
+        Object.defineProperty(vars, 'ui', { value: ui, writable: false });
+
+        /**
+         * Load utils module.
+         * @type {object}
+         */
+        Object.defineProperty(vars, 'utils', { value: utils, writable: false });
+
+        /**
+         * Version.
+         * @type {string}
+         */
+        Object.defineProperty(vars, 'version', { value: '0.1.0', writable: false });
+
+        /**
+         * Indicates whether VARS should use debug runtime.
+         * @type {boolean}
+         */
+        Object.defineProperty(vars, 'debug',
+        {
+            get: function()
+            {
+                return vars.utils.debug;
+            }.bind(this),
+            set: function(value)
+            {
+                vars.utils.debug = value;
+            }.bind(this)
+        });
+
+        return vars;
+    }
+);
+/**
+ *  vars.js
+ *  (c) VARIANTE (http://variante.io)
+ *
+ *  End file for r.js.
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+    return require('vars');
+}()));

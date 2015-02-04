@@ -175,7 +175,7 @@ Element.prototype.init = function()
 
     if (!this.element)
     {
-        this.element = document.createElement('div');
+        this.element = this.factory();
     }
 
     this.updateDelegate.init();
@@ -199,6 +199,16 @@ Element.prototype.destroy = function()
 Element.prototype.update = function()
 {
     if (this.debug) utils.log('[Element]::update()');
+};
+
+/**
+ * @public
+ * Creates the associated DOM element from scratch.
+ * @return {Element}
+ */
+Element.prototype.factory = function()
+{
+    return document.createElement('div');
 };
 
 /**
