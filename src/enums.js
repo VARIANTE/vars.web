@@ -12,14 +12,20 @@ define
     [
         'enums/dirtytype'
     ],
-    function(dirtytype)
+    function
+    (
+        DirtyType
+    )
     {
         var api = function(obj)
         {
             return obj;
         };
 
-        api.DirtyType = dirtytype;
+        /**
+         *  UI dirty types.
+         */
+        Object.defineProperty(api, 'DirtyType', { value: DirtyType, writable: false, enumerable: true });
 
         return api;
     }

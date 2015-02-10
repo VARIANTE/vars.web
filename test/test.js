@@ -16,15 +16,19 @@
 
 vars.debug = true;
 
-var sVideo;
-
-
 /**
  * @import
  * Copy of the DirtyType enums.
- * @type {object}
+ * @type {Object}
  */
-var DirtyType = vars.enums.DirtyType;
+var DirtyType = _.DirtyType;
+
+/**
+ * @import
+ * Copy of the EventType object.
+ * @type {Object}
+ */
+var EventType = _.EventType;
 
 /**
  * @constructor
@@ -32,13 +36,8 @@ var DirtyType = vars.enums.DirtyType;
  */
 function Test(element)
 {
-    vars.ui.Element.call(this, element);
-}
-
-/**
- * Set up inheritance.
- */
-var parent = vars.utils.inherit(Test, vars.ui.Element);
+    _.Element.call(this, element);
+} var parent = _.inherit(Test, _.Element);
 
 /**
  * @inheritDoc
@@ -47,12 +46,12 @@ Test.prototype.init = function()
 {
     this.responsive = true;
 
-    sVideo = new vars.ui.Video();
-    sVideo.source = [{ src:'assets/videos/preview.mp4'}];
-    sVideo.loop = true;
-    sVideo.autoplay = true;
-
-    $('body').append(sVideo.element);
+    var loader = new _.AssetLoader();
+    loader.debug = true;
+    loader.enqueue({ path: 'assets/images/1.png' }, { path: 'assets/images/2.png' }, { path: 'assets/images/3.png' }, { path: 'assets/images/4.png' });
+    loader.addEventListener(EventType.OBJECT.LOAD, this._onLoadComplete);
+    loader.init();
+    loader.destroy();
 
     parent.prototype.init.call(this);
 };
@@ -68,6 +67,11 @@ Test.prototype.update = function(dirtyTypes)
     }
 
     parent.prototype.update.call(this);
+};
+
+Test.prototype._onLoadComplete = function(event)
+{
+    console.log('DONE:', event.detail);
 };
 
 return Test; }());

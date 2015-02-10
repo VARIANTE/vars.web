@@ -7,7 +7,7 @@
  *  This software is released under the MIT License:
  *  http://www.opensource.org/licenses/mit-license.php
  */
-define(['../utils', '../enums/dirtytype', '../ui/element'], function(utils, DirtyType, Element) {
+define(['utils/assert', 'utils/log', 'utils/inherit', 'enums/dirtytype', 'ui/element'], function(assert, log, inherit, DirtyType, Element) {
 
 /**
  * @constructor
@@ -15,19 +15,17 @@ define(['../utils', '../enums/dirtytype', '../ui/element'], function(utils, Dirt
  */
 function Video(element)
 {
-    vars.ui.Element.call(this, element);
+    Element.call(this, element);
 
-    if (this.debug) utils.log('[Video]::new(', element, ')');
+    if (this.debug) log('[Video]::new(', element, ')');
 
-    utils.assert(!element || (element instanceof HTMLVideoElement), 'Invalid element type specified. Must be an instance of HTMLVideoElement.');
-}
-
-var parent = utils.inherit(Video, Element);
+    assert(!element || (element instanceof HTMLVideoElement), 'Invalid element type specified. Must be an instance of HTMLVideoElement.');
+} var parent = inherit(Video, Element);
 
 /**
  * @static
  * Constants for the 'preload' attribute.
- * @type {object}
+ * @type {Object}
  * @see  http://www.w3schools.com/tags/tag_video.asp
  */
 Video.PRELOAD =
@@ -40,7 +38,7 @@ Video.PRELOAD =
 /**
  * @property
  * Specifies that the video will start playing as soon as it is ready.
- * @type {boolean}
+ * @type {Boolean}
  */
 Object.defineProperty(Video.prototype, 'autoplay',
 {
@@ -58,7 +56,7 @@ Object.defineProperty(Video.prototype, 'autoplay',
 /**
  * @property
  * Specifies that video controls should be displayed (such as a play/pause button etc).
- * @type {boolean}
+ * @type {Boolean}
  */
 Object.defineProperty(Video.prototype, 'controls',
 {
@@ -76,7 +74,7 @@ Object.defineProperty(Video.prototype, 'controls',
 /**
  * @property
  * Specifies that the video will start over again, every time it is finished.
- * @type {boolean}
+ * @type {Boolean}
  */
 Object.defineProperty(Video.prototype, 'loop',
 {
@@ -94,7 +92,7 @@ Object.defineProperty(Video.prototype, 'loop',
 /**
  * @property
  * Specifies that the audio output of the video should be muted.
- * @type {boolean}
+ * @type {Boolean}
  */
 Object.defineProperty(Video.prototype, 'muted',
 {
@@ -112,7 +110,7 @@ Object.defineProperty(Video.prototype, 'muted',
 /**
  * @property
  * Specifies an image to be shown while the video is downloading, or until the user hits the play button.
- * @type {string}   URL of image
+ * @type {String}   URL of image
  */
 Object.defineProperty(Video.prototype, 'poster',
 {
@@ -130,7 +128,7 @@ Object.defineProperty(Video.prototype, 'poster',
 /**
  * @property
  * Specifies if and how the author thinks the video should be loaded when the page loads
- * @type {string}   See Video.AUTOPLAY
+ * @type {String}   See Video.AUTOPLAY
  */
 Object.defineProperty(Video.prototype, 'preload',
 {
@@ -153,7 +151,7 @@ Object.defineProperty(Video.prototype, 'preload',
  *         src: {PATH_OF_SOURCE} (String)
  *         type: {TYPE_OF_SOURCE} (String)
  *     }
- * @type {array}
+ * @type {Array}
  */
 Object.defineProperty(Video.prototype, 'source',
 {
@@ -173,7 +171,7 @@ Object.defineProperty(Video.prototype, 'source',
  */
 Video.prototype.update = function(dirtyTypes)
 {
-    if (this.debug) utils.log('[Video]::update()');
+    if (this.debug) log('[Video]::update()');
 
     if (this.isDirty(DirtyType.DATA))
     {

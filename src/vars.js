@@ -11,10 +11,17 @@ define
 (
     [
         'enums',
+        'events',
         'ui',
-        'utils',
+        'utils'
     ],
-    function(enums, ui, utils)
+    function
+    (
+        enums,
+        events,
+        ui,
+        utils
+    )
     {
         var vars = function(obj)
         {
@@ -22,44 +29,58 @@ define
         };
 
         /**
-         * Load utils module.
-         * @type {object}
-         */
-        Object.defineProperty(vars, 'enums', { value: enums, writable: false });
-
-        /**
-         * Load ui module.
-         * @type {object}
-         */
-        Object.defineProperty(vars, 'ui', { value: ui, writable: false });
-
-        /**
-         * Load utils module.
-         * @type {object}
-         */
-        Object.defineProperty(vars, 'utils', { value: utils, writable: false });
-
-        /**
          * Version.
-         * @type {string}
+         * @type {String}
          */
-        Object.defineProperty(vars, 'version', { value: '0.1.0', writable: false });
+        Object.defineProperty(vars, 'version', { value: '0.2.0', writable: false });
 
         /**
          * Indicates whether VARS should use debug runtime.
-         * @type {boolean}
+         * @type {Boolean}
          */
-        Object.defineProperty(vars, 'debug',
+        Object.defineProperty(vars, 'debug', { value: false, writable: true });
+
+        /**
+         * Load enums module.
+         * @type {Object}
+         */
+        extendAPI('enums', enums);
+
+        /**
+         * Load events module.
+         * @type {Object}
+         */
+        extendAPI('events', events);
+
+        /**
+         * Load ui module.
+         * @type {Object}
+         */
+        extendAPI('ui', ui);
+
+        /**
+         * Load utils module.
+         * @type {Object}
+         */
+        extendAPI('utils', utils);
+
+        /**
+         * Appends a module to the main API.
+         * @param  {String} name   Name of the module.
+         * @param  {Object} module Module object.
+         */
+        function extendAPI(name, module)
         {
-            get: function()
+            Object.defineProperty(vars, name, { value: module, writable: false });
+
+            for (var key in module)
             {
-                return vars.utils.debug;
-            }.bind(this),
-            set: function(value)
-            {
-                vars.utils.debug = value;
-            }.bind(this)
-        });
+                if (module.hasOwnProperty(key))
+                {
+                    Object.defineProperty(vars, key, { value: module[key], writable: false });
+                }
+            }
+        }
 
         return vars;
     }

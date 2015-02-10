@@ -15,7 +15,7 @@ module.exports =
      * supported file extensions. If object is specified, that object will be expected to
      * have at least a 'formats' key along with optional 'root' and 'exclude' keys.
      *
-     * @return {array} Array of globbing patterns with the arguments.
+     * @return {Array} Array of globbing patterns with the arguments.
      */
     getPatterns: function()
     {

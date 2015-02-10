@@ -21,5 +21,6 @@
     {
         vars.utils.namespace('io').variante = vars;
         root.vars = vars;
+        root._ = vars;
     }
 }((typeof window !== 'undefined') ? window : this, function() {

@@ -7,7 +7,7 @@
  *  This software is released under the MIT License:
  *  http://www.opensource.org/licenses/mit-license.php
  */
-define(['../utils', '../enums/dirtytype', '../ui/elementupdatedelegate'], function(utils, DirtyType, ElementUpdateDelegate) {
+define(['utils/assert', 'utils/log', 'enums/dirtytype', 'ui/elementupdatedelegate'], function(assert, log, DirtyType, ElementUpdateDelegate) {
 
 /**
  * @constructor
@@ -15,27 +15,33 @@ define(['../utils', '../enums/dirtytype', '../ui/elementupdatedelegate'], functi
  */
 function Element(element)
 {
-    if (this.debug) utils.log('[Element]::new(', element, ')');
+    if (this.debug) log('[Element]::new(', element, ')');
 
     this.element = element;
+
     this.init();
 }
 
 /**
  * @property
  * View of this Element instance.
- * @type {object}
+ * @type {Object}
  */
 Object.defineProperty(Element.prototype, 'element',
 {
     get: function()
     {
+        if (!this._element)
+        {
+            Object.defineProperty(this, '_element', { value: this.factory(), writable: true });
+        }
+
         return this._element;
     },
     set: function(value)
     {
         // Ensure that this is not overwritable.
-        utils.assert(!this._element, 'Element cannot be overwritten.');
+        assert(!this._element, 'Element cannot be overwritten.');
 
         Object.defineProperty(this, '_element', { value: value, writable: true });
 
@@ -46,7 +52,7 @@ Object.defineProperty(Element.prototype, 'element',
 /**
  * @property
  * ID of this Element instance.
- * @type {string}
+ * @type {String}
  */
 Object.defineProperty(Element.prototype, 'id',
 {
@@ -63,7 +69,7 @@ Object.defineProperty(Element.prototype, 'id',
 /**
  * @property
  * Class of this Element instance.
- * @type {string}
+ * @type {String}
  */
 Object.defineProperty(Element.prototype, 'class',
 {
@@ -80,7 +86,7 @@ Object.defineProperty(Element.prototype, 'class',
 /**
  * @property
  * Specifies whether this Element instance generates debug data.
- * @type {object}
+ * @type {Object}
  */
 Object.defineProperty(Element.prototype, 'debug',
 {
@@ -138,7 +144,7 @@ Object.defineProperty(Element.prototype, 'updateDelegate',
 /**
  * @property
  * Specifies whether this Element auto responds to window behaviors.
- * @type {bool}
+ * @type {Boolean}
  */
 Object.defineProperty(Element.prototype, 'responsive',
 {
@@ -155,7 +161,7 @@ Object.defineProperty(Element.prototype, 'responsive',
 /**
  * @property
  * Determines whether the element is dirty with specified dirty type(s).
- * @type {function}
+ * @type {Function}
  */
 Object.defineProperty(Element.prototype, 'isDirty',
 {
@@ -171,12 +177,7 @@ Object.defineProperty(Element.prototype, 'isDirty',
  */
 Element.prototype.init = function()
 {
-    if (this.debug) utils.log('[Element]::init()');
-
-    if (!this.element)
-    {
-        this.element = this.factory();
-    }
+    if (this.debug) log('[Element]::init()');
 
     this.updateDelegate.init();
 };
@@ -187,7 +188,7 @@ Element.prototype.init = function()
  */
 Element.prototype.destroy = function()
 {
-    if (this.debug) utils.log('[Element]::destroy()');
+    if (this.debug) log('[Element]::destroy()');
 
     this.updateDelegate.destroy();
 };
@@ -198,7 +199,7 @@ Element.prototype.destroy = function()
  */
 Element.prototype.update = function()
 {
-    if (this.debug) utils.log('[Element]::update()');
+    if (this.debug) log('[Element]::update()');
 };
 
 /**
@@ -214,7 +215,7 @@ Element.prototype.factory = function()
 /**
  * @protected
  * Gets the string representation of this Element instance.
- * @return {string}
+ * @return {String}
  */
 Element.prototype.toString = function()
 {

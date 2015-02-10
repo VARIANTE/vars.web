@@ -7,7 +7,7 @@
  *  This software is released under the MIT License:
  *  http://www.opensource.org/licenses/mit-license.php
  */
-define(['../utils', '../enums/dirtytype'], function(utils, DirtyType) {
+define(['utils/assert', 'utils/log', 'enums/dirtytype'], function(assert, log, DirtyType) {
 
 /**
  * @constructor
@@ -15,7 +15,7 @@ define(['../utils', '../enums/dirtytype'], function(utils, DirtyType) {
  */
 function ElementUpdateDelegate(element)
 {
-    if (this.debug) utils.log('[ElementUpdateDelegate]::new(', element, ')');
+    if (this.debug) log('[ElementUpdateDelegate]::new(', element, ')');
 
     var mDirtyTable = 0;
 
@@ -24,11 +24,11 @@ function ElementUpdateDelegate(element)
     /**
      * @privileged
      * Sets a dirty type as dirty.
-     * @param {number} dirtyType
+     * @param {Number} dirtyType
      */
     this.setDirty = function(dirtyType, validateNow)
     {
-        if (this.debug) utils.log('[ElementUpdateDelegate]::setDirty(', dirtyType, validateNow, ')');
+        if (this.debug) log('[ElementUpdateDelegate]::setDirty(', dirtyType, validateNow, ')');
 
         if (this.isDirty(dirtyType) && !validateNow)
         {
@@ -64,12 +64,12 @@ function ElementUpdateDelegate(element)
     /**
      * @privileged
      * Checks dirty status of a given dirty type.
-     * @param  {number}  dirtyType [description]
-     * @return {boolean}
+     * @param  {Number}  dirtyType [description]
+     * @return {Boolean}
      */
     this.isDirty = function(dirtyType)
     {
-        if (this.debug) utils.log('[ElementUpdateDelegate]::isDirty(', dirtyType, mDirtyTable, ')');
+        if (this.debug) log('[ElementUpdateDelegate]::isDirty(', dirtyType, mDirtyTable, ')');
 
         switch (dirtyType)
         {
@@ -92,7 +92,7 @@ function ElementUpdateDelegate(element)
      */
     this.init = function()
     {
-        if (this.debug) utils.log('[ElementUpdateDelegate]::init()');
+        if (this.debug) log('[ElementUpdateDelegate]::init()');
 
         if (window)
         {
@@ -110,7 +110,7 @@ function ElementUpdateDelegate(element)
      */
     this.destroy = function()
     {
-        if (this.debug) utils.log('[ElementUpdateDelegate]::destroy()');
+        if (this.debug) log('[ElementUpdateDelegate]::destroy()');
 
         this.onUpdate = null;
     };
@@ -134,7 +134,7 @@ function ElementUpdateDelegate(element)
         }
         else
         {
-            if (this.debug) utils.log('[ElementUpdateDelegate]::update()');
+            if (this.debug) log('[ElementUpdateDelegate]::update()');
 
             if (this._updateCallback)
             {
@@ -149,11 +149,11 @@ function ElementUpdateDelegate(element)
     /**
      * @private
      * Custom requestAnimationFrame implementation.
-     * @param  {function} callback
+     * @param  {Function} callback
      */
     var _requestAnimationFrame = (window && window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame) || function(callback)
     {
-        if (this.debug) utils.log('[ElementUpdateDelegate]::_requestAnimationFrame(', callback, ')');
+        if (this.debug) log('[ElementUpdateDelegate]::_requestAnimationFrame(', callback, ')');
 
         if (window)
         {
@@ -164,7 +164,7 @@ function ElementUpdateDelegate(element)
     /**
      * @private
      * Handler invoked when the window resizes.
-     * @param  {object} event
+     * @param  {Object} event
      */
     var _onWindowResize = function(event)
     {
@@ -177,7 +177,7 @@ function ElementUpdateDelegate(element)
     /**
      * @private
      * Handler invoked when the window scrolls.
-     * @param  {object} event
+     * @param  {Object} event
      */
     var _onWindowScroll = function(event)
     {
@@ -191,21 +191,21 @@ function ElementUpdateDelegate(element)
 /**
  * @property
  * Indicates whether this ElementUpdateDelegate instance generates debug data.
- * @type {object}
+ * @type {Object}
  */
 Object.defineProperty(ElementUpdateDelegate.prototype, 'debug', { value: false, writable: true });
 
 /**
  * @property
  * View of this ElementUpdateDelegate instance.
- * @type {object}
+ * @type {Object}
  */
 Object.defineProperty(ElementUpdateDelegate.prototype, 'element', { value: null, writable: true });
 
 /**
  * @property
  * Indicates whether this ElementUpdateDelegate auto responds to window behaviors.
- * @type {bool}
+ * @type {Boolean}
  */
 Object.defineProperty(ElementUpdateDelegate.prototype, 'responsive', { value: false, writable: true });
 
