@@ -328,10 +328,10 @@ AssetLoader.prototype.enqueue = function()
     {
         var arg = arguments[i];
 
-        assert(typeof arg === 'object', 'Each item to be enqueued must be an object containing a "path" key and/or a "type" key');
-        assert(typeof arg.path === 'string', 'Invalid path specified: ' + arg.path + '.');
+        assert(typeof arg === 'string' || typeof arg === 'object', 'Each item to be enqueued must be a string of the target path or an object containing a "path" key and/or a "type" key');
+        assert(typeof arg === 'string' || typeof arg.path === 'string', 'Invalid path specified: ' + arg.path + '.');
 
-        var path = arg.path;
+        var path = (typeof arg === 'string') ? arg : arg.path;
         var type = arg.type;
 
         if (!type)
