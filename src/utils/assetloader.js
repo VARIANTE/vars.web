@@ -252,6 +252,36 @@ Object.defineProperty(AssetLoader.prototype, 'bytesTotal',
 });
 
 /**
+ * @property
+ * Specifies the current progress (in decimals) of the entire operation.
+ * @return {Number}
+ */
+Object.defineProperty(AssetLoader.prototype, 'progress',
+{
+    get: function()
+    {
+        if (!this._bytesTotal || !this._bytesLoaded) return 0.0;
+        if (this._bytesTotal.length !== this._bytesLoaded.length) return 0.0;
+
+        var arrlen = this._bytesTotal.length;
+        var sum = 0.0;
+
+        for (var i = 0; i < arrlen; i++)
+        {
+            var loaded = this._bytesLoaded[i];
+            var total = this._bytesTotal[i];
+
+            if (total > 0.0)
+            {
+                sum += loaded/total;
+            }
+        }
+
+        return sum/arrlen;
+    }
+});
+
+/**
  * Initializes this AssetLoader instance and begins loading assets in the queue.
  */
 AssetLoader.prototype.init = function()
