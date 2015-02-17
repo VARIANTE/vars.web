@@ -46,13 +46,6 @@ Test.prototype.init = function()
 {
     this.responsive = true;
 
-    var loader = new _.AssetLoader();
-    loader.debug = true;
-    loader.enqueue({ path: 'assets/images/1.png' }, { path: 'assets/images/2.png' }, { path: 'assets/images/3.png' }, { path: 'assets/images/4.png' });
-    loader.addEventListener(EventType.OBJECT.LOAD, this._onLoadComplete);
-    loader.init();
-    loader.destroy();
-
     parent.prototype.init.call(this);
 };
 
@@ -63,7 +56,9 @@ Test.prototype.update = function(dirtyTypes)
 {
     if (this.isDirty(DirtyType.POSITION))
     {
-
+        var element = $('#foo');
+        _.translate3D(element, { x: 50 });
+        console.log(element.css('transform'));
     }
 
     parent.prototype.update.call(this);

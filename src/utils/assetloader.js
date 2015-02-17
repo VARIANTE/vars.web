@@ -493,7 +493,7 @@ AssetLoader.prototype._onXHRProgress = function(event)
 
     if (this.debug) log('[AssetLoader]::_onXHRProgress("'+path+'":'+bytesLoaded+'/'+bytesTotal+')');
 
-    var progressEvent = new CustomEvent(EventType.OBJECT.PROGRESS);
+    var progressEvent = document.createEvent('CustomEvent');
     progressEvent.initCustomEvent(EventType.OBJECT.PROGRESS, true, true, { id: id, path: path, type: type, pending: this._pending, loaded: this.bytesLoaded, total: this.bytesTotal });
 
     this.dispatchEvent(progressEvent);
@@ -515,7 +515,7 @@ AssetLoader.prototype._onXHRLoadComplete = function(event)
 
     this._pending--;
 
-    var loadEvent = new CustomEvent(EventType.OBJECT.LOAD);
+    var loadEvent = document.createEvent('CustomEvent');
     loadEvent.initCustomEvent(EventType.OBJECT.LOAD, true, true, { id: id, path: path, type: type, pending: this._pending, loaded: this.bytesLoaded, total: this.bytesTotal });
 
     this.dispatchEvent(loadEvent);
@@ -537,14 +537,14 @@ AssetLoader.prototype._onXHRLoadError = function(event)
 
     this._pending--;
 
-    var errorEvent = new CustomEvent(EventType.OBJECT.ERROR);
+    var errorEvent = document.createEvent('CustomEvent');
     errorEvent.initCustomEvent(EventType.OBJECT.ERROR, true, true, { id: id, path: path, type: type, pending: this._pending, loaded: this.bytesLoaded, total: this.bytesTotal });
 
     this.dispatchEvent(errorEvent);
 
     if (this._pending === 0)
     {
-        var loadEvent = new CustomEvent(EventType.OBJECT.LOAD);
+        var loadEvent = document.createEvent('CustomEvent');
         loadEvent.initCustomEvent(EventType.OBJECT.LOAD, true, true, { id: id, path: path, type: type, pending: this._pending, loaded: this.bytesLoaded, total: this.bytesTotal });
 
         this.dispatchEvent(loadEvent);
@@ -567,14 +567,14 @@ AssetLoader.prototype._onXHRAbort = function(event)
 
     this._pending--;
 
-    var abortEvent = new CustomEvent(EventType.OBJECT.ABORT);
+    var abortEvent = document.createEvent('CustomEvent');
     abortEvent.initCustomEvent(EventType.OBJECT.ABORT, true, true, { id: id, path: path, type: type, pending: this._pending, loaded: this.bytesLoaded, total: this.bytesTotal });
 
     this.dispatchEvent(abortEvent);
 
     if (this._pending === 0)
     {
-        var loadEvent = new CustomEvent(EventType.OBJECT.LOAD);
+        var loadEvent = document.createEvent('CustomEvent');
         loadEvent.initCustomEvent(EventType.OBJECT.LOAD, true, true, { id: id, path: path, type: type, pending: this._pending, loaded: this.bytesLoaded, total: this.bytesTotal });
 
         this.dispatchEvent(loadEvent);

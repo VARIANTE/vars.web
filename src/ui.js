@@ -11,6 +11,7 @@ define
 (
     [
         'ui/translate',
+        'ui/translate3d',
         'ui/transform',
         'ui/getviewportrect',
         'ui/getrect',
@@ -22,6 +23,7 @@ define
     function
     (
         translate,
+        translate3D,
         transform,
         getViewportRect,
         getRect,
@@ -46,6 +48,17 @@ define
          * @return {Object} Translated properties.
          */
         Object.defineProperty(api, 'translate', { value: translate, writable: false, enumerable: true });
+
+        /**
+         * Translates a DOM element.
+         * @param  {Object} element     Target DOM element
+         * @param  {Object} properties  Translation properties: top/right/bottom/left/units
+         *                              (if any is specified, value must be number, else if object is undefined,
+         *                              all transformation styles will be reset to 'initial')
+         * @param  {Object} constraints Translation constraints: top/right/bottom/left/units
+         * @return {Object} Translated properties.
+         */
+        Object.defineProperty(api, 'translate3D', { value: translate3D, writable: false, enumerable: true });
 
         /**
          * @todo Account for cases when either width or height is unspecified.
