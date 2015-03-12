@@ -1,10 +1,10 @@
 {
-    "name": "vars.js",
+    "name": "vars",
     "version": "0.2.0",
     "homepage": "http://variante.io",
     "license": "MIT",
     "private": true,
-    "main": "dist/vars",
+    "main": "dist/vars.js",
     "authors":
     [
         "Andrew Wei <andrew@variante.io>"
