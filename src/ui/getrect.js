@@ -19,7 +19,7 @@ function getRect(element)
 
     if (!element || !window || !document) return null;
 
-    if (element === window || ($ && (element === $(window)))) return getViewportRect();
+    if (element === window) return getViewportRect();
 
     var fov = getViewportRect();
     var rect = {};
