@@ -10,10 +10,22 @@ define(['utils/assert'], function(assert) {
 /**
  * Translates a DOM element.
  * @param  {Object} element     Target DOM element
- * @param  {Object} properties  Translation properties: top/right/bottom/left/units
- *                              (if any is specified, value must be number, else if object is undefined,
- *                              all transformation styles will be reset to 'initial')
- * @param  {Object} constraints Translation constraints: top/right/bottom/left
+ * @param  {Object} properties  Translation properties:
+ *                              {
+ *                                  {Number} top:    Top translation value
+ *                                  {Number} right:  Right translation value
+ *                                  {Number} bottom: Bottom translation value
+ *                                  {Number} left:   Left translation value
+ *                                  {String} units:  Unit of translation values
+ *                              }
+ *                              (if unspecified, all translation values will be reset to 'initial')
+ * @param  {Object} constraints Translation constraints:
+ *                              {
+ *                                  {Number} top:    Bounded top translation value
+ *                                  {Number} right:  Bounded right translation value
+ *                                  {Number} bottom: Bounded bottom translation value
+ *                                  {Number} left:   Bounded left translation value
+ *                              }
  * @return {Object} Translated properties.
  */
 function translate(element, properties, constraints)

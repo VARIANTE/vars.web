@@ -11,9 +11,19 @@ define(['utils/assert'], function(assert) {
  * Translates a DOM element.
  * @param  {Object} element     Target DOM element
  * @param  {Object} properties  Translation properties: x/y/z/units
- *                              (if any is specified, value must be number, else if object is undefined,
- *                              all transformation styles will be reset to 0)
- * @param  {Object} constraints Translation constraints: x/y/z
+ *                              {
+ *                                  {Number} x:     X-coordinate
+ *                                  {Number} y:     Y-coordinate
+ *                                  {Number} z:     Z-coordinate
+ *                                  {String} units: Unit of translation values
+ *                              }
+ *                              (if unspecified, all translation coordinates will be reset to 0)
+ * @param  {Object} constraints Translation constraints:
+ *                              {
+ *                                  {Number} x:     Bounded x-coordinate
+ *                                  {Number} y:     Bounded y-coordinate
+ *                                  {Number} z:     Bounded z-coordinate
+ *                              }
  * @return {Object} Translated properties.
  */
 function translate3d(element, properties, constraints)

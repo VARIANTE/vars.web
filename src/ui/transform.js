@@ -11,10 +11,19 @@ define(['utils/assert'], function(assert) {
  * @todo Account for cases when either width or height is unspecified.
  * Transforms a DOM element.
  * @param  {Object} element     Target DOM element.
- * @param  {Object} properties  Transformation properties: width/height/units/aspectRatio
- *                              (if any is specified, value must be number, else if object is undefined,
- *                              all transformation styles will be reset to 'initial')
- * @param  {Object} constraints Transformation constraints: width/height/units/type (optional, but must be numbers)
+ * @param  {Object} properties  Transformation properties:
+ *                              {
+ *                                  {Number} width:  Target width of the element
+ *                                  {Number} height: Target height of the element
+ *                                  {String} unit:   Unit of width/height values
+ *                                  {String} type:   Resizing constraint: 'default', 'contain', 'cover'
+ *                              }
+ *                              (if unspecified, all transformation styles will be reset to 'initial')
+ * @param  {Object} constraints Transformation constraints:
+ *                              {
+ *                                  {Number} width:  Bounded width of the element.
+ *                                  {Number} height: Bounded height of the element.
+ *                              }
  * @return {Object} Transformed properties.
  */
 function transform(element, properties, constraints)
@@ -31,17 +40,15 @@ function transform(element, properties, constraints)
         var maxH = properties.height;
         var minW = properties.width;
         var minH = properties.height;
-        var type = 'contain';
+        var type = properties.type || 'default';
 
-        if (constraints)
+        if (constraints && type !== 'default')
         {
             assert(!constraints.width || !isNaN(constraints.width), 'Width constraint must be a number.');
             assert(!constraints.height || !isNaN(constraints.height), 'Height constraint must be a number.');
 
-            if (constraints.type && constraints.type === 'cover')
+            if (type && type === 'cover')
             {
-                type = 'cover';
-
                 if (constraints.width) minW = Math.min(constraints.width, minW);
                 if (constraints.width) minH = Math.min(constraints.height, minH);
             }
@@ -50,6 +57,8 @@ function transform(element, properties, constraints)
                 if (constraints.width) maxW = Math.min(constraints.width, maxW);
                 if (constraints.height) maxH = Math.min(constraints.height, maxH);
             }
+
+            if ((minW > maxW) || (minH > maxH)) return null;
         }
 
         var w, h;
@@ -70,7 +79,7 @@ function transform(element, properties, constraints)
                 w = h * aspectRatio;
             }
         }
-        else
+        else if (type == 'cover')
         {
             w = (minW > minH) ? minH * aspectRatio : minW;
             h = (minW > minH) ? minH : minW / aspectRatio;
@@ -85,6 +94,11 @@ function transform(element, properties, constraints)
                 h = minH;
                 w = h * aspectRatio;
             }
+        }
+        else
+        {
+            w = maxW;
+            h = maxH;
         }
 
         if (element)
