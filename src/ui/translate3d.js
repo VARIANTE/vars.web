@@ -12,11 +12,11 @@ define(['utils/assert'], function(assert) {
  * @param  {Object} element     Target DOM element
  * @param  {Object} properties  Translation properties: x/y/z/units
  *                              (if any is specified, value must be number, else if object is undefined,
- *                              all transformation styles will be reset to 'initial')
- * @param  {Object} constraints Translation constraints: x/y/z/units
+ *                              all transformation styles will be reset to 0)
+ * @param  {Object} constraints Translation constraints: x/y/z
  * @return {Object} Translated properties.
  */
-function translate3D(element, properties, constraints)
+function translate3d(element, properties, constraints)
 {
     if (properties)
     {
@@ -78,4 +78,4 @@ function translate3D(element, properties, constraints)
     }
 }
 
-return translate3D; });
+return translate3d; });

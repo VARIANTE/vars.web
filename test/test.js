@@ -21,14 +21,14 @@ vars.debug = true;
  * Copy of the DirtyType enums.
  * @type {Object}
  */
-var DirtyType = _.DirtyType;
+var DirtyType = vars.DirtyType;
 
 /**
  * @import
  * Copy of the EventType object.
  * @type {Object}
  */
-var EventType = _.EventType;
+var EventType = vars.EventType;
 
 /**
  * @constructor
@@ -36,8 +36,8 @@ var EventType = _.EventType;
  */
 function Test(element)
 {
-    _.Element.call(this, element);
-} var parent = _.inherit(Test, _.Element);
+    vars.Element.call(this, element);
+} var parent = vars.inherit(Test, vars.Element);
 
 /**
  * @inheritDoc
@@ -57,7 +57,8 @@ Test.prototype.update = function(dirtyTypes)
     if (this.isDirty(DirtyType.POSITION))
     {
         var element = $('#foo');
-        _.translate3D(element, { x: 50 });
+        vars.translate(element, { top: 0 });
+        vars.translate3d(element, { x: 50, y: 50 }, { x: 25 });
         console.log(element.css('transform'));
     }
 

@@ -23,7 +23,7 @@ define
     function
     (
         translate,
-        translate3D,
+        translate3d,
         transform,
         getViewportRect,
         getRect,
@@ -58,7 +58,7 @@ define
          * @param  {Object} constraints Translation constraints: top/right/bottom/left/units
          * @return {Object} Translated properties.
          */
-        Object.defineProperty(api, 'translate3D', { value: translate3D, writable: false, enumerable: true });
+        Object.defineProperty(api, 'translate3d', { value: translate3d, writable: false, enumerable: true });
 
         /**
          * @todo Account for cases when either width or height is unspecified.

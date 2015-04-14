@@ -13,7 +13,7 @@ define(['utils/assert'], function(assert) {
  * @param  {Object} properties  Translation properties: top/right/bottom/left/units
  *                              (if any is specified, value must be number, else if object is undefined,
  *                              all transformation styles will be reset to 'initial')
- * @param  {Object} constraints Translation constraints: top/right/bottom/left/units
+ * @param  {Object} constraints Translation constraints: top/right/bottom/left
  * @return {Object} Translated properties.
  */
 function translate(element, properties, constraints)
