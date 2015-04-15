@@ -57,8 +57,6 @@ function transform(element, properties, constraints)
                 if (constraints.width) maxW = Math.min(constraints.width, maxW);
                 if (constraints.height) maxH = Math.min(constraints.height, maxH);
             }
-
-            if ((minW > maxW) || (minH > maxH)) return null;
         }
 
         var w, h;
