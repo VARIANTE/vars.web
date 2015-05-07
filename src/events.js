@@ -19,19 +19,9 @@ define
         EventType
     )
     {
-        var api = function(obj)
-        {
-            return obj;
-        };
+        var api = function(obj) { return obj; };
 
-        /**
-         *  Event dispatcher object.
-         */
         Object.defineProperty(api, 'EventDispatcher', { value: EventDispatcher, writable: false, enumerable: true });
-
-        /**
-         * VARS supported event types.
-         */
         Object.defineProperty(api, 'EventType', { value: EventType, writable: false, enumerable: true });
 
         return api;

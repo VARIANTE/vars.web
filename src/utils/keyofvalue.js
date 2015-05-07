@@ -5,36 +5,38 @@
  *  This software is released under the MIT License:
  *  http://www.opensource.org/licenses/mit-license.php
  */
-define(
-[
-],
-function
+define
 (
-)
-{
-
-/**
- * Gets the key of a given value in a given object.
- * @param  {Object}    Object   Target object.
- * @param  {Value}     value    Target value.
- */
-function keyOfValue(object, value)
-{
-    if (!object || !value) return null;
-    if (typeof object !== 'object') return null;
-
-    for (var property in object)
+    [
+    ],
+    function
+    (
+    )
     {
-        if (object.hasOwnProperty(property))
+        /**
+         * Gets the key of a given value in a given object.
+         * @param  {Object}    Object   Target object.
+         * @param  {Value}     value    Target value.
+         */
+        function keyOfValue(object, value)
         {
-            if (object[property] === value)
+            if (!object || !value) return null;
+            if (typeof object !== 'object') return null;
+
+            for (var property in object)
             {
-                return property;
+                if (object.hasOwnProperty(property))
+                {
+                    if (object[property] === value)
+                    {
+                        return property;
+                    }
+                }
             }
+
+            return null;
         }
+
+        return keyOfValue;
     }
-
-    return null;
-}
-
-return keyOfValue; });
+);

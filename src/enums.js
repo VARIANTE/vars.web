@@ -17,10 +17,7 @@ define
         DirtyType
     )
     {
-        var api = function(obj)
-        {
-            return obj;
-        };
+        var api = function(obj) { return obj; };
 
         /**
          *  UI dirty types.

@@ -33,10 +33,7 @@ define
         AssetLoader
     )
     {
-        var api = function(obj)
-        {
-            return obj;
-        };
+        var api = function(obj) { return obj; };
 
         Object.defineProperty(api, 'assert', { value: assert, writable: false, enumerable: true });
         Object.defineProperty(api, 'debounce', { value: debounce, writable: false, enumerable: true });

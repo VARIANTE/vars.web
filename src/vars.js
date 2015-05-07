@@ -23,10 +23,7 @@ define
         utils
     )
     {
-        var vars = function(obj)
-        {
-            return obj;
-        };
+        var vars = function(obj) { return obj; };
 
         /**
          * Version.
