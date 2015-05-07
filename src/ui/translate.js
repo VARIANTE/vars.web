@@ -5,7 +5,15 @@
  *  This software is released under the MIT License:
  *  http://www.opensource.org/licenses/mit-license.php
  */
-define(['utils/assert'], function(assert) {
+define(
+[
+    'utils/assert'
+],
+function
+(
+    assert
+)
+{
 
 /**
  * Translates a DOM element.

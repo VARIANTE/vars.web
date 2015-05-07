@@ -7,7 +7,23 @@
  *  This software is released under the MIT License:
  *  http://www.opensource.org/licenses/mit-license.php
  */
-define(['utils/assert', 'utils/log', 'utils/inherit', 'enums/dirtytype', 'ui/element'], function(assert, log, inherit, DirtyType, Element) {
+define(
+[
+    'utils/assert',
+    'utils/log',
+    'utils/inherit',
+    'enums/dirtytype',
+    'ui/element'
+],
+function
+(
+    assert,
+    log,
+    inherit,
+    DirtyType,
+    Element
+)
+{
 
 /**
  * @constructor

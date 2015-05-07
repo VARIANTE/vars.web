@@ -5,7 +5,13 @@
  *  This software is released under the MIT License:
  *  http://www.opensource.org/licenses/mit-license.php
  */
-define([], function() {
+define(
+[
+],
+function
+(
+)
+{
 
 /**
  * Sets up prototypal inheritance between a child class and a parent class.

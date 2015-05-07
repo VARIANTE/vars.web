@@ -7,7 +7,23 @@
  *  This software is released under the MIT License:
  *  http://www.opensource.org/licenses/mit-license.php
  */
-define(['utils/assert', 'utils/log', 'enums/dirtytype', 'ui/elementupdatedelegate'], function(assert, log, DirtyType, ElementUpdateDelegate) {
+define(
+[
+    'utils/assert',
+    'utils/log',
+    'utils/keyofvalue',
+    'enums/dirtytype',
+    'ui/elementupdatedelegate'
+],
+function
+(
+    assert,
+    log,
+    keyOfValue,
+    DirtyType,
+    ElementUpdateDelegate
+)
+{
 
 /**
  * @constructor
@@ -18,7 +34,6 @@ function Element(element)
     if (this.debug) log('[Element]::new(', element, ')');
 
     this.element = element;
-
     this.init();
 }
 
@@ -44,8 +59,6 @@ Object.defineProperty(Element.prototype, 'element',
         assert(!this._element, 'Element cannot be overwritten.');
 
         Object.defineProperty(this, '_element', { value: value, writable: true });
-
-        this.updateDelegate.element = value;
     }
 });
 
@@ -82,6 +95,13 @@ Object.defineProperty(Element.prototype, 'class',
         this.element.className = value;
     }
 });
+
+/**
+ * @property (read-only)
+ * Virtual child elements.
+ * @type {Object}
+ */
+Object.defineProperty(Element.prototype, 'virtualChildren', { value: {}, writable: false });
 
 /**
  * @property
@@ -132,9 +152,7 @@ Object.defineProperty(Element.prototype, 'updateDelegate',
     {
         if (!this._updateDelegate)
         {
-            Object.defineProperty(this, '_updateDelegate', { value: new ElementUpdateDelegate(this.element), writable: false });
-
-            this._updateDelegate.update(this.update.bind(this));
+            Object.defineProperty(this, '_updateDelegate', { value: new ElementUpdateDelegate(this), writable: false });
         }
 
         return this._updateDelegate;
@@ -200,6 +218,61 @@ Element.prototype.destroy = function()
 Element.prototype.update = function()
 {
     if (this.debug) log('[Element]::update()');
+};
+
+/**
+ * Adds a virtual child to this Element instance.
+ * @param {Object} child
+ * @param {Object} The added child.
+ */
+Element.prototype.addVirtualChild = function(child, name)
+{
+    assert(name, 'Child name must be provided.');
+    assert(!this.virtualChildren[name], 'Child name is already taken.');
+
+    if (!name || this.virtualChildren[name]) return null;
+
+    this.virtualChildren[name] = child;
+
+    return child;
+};
+
+/**
+ * Removes a virtual child from this Element instance.
+ * @param  {Object} child
+ * @return {Object} The removed child.
+ */
+Element.prototype.removeVirtualChild = function(child)
+{
+    assert(child, 'Child is null.');
+
+    var key = keyOfValue(this.virtualChildren, child);
+
+    if (key)
+    {
+        delete this.virtualChildren[key];
+    }
+
+    return child;
+};
+
+/**
+ * Removes a virtual child by its name.
+ * @param  {String} name
+ * @return {Object} The removed child.
+ */
+Element.prototype.removeVirtualChildByName = function(name)
+{
+    assert(name, 'Name is null.');
+
+    var child = this.virtualChildren[name];
+
+    if (child)
+    {
+        delete this.virtualChildren[name];
+    }
+
+    return child;
 };
 
 /**

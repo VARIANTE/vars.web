@@ -5,7 +5,13 @@
  *  This software is released under the MIT License:
  *  http://www.opensource.org/licenses/mit-license.php
  */
-define([], function() {
+define(
+[
+],
+function
+(
+)
+{
 
 /**
  * Asserts the specified condition and throws a warning if assertion fails.
@@ -14,7 +20,7 @@ define([], function() {
  */
 function assert(condition, message)
 {
-    if (!condition && window && window.vars.debug)
+    if (!condition && (window && window.vars && window.vars.debug))
     {
         throw message || '[vars]: Assertion failed.';
     }

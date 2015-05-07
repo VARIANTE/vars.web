@@ -5,7 +5,17 @@
  *  This software is released under the MIT License:
  *  http://www.opensource.org/licenses/mit-license.php
  */
-define(['utils/assert', 'ui/getrect'], function(assert, getRect) {
+define(
+[
+    'utils/assert',
+    'ui/getrect'
+],
+function
+(
+    assert,
+    getRect
+)
+{
 
 /**
  * Computes the intersecting rect of 2 given elements. If only 1 element is specified, the other

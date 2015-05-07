@@ -7,19 +7,41 @@
  *  This software is released under the MIT License:
  *  http://www.opensource.org/licenses/mit-license.php
  */
-define(['utils/assert', 'utils/log', 'enums/dirtytype'], function(assert, log, DirtyType) {
+define(
+[
+    'utils/assert',
+    'utils/debounce',
+    'utils/log',
+    'enums/dirtytype'
+],
+function
+(
+    assert,
+    debounce,
+    log,
+    DirtyType
+)
+{
+
+/**
+ * Default refresh (debounce) rate in milliseconds.
+ * @type {Number}
+ */
+var DEFAULT_REFRESH_RATE = 0.0;
 
 /**
  * @constructor
  * Creates a new ElementUpdateDelegate instance.
  */
-function ElementUpdateDelegate(element)
+function ElementUpdateDelegate(delegate)
 {
-    if (this.debug) log('[ElementUpdateDelegate]::new(', element, ')');
+    if (this.debug) log('[ElementUpdateDelegate]::new(', delegate, ')');
 
     var mDirtyTable = 0;
+    var mResizeHandler = null;
+    var mScrollHandler = null;
 
-    this.element = element;
+    this.delegate = delegate;
 
     /**
      * @privileged
@@ -29,6 +51,27 @@ function ElementUpdateDelegate(element)
     this.setDirty = function(dirtyType, validateNow)
     {
         if (this.debug) log('[ElementUpdateDelegate]::setDirty(', dirtyType, validateNow, ')');
+
+        if (this.transmissive !== DirtyType.NONE)
+        {
+            if (this.delegate.virtualChildren)
+            {
+                for (var name in this.delegate.virtualChildren)
+                {
+                    var child = this.delegate.virtualChildren[name];
+
+                    if (child.updateDelegate && child.updateDelegate.setDirty)
+                    {
+                        var transmitted = dirtyType & child.updateDelegate.receptive;
+
+                        if (transmitted !== DirtyType.NONE)
+                        {
+                            child.updateDelegate.setDirty(transmitted, validateNow);
+                        }
+                    }
+                }
+            }
+        }
 
         if (this.isDirty(dirtyType) && !validateNow)
         {
@@ -94,11 +137,22 @@ function ElementUpdateDelegate(element)
     {
         if (this.debug) log('[ElementUpdateDelegate]::init()');
 
-        if (window)
+        if (window && this.responsive)
         {
-            window.addEventListener('resize', _onWindowResize.bind(this));
-            window.addEventListener('orientationchange', _onWindowResize.bind(this));
-            window.addEventListener('scroll', _onWindowScroll.bind(this));
+            if (this.refreshRate === 0.0)
+            {
+                mResizeHandler = _onWindowResize.bind(this);
+                mScrollHandler = _onWindowScroll.bind(this);
+            }
+            else
+            {
+                mResizeHandler = debounce(_onWindowResize.bind(this), this.refreshRate);
+                mScrollHandler = debounce(_onWindowScroll.bind(this), this.refreshRate);
+            }
+
+            window.addEventListener('resize', mResizeHandler);
+            window.addEventListener('orientationchange', mResizeHandler);
+            window.addEventListener('scroll', mScrollHandler);
         }
 
         this.setDirty(DirtyType.ALL);
@@ -112,38 +166,34 @@ function ElementUpdateDelegate(element)
     {
         if (this.debug) log('[ElementUpdateDelegate]::destroy()');
 
-        this.onUpdate = null;
+        _cancelAnimationFrame();
+
+        if (window && this.responsive)
+        {
+            window.removeEventListener('resize', mResizeHandler);
+            window.removeEventListener('orientationchange', mResizeHandler);
+            window.removeEventListener('scroll', mScrollHandler);
+        }
+
+        mResizeHandler = null;
+        mScrollHandler = null;
     };
 
     /**
      * @privileged
      * Handler invoked whenever a visual update is required.
      */
-    this.update = function(callback)
+    this.update = function()
     {
-        if (callback && typeof callback === 'function')
-        {
-            if (this._updateCallback)
-            {
-                this._updateCallback = value;
-            }
-            else
-            {
-                Object.defineProperty(this, '_updateCallback', { value: callback, writable: true });
-            }
-        }
-        else
-        {
-            if (this.debug) log('[ElementUpdateDelegate]::update()');
+        if (this.debug) log('[ElementUpdateDelegate]::update()');
 
-            if (this._updateCallback)
-            {
-                this._updateCallback.call(null, mDirtyTable);
-            }
-
-            // Reset the dirty status of all types.
-            this.setDirty(0);
+        if (this.delegate && this.delegate.update)
+        {
+            this.delegate.update.call(this.delegate, mDirtyTable);
         }
+
+        // Reset the dirty status of all types.
+        this.setDirty(0);
     };
 
     /**
@@ -151,14 +201,53 @@ function ElementUpdateDelegate(element)
      * Custom requestAnimationFrame implementation.
      * @param  {Function} callback
      */
-    var _requestAnimationFrame = (window && window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame) || function(callback)
+    var _requestAnimationFrame = function(callback)
     {
-        if (this.debug) log('[ElementUpdateDelegate]::_requestAnimationFrame(', callback, ')');
+        var raf = window && (window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame) || null;
 
-        if (window)
+        if (!raf)
         {
-            window.setTimeout(callback, 10.0);
+            raf = function(callback)
+            {
+                if (window)
+                {
+                    return window.setTimeout(callback, 10.0);
+                }
+                else
+                {
+                    return null;
+                }
+            };
         }
+
+        return raf(callback);
+    };
+
+    /**
+     * @private
+     * Custom cancelAnimationFrame implementation.
+     * @return {Function} callback
+     */
+    var _cancelAnimationFrame = function(callback)
+    {
+        var caf = window && (window.requestAnimationFrame || window.webkitCancelAnimationFrame || window.mozCancelAnimationFrame || window.oCancelAnimationFrame || window.msCancelAnimationFrame) || null;
+
+        if (!caf)
+        {
+            caf = function(callback)
+            {
+                if (window)
+                {
+                    return window.clearTimeout(callback);
+                }
+                else
+                {
+                    return null;
+                }
+            };
+        }
+
+        return caf;
     };
 
     /**
@@ -168,10 +257,7 @@ function ElementUpdateDelegate(element)
      */
     var _onWindowResize = function(event)
     {
-        if (this.responsive)
-        {
-            this.setDirty(DirtyType.SIZE);
-        }
+        this.setDirty(DirtyType.SIZE);
     };
 
     /**
@@ -181,10 +267,7 @@ function ElementUpdateDelegate(element)
      */
     var _onWindowScroll = function(event)
     {
-        if (this.responsive)
-        {
-            this.setDirty(DirtyType.POSITION);
-        }
+        this.setDirty(DirtyType.POSITION);
     };
 }
 
@@ -197,10 +280,10 @@ Object.defineProperty(ElementUpdateDelegate.prototype, 'debug', { value: false, 
 
 /**
  * @property
- * View of this ElementUpdateDelegate instance.
+ * Delegate of this ElementUpdateDelegate instance.
  * @type {Object}
  */
-Object.defineProperty(ElementUpdateDelegate.prototype, 'element', { value: null, writable: true });
+Object.defineProperty(ElementUpdateDelegate.prototype, 'delegate', { value: null, writable: true });
 
 /**
  * @property
@@ -208,6 +291,27 @@ Object.defineProperty(ElementUpdateDelegate.prototype, 'element', { value: null,
  * @type {Boolean}
  */
 Object.defineProperty(ElementUpdateDelegate.prototype, 'responsive', { value: false, writable: true });
+
+/**
+ * @property
+ * Indicates the debounce rate of this ElementUpdateDelegate instance.
+ * @type {Number}
+ */
+Object.defineProperty(ElementUpdateDelegate.prototype, 'refreshRate', { value: DEFAULT_REFRESH_RATE, writable: true });
+
+/**
+ * @property
+ * Indicates the dirty flags in which ElementUpdateDelgate instance will transmit to its child instances.
+ * @type {Number}
+ */
+Object.defineProperty(ElementUpdateDelegate.prototype, 'transmissive', { value: DirtyType.NONE, writable: true });
+
+/**
+ * @property
+ * Indicates the dirty flags in which this ElementUpdateDelegate is capable of receiving.
+ * @type {Number}
+ */
+Object.defineProperty(ElementUpdateDelegate.prototype, 'receptive', { value: DirtyType.NONE, writable: true });
 
 return ElementUpdateDelegate; }
 );

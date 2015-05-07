@@ -5,7 +5,13 @@
  *  This software is released under the MIT License:
  *  http://www.opensource.org/licenses/mit-license.php
  */
-define([], function() {
+define(
+[
+],
+function
+(
+)
+{
 
 /**
  * Gets the number of keys in a given object.

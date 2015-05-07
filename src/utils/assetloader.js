@@ -7,7 +7,23 @@
  *  This software is released under the MIT License:
  *  http://www.opensource.org/licenses/mit-license.php
  */
-define(['utils/assert', 'utils/log', 'utils/inherit', 'events/eventtype', 'events/eventdispatcher'], function(assert, log, inherit, EventType, EventDispatcher) {
+define(
+[
+    'utils/assert',
+    'utils/log',
+    'utils/inherit',
+    'events/eventtype',
+    'events/eventdispatcher'
+],
+function
+(
+    assert,
+    log,
+    inherit,
+    EventType,
+    EventDispatcher
+)
+{
 
 /**
  * @constant

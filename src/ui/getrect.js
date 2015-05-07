@@ -5,7 +5,17 @@
  *  This software is released under the MIT License:
  *  http://www.opensource.org/licenses/mit-license.php
  */
-define(['utils/assert', 'ui/getviewportrect'], function(assert, getViewportRect) {
+define(
+[
+    'utils/assert',
+    'ui/getviewportrect'
+],
+function
+(
+    assert,
+    getViewportRect
+)
+{
 
 /**
  * Gets the rect of a given element.

@@ -7,7 +7,17 @@
  *  This software is released under the MIT License:
  *  http://www.opensource.org/licenses/mit-license.php
  */
-define(['utils/assert', 'utils/log'], function(assert, log) {
+define(
+[
+    'utils/assert',
+    'utils/log'
+],
+function
+(
+    assert,
+    log
+)
+{
 
 /**
  * @constructor

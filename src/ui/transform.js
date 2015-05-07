@@ -5,7 +5,15 @@
  *  This software is released under the MIT License:
  *  http://www.opensource.org/licenses/mit-license.php
  */
-define(['utils/assert'], function(assert) {
+define(
+[
+    'utils/assert'
+],
+function
+(
+    assert
+)
+{
 
 /**
  * @todo Account for cases when either width or height is unspecified.
