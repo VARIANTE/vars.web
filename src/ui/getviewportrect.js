@@ -21,9 +21,7 @@ define
          */
         function getViewportRect()
         {
-            assert(window && document, 'Window or document undefined.');
-
-            if (!window || !document) return null;
+            if (!assert(window && document, 'Window or document undefined.')) return null;
 
             var rect = {};
 

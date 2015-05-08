@@ -40,19 +40,19 @@ define
         {
             if (properties)
             {
-                assert(!properties.top || !isNaN(properties.top), 'Top property must be a number.');
-                assert(!properties.right || !isNaN(properties.right), 'Right property must be a number.');
-                assert(!properties.bottom || !isNaN(properties.bottom), 'Bottom property must be a number.');
-                assert(!properties.left || !isNaN(properties.left), 'Left property must be a number.');
+                if (!assert(!properties.top || !isNaN(properties.top), 'Top property must be a number.')) return null;
+                if (!assert(!properties.right || !isNaN(properties.right), 'Right property must be a number.')) return null;
+                if (!assert(!properties.bottom || !isNaN(properties.bottom), 'Bottom property must be a number.')) return null;
+                if (!assert(!properties.left || !isNaN(properties.left), 'Left property must be a number.')) return null;
 
                 var units = properties.units || 'px';
 
                 if (constraints)
                 {
-                    assert(!constraints.top || !isNaN(constraints.top), 'Top constraint must be a number.');
-                    assert(!constraints.right || !isNaN(constraints.right), 'Right constraint must be a number.');
-                    assert(!constraints.bottom || !isNaN(constraints.bottom), 'Bottom constraint must be a number.');
-                    assert(!constraints.left || !isNaN(constraints.left), 'Left constraint must be a number.');
+                    if (!assert(!constraints.top || !isNaN(constraints.top), 'Top constraint must be a number.')) return null;
+                    if (!assert(!constraints.right || !isNaN(constraints.right), 'Right constraint must be a number.')) return null;
+                    if (!assert(!constraints.bottom || !isNaN(constraints.bottom), 'Bottom constraint must be a number.')) return null;
+                    if (!assert(!constraints.left || !isNaN(constraints.left), 'Left constraint must be a number.')) return null;
                 }
 
                 var top = (constraints && constraints.top) ? Math.min(properties.top, constraints.top) : properties.top;

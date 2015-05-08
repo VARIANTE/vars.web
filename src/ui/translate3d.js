@@ -38,17 +38,17 @@ define
         {
             if (properties)
             {
-                assert(!properties.x || !isNaN(properties.x), 'X property must be a number.');
-                assert(!properties.y || !isNaN(properties.y), 'Y property must be a number.');
-                assert(!properties.z || !isNaN(properties.z), 'Z property must be a number.');
+                if (!assert(!properties.x || !isNaN(properties.x), 'X property must be a number.')) return null;
+                if (!assert(!properties.y || !isNaN(properties.y), 'Y property must be a number.')) return null;
+                if (!assert(!properties.z || !isNaN(properties.z), 'Z property must be a number.')) return null;
 
                 var units = properties.units || 'px';
 
                 if (constraints)
                 {
-                    assert(!constraints.x || !isNaN(constraints.x), 'X constraint must be a number.');
-                    assert(!constraints.y || !isNaN(constraints.y), 'Y constraint must be a number.');
-                    assert(!constraints.z || !isNaN(constraints.z), 'Z constraint must be a number.');
+                    if (!assert(!constraints.x || !isNaN(constraints.x), 'X constraint must be a number.')) return null;
+                    if (!assert(!constraints.y || !isNaN(constraints.y), 'Y constraint must be a number.')) return null;
+                    if (!assert(!constraints.z || !isNaN(constraints.z), 'Z constraint must be a number.')) return null;
                 }
 
                 var x = (constraints && constraints.x) ? Math.min(properties.x, constraints.x) : properties.x;

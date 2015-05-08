@@ -9,7 +9,7 @@ define
 (
     [
         'utils/assert',
-        'ui/getviewportrect'
+        'ui/getViewportRect'
     ],
     function
     (
@@ -24,10 +24,8 @@ define
          */
         function getRect(element)
         {
-            assert(element, 'Invalid element specified.');
-            assert(window && document, 'Window or document undefined.');
-
-            if (!element || !window || !document) return null;
+            if (!assert(element, 'Invalid element specified.')) return null;
+            if (!assert(window && document, 'Window or document undefined.')) return null;
 
             if (element === window) return getViewportRect();
 

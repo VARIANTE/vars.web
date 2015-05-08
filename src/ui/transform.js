@@ -38,9 +38,9 @@ define
         {
             if (properties)
             {
-                assert(!properties.width || !isNaN(properties.width), 'Width property must be a number.');
-                assert(!properties.height || !isNaN(properties.height), 'Height property must be a number.');
-                assert(!properties.aspectRatio || !isNaN(properties.aspectRatio), 'Aspect ratio property must be a number.');
+                if (!assert(!properties.width || !isNaN(properties.width), 'Width property must be a number.')) return null;
+                if (!assert(!properties.height || !isNaN(properties.height), 'Height property must be a number.')) return null;
+                if (!assert(!properties.aspectRatio || !isNaN(properties.aspectRatio), 'Aspect ratio property must be a number.')) return null;
 
                 var units = properties.units || 'px';
                 var aspectRatio = (properties.aspectRatio) ? Number(properties.aspectRatio) : properties.width/properties.height;

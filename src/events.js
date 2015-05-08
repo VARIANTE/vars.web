@@ -10,8 +10,8 @@
 define
 (
     [
-        'events/eventdispatcher',
-        'events/eventtype'
+        'events/EventDispatcher',
+        'events/EventType'
     ],
     function
     (

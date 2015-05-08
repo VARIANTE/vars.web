@@ -25,6 +25,16 @@ define
             child.prototype = Object.create(parent.prototype);
             child.prototype.constructor = child;
 
+            // Create a 'hasProperty' member during the process to be able to identify all immediate and inherited properties.
+            Object.defineProperty(child.prototype, 'hasProperty',
+            {
+                value: function(prop)
+                {
+                    return child.prototype.hasOwnProperty(prop) || (parent.prototype.hasProperty && parent.prototype.hasProperty(prop)) || parent.prototype.hasOwnProperty(prop);
+                },
+                writable: false
+            });
+
             return parent;
         }
 

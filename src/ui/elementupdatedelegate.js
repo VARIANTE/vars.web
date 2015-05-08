@@ -13,7 +13,7 @@ define
         'utils/assert',
         'utils/debounce',
         'utils/log',
-        'enums/dirtytype'
+        'enums/DirtyType'
     ],
     function
     (
@@ -98,9 +98,9 @@ define
                 {
                     this.update();
                 }
-                else
+                else if (!this._pendingAnimationFrame)
                 {
-                    _requestAnimationFrame(this.update.bind(this));
+                    this._pendingAnimationFrame = _requestAnimationFrame(this.update.bind(this));
                 }
             };
 
@@ -137,7 +137,9 @@ define
             {
                 if (this.debug) log('[ElementUpdateDelegate]::init()');
 
-                if (window && this.responsive)
+                var r = this.respondsTo || window;
+
+                if (window && r && r.addEventListener && this.responsive)
                 {
                     if (this.refreshRate === 0.0)
                     {
@@ -152,7 +154,7 @@ define
 
                     window.addEventListener('resize', mResizeHandler);
                     window.addEventListener('orientationchange', mResizeHandler);
-                    window.addEventListener('scroll', mScrollHandler);
+                    r.addEventListener('scroll', mScrollHandler);
                 }
 
                 this.setDirty(DirtyType.ALL);
@@ -168,11 +170,13 @@ define
 
                 _cancelAnimationFrame();
 
-                if (window && this.responsive)
+                var r = this.respondsTo || window;
+
+                if (window && r && r.removeEventListener && this.responsive)
                 {
                     window.removeEventListener('resize', mResizeHandler);
                     window.removeEventListener('orientationchange', mResizeHandler);
-                    window.removeEventListener('scroll', mScrollHandler);
+                    r.removeEventListener('scroll', mScrollHandler);
                 }
 
                 mResizeHandler = null;
@@ -187,6 +191,8 @@ define
             {
                 if (this.debug) log('[ElementUpdateDelegate]::update()');
 
+                _cancelAnimationFrame(this._pendingAnimationFrame);
+
                 if (this.delegate && this.delegate.update)
                 {
                     this.delegate.update.call(this.delegate, mDirtyTable);
@@ -194,6 +200,8 @@ define
 
                 // Reset the dirty status of all types.
                 this.setDirty(0);
+
+                this._pendingAnimationFrame = null;
             };
 
             /**

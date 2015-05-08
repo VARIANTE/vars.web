@@ -10,7 +10,7 @@
 define
 (
     [
-        'enums/dirtytype'
+        'enums/DirtyType'
     ],
     function
     (

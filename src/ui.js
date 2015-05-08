@@ -13,12 +13,12 @@ define
         'ui/translate',
         'ui/translate3d',
         'ui/transform',
-        'ui/getviewportrect',
-        'ui/getrect',
-        'ui/getintersectrect',
-        'ui/element',
-        'ui/video',
-        'ui/elementupdatedelegate'
+        'ui/getViewportRect',
+        'ui/getRect',
+        'ui/getIntersectRect',
+        'ui/Element',
+        'ui/Video',
+        'ui/ElementUpdateDelegate'
     ],
     function
     (

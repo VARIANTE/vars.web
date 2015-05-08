@@ -15,10 +15,10 @@ define
         'utils/log',
         'utils/namespace',
         'utils/inherit',
-        'utils/sizeof',
-        'utils/keyofvalue',
-        'utils/isnull',
-        'utils/assetloader'
+        'utils/sizeOf',
+        'utils/keyOfValue',
+        'utils/isNull',
+        'utils/AssetLoader'
     ],
     function
     (

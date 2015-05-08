@@ -12,9 +12,9 @@ define
     [
         'utils/assert',
         'utils/log',
-        'utils/keyofvalue',
-        'enums/dirtytype',
-        'ui/elementupdatedelegate'
+        'utils/keyOfValue',
+        'enums/DirtyType',
+        'ui/ElementUpdateDelegate'
     ],
     function
     (
@@ -28,12 +28,34 @@ define
         /**
          * @constructor
          * Creates a new Element instance.
+         * @param {Object} init     Optional initial properties/element of this Element instance.
          */
-        function Element(element)
+        function Element(init)
         {
-            if (this.debug) log('[Element]::new(', element, ')');
+            log(this.toString()+':new(', init, ')');
 
-            this.element = element;
+            if (init)
+            {
+                if (init instanceof HTMLElement)
+                {
+                    this.element = init;
+                }
+                else if (init instanceof Element)
+                {
+                    this.element = init.element;
+                }
+                else if (typeof init === 'object')
+                {
+                    for (var property in init)
+                    {
+                        if (this.hasProperty(property))
+                        {
+                            this[property] = init[property];
+                        }
+                    }
+                }
+            }
+
             this.init();
         }
 
@@ -55,10 +77,7 @@ define
             },
             set: function(value)
             {
-                // Ensure that this is not overwritable.
-                assert(!this._element, 'Element cannot be overwritten.');
-
-                Object.defineProperty(this, '_element', { value: value, writable: true });
+                this.__set_element(value);
             }
         });
 
@@ -81,6 +100,13 @@ define
 
         /**
          * @property
+         * Instance name of this Element instance.
+         * @type {String}
+         */
+        Object.defineProperty(Element.prototype, 'name', { value: null, writable: true });
+
+        /**
+         * @property
          * Class of this Element instance.
          * @type {String}
          */
@@ -93,6 +119,40 @@ define
             set: function(value)
             {
                 this.element.className = value;
+            }
+        });
+
+        /**
+         * @property
+         * Class list of this Element instance.
+         * @type {String}
+         */
+        Object.defineProperty(Element.prototype, 'classList',
+        {
+            get: function()
+            {
+                return this.element.classList;
+            },
+            set: function(value)
+            {
+                this.element.classList = value;
+            }
+        });
+
+        /**
+         * @property
+         * ID of this Element instance.
+         * @type {String}
+         */
+        Object.defineProperty(Element.prototype, 'respondsTo',
+        {
+            get: function()
+            {
+                return this.updateDelegate.respondsTo;
+            },
+            set: function(value)
+            {
+                this.updateDelegate.respondsTo = value;
             }
         });
 
@@ -195,7 +255,7 @@ define
          */
         Element.prototype.init = function()
         {
-            if (this.debug) log('[Element]::init()');
+            log(this.toString()+'::init()');
 
             this.updateDelegate.init();
         };
@@ -206,7 +266,7 @@ define
          */
         Element.prototype.destroy = function()
         {
-            if (this.debug) log('[Element]::destroy()');
+            log(this.toString()+'::destroy()');
 
             this.updateDelegate.destroy();
         };
@@ -217,7 +277,7 @@ define
          */
         Element.prototype.update = function()
         {
-            if (this.debug) log('[Element]::update()');
+            log(this.toString()+'::update()');
         };
 
         /**
@@ -227,12 +287,15 @@ define
          */
         Element.prototype.addVirtualChild = function(child, name)
         {
-            assert(name, 'Child name must be provided.');
-            assert(!this.virtualChildren[name], 'Child name is already taken.');
+            if (!assert(child instanceof Element, 'Child must conform to VARS Element.')) return null;
 
-            if (!name || this.virtualChildren[name]) return null;
+            name = name || child.name;
+
+            if (!assert(name || child.name, 'Child name must be provided.')) return null;
+            if (!assert(!this.virtualChildren[name], 'Child name is already taken.')) return null;
 
             this.virtualChildren[name] = child;
+            child.name = name;
 
             return child;
         };
@@ -244,7 +307,8 @@ define
          */
         Element.prototype.removeVirtualChild = function(child)
         {
-            assert(child, 'Child is null.');
+            if (!assert(child, 'Child is null.')) return null;
+            if (!assert(child instanceof Element, 'Child must conform to VARS Element.')) return null;
 
             var key = keyOfValue(this.virtualChildren, child);
 
@@ -263,7 +327,7 @@ define
          */
         Element.prototype.removeVirtualChildByName = function(name)
         {
-            assert(name, 'Name is null.');
+            if (!assert(name, 'Name is null.')) return null;
 
             var child = this.virtualChildren[name];
 
@@ -293,6 +357,26 @@ define
         Element.prototype.toString = function()
         {
             return '[Element{' + this.name + '}]';
+        };
+
+        /**
+         * Stubbed out setter for element property (for overriding purposes).
+         * @param  {Object} value The DOM element.
+         */
+        Element.prototype.__set_element = function(value)
+        {
+            // Ensure that this is not overwritable.
+            assert(!this._element, 'Element cannot be overwritten.');
+            assert((value instanceof HTMLElement) || (value instanceof Element), 'Invalid element type specified. Must be an instance of HTMLElement or Element.');
+
+            if (value instanceof Element)
+            {
+                Object.defineProperty(this, '_element', { value: value.element, writable: true });
+            }
+            else
+            {
+                Object.defineProperty(this, '_element', { value: value, writable: true });
+            }
         };
 
         return Element;

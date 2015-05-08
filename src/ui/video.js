@@ -13,8 +13,8 @@ define
         'utils/assert',
         'utils/log',
         'utils/inherit',
-        'enums/dirtytype',
-        'ui/element'
+        'enums/DirtyType',
+        'ui/Element'
     ],
     function
     (
@@ -29,13 +29,9 @@ define
          * @constructor
          * Creates a new Video instance.
          */
-        function Video(element)
+        function Video(init)
         {
-            Element.call(this, element);
-
-            if (this.debug) log('[Video]::new(', element, ')');
-
-            assert(!element || (element instanceof HTMLVideoElement), 'Invalid element type specified. Must be an instance of HTMLVideoElement.');
+            Element.call(this, init);
         } var parent = inherit(Video, Element);
 
         /**
@@ -187,8 +183,6 @@ define
          */
         Video.prototype.update = function(dirtyTypes)
         {
-            if (this.debug) log('[Video]::update()');
-
             if (this.isDirty(DirtyType.DATA))
             {
                 this._updateSource();
@@ -247,6 +241,23 @@ define
 
                 this.element.appendChild(newSource);
             }
+        };
+
+        /**
+         * @inheritDoc
+         */
+        Video.prototype.toString = function()
+        {
+            return '[Video{' + this.name + '}]';
+        };
+
+        /**
+         * @inheritDoc
+         */
+        Video.prototype.__set_element = function(value)
+        {
+            assert(value instanceof HTMLVideoElement, 'Invalid element type specified. Must be an instance of HTMLVideoElement.');
+            parent.prototype.__set_element.call(this, value);
         };
 
         return Video;

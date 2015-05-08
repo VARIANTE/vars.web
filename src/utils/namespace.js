@@ -23,8 +23,8 @@ define
          */
         function namespace(identifiers, scope)
         {
-            assert(typeof identifiers === 'string', 'Invalid identifiers specified.');
-            assert(typeof scope === 'undefined' || typeof scope === 'object', 'Invalid scope specified.');
+            if (!assert(typeof identifiers === 'string', 'Invalid identifiers specified.')) return null;
+            if (!assert(typeof scope === 'undefined' || typeof scope === 'object', 'Invalid scope specified.')) return null;
 
             var groups = identifiers.split('.');
             var currentScope = (scope === undefined || scope === null) ? window : scope;

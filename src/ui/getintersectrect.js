@@ -9,7 +9,7 @@ define
 (
     [
         'utils/assert',
-        'ui/getrect'
+        'ui/getRect'
     ],
     function
     (
@@ -26,10 +26,8 @@ define
          */
         function getIntersectRect(element1, element2)
         {
-            assert(element1 || element2, 'Invalid elements specified.');
-            assert(window && document, 'Window or document undefined.');
-
-            if (!(element1 || element2) || !(window && document)) return null;
+            if (!assert(element1 || element2, 'Invalid elements specified.')) return null;
+            if (!assert(window && document, 'Window or document undefined.')) return null;
 
             var rect1 = getRect(element1 || window);
             var rect2 = getRect(element2 || window);

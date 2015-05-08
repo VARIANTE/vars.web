@@ -13,8 +13,8 @@ define
         'utils/assert',
         'utils/log',
         'utils/inherit',
-        'events/eventtype',
-        'events/eventdispatcher'
+        'events/EventType',
+        'events/EventDispatcher'
     ],
     function
     (
