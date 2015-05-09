@@ -36,8 +36,8 @@ define
 
             rect.width  = (element.outerWidth) ? element.outerWidth() : element.getBoundingClientRect().width;
             rect.height = (element.outerHeight) ? element.outerHeight() : element.getBoundingClientRect().height;
-            rect.top    = (element.offset) ? element.offset().top : element.getBoundingClientRect().top - fov.top;
-            rect.left   = (element.offset) ? element.offset().left : element.getBoundingClientRect().left - fov.left;
+            rect.top    = (element.offset) ? element.offset().top : element.getBoundingClientRect().top + fov.top;
+            rect.left   = (element.offset) ? element.offset().left : element.getBoundingClientRect().left + fov.left;
             rect.bottom = rect.top + rect.height;
             rect.right  = rect.left + rect.width;
 
