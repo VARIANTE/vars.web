@@ -30,7 +30,7 @@ define
          *
          * @type {String}
          */
-        Object.defineProperty(vars, 'version', { value: '0.4.1', writable: false });
+        Object.defineProperty(vars, 'version', { value: '0.5.0', writable: false });
 
         /**
          * Indicates whether vars should behave in debug mode in runtime. This enables various
