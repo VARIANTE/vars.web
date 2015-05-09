@@ -12,6 +12,7 @@ define
     {
         /**
          * DOM native events.
+         *
          * @see http://www.w3schools.com/jsref/dom_obj_event.asp
          */
         MOUSE:

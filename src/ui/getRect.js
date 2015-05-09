@@ -19,7 +19,9 @@ define
     {
         /**
          * Gets the rect of a given element.
+         *
          * @param  {Object} element
+         *
          * @return {Object} Object containing top, left, bottom, right, width, height.
          */
         function getRect(element)

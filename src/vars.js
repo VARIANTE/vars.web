@@ -2,7 +2,7 @@
  *  vars.js
  *  (c) VARIANTE (http://variante.io)
  *
- *  Main library API.
+ *  Construction of the VARS API.
  *
  *  This software is released under the MIT License:
  *  http://www.opensource.org/licenses/mit-license.php
@@ -27,46 +27,48 @@ define
 
         /**
          * Version.
+         *
          * @type {String}
          */
-        Object.defineProperty(vars, 'version', { value: '0.2.0', writable: false });
+        Object.defineProperty(vars, 'version', { value: '0.4.0', writable: false });
 
         /**
-         * Indicates whether VARS should use debug runtime.
+         * Indicates whether vars should behave in debug mode in runtime. This enables various
+         * features such as logging and assertion.
+         *
          * @type {Boolean}
          */
         Object.defineProperty(vars, 'debug', { value: false, writable: true });
 
         /**
-         * Load enums module.
-         * @type {Object}
+         * Inject the 'enums' module and all of its sub-modules into the main vars module.
          */
-        extendAPI('enums', enums);
+        inject('enums', enums);
 
         /**
-         * Load events module.
-         * @type {Object}
+         * Inject the 'events' module and all of its sub-modules into the main vars module.
          */
-        extendAPI('events', events);
+        inject('events', events);
 
         /**
-         * Load ui module.
-         * @type {Object}
+         * Inject the 'ui' module and all of its sub-modules into the main vars module.
          */
-        extendAPI('ui', ui);
+        inject('ui', ui);
 
         /**
-         * Load utils module.
-         * @type {Object}
+         * Inject the 'utils' module and all of its sub-modules into the main vars module.
          */
-        extendAPI('utils', utils);
+        inject('utils', utils);
 
         /**
-         * Appends a module to the main API.
-         * @param  {String} name   Name of the module.
-         * @param  {Object} module Module object.
+         * @private
+         *
+         * Injects a module and all of its sub-modules into the main vars module.
+         *
+         * @param  {String} name   Name of the module (used as the key for the key-value pair in vars).
+         * @param  {Object} module Module object (used as value for the key-value pair in VARS).
          */
-        function extendAPI(name, module)
+        function inject(name, module)
         {
             Object.defineProperty(vars, name, { value: module, writable: false });
 

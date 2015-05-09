@@ -17,6 +17,7 @@ define
     {
         /**
          * Translates a DOM element.
+         *
          * @param  {Object} element     Target DOM element
          * @param  {Object} properties  Translation properties: x/y/z/units
          *                              {
@@ -32,6 +33,7 @@ define
          *                                  {Number} y:     Bounded y-coordinate
          *                                  {Number} z:     Bounded z-coordinate
          *                              }
+         *
          * @return {Object} Translated properties.
          */
         function translate3d(element, properties, constraints)

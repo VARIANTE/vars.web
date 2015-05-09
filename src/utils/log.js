@@ -14,7 +14,7 @@ define
     )
     {
         /**
-         * Logs to console.
+         * Logs to console if debug mode is on.
          */
         function log()
         {

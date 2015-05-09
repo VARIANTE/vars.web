@@ -21,6 +21,7 @@ define
     {
         /**
          * @constructor
+         *
          * Creates a new EventDispatcher instance.
          */
         function EventDispatcher(element)
@@ -30,7 +31,9 @@ define
 
         /**
          * @property
+         *
          * Specifies whether this EventDispatcher instance generates debug data.
+         *
          * @type {Object}
          */
         Object.defineProperty(EventDispatcher.prototype, 'debug',
@@ -49,7 +52,9 @@ define
 
         /**
          * @public
+         *
          * Adds an event listener to this EventDispatcher instance.
+         *
          * @param {String} type
          * @param {Function} listener
          */
@@ -78,8 +83,10 @@ define
 
         /**
          * @public
+         *
          * Removes an event listener from this EventDispatcher instance. If no listener method is
          * specified, all the listeners of the specified type will be removed.
+         *
          * @param {String} type
          * @param {Function} listener (Optional)
          */
@@ -112,11 +119,14 @@ define
 
         /**
          * @public
+         *
          * Determines whether this EventDispatcher instance has a specific event listener registered.
          * If no listener is specified, it will check if any listener of the specified event type
          * is registered.
+         *
          * @param {String} type
          * @param {Function} listener (Optional)
+         *
          * @return {Boolean}
          */
         EventDispatcher.prototype.hasEventListener = function(type, listener)
@@ -143,7 +153,9 @@ define
 
         /**
          * @public
+         *
          * Dispatches the specified event.
+         *
          * @param  {String} event
          */
         EventDispatcher.prototype.dispatchEvent = function(event)

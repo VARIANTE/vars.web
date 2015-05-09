@@ -16,8 +16,8 @@ define
     )
     {
         /**
-         * @todo Account for cases when either width or height is unspecified.
          * Transforms a DOM element.
+         *
          * @param  {Object} element     Target DOM element.
          * @param  {Object} properties  Transformation properties:
          *                              {
@@ -32,6 +32,7 @@ define
          *                                  {Number} width:  Bounded width of the element.
          *                                  {Number} height: Bounded height of the element.
          *                              }
+         *
          * @return {Object} Transformed properties.
          */
         function transform(element, properties, constraints)

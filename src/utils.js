@@ -2,7 +2,7 @@
  *  vars.js
  *  (c) VARIANTE (http://variante.io)
  *
- *  Utilities.
+ *  Module of utility methods/classes.
  *
  *  This software is released under the MIT License:
  *  http://www.opensource.org/licenses/mit-license.php

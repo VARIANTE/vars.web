@@ -2,7 +2,8 @@
  *  vars.js
  *  (c) VARIANTE (http://variante.io)
  *
- *  UI classes.
+ *  Module of methods/classes related to UI manipulation and
+ *  operations.
  *
  *  This software is released under the MIT License:
  *  http://www.opensource.org/licenses/mit-license.php

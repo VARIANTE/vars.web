@@ -20,8 +20,10 @@ define
         /**
          * Computes the intersecting rect of 2 given elements. If only 1 element is specified, the other
          * element will default to the current viewport.
+         *
          * @param  {Object} element1
-         * @param  {Object} element1
+         * @param  {Object} element2
+         *
          * @return {Object} Object containing width, height.
          */
         function getIntersectRect(element1, element2)

@@ -27,8 +27,10 @@ define
     {
         /**
          * @constructor
+         *
          * Creates a new Element instance.
-         * @param {Object} init     Optional initial properties/element of this Element instance.
+         *
+         * @param {Object} init Optional initial properties/element of this Element instance.
          */
         function Element(init)
         {
@@ -61,7 +63,9 @@ define
 
         /**
          * @property
+         *
          * View of this Element instance.
+         *
          * @type {Object}
          */
         Object.defineProperty(Element.prototype, 'element',
@@ -83,7 +87,9 @@ define
 
         /**
          * @property
+         *
          * ID of this Element instance.
+         *
          * @type {String}
          */
         Object.defineProperty(Element.prototype, 'id',
@@ -100,14 +106,18 @@ define
 
         /**
          * @property
+         *
          * Instance name of this Element instance.
+         *
          * @type {String}
          */
         Object.defineProperty(Element.prototype, 'name', { value: null, writable: true });
 
         /**
          * @property
+         *
          * Class of this Element instance.
+         *
          * @type {String}
          */
         Object.defineProperty(Element.prototype, 'class',
@@ -124,7 +134,9 @@ define
 
         /**
          * @property
+         *
          * Class list of this Element instance.
+         *
          * @type {String}
          */
         Object.defineProperty(Element.prototype, 'classList',
@@ -141,7 +153,9 @@ define
 
         /**
          * @property
+         *
          * ID of this Element instance.
+         *
          * @type {String}
          */
         Object.defineProperty(Element.prototype, 'respondsTo',
@@ -158,14 +172,18 @@ define
 
         /**
          * @property (read-only)
+         *
          * Virtual child elements.
+         *
          * @type {Object}
          */
         Object.defineProperty(Element.prototype, 'virtualChildren', { value: {}, writable: false });
 
         /**
          * @property
+         *
          * Specifies whether this Element instance generates debug data.
+         *
          * @type {Object}
          */
         Object.defineProperty(Element.prototype, 'debug',
@@ -184,7 +202,9 @@ define
 
         /**
          * @property
+         *
          * Specifies the data providers of this Element instance.
+         *
          * @type {*}
          */
         Object.defineProperty(Element.prototype, 'data',
@@ -203,7 +223,9 @@ define
 
         /**
          * @property
+         *
          * ViewUpdateDelegate instance.
+         *
          * @type {ViewUpdateDelegate}
          */
         Object.defineProperty(Element.prototype, 'updateDelegate',
@@ -221,7 +243,9 @@ define
 
         /**
          * @property
+         *
          * Specifies whether this Element auto responds to window behaviors.
+         *
          * @type {Boolean}
          */
         Object.defineProperty(Element.prototype, 'responsive',
@@ -237,8 +261,8 @@ define
         });
 
         /**
-         * @property
          * Determines whether the element is dirty with specified dirty type(s).
+         *
          * @type {Function}
          */
         Object.defineProperty(Element.prototype, 'isDirty',
@@ -250,7 +274,6 @@ define
         });
 
         /**
-         * @public
          * Initializes this Element instance. Must manually invoke.
          */
         Element.prototype.init = function()
@@ -261,7 +284,6 @@ define
         };
 
         /**
-         * @public
          * Destroys this Element instance.
          */
         Element.prototype.destroy = function()
@@ -272,7 +294,6 @@ define
         };
 
         /**
-         * @public
          * Handler invoked whenever a visual update is required.
          */
         Element.prototype.update = function()
@@ -282,6 +303,7 @@ define
 
         /**
          * Adds a virtual child to this Element instance.
+         *
          * @param {Object} child
          * @param {Object} The added child.
          */
@@ -302,7 +324,9 @@ define
 
         /**
          * Removes a virtual child from this Element instance.
+         *
          * @param  {Object} child
+         *
          * @return {Object} The removed child.
          */
         Element.prototype.removeVirtualChild = function(child)
@@ -322,7 +346,9 @@ define
 
         /**
          * Removes a virtual child by its name.
+         *
          * @param  {String} name
+         *
          * @return {Object} The removed child.
          */
         Element.prototype.removeVirtualChildByName = function(name)
@@ -340,8 +366,8 @@ define
         };
 
         /**
-         * @public
          * Creates the associated DOM element from scratch.
+         *
          * @return {Element}
          */
         Element.prototype.factory = function()
@@ -350,8 +376,10 @@ define
         };
 
         /**
-         * @protected
+         * @public
+         *
          * Gets the string representation of this Element instance.
+         *
          * @return {String}
          */
         Element.prototype.toString = function()
@@ -360,7 +388,10 @@ define
         };
 
         /**
+         * @private
+         *
          * Stubbed out setter for element property (for overriding purposes).
+         *
          * @param  {Object} value The DOM element.
          */
         Element.prototype.__set_element = function(value)

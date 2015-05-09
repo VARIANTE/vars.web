@@ -27,28 +27,36 @@ define
     {
         /**
          * @constant
+         *
          * Common image file extensions.
+         *
          * @type {Array}
          */
         var IMAGE_EXTENSIONS = ['jpg', 'png', 'svg', 'jpeg', 'gif'];
 
         /**
          * @constant
+         *
          * Common video file extensions.
+         *
          * @type {Array}
          */
         var VIDEO_EXTENSIONS = ['mp4', 'mpeg', 'ogg', 'ogv', 'mov', 'avi', 'flv'];
 
         /**
          * @constant
+         *
          * Common audio file extensions.
+         *
          * @type {Array}
          */
         var AUDIO_EXTENSIONS = ['mp3', 'mp4', 'mpeg', 'flac', 'wav', 'ogg'];
 
         /**
          * @constant
+         *
          * Mime type lookup.
+         *
          * @type {Object}
          */
         var MIME_TYPES =
@@ -84,6 +92,7 @@ define
 
         /**
          * @constructor
+         *
          * Creates a new AssetLoader instance.
          */
         function AssetLoader()
@@ -95,7 +104,9 @@ define
 
         /**
          * @static
+         *
          * Different states of AssetLoader.
+         *
          * @type {Enum}
          */
         AssetLoader.STATE =
@@ -109,7 +120,9 @@ define
 
         /**
          * @static
+         *
          * Different supported asset types of AssetLoader.
+         *
          * @type {Object}
          */
         AssetLoader.TYPE =
@@ -121,14 +134,18 @@ define
 
         /**
          * @property
+         *
          * Specifies whether this AssetLoader instance generates debug data.
+         *
          * @type {Object}
          */
         Object.defineProperty(AssetLoader.prototype, 'debug', { value: false, writable: true });
 
         /**
          * @property
+         *
          * Specifies the current state of this AssetLoader instance.
+         *
          * @type {Number}
          */
         Object.defineProperty(AssetLoader.prototype, 'state',
@@ -146,7 +163,9 @@ define
 
         /**
          * @property
+         *
          * View of this AssetLoader instance.
+         *
          * @type {Object}
          */
         Object.defineProperty(AssetLoader.prototype, 'queue',
@@ -164,7 +183,9 @@ define
 
         /**
          * @property
+         *
          * Loaded assets.
+         *
          * @type {Object}
          */
         Object.defineProperty(AssetLoader.prototype, 'assets',
@@ -182,7 +203,9 @@ define
 
         /**
          * @property
+         *
          * Specifies whether the XHR operations run in async.
+         *
          * @type {Boolean}
          */
         Object.defineProperty(AssetLoader.prototype, 'async',
@@ -211,7 +234,9 @@ define
 
         /**
          * @property
+         *
          * Specifies the total bytes loaded for all assets in the queue.
+         *
          * @type {Number}
          */
         Object.defineProperty(AssetLoader.prototype, 'bytesLoaded',
@@ -241,7 +266,9 @@ define
 
         /**
          * @property
+         *
          * Specifies the total bytes for all assets in the queue.
+         *
          * @type {Number}
          */
         Object.defineProperty(AssetLoader.prototype, 'bytesTotal',
@@ -269,7 +296,9 @@ define
 
         /**
          * @property
+         *
          * Specifies the current progress (in decimals) of the entire operation.
+         *
          * @return {Number}
          */
         Object.defineProperty(AssetLoader.prototype, 'progress',
@@ -456,7 +485,9 @@ define
 
         /**
          * Creates and returns a new XHR instance with prepopulated configurations.
+         *
          * @param  {Object} data
+         *
          * @return {Object} XHR instance.
          */
         AssetLoader.prototype.getXHR = function(data)
@@ -484,7 +515,9 @@ define
 
         /**
          * @private
+         *
          * Handler invoked when an XHR instance is in progress.
+         *
          * @param  {Object} event
          */
         AssetLoader.prototype._onXHRProgress = function(event)
@@ -517,7 +550,9 @@ define
 
         /**
          * @private
+         *
          * Handler invoked when an XHR instance completes its operation.
+         *
          * @param  {Object} event
          */
         AssetLoader.prototype._onXHRLoadComplete = function(event)
@@ -539,7 +574,9 @@ define
 
         /**
          * @private
+         *
          * Handler invoked when an XHR instance fails its operation.
+         *
          * @param  {Object} event
          */
         AssetLoader.prototype._onXHRLoadError = function(event)
@@ -569,7 +606,9 @@ define
 
         /**
          * @private
+         *
          * Handler invoked when an XHR aborts its operation.
+         *
          * @param  {Object} event
          */
         AssetLoader.prototype._onXHRAbort = function(event)

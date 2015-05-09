@@ -17,6 +17,7 @@ define
     {
         /**
          * Gets the rect of the viewport (FOV).
+         *
          * @return {Object} Object containing top, left, bottom, right, width, height.
          */
         function getViewportRect()

@@ -17,6 +17,7 @@ define
     {
         /**
          * Translates a DOM element.
+         *
          * @param  {Object} element     Target DOM element
          * @param  {Object} properties  Translation properties:
          *                              {
@@ -34,6 +35,7 @@ define
          *                                  {Number} bottom: Bounded bottom translation value
          *                                  {Number} left:   Bounded left translation value
          *                              }
+         *
          * @return {Object} Translated properties.
          */
         function translate(element, properties, constraints)

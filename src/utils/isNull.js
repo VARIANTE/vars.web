@@ -15,7 +15,9 @@ define
     {
         /**
          * Checks if a given object is equal to null (type-insensitive).
-         * @param  {Object}  object
+         *
+         * @param  {Object} object
+         *
          * @return {Boolean}
          */
         function isNull(object)

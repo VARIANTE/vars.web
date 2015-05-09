@@ -2,7 +2,7 @@
  *  vars.js
  *  (c) VARIANTE (http://variante.io)
  *
- *  Event classes.
+ *  Module of methods/classes related to the native event system.
  *
  *  This software is released under the MIT License:
  *  http://www.opensource.org/licenses/mit-license.php

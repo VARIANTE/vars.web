@@ -27,6 +27,7 @@ define
     {
         /**
          * @constructor
+         *
          * Creates a new Video instance.
          */
         function Video(init)
@@ -36,8 +37,11 @@ define
 
         /**
          * @static
+         *
          * Constants for the 'preload' attribute.
+         *
          * @type {Object}
+         *
          * @see  http://www.w3schools.com/tags/tag_video.asp
          */
         Video.PRELOAD =
@@ -49,7 +53,9 @@ define
 
         /**
          * @property
+         *
          * Specifies that the video will start playing as soon as it is ready.
+         *
          * @type {Boolean}
          */
         Object.defineProperty(Video.prototype, 'autoplay',
@@ -67,7 +73,9 @@ define
 
         /**
          * @property
+         *
          * Specifies that video controls should be displayed (such as a play/pause button etc).
+         *
          * @type {Boolean}
          */
         Object.defineProperty(Video.prototype, 'controls',
@@ -85,7 +93,9 @@ define
 
         /**
          * @property
+         *
          * Specifies that the video will start over again, every time it is finished.
+         *
          * @type {Boolean}
          */
         Object.defineProperty(Video.prototype, 'loop',
@@ -103,7 +113,9 @@ define
 
         /**
          * @property
+         *
          * Specifies that the audio output of the video should be muted.
+         *
          * @type {Boolean}
          */
         Object.defineProperty(Video.prototype, 'muted',
@@ -121,7 +133,9 @@ define
 
         /**
          * @property
+         *
          * Specifies an image to be shown while the video is downloading, or until the user hits the play button.
+         *
          * @type {String}   URL of image
          */
         Object.defineProperty(Video.prototype, 'poster',
@@ -139,7 +153,9 @@ define
 
         /**
          * @property
+         *
          * Specifies if and how the author thinks the video should be loaded when the page loads
+         *
          * @type {String}   See Video.AUTOPLAY
          */
         Object.defineProperty(Video.prototype, 'preload',
@@ -157,12 +173,14 @@ define
 
         /**
          * @property
+         *
          * Array of sources containing elements in the form of:
          *     Object
          *     {
          *         src: {PATH_OF_SOURCE} (String)
          *         type: {TYPE_OF_SOURCE} (String)
          *     }
+         *
          * @type {Array}
          */
         Object.defineProperty(Video.prototype, 'source',
@@ -206,6 +224,7 @@ define
 
         /**
          * @private
+         *
          * Updates the sources in this Video instance.
          */
         Video.prototype._updateSource = function()
