@@ -18,7 +18,7 @@ define
          */
         function log()
         {
-            if (window && window.vars.debug && window.console && console.log)
+            if (window && window.vars && window.vars.debug && window.console && console.log)
             {
                 Function.apply.call(console.log, console, arguments);
             }
