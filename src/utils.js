@@ -16,6 +16,7 @@ define
         'utils/namespace',
         'utils/inherit',
         'utils/sizeOf',
+        'utils/module',
         'utils/keyOfValue',
         'utils/isNull',
         'utils/AssetLoader'
@@ -28,6 +29,7 @@ define
         namespace,
         inherit,
         sizeOf,
+        module,
         keyOfValue,
         isNull,
         AssetLoader
@@ -41,6 +43,7 @@ define
         Object.defineProperty(api, 'namespace', { value: namespace, writable: false, enumerable: true });
         Object.defineProperty(api, 'inherit', { value: inherit, writable: false, enumerable: true });
         Object.defineProperty(api, 'sizeOf', { value: sizeOf, writable: false, enumerable: true });
+        Object.defineProperty(api, 'module', { value: module, writable: false, enumerable: true });
         Object.defineProperty(api, 'keyOfValue', { value: keyOfValue, writable: false, enumerable: true });
         Object.defineProperty(api, 'isNull', { value: isNull, writable: false, enumerable: true });
         Object.defineProperty(api, 'AssetLoader', { value: AssetLoader, writable: false, enumerable: true });
