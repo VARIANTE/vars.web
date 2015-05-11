@@ -38,6 +38,11 @@ define
                     window.detachEvent('onload', onLoaded);
                 }
 
+                setTimeout(initialize, 1);
+            };
+
+            var initialize = function()
+            {
                 var module = new impl(init);
 
                 if (window && !window.module)
@@ -48,7 +53,7 @@ define
 
             if (document.readyState === 'complete')
             {
-                return setTimeout(onLoaded, 1);
+                return setTimeout(initialize, 1);
             }
 
             if (document.addEventListener)
