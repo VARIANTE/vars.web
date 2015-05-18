@@ -55,7 +55,7 @@ define
         /**
          * Inject the 'math' module and all of its sub-modules into the main vars module.
          */
-        inject('math', events);
+        inject('math', math);
 
         /**
          * Inject the 'ui' module and all of its sub-modules into the main vars module.
