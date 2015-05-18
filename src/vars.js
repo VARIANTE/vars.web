@@ -12,6 +12,7 @@ define
     [
         'enums',
         'events',
+        'math',
         'ui',
         'utils'
     ],
@@ -19,6 +20,7 @@ define
     (
         enums,
         events,
+        math,
         ui,
         utils
     )
@@ -49,6 +51,11 @@ define
          * Inject the 'events' module and all of its sub-modules into the main vars module.
          */
         inject('events', events);
+
+        /**
+         * Inject the 'math' module and all of its sub-modules into the main vars module.
+         */
+        inject('math', events);
 
         /**
          * Inject the 'ui' module and all of its sub-modules into the main vars module.
