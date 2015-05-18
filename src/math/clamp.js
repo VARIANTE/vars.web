@@ -24,7 +24,7 @@ define
          */
         function clamp(value, min, max)
         {
-            if ((typeof value !== 'number') || (typeof min !== 'number') || (typeof max !== 'number')) return;
+            if ((typeof value !== 'number') || (typeof min !== 'number') || (typeof max !== 'number')) return NaN;
 
             var output = value;
 
