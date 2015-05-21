@@ -201,12 +201,12 @@ define
          */
         Video.prototype.update = function(dirtyTypes)
         {
-            if (this.isDirty(DirtyType.DATA))
+            if (this.updateDelegate.isDirty(DirtyType.DATA))
             {
                 this._updateSource();
             }
 
-            if (this.isDirty(DirtyType.CUSTOM))
+            if (this.updateDelegate.isDirty(DirtyType.CUSTOM))
             {
 
             }
