@@ -356,11 +356,11 @@ define
         /**
          * @property
          *
-         * Indicates the conductor in which this ElementUpdateDelegate responds to.
+         * Indicates the conductor in which this ElementUpdateDelegate responds to (defaults to window).
          *
          * @type {Object}
          */
-        Object.defineProperty(ElementUpdateDelegate.prototype, 'conductor', { value: null, writable: true });
+        Object.defineProperty(ElementUpdateDelegate.prototype, 'conductor', { value: window, writable: true });
 
         /**
          * @protected
