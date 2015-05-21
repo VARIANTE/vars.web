@@ -147,7 +147,7 @@ define
             {
                 if (this.debug) log('[ElementUpdateDelegate]::init()');
 
-                var r = this.respondsTo || window;
+                var r = this.conductor || window;
 
                 if (window && r && r.addEventListener && this.responsive)
                 {
@@ -181,7 +181,7 @@ define
 
                 _cancelAnimationFrame();
 
-                var r = this.respondsTo || window;
+                var r = this.conductor || window;
 
                 if (window && r && r.removeEventListener && this.responsive)
                 {
@@ -352,6 +352,15 @@ define
          * @type {Number}
          */
         Object.defineProperty(ElementUpdateDelegate.prototype, 'receptive', { value: DirtyType.NONE, writable: true });
+
+        /**
+         * @property
+         *
+         * Indicates the conductor in which this ElementUpdateDelegate responds to.
+         *
+         * @type {Object}
+         */
+        Object.defineProperty(ElementUpdateDelegate.prototype, 'conductor', { value: null, writable: true });
 
         /**
          * @protected

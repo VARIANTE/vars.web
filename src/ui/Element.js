@@ -152,25 +152,6 @@ define
         });
 
         /**
-         * @property
-         *
-         * ID of this Element instance.
-         *
-         * @type {String}
-         */
-        Object.defineProperty(Element.prototype, 'respondsTo',
-        {
-            get: function()
-            {
-                return this.updateDelegate.respondsTo;
-            },
-            set: function(value)
-            {
-                this.updateDelegate.respondsTo = value;
-            }
-        });
-
-        /**
          * @property (read-only)
          *
          * Virtual child elements.
@@ -238,38 +219,6 @@ define
                 }
 
                 return this._updateDelegate;
-            }
-        });
-
-        /**
-         * @property
-         *
-         * Specifies whether this Element auto responds to window behaviors.
-         *
-         * @type {Boolean}
-         */
-        Object.defineProperty(Element.prototype, 'responsive',
-        {
-            get: function()
-            {
-                return this.updateDelegate.responsive;
-            },
-            set: function(value)
-            {
-                this.updateDelegate.responsive = value;
-            }
-        });
-
-        /**
-         * Determines whether the element is dirty with specified dirty type(s).
-         *
-         * @type {Function}
-         */
-        Object.defineProperty(Element.prototype, 'isDirty',
-        {
-            get: function()
-            {
-                return this.updateDelegate.isDirty;
             }
         });
 
