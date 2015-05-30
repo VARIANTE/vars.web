@@ -1,25 +1,21 @@
 {
-    "name": "vars",
-    "version": "0.6.7",
-    "homepage": "http://variante.io",
-    "license": "MIT",
-    "private": true,
-    "main": "dist/vars.js",
-    "authors":
-    [
-        "Andrew Wei <andrew@variante.io>"
-    ],
-    "repository":
-    {
-        "type": "git",
-        "url": "https://github.com/VARIANTE/vars.js.git"
-    },
-    "devDependencies":
-    {
-        "del": "^1.1.1",
-        "gulp": "^3.8.11",
-        "gulp-load-plugins": "^0.8.1",
-        "gulp-util": "^3.0.4",
-        "requirejs": "~2.1.15"
-    }
+  "name": "vars",
+  "version": "0.6.7",
+  "homepage": "http://variante.io",
+  "license": "MIT",
+  "private": true,
+  "main": "dist/vars.js",
+  "authors": [
+    "Andrew Wei <andrew@variante.io>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VARIANTE/vars.js.git"
+  },
+  "devDependencies": {
+    "almond": "^0.3.1",
+    "del": "^1.1.1",
+    "gulp": "^3.8.11",
+    "requirejs": "~2.1.15"
+  }
 }

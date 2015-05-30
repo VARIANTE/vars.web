@@ -12,7 +12,6 @@
 
 var gulp = require('gulp');
 var r = require('requirejs');
-var $ = require('gulp-load-plugins')();
 
 /**
  * Clean task.
@@ -22,7 +21,7 @@ gulp.task('clean', require('del').bind(null, ['dist']));
 /**
  * Build bask.
  */
-gulp.task('build', function()
+gulp.task('build', ['clean'], function()
 {
     r.optimize
     (
@@ -36,7 +35,7 @@ gulp.task('build', function()
             // Paths of modules.
             paths:
             {
-                almond: '../bower_components/almond/almond'
+                almond: '../node_modules/almond/almond'
             },
 
             // Modules included in the distributed library.
@@ -50,7 +49,43 @@ gulp.task('build', function()
             },
 
             // Option to minify JS files.
-            optimize: ($.util.env['debug']) ? 'none' : 'uglify2',
+            optimize: 'none',
+
+            // Option to strip comments.
+            preserveLicenseComments: false,
+
+            // Option to generate source maps for the original modules.
+            generateSourceMaps: true
+        }
+    );
+
+    r.optimize
+    (
+        {
+            // All paths used by the r.js optimizer will be relative to this base URL.
+            baseUrl: 'src',
+
+            // File of the distributed library.
+            out: 'dist/vars.min.js',
+
+            // Paths of modules.
+            paths:
+            {
+                almond: '../node_modules/almond/almond'
+            },
+
+            // Modules included in the distributed library.
+            include: ['almond', 'vars'],
+
+            // Wrapper for AMD, CommonJS and browser compatibility.
+            wrap:
+            {
+                startFile: 'src/_start.js',
+                endFile:   'src/_end.js'
+            },
+
+            // Option to minify JS files.
+            optimize: 'uglify2',
 
             // Option to strip comments.
             preserveLicenseComments: false,
@@ -64,7 +99,7 @@ gulp.task('build', function()
 /**
  * Default task.
  */
-gulp.task('default', ['clean'], function()
+gulp.task('default', function()
 {
     gulp.start('build');
     gulp.watch('src/**/*.js', ['build']);
