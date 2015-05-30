@@ -1,6 +1,6 @@
-# VARIANTE Stack (vars.js)
+# VARIANTE Stack (VARS) for Web
 
-JavaScript front-end framework, intended for internal use only.
+Web front-end framework, intended for internal use only.
 
 ## License
 
