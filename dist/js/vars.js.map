@@ -1,8 +1,8 @@
 {
   "version": 3,
-  "file": "/Volumes/Developer/VARIANTE/Frameworks/vars.js/dist/vars.js",
+  "file": "/Volumes/Developer/VARIANTE/Frameworks/vars.web/dist/js/vars.js",
   "sources": [
-    "../node_modules/almond/almond.js",
+    "../../node_modules/almond/almond.js",
     "enums/DirtyType.js",
     "enums.js",
     "utils/assert.js",

@@ -1,0 +1,130 @@
+/**
+ *  vars
+ *  (c) VARIANTE (http://variante.io)
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+
+/**
+ * Binds the content to one/multiple class/classes prefixed with 'state-' of
+ * the target selector. Option to specify whether the class(es) are default.
+ *
+ * @param  {List}    $states    List of state names.
+ * @param  {Boolean} $default   Specifies whether the class(es) are default.
+ */
+@mixin state($states, $default:false)
+{
+    @each $state in $states
+    {
+        @if $state == 'hover'
+        {
+            .no-touch &:hover
+            {
+                @content;
+            }
+        }
+        @else
+        {
+            &.state-#{$state}
+            {
+                @content;
+            }
+        }
+    }
+
+    @if $default == true
+    {
+        &
+        {
+            @content;
+        }
+    }
+}
+
+/**
+ * Binds the content to the target selector based on the 'csstransitions' feature
+ * (requires Modernizr).
+ *
+ * @param  {Boolean} $enabled   Specifies whether 'csstransitions' class is required.
+ */
+@mixin transition($enabled:true)
+{
+    @if $enabled == true
+    {
+        .csstransitions &
+        {
+            @content;
+        }
+    }
+    @else
+    {
+        @content;
+    }
+}
+
+/**
+ * Binds the content to the target selector based on the 'cssanimations' feature
+ * (requires Modernizr).
+ *
+ * @param  {Boolean} $enabled   Specifies whether 'cssanimations' class is required.
+ */
+@mixin animation($enabled:true)
+{
+    @if $enabled == true
+    {
+        .cssanimations &
+        {
+            @content;
+        }
+    }
+    @else
+    {
+        @content;
+    }
+}
+
+/**
+ * Binds the content to the target selector based on the 'touch' and 'no-touch' feature
+ * (requires Modernizr).
+ *
+ * @param  {Boolean} $enabled   Specifies whether 'touch' class is required.
+ * @param  {Boolean} $exclusive Specifies whether 'no-touch' class is required if
+ *                              $enabled is false.
+ */
+@mixin touch($enabled:true, $exclusive:false)
+{
+    @if $enabled == true
+    {
+        .touch &
+        {
+            @content;
+        }
+    }
+    @else
+    {
+        @if $exclusive == true
+        {
+            .no-touch &
+            {
+                @content;
+            }
+        }
+        @else
+        {
+            @content;
+        }
+    }
+}
+
+/**
+ * Enables hardware acceleration for containing selector.
+ */
+@mixin hardware-acceleration
+{
+    transform: translateZ(0);
+    transform: translate3d(0, 0, 0);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    perspective: 1000;
+}

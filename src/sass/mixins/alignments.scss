@@ -1,0 +1,131 @@
+/**
+ *  vars
+ *  (c) VARIANTE (http://variante.io)
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+
+/**
+ * Clearfix hack for floated elements.
+ */
+@mixin clearfix
+{
+    *zoom: 1;
+
+    &:before
+    {
+        content: '';
+        display: table;
+    }
+
+    &:after
+    {
+        content: '';
+        display: table;
+        clear: both;
+    }
+}
+
+/**
+ * Transforms containing selector into a container that can freely align
+ * child inline-blocks with no fixed width/height requirements.
+ */
+@mixin fluid-block
+{
+    font-size: 0px;
+    text-align: center;
+    display: inline-block;
+
+    &:before
+    {
+        width: 0px;
+        height: 100%;
+        vertical-align: middle;
+        content: '';
+        display: inline-block;
+    }
+}
+
+/**
+ * Aligns containing selector to specified x/y directions in absolute
+ * position.
+ *
+ * @param  {String} $x  x-direction (i.e. left, center, right)
+ * @param  {String} $y  y-direction (i.e. top, center, bottom)
+ */
+@mixin abs-align($x:null, $y:null)
+{
+    position: absolute;
+
+    @if $x == 'left'
+    {
+        left: 0px;
+    }
+    @else if $x == 'center'
+    {
+        left: 0px;
+        right: 0px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    @else if $x == 'right'
+    {
+        right: 0px;
+    }
+
+    @if $y == 'top'
+    {
+        top: 0px;
+    }
+    @else if $y == 'center'
+    {
+        top: 0px;
+        bottom: 0px;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+    @else if $y == 'bottom'
+    {
+        bottom: 0px;
+    }
+}
+
+/**
+ * Aligns containing inline-block to specified x/y directions in relative
+ * position.
+ *
+ * @param  {String} $x  x-direction (i.e. left, center, right)
+ * @param  {String} $y  y-direction (i.e. top, center, bottom)
+ */
+@mixin inline-align($x:null, $y:null)
+{
+    display: inline-block;
+    position: relative;
+
+    @if $x == 'left'
+    {
+        // This should be configured in the parent using { text-align: left; }.
+    }
+    @else if $x == 'center'
+    {
+        // This should be configured in the parent using { text-align: center; }.
+    }
+    @else if $x == 'right'
+    {
+        // This should be configured in the parent using { text-align: right; }.
+    }
+
+    @if $y == 'top'
+    {
+        vertical-align: top;
+    }
+    @else if $y == 'center'
+    {
+        vertical-align: middle;
+    }
+    @else if $y == 'bottom'
+    {
+        vertical-align: middle;
+    }
+}

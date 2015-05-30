@@ -1,0 +1,116 @@
+/**
+ *  vars
+ *  (c) VARIANTE (http://variante.io)
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+
+@import './states';
+
+/**
+ * Media query for screens in portrait orientation.
+ */
+@mixin screen-portrait { @media only screen and (orientation: portrait) { @content; } }
+
+/**
+ * Media query for screens in landscape orientation.
+ */
+@mixin screen-landscape { @media only screen and (orientation: landscape) { @content; } }
+
+/**
+ * Media query for screens at a specified minimum width.
+ *
+ * @param  {Number} $minWidth
+ */
+@mixin screen-min-width($minWidth) { @media only screen and (min-width: #{$minWidth}px) { @content; } }
+
+/**
+ * Media query for screens at a specified maximum width.
+ *
+ * @param  {Number} $maxWidth
+ */
+@mixin screen-max-width($maxWidth) { @media only screen and (max-width: #{$maxWidth}px) { @content; } }
+
+/**
+ * Media query for screens at a specified minimum height.
+ *
+ * @param  {Number} $minHeight
+ */
+@mixin screen-min-height($minHeight) { @media only screen and (min-height: #{$minHeight}px) { @content; } }
+
+/**
+ * Media query for screens at a specified maximum height.
+ *
+ * @param  {Number} $maxHeight
+ */
+@mixin screen-max-height($maxHeight) { @media only screen and (max-height: #{$maxHeight}px) { @content; } }
+
+/**
+ * Media query for the minimum width/height threshold of the specified screen type.
+ *
+ * @param  {String}  $screen        Screen type (i.e. mobile, phablet, tablet, desktop).
+ * @param  {String}  $measurement   Specifies width or height measurement.
+ * @param  {Boolean} $touch         Specifues whether the condition is only valid for touch devices
+ *                                  (requires Modernizr feature detection), namely the '.touch' class.
+ *                                  If false (default), it does NOT use the '.no-touch' class, but
+ *                                  instead applies content normally.
+ * @param  {Boolean} $exclusive     Specifies whether the media queries should be exclusive to this screen
+ *                                  type. If false, the generated media query will use the minimum threshold
+ *                                  of the selected screen type. If true, the generated media query will be
+ *                                  bounded by the minimum and the maximum thresholds.
+ * @param  {Boolean} $invert        Inverts the generated media query.
+ */
+@mixin screen($screen, $measurement:width, $touch:false, $exclusive:false, $invert:false)
+{
+    @if $screen == mobile
+    {
+        $min-threshold: 0px;
+        $max-threshold: 499px;
+    }
+
+    @else if $screen == phablet
+    {
+        $min-threshold: 668px;
+        $max-threshold: 767px;
+    }
+
+    @else if $screen == tablet
+    {
+        $min-threshold: 768px;
+        $max-threshold: 1024px;
+    }
+
+    @else if $screen == desktop
+    {
+        $min-threshold: 1025px;
+        $max-threshold: 10000px; // some ridiculously large arbituary number
+    }
+
+    @if $min-threshold != null and $max-threshold != null
+    {
+        @if $exclusive == true
+        {
+            @if $invert == true
+            {
+                @media screen and (max-#{$measurement}: #{$min-threshold - 1px}) { @include touch($touch, false) { @content; } }
+                @media screen and (min-#{$measurement}: #{$max-threshold + 1px}) { @include touch($touch, false) { @content; } }
+            }
+            @else
+            {
+                @media screen and (min-#{$measurement}: #{$min-threshold}) and (max-#{$measurement}: #{$max-threshold}) { @include touch($touch, false) { @content; } }
+            }
+        }
+        @else
+        {
+            @if $invert == true
+            {
+                @media screen and (max-#{$measurement}: #{$min-threshold - 1px}) { @include touch($touch, false) { @content; } }
+            }
+            @else
+            {
+                @media screen and (min-#{$measurement}: $min-threshold) { @include touch($touch, false) { @content; } }
+            }
+        }
+    }
+}

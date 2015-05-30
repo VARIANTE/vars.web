@@ -1,0 +1,52 @@
+/**
+ *  vars
+ *  (c) VARIANTE (http://variante.io)
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+
+/**
+ * Transforms containing selector into a parallaxable container.
+ */
+@mixin parallax
+{
+    height: 100vh;
+    perspective: 1px;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    .parallax-group
+    {
+        height: 100vh;
+        position: relative;
+        transform-style: preserve-3d;
+    }
+
+    .parallax-layer
+    {
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
+        position: absolute;
+    }
+
+    .parallax-layer-base
+    {
+        @extend .parallax-layer;
+        transform: translateZ(0px);
+    }
+
+    .parallax-layer-background
+    {
+        @extend .parallax-layer;
+        transform: translateZ(-1px);
+    }
+
+    .parallax-layer-foreground
+    {
+        @extend .parallax-layer;
+        transform: translateZ(1px);
+    }
+}
