@@ -1,5 +1,5 @@
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  End file for r.js.

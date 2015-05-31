@@ -1,5 +1,5 @@
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  View model of DOM 'video' element.

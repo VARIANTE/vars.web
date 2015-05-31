@@ -1,5 +1,5 @@
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  Construction of the VARS API.

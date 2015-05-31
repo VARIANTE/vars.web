@@ -1,5 +1,5 @@
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  Module of methods/classes related to UI manipulation and

@@ -1,5 +1,5 @@
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  Start file for r.js.
@@ -456,7 +456,7 @@ var requirejs, require, define;
 define("almond", function(){});
 
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  UI dirty types.
@@ -482,7 +482,7 @@ define
     }
 );
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  Module of global VARS enums.
@@ -508,7 +508,7 @@ define
     }
 );
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  This software is released under the MIT License:
@@ -545,7 +545,7 @@ define
 );
 
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  This software is released under the MIT License:
@@ -575,7 +575,7 @@ define
 );
 
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  Event dispatcher object.
@@ -764,7 +764,7 @@ define
 );
 
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  VARS supported event types.
@@ -911,7 +911,7 @@ define
 );
 
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  Module of methods/classes related to the native event system.
@@ -941,7 +941,7 @@ define
 );
 
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  This software is released under the MIT License:
@@ -981,7 +981,7 @@ define
 );
 
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  Module of methods/classes related to math.
@@ -1008,7 +1008,7 @@ define
 );
 
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  This software is released under the MIT License:
@@ -1120,7 +1120,7 @@ define
 );
 
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  This software is released under the MIT License:
@@ -1224,7 +1224,7 @@ define
 );
 
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  This software is released under the MIT License:
@@ -1374,7 +1374,7 @@ define
 );
 
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  This software is released under the MIT License:
@@ -1416,7 +1416,7 @@ define
 );
 
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  This software is released under the MIT License:
@@ -1466,7 +1466,7 @@ define
 );
 
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  This software is released under the MIT License:
@@ -1530,7 +1530,7 @@ define
 );
 
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  This software is released under the MIT License:
@@ -1574,7 +1574,7 @@ define
 );
 
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  This software is released under the MIT License:
@@ -1636,7 +1636,7 @@ define
 );
 
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  Delegate for managing update calls of a VARS modeled element.
@@ -2015,7 +2015,7 @@ define
     }
 );
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  View model of any DOM element.
@@ -2380,7 +2380,7 @@ define
 );
 
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  This software is released under the MIT License:
@@ -2428,7 +2428,7 @@ define
 );
 
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  View model of DOM 'video' element.
@@ -2713,7 +2713,7 @@ define
 );
 
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  Module of methods/classes related to UI manipulation and
@@ -2765,7 +2765,7 @@ define
 );
 
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  This software is released under the MIT License:
@@ -2810,7 +2810,7 @@ define
 );
 
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  This software is released under the MIT License:
@@ -2875,7 +2875,7 @@ define
 );
 
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  This software is released under the MIT License:
@@ -2948,7 +2948,7 @@ define
     }
 );
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  This software is released under the MIT License:
@@ -2986,7 +2986,7 @@ define
 );
 
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  Asset loader for images, videos, and audios.
@@ -3628,7 +3628,7 @@ define
 );
 
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  Module of utility methods/classes.
@@ -3682,7 +3682,7 @@ define
 );
 
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  Construction of the VARS API.
@@ -3776,7 +3776,7 @@ define
 );
 
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  End file for r.js.

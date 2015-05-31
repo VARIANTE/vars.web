@@ -1,7 +1,7 @@
 /* jshint -W069, -W079 */
 
 /**
- *  vars.js
+ *  vars
  *  (c) VARIANTE (http://variante.io)
  *
  *  Gulp tasks.
