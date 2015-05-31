@@ -50,23 +50,23 @@
  * Media query for the minimum width/height threshold of the specified screen type.
  *
  * @param  {String}  $screen        Screen type (i.e. mobile, phablet, tablet, desktop).
- * @param  {String}  $measurement   Specifies width or height measurement.
- * @param  {Boolean} $touch         Specifues whether the condition is only valid for touch devices
- *                                  (requires Modernizr feature detection), namely the '.touch' class.
- *                                  If false (default), it does NOT use the '.no-touch' class, but
- *                                  instead applies content normally.
  * @param  {Boolean} $exclusive     Specifies whether the media queries should be exclusive to this screen
  *                                  type. If false, the generated media query will use the minimum threshold
  *                                  of the selected screen type. If true, the generated media query will be
  *                                  bounded by the minimum and the maximum thresholds.
  * @param  {Boolean} $invert        Inverts the generated media query.
+ * @param  {String}  $measurement   Specifies width or height measurement.
+ * @param  {Boolean} $touch         Specifues whether the condition is only valid for touch devices
+ *                                  (requires Modernizr feature detection), namely the '.touch' class.
+ *                                  If false (default), it does NOT use the '.no-touch' class, but
+ *                                  instead applies content normally.
  */
-@mixin screen($screen, $measurement:width, $touch:false, $exclusive:false, $invert:false)
+@mixin screen($screen, $exclusive:false, $invert:false, $measurement:width, $touch:false)
 {
     @if $screen == mobile
     {
         $min-threshold: 0px;
-        $max-threshold: 499px;
+        $max-threshold: 667px;
     }
 
     @else if $screen == phablet

@@ -66,7 +66,7 @@
     @if $screen == mobile
     {
         $min-threshold: 0px;
-        $max-threshold: 499px;
+        $max-threshold: 667px;
     }
 
     @else if $screen == phablet
