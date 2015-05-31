@@ -1,0 +1,103 @@
+/**
+ *  vars
+ *  (c) VARIANTE (http://variante.io)
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+
+html,
+body
+{
+    margin: 0px;
+    padding: 0px;
+}
+
+article,
+aside,
+details,
+dialog,
+summary,
+footer,
+header,
+main,
+figcaption,
+figure,
+hgroup,
+nav,
+section,
+div,
+table,
+tr,
+td,
+th,
+tbody,
+thead,
+tfoot,
+col,
+form,
+button,
+{
+    margin: 0px;
+    padding: 0px;
+    font-size: 0px;
+    outline: none;
+    border: none;
+    box-sizing: border-box;
+}
+
+article,
+aside,
+details,
+dialog,
+figcaption,
+figure,
+main,
+summary,
+footer,
+header,
+hgroup,
+nav,
+section,
+img,
+div
+{
+    vertical-align: top;
+    display: block;
+}
+
+ul,
+ol,
+li,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a
+button,
+span
+{
+    margin: 0px;
+    padding: 0px;
+    font-weight: normal;
+    text-decoration: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+button
+{
+    line-height: 100%;
+
+    &:hover
+    {
+        cursor: pointer;
+    }
+
+    &:disabled
+    {
+        cursor: default;
+    }
+}

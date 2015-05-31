@@ -6,9 +6,10 @@
  *  http://www.opensource.org/licenses/mit-license.php
  */
 
-@import './normalize';
+@import 'normalize';
+@import 'reset';
 
-@import './mixins/alignments';
-@import './mixins/media';
-@import './mixins/parallax';
-@import './mixins/states';
+@import 'mixins/alignments';
+@import 'mixins/media';
+@import 'mixins/parallax';
+@import 'mixins/states';
