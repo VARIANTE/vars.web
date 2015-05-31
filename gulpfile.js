@@ -50,8 +50,7 @@ gulp.task('styles', ['wiredep'], function()
             .pipe($.sourcemaps.init())
             .pipe($.sass({
                 outputStyle: 'nested',
-                precision: 10,
-                includePaths: ['node_modules', 'src/sass']
+                precision: 10
             }))
             .pipe($.postcss([require('autoprefixer-core')({ browsers: ['last 2 version', 'ie 9'] })]))
             .pipe($.sourcemaps.write('./'))
@@ -60,8 +59,7 @@ gulp.task('styles', ['wiredep'], function()
         gulp.src('src/sass/vars.'+STYLES_PATTERN)
             .pipe($.sass({
                 outputStyle: 'nested',
-                precision: 10,
-                includePaths: ['node_modules', 'src/sass']
+                precision: 10
             }))
             .pipe($.postcss([require('autoprefixer-core')({ browsers: ['last 2 version', 'ie 9'] })]))
             .pipe($.csso())
