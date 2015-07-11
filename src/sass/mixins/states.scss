@@ -19,9 +19,19 @@
     {
         @if $state == 'hover'
         {
-            .no-touch &:hover
+            @if $modernizr-enabled == true
             {
-                @content;
+                .no-touch &:hover
+                {
+                    @content;
+                }
+            }
+            @else
+            {
+                &:hover
+                {
+                    @content;
+                }
             }
         }
         @else
@@ -50,7 +60,7 @@
  */
 @mixin transition($enabled:true)
 {
-    @if $enabled == true
+    @if $enabled == true and $modernizr-enabled == true
     {
         .csstransitions &
         {
@@ -71,7 +81,7 @@
  */
 @mixin animation($enabled:true)
 {
-    @if $enabled == true
+    @if $enabled == true and $modernizr-enabled == true
     {
         .cssanimations &
         {
@@ -94,7 +104,7 @@
  */
 @mixin touch($enabled:true, $exclusive:false)
 {
-    @if $enabled == true
+    @if $enabled == true and $modernizr-enabled == true
     {
         .touch &
         {
@@ -103,7 +113,7 @@
     }
     @else
     {
-        @if $exclusive == true
+        @if $exclusive == true and $modernizr-enabled == true
         {
             .no-touch &
             {
