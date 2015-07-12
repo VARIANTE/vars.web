@@ -11,6 +11,7 @@ define
 (
     [
         'utils/assert',
+        'utils/changeElementState',
         'utils/debounce',
         'utils/log',
         'utils/namespace',
@@ -24,6 +25,7 @@ define
     function
     (
         assert,
+        changeElementState,
         debounce,
         log,
         namespace,
@@ -38,6 +40,7 @@ define
         var api = function(obj) { return obj; };
 
         Object.defineProperty(api, 'assert', { value: assert, writable: false, enumerable: true });
+        Object.defineProperty(api, 'changeElementState', { value: changeElementState, writable: false, enumerable: true });
         Object.defineProperty(api, 'debounce', { value: debounce, writable: false, enumerable: true });
         Object.defineProperty(api, 'log', { value: log, writable: false, enumerable: true });
         Object.defineProperty(api, 'namespace', { value: namespace, writable: false, enumerable: true });
