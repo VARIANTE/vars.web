@@ -11,6 +11,8 @@
 define
 (
     [
+        'ui/changeElementState',
+        'ui/getElementState',
         'ui/translate',
         'ui/translate3d',
         'ui/transform',
@@ -23,6 +25,8 @@ define
     ],
     function
     (
+        changeElementState,
+        getElementState,
         translate,
         translate3d,
         transform,
@@ -36,6 +40,8 @@ define
     {
         var api = function(obj) { return obj; };
 
+        Object.defineProperty(api, 'changeElementState', { value: changeElementState, writable: false, enumerable: true });
+        Object.defineProperty(api, 'getElementState', { value: getElementState, writable: false, enumerable: true });
         Object.defineProperty(api, 'translate', { value: translate, writable: false, enumerable: true });
         Object.defineProperty(api, 'translate3d', { value: translate3d, writable: false, enumerable: true });
         Object.defineProperty(api, 'transform', { value: transform, writable: false, enumerable: true });

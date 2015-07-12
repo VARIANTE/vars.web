@@ -8,9 +8,11 @@
 define
 (
     [
+        'utils/assert'
     ],
     function
     (
+        assert
     )
     {
         /**
@@ -22,7 +24,7 @@ define
          */
         function changeElementState(element, state)
         {
-            if (!element) return;
+            if (!assert((element) && (element instanceof HTMLElement), 'Invalid element specified. Element must be an instance of HTMLElement')) return;
             if (element.classList.contains('state'+state)) return;
 
             element.className = element.className.replace(/(^|\s)state-\S+/g, '');

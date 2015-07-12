@@ -1016,6 +1016,156 @@ define
  */
 define
 (
+    'ui/changeElementState',[
+        'utils/assert'
+    ],
+    function
+    (
+        assert
+    )
+    {
+        /**
+         * Changes the state of a DOM element, assumes that state classes
+         * are prefixed with 'state-'.
+         *
+         * @param  {Object} element
+         * @param  {String} state
+         */
+        function changeElementState(element, state)
+        {
+            if (!assert((element) && (element instanceof HTMLElement), 'Invalid element specified. Element must be an instance of HTMLElement')) return;
+            if (element.classList.contains('state'+state)) return;
+
+            element.className = element.className.replace(/(^|\s)state-\S+/g, '');
+            element.classList.add('state-'+state);
+        }
+
+        return changeElementState;
+    }
+);
+
+/**
+ *  vars
+ *  (c) VARIANTE (http://variante.io)
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+define
+(
+    'utils/sizeOf',[
+    ],
+    function
+    (
+    )
+    {
+        /**
+         * Gets the number of keys in a given object.
+         *
+         * @param  {*} object   Any object type.
+         *
+         * @return {Number} Size of specified object (depending on the object type,
+         *                  it can be the number of keys in a plain object, number
+         *                  of elements in an array, number of characters in a
+         *                  string, number of digits in a number, and 0 for all
+         *                  other types.
+         */
+        function sizeOf(object)
+        {
+            // If object internally has length property, use it.
+            if (object.length !== undefined) return object.length;
+
+            var size = 0;
+
+            switch (typeof object)
+            {
+                case 'object':
+                {
+                    if (object !== null && object !== undefined)
+                    {
+                        for (var k in object) size++;
+                    }
+
+                    break;
+                }
+
+                case 'number':
+                {
+                    size = ('' + object).length;
+                    break;
+                }
+
+                default:
+                {
+                    size = 0;
+                    break;
+                }
+            }
+
+            return size;
+        }
+
+        return sizeOf;
+    }
+);
+
+/**
+ *  vars
+ *  (c) VARIANTE (http://variante.io)
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+define
+(
+    'ui/getElementState',[
+        'utils/assert',
+        'utils/sizeOf'
+    ],
+    function
+    (
+        assert,
+        sizeOf
+    )
+    {
+        /**
+         * Gets the state of a DOM element, assumes that state classes
+         * are prefixed with 'state-'.
+         *
+         * @param  {Object} element
+         */
+        function getElementState(element)
+        {
+            if (!assert((element) && (element instanceof HTMLElement), 'Invalid element specified. Element must be an instance of HTMLElement')) return;
+
+            var s = element.className.match(/(^|\s)state-\S+/g);
+            var n = sizeOf(s);
+
+            if (!assert(n <= 1, 'Multiple states detected.')) return null;
+
+            if (n < 1)
+            {
+                return null;
+            }
+            else
+            {
+                return s[0];
+            }
+        }
+
+        return getElementState;
+    }
+);
+
+/**
+ *  vars
+ *  (c) VARIANTE (http://variante.io)
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+define
+(
     'ui/translate',[
         'utils/assert'
     ],
@@ -2725,6 +2875,8 @@ define
 define
 (
     'ui',[
+        'ui/changeElementState',
+        'ui/getElementState',
         'ui/translate',
         'ui/translate3d',
         'ui/transform',
@@ -2737,6 +2889,8 @@ define
     ],
     function
     (
+        changeElementState,
+        getElementState,
         translate,
         translate3d,
         transform,
@@ -2750,6 +2904,8 @@ define
     {
         var api = function(obj) { return obj; };
 
+        Object.defineProperty(api, 'changeElementState', { value: changeElementState, writable: false, enumerable: true });
+        Object.defineProperty(api, 'getElementState', { value: getElementState, writable: false, enumerable: true });
         Object.defineProperty(api, 'translate', { value: translate, writable: false, enumerable: true });
         Object.defineProperty(api, 'translate3d', { value: translate3d, writable: false, enumerable: true });
         Object.defineProperty(api, 'transform', { value: transform, writable: false, enumerable: true });
@@ -2761,41 +2917,6 @@ define
         Object.defineProperty(api, 'ElementUpdateDelegate', { value: ElementUpdateDelegate, writable: false, enumerable: true });
 
         return api;
-    }
-);
-
-/**
- *  vars
- *  (c) VARIANTE (http://variante.io)
- *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
- */
-define
-(
-    'utils/changeElementState',[
-    ],
-    function
-    (
-    )
-    {
-        /**
-         * Changes the state of a DOM element, assumes that state classes
-         * are prefixed with 'state-'.
-         *
-         * @param  {Object} element
-         * @param  {String} state
-         */
-        function changeElementState(element, state)
-        {
-            if (!element) return;
-            if (element.classList.contains('state'+state)) return;
-
-            element.className = element.className.replace(/(^|\s)state-\S+/g, '');
-            element.classList.add('state-'+state);
-        }
-
-        return changeElementState;
     }
 );
 
@@ -2841,71 +2962,6 @@ define
         }
 
         return namespace;
-    }
-);
-
-/**
- *  vars
- *  (c) VARIANTE (http://variante.io)
- *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
- */
-define
-(
-    'utils/sizeOf',[
-    ],
-    function
-    (
-    )
-    {
-        /**
-         * Gets the number of keys in a given object.
-         *
-         * @param  {*} object   Any object type.
-         *
-         * @return {Number} Size of specified object (depending on the object type,
-         *                  it can be the number of keys in a plain object, number
-         *                  of elements in an array, number of characters in a
-         *                  string, number of digits in a number, and 0 for all
-         *                  other types.
-         */
-        function sizeOf(object)
-        {
-            // If object internally has length property, use it.
-            if (object.length !== undefined) return object.length;
-
-            var size = 0;
-
-            switch (typeof object)
-            {
-                case 'object':
-                {
-                    if (object !== null && object !== undefined)
-                    {
-                        for (var k in object) size++;
-                    }
-
-                    break;
-                }
-
-                case 'number':
-                {
-                    size = ('' + object).length;
-                    break;
-                }
-
-                default:
-                {
-                    size = 0;
-                    break;
-                }
-            }
-
-            return size;
-        }
-
-        return sizeOf;
     }
 );
 
@@ -3675,7 +3731,6 @@ define
 (
     'utils',[
         'utils/assert',
-        'utils/changeElementState',
         'utils/debounce',
         'utils/log',
         'utils/namespace',
@@ -3689,7 +3744,6 @@ define
     function
     (
         assert,
-        changeElementState,
         debounce,
         log,
         namespace,
@@ -3704,7 +3758,6 @@ define
         var api = function(obj) { return obj; };
 
         Object.defineProperty(api, 'assert', { value: assert, writable: false, enumerable: true });
-        Object.defineProperty(api, 'changeElementState', { value: changeElementState, writable: false, enumerable: true });
         Object.defineProperty(api, 'debounce', { value: debounce, writable: false, enumerable: true });
         Object.defineProperty(api, 'log', { value: log, writable: false, enumerable: true });
         Object.defineProperty(api, 'namespace', { value: namespace, writable: false, enumerable: true });
