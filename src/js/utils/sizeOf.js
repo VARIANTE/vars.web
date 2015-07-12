@@ -26,6 +26,8 @@ define
          */
         function sizeOf(object)
         {
+            if (object === undefined || object === null) return 0;
+            
             // If object internally has length property, use it.
             if (object.length !== undefined) return object.length;
 

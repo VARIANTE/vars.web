@@ -25,7 +25,7 @@ define
          */
         function getElementState(element)
         {
-            if (!assert((element) && (element instanceof HTMLElement), 'Invalid element specified. Element must be an instance of HTMLElement')) return;
+            if (!assert((element) && (element instanceof HTMLElement), 'Invalid element specified. Element must be an instance of HTMLElement')) return null;
 
             var s = element.className.match(/(^|\s)state-\S+/g);
             var n = sizeOf(s);

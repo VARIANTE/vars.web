@@ -1072,6 +1072,8 @@ define
          */
         function sizeOf(object)
         {
+            if (object === undefined || object === null) return 0;
+            
             // If object internally has length property, use it.
             if (object.length !== undefined) return object.length;
 
@@ -1136,7 +1138,7 @@ define
          */
         function getElementState(element)
         {
-            if (!assert((element) && (element instanceof HTMLElement), 'Invalid element specified. Element must be an instance of HTMLElement')) return;
+            if (!assert((element) && (element instanceof HTMLElement), 'Invalid element specified. Element must be an instance of HTMLElement')) return null;
 
             var s = element.className.match(/(^|\s)state-\S+/g);
             var n = sizeOf(s);
