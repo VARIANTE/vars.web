@@ -1151,7 +1151,7 @@ define
             }
             else
             {
-                return s[0].replace('state-', '');
+                return s[0].replace(/\sstate-/, '');
             }
         }
 
