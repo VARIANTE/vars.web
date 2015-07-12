@@ -1,0 +1,14 @@
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch master
+# Your branch is up-to-date with 'origin/master'.
+# Changes to be committed:
+# 
+# 	modified:   dist/js/vars.js
+# 	modified:   dist/js/vars.js.map
+# 	modified:   dist/js/vars.min.js
+# 	modified:   package.json
+# 	modified:   test/index.html
+# 	modified:   test/test.js
