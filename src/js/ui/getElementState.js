@@ -38,7 +38,7 @@ define
             }
             else
             {
-                return s[0];
+                return s[0].replace('state-', '');
             }
         }
 
