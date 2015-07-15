@@ -70,6 +70,7 @@
 @mixin content-block
 {
     font-size: $font-size-reset;
+    white-space: initial;
 }
 
 /**
