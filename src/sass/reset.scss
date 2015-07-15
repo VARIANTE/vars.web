@@ -71,6 +71,7 @@ section,
 img,
 div
 {
+    line-height: 0;
     vertical-align: top;
     display: block;
 }
@@ -85,21 +86,26 @@ h3,
 h4,
 h5,
 h6,
-a
+a,
 button,
+input,
 span
 {
     margin: 0px;
     padding: 0px;
     font-weight: normal;
     text-decoration: none;
+    line-height: normal;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke: 0px;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    text-size-adjust: 100%;
 }
 
 button
 {
-    line-height: 100%;
-
     &:hover
     {
         cursor: pointer;
@@ -117,7 +123,7 @@ input
     {
         outline-width: 0;
     }
-    
+
     &:-webkit-autofill
     {
       box-shadow: 0 0 0px 1000px white inset;

@@ -421,6 +421,7 @@ nav,
 section,
 img,
 div {
+  line-height: 0;
   vertical-align: top;
   display: block; }
 
@@ -434,21 +435,29 @@ h3,
 h4,
 h5,
 h6,
-a
+a,
 button,
+input,
 span {
   margin: 0px;
   padding: 0px;
   font-weight: normal;
   text-decoration: none;
-  -webkit-tap-highlight-color: transparent; }
+  line-height: normal;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke: 0px;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+          text-size-adjust: 100%; }
 
-button {
-  line-height: 100%; }
-  button:hover {
-    cursor: pointer; }
-  button:disabled {
-    cursor: default; }
+button:hover {
+  cursor: pointer; }
+
+button:disabled {
+  cursor: default; }
 
 input:focus {
   outline-width: 0; }
@@ -472,18 +481,24 @@ input[type='checkbox'] {
 /**
  * Transforms containing selector into a container that can freely align
  * child inline-blocks with no fixed width/height requirements.
+ *
+ * @param   {String} $alignH    Horizontal alignment of child elements (i.e. left, center, right)
+ * @param   {String} $alignV    Horizontal alignment of child elements (i.e. top, center, bototm)
+ * @param   {String} $inline    Specifies if this block is an inline block
  */
 /**
  * Eliminates gaps between child inline blocks of target selector and applies
  * generic wrapper styles. Note that children within the target selector must
  * reset its font-size.
  *
+ * @param   {String} $inline    Specifies if this block is an inline block
  * @see content-block
  */
 /**
  * Resets the font-size of a target selector. This is generally used to undo
  * the effects of a container-block.
  *
+ * @param   {String} $inline    Specifies if this block is an inline block
  * @see container-block
  */
 /**
