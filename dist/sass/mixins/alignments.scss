@@ -29,58 +29,29 @@
 
 /**
  * Transforms containing selector into a container that can freely align
- * child inline-blocks with no fixed width/height requirements.
+ * child inline-blocks with no fixed width/height requirements. Beware of whitespace
+ * between inline elements.
  *
- * @param   {String} $alignH    Horizontal alignment of child elements (i.e. left, center, right)
- * @param   {String} $alignV    Horizontal alignment of child elements (i.e. top, center, bototm)
- * @param   {String} $inline    Specifies if this block is an inline block
+ * @param   {String} $alignH    Horizontal alignment of child elements (i.e. left, center, right).
+ * @param   {String} $alignV    Vertical alignment of child elements (i.e. top, center, bototm).
+ * @param   {String} $inline    Specifies if this block is an inline block.
  */
 @mixin fluid-block($alignH:center, $alignV:center, $inline:false)
 {
-    @include container-block($inline);
+    @if      $alignH == 'left'                          { text-align: left;   }
+    @else if $alignH == 'center' or $alignH == 'middle' { text-align: center; }
+    @else if $alignH == 'right'                         { text-align: right;  }
 
-    @if $alignH == 'left'
-    {
-        text-align: left;
-    }
-    @else if $alignH == 'center' or $alignH == 'middle'
-    {
-        text-align: center;
-    }
-    @else if $alignH == 'right'
-    {
-        text-align: right;
-    }
+    @if $alignV == 'top'                                { & > * { vertical-align: top;    } }
+    @else if $alignV == 'center' or $alignV == 'middle' { & > * { vertical-align: middle; } }
+    @else if $alignV == 'bottom'                        { & > * { vertical-align: bottom; } }
 
-    @if $alignV == 'top'
-    {
-        & > *
-        {
-            vertical-align: top;
-        }
-    }
-    @else if $alignV == 'center' or $alignV == 'middle'
-    {
-        & > *
-        {
-            vertical-align: middle;
-        }
-    }
-    @else if $alignV == 'bottom'
-    {
-        & > *
-        {
-            vertical-align: bottom;
-        }
-    }
+    @if   $inline == true { display: inline-block; }
+    @else                 { display: block;        }
 
-    @if $inline == true
+    & > *
     {
         display: inline-block;
-    }
-    @else
-    {
-        display: block;
     }
 
     &:before
@@ -93,92 +64,66 @@
 }
 
 /**
- * Eliminates gaps between child inline blocks of target selector and applies
- * generic wrapper styles. Note that children within the target selector must
- * reset its font-size.
+ * Transforms containing selector into a flexbox which auto aligns child
+ * elements according to the specified params.
  *
- * @param   {String} $inline    Specifies if this block is an inline block
- * @see content-block
+ * @param   {String} $alignH    Horizontal alignment of child elements (i.e. left, center, right).
+ * @param   {String} $alignV    Vertical alignment of child elements (i.e. top, middle, bottom).
+ * @param   {String} $inline    Specifies if this flexbox is inline.
  */
-@mixin container-block($inline:false)
+@mixin flex-block($alignH:center, $alignV:center, $inline:false)
 {
-    margin: 0;
-    padding: 0;
-    font-size: 0;
-    line-height: 0;
-    box-sizing: border-box;
+    @if      $alignH == 'left'                          { justify-content: flex-start; }
+    @else if $alignH == 'center' or $alignH == 'middle' { justify-content: center;     }
+    @else if $alignH == 'right'                         { justify-content: flex-end;   }
 
-    @if $inline == true
-    {
-        display: inline-block;
-    }
-    @else
-    {
-        display: block;
-    }
-}
+    @if $alignV == 'top'                                { align-items: flex-start; }
+    @else if $alignV == 'center' or $alignV == 'middle' { align-items: center;     }
+    @else if $alignV == 'bottom'                        { align-items: flex-end;   }
 
-/**
- * Resets the font-size of a target selector. This is generally used to undo
- * the effects of a container-block.
- *
- * @param   {String} $inline    Specifies if this block is an inline block
- * @see container-block
- */
-@mixin content-block($inline:false)
-{
-    font-size: $font-size-reset;
-    white-space: initial;
-
-    @if $inline == true
-    {
-        display: inline-block;
-    }
-    @else
-    {
-        display: block;
-    }
+    @if   $inline == true { display: inline-flex; }
+    @else                 { display: flex;        }
 }
 
 /**
  * Aligns containing selector to specified x/y directions in absolute
  * position.
  *
- * @param  {String} $x  x-direction (i.e. left, center, right)
- * @param  {String} $y  y-direction (i.e. top, center, bottom)
+ * @param  {String} $alignH     Horizontal alignment (i.e. left, center, right).
+ * @param  {String} $alignV     Vertical alignment (i.e. top, middle, bottom).
  */
-@mixin abs-align($x:null, $y:null)
+@mixin abs-align($alignH:null, $alignV:null)
 {
     position: absolute;
 
-    @if $x == 'left'
+    @if $alignH == 'left'
     {
         left: 0px;
     }
-    @else if $x == 'center' or $x == 'middle'
+    @else if $alignH == 'center' or $alignH == 'middle'
     {
         left: 0px;
         right: 0px;
         margin-left: auto;
         margin-right: auto;
     }
-    @else if $x == 'right'
+    @else if $alignH == 'right'
     {
         right: 0px;
     }
 
-    @if $y == 'top'
+    @if $alignV == 'top'
     {
         top: 0px;
     }
-    @else if $y == 'center' or $y == 'middle'
+    @else if $alignV == 'center' or $alignV == 'middle'
     {
         top: 0px;
         bottom: 0px;
         margin-top: auto;
         margin-bottom: auto;
     }
-    @else if $y == 'bottom'
+    @else if $alignV == 'bottom'
     {
         bottom: 0px;
     }
@@ -188,37 +133,34 @@
  * Aligns containing inline-block to specified x/y directions in relative
  * position.
  *
- * @param  {String} $x  x-direction (i.e. left, center, right)
- * @param  {String} $y  y-direction (i.e. top, center, bottom)
+ * @param  {String} $alignH     Horizontal alignment (i.e. left, center, right).
+ * @param  {String} $alignV     Vertical alignment (i.e. top, middle, bottom).
  */
-@mixin inline-align($x:null, $y:null)
+@mixin inline-align($alignH:null, $alignV:null)
 {
     display: inline-block;
     position: relative;
 
-    @if $x == 'left'
-    {
-        // This should be configured in the parent using { text-align: left; }.
-    }
-    @else if $x == 'center' or $x == 'middle'
-    {
-        // This should be configured in the parent using { text-align: center; }.
-    }
-    @else if $x == 'right'
-    {
-        // This should be configured in the parent using { text-align: right; }.
-    }
+    // Horizontal alignment cannot be altered at the child level. Tweak
+    // the parent's text-align rule instead.
 
-    @if $y == 'top'
-    {
-        vertical-align: top;
-    }
-    @else if $y == 'center' or $y == 'middle'
-    {
-        vertical-align: middle;
-    }
-    @else if $y == 'bottom'
-    {
-        vertical-align: middle;
-    }
+    @if      $alignV == 'top'                           { vertical-align: top;    }
+    @else if $alignV == 'center' or $alignV == 'middle' { vertical-align: middle; }
+    @else if $alignV == 'bottom'                        { vertical-align: bottom; }
+}
+
+/**
+ * Aligns child element to the parent flexbox.
+ *
+ * @param  {String} $alignH     Horizontal alignment (i.e. left, center, right).
+ * @param  {String} $alignV     Vertical alignment (i.e. top, middle, bottom).
+ */
+@mixin flex-align($alignH:null, $alignV:null)
+{
+    // Horizontal align cannot be altered at the child level. Do it
+    // at the parent level.
+
+    @if      $alignV == 'top'                           { align-self: flex-start; }
+    @else if $alignV == 'center' or $alignV == 'middle' { align-self: center;     }
+    @else if $alignV == 'bottom'                        { align-self: flex-end;   }
 }
