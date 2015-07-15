@@ -107,11 +107,11 @@
         flex-direction: column;
 
         @if      $alignV == 'top'                            { justify-content: flex-start; }
-        @else if $alignV == 'center' or $alignH == 'middle'  { justify-content: center;     }
+        @else if $alignV == 'center' or $alignV == 'middle'  { justify-content: center;     }
         @else if $alignV == 'bottom'                         { justify-content: flex-end;   }
 
         @if      $alignH == 'left'                          { align-items: flex-start; }
-        @else if $alignH == 'center' or $alignV == 'middle' { align-items: center;     }
+        @else if $alignH == 'center' or $alignH == 'middle' { align-items: center;     }
         @else if $alignH == 'right'                         { align-items: flex-end;   }
     }
     @else if $direction == 'column-reverse'
@@ -119,11 +119,11 @@
         flex-direction: column-reverse;
 
         @if      $alignV == 'top'                            { justify-content: flex-end;   }
-        @else if $alignV == 'center' or $alignH == 'middle'  { justify-content: center;     }
+        @else if $alignV == 'center' or $alignV == 'middle'  { justify-content: center;     }
         @else if $alignV == 'bottom'                         { justify-content: flex-start; }
 
         @if      $alignH == 'left'                          { align-items: flex-start; }
-        @else if $alignH == 'center' or $alignV == 'middle' { align-items: center;     }
+        @else if $alignH == 'center' or $alignH == 'middle' { align-items: center;     }
         @else if $alignH == 'right'                         { align-items: flex-end;   }
     }
 
