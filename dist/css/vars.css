@@ -366,10 +366,15 @@ th {
  *  This software is released under the MIT License:
  *  http://www.opensource.org/licenses/mit-license.php
  */
-html,
+html {
+  margin: 0px;
+  padding: 0px;
+  font-size: 16px; }
+
 body {
   margin: 0px;
-  padding: 0px; }
+  padding: 0px;
+  font-size: 100%; }
 
 article,
 aside,
@@ -445,6 +450,15 @@ button {
   button:disabled {
     cursor: default; }
 
+input:focus {
+  outline-width: 0; }
+
+input:-webkit-autofill {
+  box-shadow: 0 0 0px 1000px white inset; }
+
+input[type='checkbox'] {
+  cursor: pointer; }
+
 /**
  *  vars
  *  (c) VARIANTE (http://variante.io)
@@ -458,6 +472,19 @@ button {
 /**
  * Transforms containing selector into a container that can freely align
  * child inline-blocks with no fixed width/height requirements.
+ */
+/**
+ * Eliminates gaps between child inline blocks of target selector and applies
+ * generic wrapper styles. Note that children within the target selector must
+ * reset its font-size.
+ *
+ * @see content-block
+ */
+/**
+ * Resets the font-size of a target selector. This is generally used to undo
+ * the effects of a container-block.
+ *
+ * @see container-block
  */
 /**
  * Aligns containing selector to specified x/y directions in absolute

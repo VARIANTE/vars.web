@@ -47,6 +47,32 @@
 }
 
 /**
+ * Eliminates gaps between child inline blocks of target selector and applies
+ * generic wrapper styles. Note that children within the target selector must
+ * reset its font-size.
+ *
+ * @see content-block
+ */
+@mixin container-block
+{
+    margin: 0;
+    padding: 0;
+    font-size: 0;
+    box-sizing: border-box;
+}
+
+/**
+ * Resets the font-size of a target selector. This is generally used to undo
+ * the effects of a container-block.
+ *
+ * @see container-block
+ */
+@mixin content-block
+{
+    font-size: $font-size-reset;
+}
+
+/**
  * Aligns containing selector to specified x/y directions in absolute
  * position.
  *

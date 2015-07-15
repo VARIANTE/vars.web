@@ -6,11 +6,21 @@
  *  http://www.opensource.org/licenses/mit-license.php
  */
 
-html,
+$font-size-reset: 16px !default;
+$font-size-scale: 100% !default;
+
+html
+{
+    margin: 0px;
+    padding: 0px;
+    font-size: $font-size-reset;
+}
+
 body
 {
     margin: 0px;
     padding: 0px;
+    font-size: $font-size-scale;
 }
 
 article,
@@ -98,5 +108,23 @@ button
     &:disabled
     {
         cursor: default;
+    }
+}
+
+input
+{
+    &:focus
+    {
+        outline-width: 0;
+    }
+    
+    &:-webkit-autofill
+    {
+      box-shadow: 0 0 0px 1000px white inset;
+    }
+
+    &[type='checkbox']
+    {
+        cursor: pointer;
     }
 }
