@@ -75,6 +75,9 @@
  */
 @mixin flex-block($alignH:center, $alignV:center, $direction:row, $wrap:false, $inline:false)
 {
+    line-height: normal;
+    white-space: normal;
+
     @if   $wrap == true { flex-wrap: wrap;   }
     @else               { flex-wrap: nowrap; }
 
@@ -194,4 +197,41 @@
     @if      $alignV == 'top'                           { vertical-align: top;    }
     @else if $alignV == 'center' or $alignV == 'middle' { vertical-align: middle; }
     @else if $alignV == 'bottom'                        { vertical-align: bottom; }
+}
+
+/**
+ * Transforms target selector into a container for
+ * parallax elements.
+ *
+ * @param  {Number} $perspective    Tweak this value to adjust perspective.
+ * @see parallax-element
+ */
+@mixin parallax-block($perspective:1)
+{
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    perspective: #{$perspective + px};
+}
+
+/**
+ * Transforms target selector into a parallax element. The
+ * target selector must be a child of a parallax-block.
+ *
+ * @param  {String} $type   Layer type, either 'group' or 'layer'.
+ * @param  {Number} $z      Position in the z-axis.
+ * @see parallax-block
+ */
+@mixin parallax-element($type:layer, $z:0)
+{
+    @if $type == 'group'
+    {
+        height: 100vh;
+        position: relative;
+        transform-style: preserve-3d;
+    }
+    @else if $type == 'layer'
+    {
+        transform: translateZ(#{$z + px});
+    }
 }

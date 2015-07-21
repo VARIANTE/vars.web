@@ -511,6 +511,21 @@ input[type='checkbox'] {
  * @param  {String} $alignV     Vertical alignment (i.e. top, middle, bottom).
  */
 /**
+ * Transforms target selector into a container for
+ * parallax elements.
+ *
+ * @param  {Number} $perspective    Tweak this value to adjust perspective.
+ * @see parallax-element
+ */
+/**
+ * Transforms target selector into a parallax element. The
+ * target selector must be a child of a parallax-block.
+ *
+ * @param  {String} $type   Layer type, either 'group' or 'layer'.
+ * @param  {Number} $z      Position in the z-axis.
+ * @see parallax-block
+ */
+/**
  *  vars
  *  (c) VARIANTE (http://variante.io)
  *
@@ -594,16 +609,6 @@ input[type='checkbox'] {
  *                                  (requires Modernizr feature detection), namely the '.touch' class.
  *                                  If false (default), it does NOT use the '.no-touch' class, but
  *                                  instead applies content normally.
- */
-/**
- *  vars
- *  (c) VARIANTE (http://variante.io)
- *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
- */
-/**
- * Transforms containing selector into a parallaxable container.
  */
 /**
  *  vars
