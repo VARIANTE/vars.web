@@ -38,145 +38,7 @@ define
          */
         function Element(init)
         {
-            /**
-             * @property
-             *
-             * View of this Element instance.
-             *
-             * @type {Object}
-             */
-            Object.defineProperty(this, 'element',
-            {
-                get: function()
-                {
-                    if (!this._element)
-                    {
-                        Object.defineProperty(this, '_element', { value: this.factory(), writable: true });
-                    }
-
-                    return this._element;
-                },
-                set: function(value)
-                {
-                    this.__set_element(value);
-                }
-            });
-
-            /**
-             * @property
-             *
-             * ID of this Element instance.
-             *
-             * @type {String}
-             */
-            Object.defineProperty(this, 'id',
-            {
-                get: function()
-                {
-                    return this.element.id;
-                },
-                set: function(value)
-                {
-                    this.element.setAttribute('id', value);
-                }
-            });
-
-            /**
-             * @property
-             *
-             * Instance name of this Element instance.
-             *
-             * @type {String}
-             */
-            Object.defineProperty(this, 'name', { value: null, writable: true });
-
-            /**
-             * @property
-             *
-             * Class of this Element instance.
-             *
-             * @type {String}
-             */
-            Object.defineProperty(this, 'class',
-            {
-                get: function()
-                {
-                    return this.element.className;
-                },
-                set: function(value)
-                {
-                    this.element.className = value;
-                }
-            });
-
-            /**
-             * @property
-             *
-             * Class list of this Element instance.
-             *
-             * @type {String}
-             */
-            Object.defineProperty(this, 'classList',
-            {
-                get: function()
-                {
-                    return this.element.classList;
-                },
-                set: function(value)
-                {
-                    this.element.classList = value;
-                }
-            });
-
-            /**
-             * @property (read-only)
-             *
-             * Child elements.
-             *
-             * @type {Object}
-             */
-            Object.defineProperty(this, 'children', { value: {}, writable: false });
-
-            /**
-             * @property
-             *
-             * Specifies the data providers of this Element instance.
-             *
-             * @type {*}
-             */
-            Object.defineProperty(this, 'data',
-            {
-                get: function()
-                {
-                    return this._data;
-                },
-                set: function(value)
-                {
-                    Object.defineProperty(this, '_data', { value: value, writable: true });
-
-                    this.updateDelegate.setDirty(DirtyType.DATA);
-                }
-            });
-
-            /**
-             * @property
-             *
-             * ViewUpdateDelegate instance.
-             *
-             * @type {ViewUpdateDelegate}
-             */
-            Object.defineProperty(this, 'updateDelegate',
-            {
-                get: function()
-                {
-                    if (!this._updateDelegate)
-                    {
-                        Object.defineProperty(this, '_updateDelegate', { value: new ElementUpdateDelegate(this), writable: false });
-                    }
-
-                    return this._updateDelegate;
-                }
-            });
+            this.__define_properties();
 
             if (init)
             {
@@ -332,7 +194,155 @@ define
         };
 
         /**
-         * @private
+         * @protected
+         *
+         * Define all properties.
+         */
+        Element.prototype.__define_properties = function()
+        {
+            /**
+             * @property
+             *
+             * View of this Element instance.
+             *
+             * @type {Object}
+             */
+            Object.defineProperty(this, 'element',
+            {
+                get: function()
+                {
+                    if (!this._element)
+                    {
+                        Object.defineProperty(this, '_element', { value: this.factory(), writable: true });
+                    }
+
+                    return this._element;
+                },
+                set: function(value)
+                {
+                    this.__set_element(value);
+                }
+            });
+
+            /**
+             * @property
+             *
+             * ID of this Element instance.
+             *
+             * @type {String}
+             */
+            Object.defineProperty(this, 'id',
+            {
+                get: function()
+                {
+                    return this.element.id;
+                },
+                set: function(value)
+                {
+                    this.element.setAttribute('id', value);
+                }
+            });
+
+            /**
+             * @property
+             *
+             * Instance name of this Element instance.
+             *
+             * @type {String}
+             */
+            Object.defineProperty(this, 'name', { value: null, writable: true });
+
+            /**
+             * @property
+             *
+             * Class of this Element instance.
+             *
+             * @type {String}
+             */
+            Object.defineProperty(this, 'class',
+            {
+                get: function()
+                {
+                    return this.element.className;
+                },
+                set: function(value)
+                {
+                    this.element.className = value;
+                }
+            });
+
+            /**
+             * @property
+             *
+             * Class list of this Element instance.
+             *
+             * @type {String}
+             */
+            Object.defineProperty(this, 'classList',
+            {
+                get: function()
+                {
+                    return this.element.classList;
+                },
+                set: function(value)
+                {
+                    this.element.classList = value;
+                }
+            });
+
+            /**
+             * @property (read-only)
+             *
+             * Child elements.
+             *
+             * @type {Object}
+             */
+            Object.defineProperty(this, 'children', { value: {}, writable: false });
+
+            /**
+             * @property
+             *
+             * Specifies the data providers of this Element instance.
+             *
+             * @type {*}
+             */
+            Object.defineProperty(this, 'data',
+            {
+                get: function()
+                {
+                    return this._data;
+                },
+                set: function(value)
+                {
+                    Object.defineProperty(this, '_data', { value: value, writable: true });
+
+                    this.updateDelegate.setDirty(DirtyType.DATA);
+                }
+            });
+
+            /**
+             * @property
+             *
+             * ViewUpdateDelegate instance.
+             *
+             * @type {ViewUpdateDelegate}
+             */
+            Object.defineProperty(this, 'updateDelegate',
+            {
+                get: function()
+                {
+                    if (!this._updateDelegate)
+                    {
+                        Object.defineProperty(this, '_updateDelegate', { value: new ElementUpdateDelegate(this), writable: false });
+                    }
+
+                    return this._updateDelegate;
+                }
+            });
+        };
+
+        /**
+         * @protected
          *
          * Stubbed out setter for element property (for overriding purposes).
          *

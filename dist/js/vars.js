@@ -614,7 +614,7 @@ define
          */
         function EventDispatcher(element)
         {
-            
+            this.__define_properties();
         }
 
         /**
@@ -748,6 +748,16 @@ define
 
                 listener.call(this, event);
             }
+        };
+
+        /**
+         * @private
+         *
+         * Defines all properties.
+         */
+        EventDispatcher.prototype.__define_properties = function()
+        {
+
         };
 
         return EventDispatcher;
@@ -1653,145 +1663,7 @@ define
          */
         function Element(init)
         {
-            /**
-             * @property
-             *
-             * View of this Element instance.
-             *
-             * @type {Object}
-             */
-            Object.defineProperty(this, 'element',
-            {
-                get: function()
-                {
-                    if (!this._element)
-                    {
-                        Object.defineProperty(this, '_element', { value: this.factory(), writable: true });
-                    }
-
-                    return this._element;
-                },
-                set: function(value)
-                {
-                    this.__set_element(value);
-                }
-            });
-
-            /**
-             * @property
-             *
-             * ID of this Element instance.
-             *
-             * @type {String}
-             */
-            Object.defineProperty(this, 'id',
-            {
-                get: function()
-                {
-                    return this.element.id;
-                },
-                set: function(value)
-                {
-                    this.element.setAttribute('id', value);
-                }
-            });
-
-            /**
-             * @property
-             *
-             * Instance name of this Element instance.
-             *
-             * @type {String}
-             */
-            Object.defineProperty(this, 'name', { value: null, writable: true });
-
-            /**
-             * @property
-             *
-             * Class of this Element instance.
-             *
-             * @type {String}
-             */
-            Object.defineProperty(this, 'class',
-            {
-                get: function()
-                {
-                    return this.element.className;
-                },
-                set: function(value)
-                {
-                    this.element.className = value;
-                }
-            });
-
-            /**
-             * @property
-             *
-             * Class list of this Element instance.
-             *
-             * @type {String}
-             */
-            Object.defineProperty(this, 'classList',
-            {
-                get: function()
-                {
-                    return this.element.classList;
-                },
-                set: function(value)
-                {
-                    this.element.classList = value;
-                }
-            });
-
-            /**
-             * @property (read-only)
-             *
-             * Child elements.
-             *
-             * @type {Object}
-             */
-            Object.defineProperty(this, 'children', { value: {}, writable: false });
-
-            /**
-             * @property
-             *
-             * Specifies the data providers of this Element instance.
-             *
-             * @type {*}
-             */
-            Object.defineProperty(this, 'data',
-            {
-                get: function()
-                {
-                    return this._data;
-                },
-                set: function(value)
-                {
-                    Object.defineProperty(this, '_data', { value: value, writable: true });
-
-                    this.updateDelegate.setDirty(DirtyType.DATA);
-                }
-            });
-
-            /**
-             * @property
-             *
-             * ViewUpdateDelegate instance.
-             *
-             * @type {ViewUpdateDelegate}
-             */
-            Object.defineProperty(this, 'updateDelegate',
-            {
-                get: function()
-                {
-                    if (!this._updateDelegate)
-                    {
-                        Object.defineProperty(this, '_updateDelegate', { value: new ElementUpdateDelegate(this), writable: false });
-                    }
-
-                    return this._updateDelegate;
-                }
-            });
+            this.__define_properties();
 
             if (init)
             {
@@ -1947,7 +1819,155 @@ define
         };
 
         /**
-         * @private
+         * @protected
+         *
+         * Define all properties.
+         */
+        Element.prototype.__define_properties = function()
+        {
+            /**
+             * @property
+             *
+             * View of this Element instance.
+             *
+             * @type {Object}
+             */
+            Object.defineProperty(this, 'element',
+            {
+                get: function()
+                {
+                    if (!this._element)
+                    {
+                        Object.defineProperty(this, '_element', { value: this.factory(), writable: true });
+                    }
+
+                    return this._element;
+                },
+                set: function(value)
+                {
+                    this.__set_element(value);
+                }
+            });
+
+            /**
+             * @property
+             *
+             * ID of this Element instance.
+             *
+             * @type {String}
+             */
+            Object.defineProperty(this, 'id',
+            {
+                get: function()
+                {
+                    return this.element.id;
+                },
+                set: function(value)
+                {
+                    this.element.setAttribute('id', value);
+                }
+            });
+
+            /**
+             * @property
+             *
+             * Instance name of this Element instance.
+             *
+             * @type {String}
+             */
+            Object.defineProperty(this, 'name', { value: null, writable: true });
+
+            /**
+             * @property
+             *
+             * Class of this Element instance.
+             *
+             * @type {String}
+             */
+            Object.defineProperty(this, 'class',
+            {
+                get: function()
+                {
+                    return this.element.className;
+                },
+                set: function(value)
+                {
+                    this.element.className = value;
+                }
+            });
+
+            /**
+             * @property
+             *
+             * Class list of this Element instance.
+             *
+             * @type {String}
+             */
+            Object.defineProperty(this, 'classList',
+            {
+                get: function()
+                {
+                    return this.element.classList;
+                },
+                set: function(value)
+                {
+                    this.element.classList = value;
+                }
+            });
+
+            /**
+             * @property (read-only)
+             *
+             * Child elements.
+             *
+             * @type {Object}
+             */
+            Object.defineProperty(this, 'children', { value: {}, writable: false });
+
+            /**
+             * @property
+             *
+             * Specifies the data providers of this Element instance.
+             *
+             * @type {*}
+             */
+            Object.defineProperty(this, 'data',
+            {
+                get: function()
+                {
+                    return this._data;
+                },
+                set: function(value)
+                {
+                    Object.defineProperty(this, '_data', { value: value, writable: true });
+
+                    this.updateDelegate.setDirty(DirtyType.DATA);
+                }
+            });
+
+            /**
+             * @property
+             *
+             * ViewUpdateDelegate instance.
+             *
+             * @type {ViewUpdateDelegate}
+             */
+            Object.defineProperty(this, 'updateDelegate',
+            {
+                get: function()
+                {
+                    if (!this._updateDelegate)
+                    {
+                        Object.defineProperty(this, '_updateDelegate', { value: new ElementUpdateDelegate(this), writable: false });
+                    }
+
+                    return this._updateDelegate;
+                }
+            });
+        };
+
+        /**
+         * @protected
          *
          * Stubbed out setter for element property (for overriding purposes).
          *
@@ -2168,6 +2188,104 @@ define
          */
         function Video()
         {
+            Video.__super__.constructor.apply(this, arguments);
+        }
+
+        /**
+         * @static
+         *
+         * Constants for the 'preload' attribute.
+         *
+         * @type {Object}
+         *
+         * @see  http://www.w3schools.com/tags/tag_video.asp
+         */
+        Video.PRELOAD =
+        {
+            AUTO:     'auto',
+            METADATA: 'metada',
+            NONE:     'none'
+        };
+
+        /**
+         * @inheritDoc
+         */
+        Video.prototype.update = function()
+        {
+            if (this.updateDelegate.isDirty(DirtyType.DATA))
+            {
+                this._updateSource();
+            }
+
+            if (this.updateDelegate.isDirty(DirtyType.CUSTOM))
+            {
+
+            }
+
+            Video.__super__.update.call(this);
+        };
+
+        /**
+         * @inheritDoc
+         */
+        Video.prototype.factory = function()
+        {
+            return document.createElement('video');
+        };
+
+        /**
+         * @private
+         *
+         * Updates the sources in this Video instance.
+         */
+        Video.prototype._updateSource = function()
+        {
+            var i;
+            var arrlen;
+
+            // Update source(s).
+            var oldSources = this.element.getElementsByTagName('source');
+
+            arrlen = oldSources.length;
+
+            for (i = 0; i < arrlen; i++)
+            {
+                var oldSource = oldSources[i];
+
+                this.element.removeChild(oldSource);
+            }
+
+            if (!this.source) return;
+
+            arrlen = this.source.length;
+
+            for (i = 0; i < arrlen; i++)
+            {
+                var newSource = document.createElement('source');
+                var path = this.source[i].src;
+                var type = this.source[i].type;
+                var ext = path.split('.').pop();
+
+                newSource.setAttribute('src', path);
+                newSource.setAttribute('type', type || 'video/'+ext);
+
+                this.element.appendChild(newSource);
+            }
+        };
+
+        /**
+         * @inheritDoc
+         */
+        Video.prototype.toString = function()
+        {
+            return '[Video{' + this.name + '}]';
+        };
+
+        /**
+         * @inheritDoc
+         */
+        Video.prototype.__define_properties = function()
+        {
             /**
              * @property
              *
@@ -2313,97 +2431,7 @@ define
                 }
             });
 
-            Video.__super__.constructor.apply(this, arguments);
-        }
-
-        /**
-         * @static
-         *
-         * Constants for the 'preload' attribute.
-         *
-         * @type {Object}
-         *
-         * @see  http://www.w3schools.com/tags/tag_video.asp
-         */
-        Video.PRELOAD =
-        {
-            AUTO:     'auto',
-            METADATA: 'metada',
-            NONE:     'none'
-        };
-
-        /**
-         * @inheritDoc
-         */
-        Video.prototype.update = function()
-        {
-            if (this.updateDelegate.isDirty(DirtyType.DATA))
-            {
-                this._updateSource();
-            }
-
-            if (this.updateDelegate.isDirty(DirtyType.CUSTOM))
-            {
-
-            }
-
-            Video.__super__.update.call(this);
-        };
-
-        /**
-         * @inheritDoc
-         */
-        Video.prototype.factory = function()
-        {
-            return document.createElement('video');
-        };
-
-        /**
-         * @private
-         *
-         * Updates the sources in this Video instance.
-         */
-        Video.prototype._updateSource = function()
-        {
-            var i;
-            var arrlen;
-
-            // Update source(s).
-            var oldSources = this.element.getElementsByTagName('source');
-
-            arrlen = oldSources.length;
-
-            for (i = 0; i < arrlen; i++)
-            {
-                var oldSource = oldSources[i];
-
-                this.element.removeChild(oldSource);
-            }
-
-            if (!this.source) return;
-
-            arrlen = this.source.length;
-
-            for (i = 0; i < arrlen; i++)
-            {
-                var newSource = document.createElement('source');
-                var path = this.source[i].src;
-                var type = this.source[i].type;
-                var ext = path.split('.').pop();
-
-                newSource.setAttribute('src', path);
-                newSource.setAttribute('type', type || 'video/'+ext);
-
-                this.element.appendChild(newSource);
-            }
-        };
-
-        /**
-         * @inheritDoc
-         */
-        Video.prototype.toString = function()
-        {
-            return '[Video{' + this.name + '}]';
+            Video.__super__.__define_properties.call(this);
         };
 
         /**
@@ -3538,191 +3566,6 @@ define
          */
         function AssetLoader()
         {
-            /**
-             * @property
-             *
-             * Specifies the current state of this AssetLoader instance.
-             *
-             * @type {Number}
-             */
-            Object.defineProperty(this, 'state',
-            {
-                get: function()
-                {
-                    if (!this._state)
-                    {
-                        Object.defineProperty(this, '_state', { value: AssetLoader.STATE.IDLE, writable: true });
-                    }
-
-                    return this._state;
-                }
-            });
-
-            /**
-             * @property
-             *
-             * View of this AssetLoader instance.
-             *
-             * @type {Object}
-             */
-            Object.defineProperty(this, 'queue',
-            {
-                get: function()
-                {
-                    if (!this._queue)
-                    {
-                        Object.defineProperty(this, '_queue', { value: [], writable: true });
-                    }
-
-                    return this._queue;
-                }
-            });
-
-            /**
-             * @property
-             *
-             * Loaded assets.
-             *
-             * @type {Object}
-             */
-            Object.defineProperty(this, 'assets',
-            {
-                get: function()
-                {
-                    if (!this._assets)
-                    {
-                        Object.defineProperty(this, '_assets', { value: {}, writable: true });
-                    }
-
-                    return this._assets;
-                }
-            });
-
-            /**
-             * @property
-             *
-             * Specifies whether the XHR operations run in async.
-             *
-             * @type {Boolean}
-             */
-            Object.defineProperty(this, 'async',
-            {
-                get: function()
-                {
-                    if (this._async === undefined)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return this._async;
-                    }
-                },
-                set: function(value)
-                {
-                    assert(this.state !== AssetLoader.STATE.IN_PROGRESS, 'Cannot change the async mode while it is in progress.');
-
-                    if (this.state !== AssetLoader.STATE.IN_PROGRESS)
-                    {
-                        Object.defineProperty(this, '_async', { value: value, writable: true });
-                    }
-                }
-            });
-
-            /**
-             * @property
-             *
-             * Specifies the total bytes loaded for all assets in the queue.
-             *
-             * @type {Number}
-             */
-            Object.defineProperty(this, 'bytesLoaded',
-            {
-                get: function()
-                {
-                    if (!this._bytesLoaded)
-                    {
-                        return 0.0;
-                    }
-                    else
-                    {
-                        var total = 0;
-                        var arrlen = this._bytesLoaded.length;
-
-                        for (var i = 0; i < arrlen; i++)
-                        {
-                            total += this._bytesLoaded[i];
-                        }
-
-                        return total;
-                    }
-
-                    return this._bytesLoaded;
-                }
-            });
-
-            /**
-             * @property
-             *
-             * Specifies the total bytes for all assets in the queue.
-             *
-             * @type {Number}
-             */
-            Object.defineProperty(this, 'bytesTotal',
-            {
-                get: function()
-                {
-                    if (!this._bytesTotal)
-                    {
-                        return 0.0;
-                    }
-                    else
-                    {
-                        var total = 0;
-                        var arrlen = this._bytesTotal.length;
-
-                        for (var i = 0; i < arrlen; i++)
-                        {
-                            total += this._bytesTotal[i];
-                        }
-
-                        return total;
-                    }
-                }
-            });
-
-            /**
-             * @property
-             *
-             * Specifies the current progress (in decimals) of the entire operation.
-             *
-             * @return {Number}
-             */
-            Object.defineProperty(this, 'progress',
-            {
-                get: function()
-                {
-                    if (!this._bytesTotal || !this._bytesLoaded) return 0.0;
-                    if (this._bytesTotal.length !== this._bytesLoaded.length) return 0.0;
-
-                    var arrlen = this._bytesTotal.length;
-                    var sum = 0.0;
-
-                    for (var i = 0; i < arrlen; i++)
-                    {
-                        var loaded = this._bytesLoaded[i];
-                        var total = this._bytesTotal[i];
-
-                        if (total > 0.0)
-                        {
-                            sum += loaded/total;
-                        }
-                    }
-
-                    return sum/arrlen;
-                }
-            });
-
             AssetLoader.__super__.constructor.apply(this, arguments);
         } inherit(AssetLoader, EventDispatcher);
 
@@ -4064,6 +3907,199 @@ define
 
                 this.dispatchEvent(loadEvent);
             }
+        };
+
+        /**
+         * @inheritDoc
+         */
+        AssetLoader.prototype.__define_properties = function()
+        {
+            /**
+             * @property
+             *
+             * Specifies the current state of this AssetLoader instance.
+             *
+             * @type {Number}
+             */
+            Object.defineProperty(this, 'state',
+            {
+                get: function()
+                {
+                    if (!this._state)
+                    {
+                        Object.defineProperty(this, '_state', { value: AssetLoader.STATE.IDLE, writable: true });
+                    }
+
+                    return this._state;
+                }
+            });
+
+            /**
+             * @property
+             *
+             * View of this AssetLoader instance.
+             *
+             * @type {Object}
+             */
+            Object.defineProperty(this, 'queue',
+            {
+                get: function()
+                {
+                    if (!this._queue)
+                    {
+                        Object.defineProperty(this, '_queue', { value: [], writable: true });
+                    }
+
+                    return this._queue;
+                }
+            });
+
+            /**
+             * @property
+             *
+             * Loaded assets.
+             *
+             * @type {Object}
+             */
+            Object.defineProperty(this, 'assets',
+            {
+                get: function()
+                {
+                    if (!this._assets)
+                    {
+                        Object.defineProperty(this, '_assets', { value: {}, writable: true });
+                    }
+
+                    return this._assets;
+                }
+            });
+
+            /**
+             * @property
+             *
+             * Specifies whether the XHR operations run in async.
+             *
+             * @type {Boolean}
+             */
+            Object.defineProperty(this, 'async',
+            {
+                get: function()
+                {
+                    if (this._async === undefined)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return this._async;
+                    }
+                },
+                set: function(value)
+                {
+                    assert(this.state !== AssetLoader.STATE.IN_PROGRESS, 'Cannot change the async mode while it is in progress.');
+
+                    if (this.state !== AssetLoader.STATE.IN_PROGRESS)
+                    {
+                        Object.defineProperty(this, '_async', { value: value, writable: true });
+                    }
+                }
+            });
+
+            /**
+             * @property
+             *
+             * Specifies the total bytes loaded for all assets in the queue.
+             *
+             * @type {Number}
+             */
+            Object.defineProperty(this, 'bytesLoaded',
+            {
+                get: function()
+                {
+                    if (!this._bytesLoaded)
+                    {
+                        return 0.0;
+                    }
+                    else
+                    {
+                        var total = 0;
+                        var arrlen = this._bytesLoaded.length;
+
+                        for (var i = 0; i < arrlen; i++)
+                        {
+                            total += this._bytesLoaded[i];
+                        }
+
+                        return total;
+                    }
+
+                    return this._bytesLoaded;
+                }
+            });
+
+            /**
+             * @property
+             *
+             * Specifies the total bytes for all assets in the queue.
+             *
+             * @type {Number}
+             */
+            Object.defineProperty(this, 'bytesTotal',
+            {
+                get: function()
+                {
+                    if (!this._bytesTotal)
+                    {
+                        return 0.0;
+                    }
+                    else
+                    {
+                        var total = 0;
+                        var arrlen = this._bytesTotal.length;
+
+                        for (var i = 0; i < arrlen; i++)
+                        {
+                            total += this._bytesTotal[i];
+                        }
+
+                        return total;
+                    }
+                }
+            });
+
+            /**
+             * @property
+             *
+             * Specifies the current progress (in decimals) of the entire operation.
+             *
+             * @return {Number}
+             */
+            Object.defineProperty(this, 'progress',
+            {
+                get: function()
+                {
+                    if (!this._bytesTotal || !this._bytesLoaded) return 0.0;
+                    if (this._bytesTotal.length !== this._bytesLoaded.length) return 0.0;
+
+                    var arrlen = this._bytesTotal.length;
+                    var sum = 0.0;
+
+                    for (var i = 0; i < arrlen; i++)
+                    {
+                        var loaded = this._bytesLoaded[i];
+                        var total = this._bytesTotal[i];
+
+                        if (total > 0.0)
+                        {
+                            sum += loaded/total;
+                        }
+                    }
+
+                    return sum/arrlen;
+                }
+            });
+
+            AssetLoader.__super__.__define_properties.call(this);
         };
 
         return AssetLoader;

@@ -20,6 +20,7 @@
 
     a.Foo.prototype.init = function()
     {
+        console.log(this.name);
         a.Foo.__super__.init.call(this);
     };
 

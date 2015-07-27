@@ -36,6 +36,104 @@ define
          */
         function Video()
         {
+            Video.__super__.constructor.apply(this, arguments);
+        }
+
+        /**
+         * @static
+         *
+         * Constants for the 'preload' attribute.
+         *
+         * @type {Object}
+         *
+         * @see  http://www.w3schools.com/tags/tag_video.asp
+         */
+        Video.PRELOAD =
+        {
+            AUTO:     'auto',
+            METADATA: 'metada',
+            NONE:     'none'
+        };
+
+        /**
+         * @inheritDoc
+         */
+        Video.prototype.update = function()
+        {
+            if (this.updateDelegate.isDirty(DirtyType.DATA))
+            {
+                this._updateSource();
+            }
+
+            if (this.updateDelegate.isDirty(DirtyType.CUSTOM))
+            {
+
+            }
+
+            Video.__super__.update.call(this);
+        };
+
+        /**
+         * @inheritDoc
+         */
+        Video.prototype.factory = function()
+        {
+            return document.createElement('video');
+        };
+
+        /**
+         * @private
+         *
+         * Updates the sources in this Video instance.
+         */
+        Video.prototype._updateSource = function()
+        {
+            var i;
+            var arrlen;
+
+            // Update source(s).
+            var oldSources = this.element.getElementsByTagName('source');
+
+            arrlen = oldSources.length;
+
+            for (i = 0; i < arrlen; i++)
+            {
+                var oldSource = oldSources[i];
+
+                this.element.removeChild(oldSource);
+            }
+
+            if (!this.source) return;
+
+            arrlen = this.source.length;
+
+            for (i = 0; i < arrlen; i++)
+            {
+                var newSource = document.createElement('source');
+                var path = this.source[i].src;
+                var type = this.source[i].type;
+                var ext = path.split('.').pop();
+
+                newSource.setAttribute('src', path);
+                newSource.setAttribute('type', type || 'video/'+ext);
+
+                this.element.appendChild(newSource);
+            }
+        };
+
+        /**
+         * @inheritDoc
+         */
+        Video.prototype.toString = function()
+        {
+            return '[Video{' + this.name + '}]';
+        };
+
+        /**
+         * @inheritDoc
+         */
+        Video.prototype.__define_properties = function()
+        {
             /**
              * @property
              *
@@ -181,97 +279,7 @@ define
                 }
             });
 
-            Video.__super__.constructor.apply(this, arguments);
-        }
-
-        /**
-         * @static
-         *
-         * Constants for the 'preload' attribute.
-         *
-         * @type {Object}
-         *
-         * @see  http://www.w3schools.com/tags/tag_video.asp
-         */
-        Video.PRELOAD =
-        {
-            AUTO:     'auto',
-            METADATA: 'metada',
-            NONE:     'none'
-        };
-
-        /**
-         * @inheritDoc
-         */
-        Video.prototype.update = function()
-        {
-            if (this.updateDelegate.isDirty(DirtyType.DATA))
-            {
-                this._updateSource();
-            }
-
-            if (this.updateDelegate.isDirty(DirtyType.CUSTOM))
-            {
-
-            }
-
-            Video.__super__.update.call(this);
-        };
-
-        /**
-         * @inheritDoc
-         */
-        Video.prototype.factory = function()
-        {
-            return document.createElement('video');
-        };
-
-        /**
-         * @private
-         *
-         * Updates the sources in this Video instance.
-         */
-        Video.prototype._updateSource = function()
-        {
-            var i;
-            var arrlen;
-
-            // Update source(s).
-            var oldSources = this.element.getElementsByTagName('source');
-
-            arrlen = oldSources.length;
-
-            for (i = 0; i < arrlen; i++)
-            {
-                var oldSource = oldSources[i];
-
-                this.element.removeChild(oldSource);
-            }
-
-            if (!this.source) return;
-
-            arrlen = this.source.length;
-
-            for (i = 0; i < arrlen; i++)
-            {
-                var newSource = document.createElement('source');
-                var path = this.source[i].src;
-                var type = this.source[i].type;
-                var ext = path.split('.').pop();
-
-                newSource.setAttribute('src', path);
-                newSource.setAttribute('type', type || 'video/'+ext);
-
-                this.element.appendChild(newSource);
-            }
-        };
-
-        /**
-         * @inheritDoc
-         */
-        Video.prototype.toString = function()
-        {
-            return '[Video{' + this.name + '}]';
+            Video.__super__.__define_properties.call(this);
         };
 
         /**

@@ -99,191 +99,6 @@ define
          */
         function AssetLoader()
         {
-            /**
-             * @property
-             *
-             * Specifies the current state of this AssetLoader instance.
-             *
-             * @type {Number}
-             */
-            Object.defineProperty(this, 'state',
-            {
-                get: function()
-                {
-                    if (!this._state)
-                    {
-                        Object.defineProperty(this, '_state', { value: AssetLoader.STATE.IDLE, writable: true });
-                    }
-
-                    return this._state;
-                }
-            });
-
-            /**
-             * @property
-             *
-             * View of this AssetLoader instance.
-             *
-             * @type {Object}
-             */
-            Object.defineProperty(this, 'queue',
-            {
-                get: function()
-                {
-                    if (!this._queue)
-                    {
-                        Object.defineProperty(this, '_queue', { value: [], writable: true });
-                    }
-
-                    return this._queue;
-                }
-            });
-
-            /**
-             * @property
-             *
-             * Loaded assets.
-             *
-             * @type {Object}
-             */
-            Object.defineProperty(this, 'assets',
-            {
-                get: function()
-                {
-                    if (!this._assets)
-                    {
-                        Object.defineProperty(this, '_assets', { value: {}, writable: true });
-                    }
-
-                    return this._assets;
-                }
-            });
-
-            /**
-             * @property
-             *
-             * Specifies whether the XHR operations run in async.
-             *
-             * @type {Boolean}
-             */
-            Object.defineProperty(this, 'async',
-            {
-                get: function()
-                {
-                    if (this._async === undefined)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return this._async;
-                    }
-                },
-                set: function(value)
-                {
-                    assert(this.state !== AssetLoader.STATE.IN_PROGRESS, 'Cannot change the async mode while it is in progress.');
-
-                    if (this.state !== AssetLoader.STATE.IN_PROGRESS)
-                    {
-                        Object.defineProperty(this, '_async', { value: value, writable: true });
-                    }
-                }
-            });
-
-            /**
-             * @property
-             *
-             * Specifies the total bytes loaded for all assets in the queue.
-             *
-             * @type {Number}
-             */
-            Object.defineProperty(this, 'bytesLoaded',
-            {
-                get: function()
-                {
-                    if (!this._bytesLoaded)
-                    {
-                        return 0.0;
-                    }
-                    else
-                    {
-                        var total = 0;
-                        var arrlen = this._bytesLoaded.length;
-
-                        for (var i = 0; i < arrlen; i++)
-                        {
-                            total += this._bytesLoaded[i];
-                        }
-
-                        return total;
-                    }
-
-                    return this._bytesLoaded;
-                }
-            });
-
-            /**
-             * @property
-             *
-             * Specifies the total bytes for all assets in the queue.
-             *
-             * @type {Number}
-             */
-            Object.defineProperty(this, 'bytesTotal',
-            {
-                get: function()
-                {
-                    if (!this._bytesTotal)
-                    {
-                        return 0.0;
-                    }
-                    else
-                    {
-                        var total = 0;
-                        var arrlen = this._bytesTotal.length;
-
-                        for (var i = 0; i < arrlen; i++)
-                        {
-                            total += this._bytesTotal[i];
-                        }
-
-                        return total;
-                    }
-                }
-            });
-
-            /**
-             * @property
-             *
-             * Specifies the current progress (in decimals) of the entire operation.
-             *
-             * @return {Number}
-             */
-            Object.defineProperty(this, 'progress',
-            {
-                get: function()
-                {
-                    if (!this._bytesTotal || !this._bytesLoaded) return 0.0;
-                    if (this._bytesTotal.length !== this._bytesLoaded.length) return 0.0;
-
-                    var arrlen = this._bytesTotal.length;
-                    var sum = 0.0;
-
-                    for (var i = 0; i < arrlen; i++)
-                    {
-                        var loaded = this._bytesLoaded[i];
-                        var total = this._bytesTotal[i];
-
-                        if (total > 0.0)
-                        {
-                            sum += loaded/total;
-                        }
-                    }
-
-                    return sum/arrlen;
-                }
-            });
-
             AssetLoader.__super__.constructor.apply(this, arguments);
         } inherit(AssetLoader, EventDispatcher);
 
@@ -625,6 +440,199 @@ define
 
                 this.dispatchEvent(loadEvent);
             }
+        };
+
+        /**
+         * @inheritDoc
+         */
+        AssetLoader.prototype.__define_properties = function()
+        {
+            /**
+             * @property
+             *
+             * Specifies the current state of this AssetLoader instance.
+             *
+             * @type {Number}
+             */
+            Object.defineProperty(this, 'state',
+            {
+                get: function()
+                {
+                    if (!this._state)
+                    {
+                        Object.defineProperty(this, '_state', { value: AssetLoader.STATE.IDLE, writable: true });
+                    }
+
+                    return this._state;
+                }
+            });
+
+            /**
+             * @property
+             *
+             * View of this AssetLoader instance.
+             *
+             * @type {Object}
+             */
+            Object.defineProperty(this, 'queue',
+            {
+                get: function()
+                {
+                    if (!this._queue)
+                    {
+                        Object.defineProperty(this, '_queue', { value: [], writable: true });
+                    }
+
+                    return this._queue;
+                }
+            });
+
+            /**
+             * @property
+             *
+             * Loaded assets.
+             *
+             * @type {Object}
+             */
+            Object.defineProperty(this, 'assets',
+            {
+                get: function()
+                {
+                    if (!this._assets)
+                    {
+                        Object.defineProperty(this, '_assets', { value: {}, writable: true });
+                    }
+
+                    return this._assets;
+                }
+            });
+
+            /**
+             * @property
+             *
+             * Specifies whether the XHR operations run in async.
+             *
+             * @type {Boolean}
+             */
+            Object.defineProperty(this, 'async',
+            {
+                get: function()
+                {
+                    if (this._async === undefined)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return this._async;
+                    }
+                },
+                set: function(value)
+                {
+                    assert(this.state !== AssetLoader.STATE.IN_PROGRESS, 'Cannot change the async mode while it is in progress.');
+
+                    if (this.state !== AssetLoader.STATE.IN_PROGRESS)
+                    {
+                        Object.defineProperty(this, '_async', { value: value, writable: true });
+                    }
+                }
+            });
+
+            /**
+             * @property
+             *
+             * Specifies the total bytes loaded for all assets in the queue.
+             *
+             * @type {Number}
+             */
+            Object.defineProperty(this, 'bytesLoaded',
+            {
+                get: function()
+                {
+                    if (!this._bytesLoaded)
+                    {
+                        return 0.0;
+                    }
+                    else
+                    {
+                        var total = 0;
+                        var arrlen = this._bytesLoaded.length;
+
+                        for (var i = 0; i < arrlen; i++)
+                        {
+                            total += this._bytesLoaded[i];
+                        }
+
+                        return total;
+                    }
+
+                    return this._bytesLoaded;
+                }
+            });
+
+            /**
+             * @property
+             *
+             * Specifies the total bytes for all assets in the queue.
+             *
+             * @type {Number}
+             */
+            Object.defineProperty(this, 'bytesTotal',
+            {
+                get: function()
+                {
+                    if (!this._bytesTotal)
+                    {
+                        return 0.0;
+                    }
+                    else
+                    {
+                        var total = 0;
+                        var arrlen = this._bytesTotal.length;
+
+                        for (var i = 0; i < arrlen; i++)
+                        {
+                            total += this._bytesTotal[i];
+                        }
+
+                        return total;
+                    }
+                }
+            });
+
+            /**
+             * @property
+             *
+             * Specifies the current progress (in decimals) of the entire operation.
+             *
+             * @return {Number}
+             */
+            Object.defineProperty(this, 'progress',
+            {
+                get: function()
+                {
+                    if (!this._bytesTotal || !this._bytesLoaded) return 0.0;
+                    if (this._bytesTotal.length !== this._bytesLoaded.length) return 0.0;
+
+                    var arrlen = this._bytesTotal.length;
+                    var sum = 0.0;
+
+                    for (var i = 0; i < arrlen; i++)
+                    {
+                        var loaded = this._bytesLoaded[i];
+                        var total = this._bytesTotal[i];
+
+                        if (total > 0.0)
+                        {
+                            sum += loaded/total;
+                        }
+                    }
+
+                    return sum/arrlen;
+                }
+            });
+
+            AssetLoader.__super__.__define_properties.call(this);
         };
 
         return AssetLoader;

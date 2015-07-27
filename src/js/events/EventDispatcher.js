@@ -28,7 +28,7 @@ define
          */
         function EventDispatcher(element)
         {
-            
+            this.__define_properties();
         }
 
         /**
@@ -162,6 +162,16 @@ define
 
                 listener.call(this, event);
             }
+        };
+
+        /**
+         * @private
+         *
+         * Defines all properties.
+         */
+        EventDispatcher.prototype.__define_properties = function()
+        {
+
         };
 
         return EventDispatcher;
