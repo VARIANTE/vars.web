@@ -51,14 +51,14 @@ define
 
             if (!assert(element.querySelectorAll, 'Element does not support "querySelectorAll".')) return null;
 
-            var qualifiedChildren = element.querySelectorAll('['+Directives.Controller+'], ['+'data-'+Directives.Controller+'], ['+Directives.Instance+'], ['+'data-'+Directives.Instance+']');
+            var qualifiedChildren = element.querySelectorAll('['+Directives.Controller+'], [data-'+Directives.Controller+'], ['+Directives.Instance+'], [data-'+Directives.Instance+']');
             var n = sizeOf(qualifiedChildren);
 
             for (var i = 0; i < n; i++)
             {
                 var child = qualifiedChildren[i];
-                var className = child.getAttribute(Directives.Controller);
-                var childName = child.getAttribute(Directives.Instance);
+                var className = child.getAttribute(Directives.Controller) || child.getAttribute('data-'+Directives.Controller);
+                var childName = child.getAttribute(Directives.Instance) || child.getAttribute('data-'+Directives.Instance);
                 var controller = (className) ? namespace(className, controllerScope) : null;
 
                 // If no controller class is specified but element is marked as an  instance, default the controller class to
