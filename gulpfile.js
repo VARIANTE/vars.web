@@ -157,7 +157,7 @@ gulp.task('build', ['styles', 'scripts']);
 /**
  * Default task.
  *
- * @param {Boolean} --watch Specifies whether to watch for changes after the task is done.
+ * @param  {Boolean} --watch Specifies whether to watch for changes after the task is done.
  */
 gulp.task('default', ['clean'], function()
 {

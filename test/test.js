@@ -1,55 +1,27 @@
-/**
- *  vars
- *  (c) VARIANTE (http://variante.io)
- *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
- */
+/* global:vars */
 
-/**
- * @class
- * Controller of the main module.
- */
-vars.module((function() {
+(function() {
+    'use strict';
 
-'use strict';
+    // vars.debug = true;
 
-vars.debug = false;
+    var a = {};
 
-console.log(vars.math.clamp);
-
-/**
- * @constructor
- * Creates a new Test instance.
- */
-function Test(init)
-{
-    vars.Element.call(this, init || $('#foo').get(0));
-} var parent = vars.inherit(Test, vars.Element);
-
-/**
- * @inheritDoc
- */
-Test.prototype.init = function()
-{
-    this.updateDelegate.responsive = true;
-    this.updateDelegate.refreshRate = 20.0;
-
-    parent.prototype.init.call(this);
-};
-
-/**
- * @inheritDoc
- */
-Test.prototype.update = function(dirtyTypes)
-{
-    if (this.updateDelegate.isDirty(vars.DirtyType.POSITION))
+    a.Foo = function(init)
     {
-        vars.translate(this.element, { top: 0 });
-        vars.translate3d(this.element, { x: 50, y: 50 }, { x: 25 });
-    }
+        a.Foo.__super__.constructor.apply(this, arguments);
+    }; vars.inherit(a.Foo, vars.Element);
 
-    parent.prototype.update.call(this);
-};
 
-return Test; }()));
+    a.Bar = function(init)
+    {
+        a.Bar.__super__.constructor.apply(this, arguments);
+    }; vars.inherit(a.Bar, vars.Element);
+
+    a.Foo.prototype.init = function()
+    {
+        a.Foo.__super__.init.call(this);
+    };
+
+    vars.initDOM(a);
+}());

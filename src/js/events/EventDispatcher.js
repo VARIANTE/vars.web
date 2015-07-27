@@ -1,11 +1,13 @@
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  Event dispatcher object.
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * Event dispatcher object.
+ *
+ * @type {Class}
  */
 define
 (
@@ -26,37 +28,16 @@ define
          */
         function EventDispatcher(element)
         {
-            if (this.debug) log('[EventDispatcher]::new(', element, ')');
+            
         }
-
-        /**
-         * @property
-         *
-         * Specifies whether this EventDispatcher instance generates debug data.
-         *
-         * @type {Object}
-         */
-        Object.defineProperty(EventDispatcher.prototype, 'debug',
-        {
-            get: function()
-            {
-                return this._debug;
-            },
-            set: function(value)
-            {
-                Object.defineProperty(this, '_debug', { value: value, writable: true });
-
-                this.updateDelegate.debug = value;
-            }
-        });
 
         /**
          * @public
          *
          * Adds an event listener to this EventDispatcher instance.
          *
-         * @param {String} type
-         * @param {Function} listener
+         * @param  {String} type
+         * @param  {Function} listener
          */
         EventDispatcher.prototype.addEventListener = function(type, listener)
         {
@@ -66,7 +47,7 @@ define
             if (!type) return;
             if (!listener) return;
 
-            if (this.debug) log('[EventDispatcher]::addEventListener('+type+')');
+            log('[EventDispatcher]::addEventListener('+type+')');
 
             if (!this._listenerMap)
             {
@@ -87,8 +68,8 @@ define
          * Removes an event listener from this EventDispatcher instance. If no listener method is
          * specified, all the listeners of the specified type will be removed.
          *
-         * @param {String} type
-         * @param {Function} listener (Optional)
+         * @param  {String} type
+         * @param  {Function} listener (Optional)
          */
         EventDispatcher.prototype.removeEventListener = function(type, listener)
         {
@@ -100,7 +81,7 @@ define
             if (!this._listenerMap) return;
             if (!this._listenerMap[type]) return;
 
-            if (this.debug) log('[EventDispatcher]::removeEventListener('+type+')');
+            log('[EventDispatcher]::removeEventListener('+type+')');
 
             if (listener)
             {
@@ -124,8 +105,8 @@ define
          * If no listener is specified, it will check if any listener of the specified event type
          * is registered.
          *
-         * @param {String} type
-         * @param {Function} listener (Optional)
+         * @param  {String} type
+         * @param  {Function} listener (Optional)
          *
          * @return {Boolean}
          */
@@ -167,7 +148,7 @@ define
             if (!this._listenerMap) return false;
             if (!this._listenerMap[event.type]) return false;
 
-            if (this.debug) log('[EventDispatcher]::dispatchEvent('+event.type+')');
+            log('[EventDispatcher]::dispatchEvent('+event.type+')');
 
             event.target = this;
             event.currentTarget = this;

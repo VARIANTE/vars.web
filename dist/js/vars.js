@@ -1,11 +1,11 @@
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  Start file for r.js.
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * Start file for r.js.
  */
 (function(root, factory, undefined)
 {
@@ -19,10 +19,10 @@
     // Browser (?).
     else
     {
-        vars.utils.namespace('io').variante = vars;
         root.vars = vars;
     }
-}((typeof window !== 'undefined') ? window : this, function() {/**
+}((typeof window !== 'undefined') ? window : this, function() {
+/**
  * @license almond 0.3.1 Copyright (c) 2011-2014, The Dojo Foundation All Rights Reserved.
  * Available via the MIT or new BSD license.
  * see: http://github.com/jrburke/almond for details
@@ -456,13 +456,15 @@ var requirejs, require, define;
 define("almond", function(){});
 
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  UI dirty types.
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * UI dirty types.
+ *
+ * @type {Object}
  */
 define
 (
@@ -481,14 +483,17 @@ define
         ALL:         0xFFFFFFFF
     }
 );
+
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  Module of global VARS enums.
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * Module of global VARS enums.
+ *
+ * @type {Module}
  */
 define
 (
@@ -507,12 +512,15 @@ define
         return api;
     }
 );
+
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
  */
 define
 (
@@ -534,7 +542,7 @@ define
         {
             if (!condition && (window && window.vars && window.vars.debug))
             {
-                throw message || '[vars]: Assertion failed.';
+                throw ('Error: ' + message) || '[vars]: Assertion failed.';
             }
 
             return condition;
@@ -545,11 +553,13 @@ define
 );
 
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
  */
 define
 (
@@ -575,13 +585,15 @@ define
 );
 
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  Event dispatcher object.
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * Event dispatcher object.
+ *
+ * @type {Class}
  */
 define
 (
@@ -602,37 +614,16 @@ define
          */
         function EventDispatcher(element)
         {
-            if (this.debug) log('[EventDispatcher]::new(', element, ')');
+            
         }
-
-        /**
-         * @property
-         *
-         * Specifies whether this EventDispatcher instance generates debug data.
-         *
-         * @type {Object}
-         */
-        Object.defineProperty(EventDispatcher.prototype, 'debug',
-        {
-            get: function()
-            {
-                return this._debug;
-            },
-            set: function(value)
-            {
-                Object.defineProperty(this, '_debug', { value: value, writable: true });
-
-                this.updateDelegate.debug = value;
-            }
-        });
 
         /**
          * @public
          *
          * Adds an event listener to this EventDispatcher instance.
          *
-         * @param {String} type
-         * @param {Function} listener
+         * @param  {String} type
+         * @param  {Function} listener
          */
         EventDispatcher.prototype.addEventListener = function(type, listener)
         {
@@ -642,7 +633,7 @@ define
             if (!type) return;
             if (!listener) return;
 
-            if (this.debug) log('[EventDispatcher]::addEventListener('+type+')');
+            log('[EventDispatcher]::addEventListener('+type+')');
 
             if (!this._listenerMap)
             {
@@ -663,8 +654,8 @@ define
          * Removes an event listener from this EventDispatcher instance. If no listener method is
          * specified, all the listeners of the specified type will be removed.
          *
-         * @param {String} type
-         * @param {Function} listener (Optional)
+         * @param  {String} type
+         * @param  {Function} listener (Optional)
          */
         EventDispatcher.prototype.removeEventListener = function(type, listener)
         {
@@ -676,7 +667,7 @@ define
             if (!this._listenerMap) return;
             if (!this._listenerMap[type]) return;
 
-            if (this.debug) log('[EventDispatcher]::removeEventListener('+type+')');
+            log('[EventDispatcher]::removeEventListener('+type+')');
 
             if (listener)
             {
@@ -700,8 +691,8 @@ define
          * If no listener is specified, it will check if any listener of the specified event type
          * is registered.
          *
-         * @param {String} type
-         * @param {Function} listener (Optional)
+         * @param  {String} type
+         * @param  {Function} listener (Optional)
          *
          * @return {Boolean}
          */
@@ -743,7 +734,7 @@ define
             if (!this._listenerMap) return false;
             if (!this._listenerMap[event.type]) return false;
 
-            if (this.debug) log('[EventDispatcher]::dispatchEvent('+event.type+')');
+            log('[EventDispatcher]::dispatchEvent('+event.type+')');
 
             event.target = this;
             event.currentTarget = this;
@@ -764,13 +755,15 @@ define
 );
 
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  VARS supported event types.
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * VARS supported event types.
+ *
+ * @type {Object}
  */
 define
 (
@@ -911,13 +904,15 @@ define
 );
 
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  Module of methods/classes related to the native event system.
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * Module of methods/classes related to the native event system.
+ *
+ * @type {Module}
  */
 define
 (
@@ -941,11 +936,13 @@ define
 );
 
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
  */
 define
 (
@@ -981,712 +978,88 @@ define
 );
 
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  Module of methods/classes related to math.
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * @type {Function}
+ */
+define
+(
+    'math/isClamped',[
+    ],
+    function
+    (
+    )
+    {
+        /**
+         * Determines if value is bounded by the specified min and max values, defaults to inclusive.
+         *
+         * @param  {Number} value
+         * @param  {Number} min
+         * @param  {Number} max
+         * @param  {Boolean} exclusive
+         *
+         * @return {Boolean} True if bounded, false otherwise.
+         */
+        function isClamped(value, min, max, exclusive)
+        {
+            if (exclusive)
+            {
+                return ((value > min) && (value < max));
+            }
+            else
+            {
+                return ((value >= min) && (value <= max));
+            }
+        }
+
+        return isClamped;
+    }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * Module of methods/classes related to math.
+ *
+ * @type {Module}
  */
 define
 (
     'math',[
-        'math/clamp'
+        'math/clamp',
+        'math/isClamped'
     ],
     function
     (
-        clamp
+        clamp,
+        isClamped
     )
     {
         var api = function(obj) { return obj; };
 
         Object.defineProperty(api, 'clamp', { value: clamp, writable: false, enumerable: true });
+        Object.defineProperty(api, 'isClamped', { value: isClamped, writable: false, enumerable: true });
 
         return api;
     }
 );
 
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
- */
-define
-(
-    'ui/changeElementState',[
-        'utils/assert'
-    ],
-    function
-    (
-        assert
-    )
-    {
-        /**
-         * Changes the state of a DOM element, assumes that state classes
-         * are prefixed with 'state-'.
-         *
-         * @param  {Object} element
-         * @param  {String} state
-         */
-        function changeElementState(element, state)
-        {
-            if (!assert((element) && (element instanceof HTMLElement), 'Invalid element specified. Element must be an instance of HTMLElement')) return;
-            if (element.classList.contains('state'+state)) return;
-
-            element.className = element.className.replace(/(^|\s)state-\S+/g, '');
-            element.classList.add('state-'+state);
-        }
-
-        return changeElementState;
-    }
-);
-
-/**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
- */
-define
-(
-    'utils/sizeOf',[
-    ],
-    function
-    (
-    )
-    {
-        /**
-         * Gets the number of keys in a given object.
-         *
-         * @param  {*} object   Any object type.
-         *
-         * @return {Number} Size of specified object (depending on the object type,
-         *                  it can be the number of keys in a plain object, number
-         *                  of elements in an array, number of characters in a
-         *                  string, number of digits in a number, and 0 for all
-         *                  other types.
-         */
-        function sizeOf(object)
-        {
-            if (object === undefined || object === null) return 0;
-            
-            // If object internally has length property, use it.
-            if (object.length !== undefined) return object.length;
-
-            var size = 0;
-
-            switch (typeof object)
-            {
-                case 'object':
-                {
-                    if (object !== null && object !== undefined)
-                    {
-                        for (var k in object) size++;
-                    }
-
-                    break;
-                }
-
-                case 'number':
-                {
-                    size = ('' + object).length;
-                    break;
-                }
-
-                default:
-                {
-                    size = 0;
-                    break;
-                }
-            }
-
-            return size;
-        }
-
-        return sizeOf;
-    }
-);
-
-/**
- *  vars
- *  (c) VARIANTE (http://variante.io)
- *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
- */
-define
-(
-    'ui/getElementState',[
-        'utils/assert',
-        'utils/sizeOf'
-    ],
-    function
-    (
-        assert,
-        sizeOf
-    )
-    {
-        /**
-         * Gets the state of a DOM element, assumes that state classes
-         * are prefixed with 'state-'.
-         *
-         * @param  {Object} element
-         */
-        function getElementState(element)
-        {
-            if (!assert((element) && (element instanceof HTMLElement), 'Invalid element specified. Element must be an instance of HTMLElement')) return null;
-
-            var s = element.className.match(/(^|\s)state-\S+/g);
-            var n = sizeOf(s);
-
-            if (!assert(n <= 1, 'Multiple states detected.')) return null;
-
-            if (n < 1)
-            {
-                return null;
-            }
-            else
-            {
-                return s[0].replace(/\sstate-/, '');
-            }
-        }
-
-        return getElementState;
-    }
-);
-
-/**
- *  vars
- *  (c) VARIANTE (http://variante.io)
- *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
- */
-define
-(
-    'ui/translate',[
-        'utils/assert'
-    ],
-    function
-    (
-        assert
-    )
-    {
-        /**
-         * Translates a DOM element.
-         *
-         * @param  {Object} element     Target DOM element
-         * @param  {Object} properties  Translation properties:
-         *                              {
-         *                                  {Number} top:    Top translation value
-         *                                  {Number} right:  Right translation value
-         *                                  {Number} bottom: Bottom translation value
-         *                                  {Number} left:   Left translation value
-         *                                  {String} units:  Unit of translation values
-         *                              }
-         *                              (if unspecified, all translation values will be reset to 'initial')
-         * @param  {Object} constraints Translation constraints:
-         *                              {
-         *                                  {Number} top:    Bounded top translation value
-         *                                  {Number} right:  Bounded right translation value
-         *                                  {Number} bottom: Bounded bottom translation value
-         *                                  {Number} left:   Bounded left translation value
-         *                              }
-         *
-         * @return {Object} Translated properties.
-         */
-        function translate(element, properties, constraints)
-        {
-            if (properties)
-            {
-                if (!assert(!properties.top || !isNaN(properties.top), 'Top property must be a number.')) return null;
-                if (!assert(!properties.right || !isNaN(properties.right), 'Right property must be a number.')) return null;
-                if (!assert(!properties.bottom || !isNaN(properties.bottom), 'Bottom property must be a number.')) return null;
-                if (!assert(!properties.left || !isNaN(properties.left), 'Left property must be a number.')) return null;
-
-                var units = properties.units || 'px';
-
-                if (constraints)
-                {
-                    if (!assert(!constraints.top || !isNaN(constraints.top), 'Top constraint must be a number.')) return null;
-                    if (!assert(!constraints.right || !isNaN(constraints.right), 'Right constraint must be a number.')) return null;
-                    if (!assert(!constraints.bottom || !isNaN(constraints.bottom), 'Bottom constraint must be a number.')) return null;
-                    if (!assert(!constraints.left || !isNaN(constraints.left), 'Left constraint must be a number.')) return null;
-                }
-
-                var top = (constraints && constraints.top) ? Math.min(properties.top, constraints.top) : properties.top;
-                var right = (constraints && constraints.right) ? Math.min(properties.right, constraints.right) : properties.right;
-                var bottom = (constraints && constraints.bottom) ? Math.min(properties.bottom, constraints.bottom) : properties.bottom;
-                var left = (constraints && constraints.left) ? Math.min(properties.left, constraints.left) : properties.left;
-
-                if (element)
-                {
-                    if (element.style)
-                    {
-                        element.style.top = String(top) + units;
-                        element.style.right = String(right) + units;
-                        element.style.bottom = String(bottom) + units;
-                        element.style.left = String(left) + units;
-                    }
-                    else if (element.css)
-                    {
-                        element.css({ 'top': String(top) + units });
-                        element.css({ 'right': String(right) + units });
-                        element.css({ 'bottom': String(bottom) + units });
-                        element.css({ 'left': String(left) + units });
-                    }
-                }
-
-                return { top: top, right: right, bottom: bottom, left: left };
-            }
-            else
-            {
-                if (element)
-                {
-                    if (element.style)
-                    {
-                        element.style.top = 'initial';
-                        element.style.right = 'initial';
-                        element.style.bottom = 'initial';
-                        element.style.left = 'initial';
-                    }
-                    else if (element.css)
-                    {
-                        element.css({ 'top': 'initial' });
-                        element.css({ 'right': 'initial' });
-                        element.css({ 'bottom': 'initial' });
-                        element.css({ 'left': 'initial' });
-                    }
-                }
-
-                return { top: 'initial', right: 'initial', bottom: 'initial', left: 'initial' };
-            }
-        }
-
-        return translate;
-    }
-);
-
-/**
- *  vars
- *  (c) VARIANTE (http://variante.io)
- *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
- */
-define
-(
-    'ui/translate3d',[
-        'utils/assert'
-    ],
-    function
-    (
-        assert
-    )
-    {
-        /**
-         * Translates a DOM element.
-         *
-         * @param  {Object} element     Target DOM element
-         * @param  {Object} properties  Translation properties: x/y/z/units
-         *                              {
-         *                                  {Number} x:     X-coordinate
-         *                                  {Number} y:     Y-coordinate
-         *                                  {Number} z:     Z-coordinate
-         *                                  {String} units: Unit of translation values
-         *                              }
-         *                              (if unspecified, all translation coordinates will be reset to 0)
-         * @param  {Object} constraints Translation constraints:
-         *                              {
-         *                                  {Number} x:     Bounded x-coordinate
-         *                                  {Number} y:     Bounded y-coordinate
-         *                                  {Number} z:     Bounded z-coordinate
-         *                              }
-         *
-         * @return {Object} Translated properties.
-         */
-        function translate3d(element, properties, constraints)
-        {
-            if (properties)
-            {
-                if (!assert(!properties.x || !isNaN(properties.x), 'X property must be a number.')) return null;
-                if (!assert(!properties.y || !isNaN(properties.y), 'Y property must be a number.')) return null;
-                if (!assert(!properties.z || !isNaN(properties.z), 'Z property must be a number.')) return null;
-
-                var units = properties.units || 'px';
-
-                if (constraints)
-                {
-                    if (!assert(!constraints.x || !isNaN(constraints.x), 'X constraint must be a number.')) return null;
-                    if (!assert(!constraints.y || !isNaN(constraints.y), 'Y constraint must be a number.')) return null;
-                    if (!assert(!constraints.z || !isNaN(constraints.z), 'Z constraint must be a number.')) return null;
-                }
-
-                var x = (constraints && constraints.x) ? Math.min(properties.x, constraints.x) : properties.x;
-                var y = (constraints && constraints.y) ? Math.min(properties.y, constraints.y) : properties.y;
-                var z = (constraints && constraints.z) ? Math.min(properties.z, constraints.z) : properties.z;
-
-                if (element)
-                {
-                    var translateX = properties.x ? 'translateX('+x+units+')' : null;
-                    var translateY = properties.y ? 'translateY('+y+units+')' : null;
-                    var translateZ = properties.z ? 'translateZ('+z+units+')' : null;
-                    var transforms = '';
-
-                    if (translateX) transforms += (transforms === '') ? translateX : ' ' + translateX;
-                    if (translateY) transforms += (transforms === '') ? translateY : ' ' + translateY;
-                    if (translateZ) transforms += (transforms === '') ? translateZ : ' ' + translateZ;
-
-                    if (element.style)
-                    {
-                        element.style.transform = (transforms);
-                    }
-                    else if (element.css)
-                    {
-                        element.css('transform', transforms);
-                    }
-                }
-
-                return { x: x, y: y, z: z };
-            }
-            else
-            {
-                if (element)
-                {
-                    if (element.style)
-                    {
-                        element.style.transform = 'translateX(0) translateY(0) translateZ(0)';
-                    }
-                    else if (element.css)
-                    {
-                        element.css({ 'transform': 'translateX(0) translateY(0) translateZ(0)' });
-                    }
-                }
-
-                return { x: 0, y: 0, z: 0 };
-            }
-        }
-
-        return translate3d;
-    }
-);
-
-/**
- *  vars
- *  (c) VARIANTE (http://variante.io)
- *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
- */
-define
-(
-    'ui/transform',[
-        'utils/assert'
-    ],
-    function
-    (
-        assert
-    )
-    {
-        /**
-         * Transforms a DOM element.
-         *
-         * @param  {Object} element     Target DOM element.
-         * @param  {Object} properties  Transformation properties:
-         *                              {
-         *                                  {Number} width:  Target width of the element
-         *                                  {Number} height: Target height of the element
-         *                                  {String} unit:   Unit of width/height values
-         *                                  {String} type:   Resizing constraint: 'default', 'contain', 'cover'
-         *                              }
-         *                              (if unspecified, all transformation styles will be reset to 'initial')
-         * @param  {Object} constraints Transformation constraints:
-         *                              {
-         *                                  {Number} width:  Bounded width of the element.
-         *                                  {Number} height: Bounded height of the element.
-         *                              }
-         *
-         * @return {Object} Transformed properties.
-         */
-        function transform(element, properties, constraints)
-        {
-            if (properties)
-            {
-                if (!assert(!properties.width || !isNaN(properties.width), 'Width property must be a number.')) return null;
-                if (!assert(!properties.height || !isNaN(properties.height), 'Height property must be a number.')) return null;
-                if (!assert(!properties.aspectRatio || !isNaN(properties.aspectRatio), 'Aspect ratio property must be a number.')) return null;
-
-                var units = properties.units || 'px';
-                var aspectRatio = (properties.aspectRatio) ? Number(properties.aspectRatio) : properties.width/properties.height;
-                var maxW = properties.width;
-                var maxH = properties.height;
-                var minW = properties.width;
-                var minH = properties.height;
-                var type = properties.type || 'default';
-
-                if (constraints && type !== 'default')
-                {
-                    assert(!constraints.width || !isNaN(constraints.width), 'Width constraint must be a number.');
-                    assert(!constraints.height || !isNaN(constraints.height), 'Height constraint must be a number.');
-
-                    if (type && type === 'cover')
-                    {
-                        if (constraints.width) minW = Math.min(constraints.width, minW);
-                        if (constraints.width) minH = Math.min(constraints.height, minH);
-                    }
-                    else
-                    {
-                        if (constraints.width) maxW = Math.min(constraints.width, maxW);
-                        if (constraints.height) maxH = Math.min(constraints.height, maxH);
-                    }
-                }
-
-                var w, h;
-
-                if (type === 'contain')
-                {
-                    w = (maxW > maxH) ? maxH * aspectRatio : maxW;
-                    h = (maxW > maxH) ? maxH : maxW / aspectRatio;
-
-                    if (w > maxW)
-                    {
-                        w = maxW;
-                        h = w / aspectRatio;
-                    }
-                    else if (h > maxH)
-                    {
-                        h = maxH;
-                        w = h * aspectRatio;
-                    }
-                }
-                else if (type == 'cover')
-                {
-                    w = (minW > minH) ? minH * aspectRatio : minW;
-                    h = (minW > minH) ? minH : minW / aspectRatio;
-
-                    if (w < minW)
-                    {
-                        w = minW;
-                        h = w / aspectRatio;
-                    }
-                    else if (h < minH)
-                    {
-                        h = minH;
-                        w = h * aspectRatio;
-                    }
-                }
-                else
-                {
-                    w = maxW;
-                    h = maxH;
-                }
-
-                if (element)
-                {
-                    if (element.style)
-                    {
-                        if (properties.width) element.style.width = String(w) + units;
-                        if (properties.height) element.style.height = String(h) + units;
-                    }
-                    else if (element.css)
-                    {
-                        if (properties.width) element.css({ 'width': String(w) + units });
-                        if (properties.height) element.css({ 'height': String(h) + units });
-                    }
-                }
-
-                return { width: w, height: h };
-            }
-            else
-            {
-                if (element)
-                {
-                    if (element.style)
-                    {
-                        element.style.width = 'initial';
-                        element.style.height = 'initial';
-                    }
-                    else if (element.css)
-                    {
-                        element.css({ 'width': 'initial' });
-                        element.css({ 'height': 'initial' });
-                    }
-                }
-
-                return { width: 'initial', height: 'initial' };
-            }
-        }
-
-        return transform;
-    }
-);
-
-/**
- *  vars
- *  (c) VARIANTE (http://variante.io)
- *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
- */
-define
-(
-    'ui/getViewportRect',[
-        'utils/assert'
-    ],
-    function
-    (
-        assert
-    )
-    {
-        /**
-         * Gets the rect of the viewport (FOV).
-         *
-         * @return {Object} Object containing top, left, bottom, right, width, height.
-         */
-        function getViewportRect()
-        {
-            if (!assert(window && document, 'Window or document undefined.')) return null;
-
-            var rect = {};
-
-            rect.width  = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-            rect.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-            rect.top    = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
-            rect.left   = (window.pageXOffset !== undefined) ? window.pageXOffset : (document.documentElement || document.body.parentNode || document.body).scrollLeft;
-            rect.bottom = rect.top + rect.height;
-            rect.right  = rect.left + rect.width;
-
-            return rect;
-        }
-
-        return getViewportRect;
-    }
-);
-
-/**
- *  vars
- *  (c) VARIANTE (http://variante.io)
- *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
- */
-define
-(
-    'ui/getRect',[
-        'utils/assert',
-        'ui/getViewportRect'
-    ],
-    function
-    (
-        assert,
-        getViewportRect
-    )
-    {
-        /**
-         * Gets the rect of a given element.
-         *
-         * @param  {Object} element
-         *
-         * @return {Object} Object containing top, left, bottom, right, width, height.
-         */
-        function getRect(element)
-        {
-            if (!assert(element, 'Invalid element specified.')) return null;
-            if (!assert(window && document, 'Window or document undefined.')) return null;
-
-            if (element === window) return getViewportRect();
-
-            var fov = getViewportRect();
-            var rect = {};
-
-            rect.width  = (element.outerWidth) ? element.outerWidth() : element.getBoundingClientRect().width;
-            rect.height = (element.outerHeight) ? element.outerHeight() : element.getBoundingClientRect().height;
-            rect.top    = (element.offset) ? element.offset().top : element.getBoundingClientRect().top + fov.top;
-            rect.left   = (element.offset) ? element.offset().left : element.getBoundingClientRect().left + fov.left;
-            rect.bottom = rect.top + rect.height;
-            rect.right  = rect.left + rect.width;
-
-            return rect;
-        }
-
-        return getRect;
-    }
-);
-
-/**
- *  vars
- *  (c) VARIANTE (http://variante.io)
- *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
- */
-define
-(
-    'ui/getIntersectRect',[
-        'utils/assert',
-        'ui/getRect'
-    ],
-    function
-    (
-        assert,
-        getRect
-    )
-    {
-        /**
-         * Computes the intersecting rect of 2 given elements. If only 1 element is specified, the other
-         * element will default to the current viewport.
-         *
-         * @param  {Object} element1
-         * @param  {Object} element2
-         *
-         * @return {Object} Object containing width, height.
-         */
-        function getIntersectRect(element1, element2)
-        {
-            if (!assert(element1 || element2, 'Invalid elements specified.')) return null;
-            if (!assert(window && document, 'Window or document undefined.')) return null;
-
-            var rect1 = getRect(element1 || window);
-            var rect2 = getRect(element2 || window);
-
-            if (!rect1 || !rect2) return null;
-
-            var rect = {};
-
-            rect.width  = Math.max(0.0, Math.min(rect1.right, rect2.right) - Math.max(rect1.left, rect2.left));
-            rect.height = Math.max(0.0, Math.min(rect1.bottom, rect2.bottom) - Math.max(rect1.top, rect2.top));
-            rect.top    = Math.max(rect1.top, rect2.top);
-            rect.left   = Math.max(rect1.left, rect2.left);
-            rect.bottom = rect.top + rect.height;
-            rect.right  = rect.left + rect.width;
-
-            if (rect.width*rect.height === 0)
-            {
-                rect.width  = 0;
-                rect.height = 0;
-                rect.top    = 0;
-                rect.left   = 0;
-                rect.bottom = 0;
-                rect.right  = 0;
-            }
-
-            return rect;
-        }
-
-        return getIntersectRect;
-    }
-);
-
-/**
- *  vars
- *  (c) VARIANTE (http://variante.io)
- *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * @type {Function}
  */
 define
 (
@@ -1726,11 +1099,82 @@ define
 );
 
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
+ */
+define
+(
+    'utils/sizeOf',[
+    ],
+    function
+    (
+    )
+    {
+        /**
+         * Gets the number of keys in a given object.
+         *
+         * @param  {*} object   Any object type.
+         *
+         * @return {Number} Size of specified object (depending on the object type,
+         *                  it can be the number of keys in a plain object, number
+         *                  of elements in an array, number of characters in a
+         *                  string, number of digits in a number, and 0 for all
+         *                  other types.
+         */
+        function sizeOf(object)
+        {
+            if (object === undefined || object === null) return 0;
+
+            // If object internally has length property, use it.
+            if (object.length !== undefined) return object.length;
+
+            var size = 0;
+
+            switch (typeof object)
+            {
+                case 'object':
+                {
+                    if (object !== null && object !== undefined)
+                    {
+                        for (var k in object) size++;
+                    }
+
+                    break;
+                }
+
+                case 'number':
+                {
+                    size = ('' + object).length;
+                    break;
+                }
+
+                default:
+                {
+                    size = 0;
+                    break;
+                }
+            }
+
+            return size;
+        }
+
+        return sizeOf;
+    }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
  */
 define
 (
@@ -1788,13 +1232,15 @@ define
 );
 
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  Delegate for managing update calls of a VARS modeled element.
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * Delegate for managing update calls of a VARS modeled element.
+ *
+ * @type {Class}
  */
 define
 (
@@ -1841,7 +1287,7 @@ define
              *
              * Sets a dirty type as dirty.
              *
-             * @param {Number} dirtyType
+             * @param  {Number} dirtyType
              */
             this.setDirty = function(dirtyType, validateNow)
             {
@@ -1849,11 +1295,11 @@ define
 
                 if (this.transmissive !== DirtyType.NONE)
                 {
-                    if (this.delegate.virtualChildren)
+                    if (this.delegate.children)
                     {
-                        for (var name in this.delegate.virtualChildren)
+                        for (var name in this.delegate.children)
                         {
-                            var child = this.delegate.virtualChildren[name];
+                            var child = this.delegate.children[name];
 
                             if (child.updateDelegate && child.updateDelegate.setDirty)
                             {
@@ -1996,7 +1442,7 @@ define
 
                 if (this.delegate && this.delegate.update)
                 {
-                    this.delegate.update.call(this.delegate, mDirtyTable);
+                    this.delegate.update.call(this.delegate);
                 }
 
                 // Reset the dirty status of all types.
@@ -2166,14 +1612,17 @@ define
         return ElementUpdateDelegate;
     }
 );
+
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  View model of any DOM element.
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * Controller of a DOM element.
+ *
+ * @type {Class}
  */
 define
 (
@@ -2181,6 +1630,7 @@ define
         'utils/assert',
         'utils/log',
         'utils/keyOfValue',
+        'utils/sizeOf',
         'enums/DirtyType',
         'ui/ElementUpdateDelegate'
     ],
@@ -2189,6 +1639,7 @@ define
         assert,
         log,
         keyOfValue,
+        sizeOf,
         DirtyType,
         ElementUpdateDelegate
     )
@@ -2198,11 +1649,149 @@ define
          *
          * Creates a new Element instance.
          *
-         * @param {Object} init Optional initial properties/element of this Element instance.
+         * @param  {Object} init Optional initial properties/element of this Element instance.
          */
         function Element(init)
         {
-            log(this.toString()+':new(', init, ')');
+            /**
+             * @property
+             *
+             * View of this Element instance.
+             *
+             * @type {Object}
+             */
+            Object.defineProperty(this, 'element',
+            {
+                get: function()
+                {
+                    if (!this._element)
+                    {
+                        Object.defineProperty(this, '_element', { value: this.factory(), writable: true });
+                    }
+
+                    return this._element;
+                },
+                set: function(value)
+                {
+                    this.__set_element(value);
+                }
+            });
+
+            /**
+             * @property
+             *
+             * ID of this Element instance.
+             *
+             * @type {String}
+             */
+            Object.defineProperty(this, 'id',
+            {
+                get: function()
+                {
+                    return this.element.id;
+                },
+                set: function(value)
+                {
+                    this.element.setAttribute('id', value);
+                }
+            });
+
+            /**
+             * @property
+             *
+             * Instance name of this Element instance.
+             *
+             * @type {String}
+             */
+            Object.defineProperty(this, 'name', { value: null, writable: true });
+
+            /**
+             * @property
+             *
+             * Class of this Element instance.
+             *
+             * @type {String}
+             */
+            Object.defineProperty(this, 'class',
+            {
+                get: function()
+                {
+                    return this.element.className;
+                },
+                set: function(value)
+                {
+                    this.element.className = value;
+                }
+            });
+
+            /**
+             * @property
+             *
+             * Class list of this Element instance.
+             *
+             * @type {String}
+             */
+            Object.defineProperty(this, 'classList',
+            {
+                get: function()
+                {
+                    return this.element.classList;
+                },
+                set: function(value)
+                {
+                    this.element.classList = value;
+                }
+            });
+
+            /**
+             * @property (read-only)
+             *
+             * Child elements.
+             *
+             * @type {Object}
+             */
+            Object.defineProperty(this, 'children', { value: {}, writable: false });
+
+            /**
+             * @property
+             *
+             * Specifies the data providers of this Element instance.
+             *
+             * @type {*}
+             */
+            Object.defineProperty(this, 'data',
+            {
+                get: function()
+                {
+                    return this._data;
+                },
+                set: function(value)
+                {
+                    Object.defineProperty(this, '_data', { value: value, writable: true });
+
+                    this.updateDelegate.setDirty(DirtyType.DATA);
+                }
+            });
+
+            /**
+             * @property
+             *
+             * ViewUpdateDelegate instance.
+             *
+             * @type {ViewUpdateDelegate}
+             */
+            Object.defineProperty(this, 'updateDelegate',
+            {
+                get: function()
+                {
+                    if (!this._updateDelegate)
+                    {
+                        Object.defineProperty(this, '_updateDelegate', { value: new ElementUpdateDelegate(this), writable: false });
+                    }
+
+                    return this._updateDelegate;
+                }
+            });
 
             if (init)
             {
@@ -2218,177 +1807,30 @@ define
                 {
                     for (var property in init)
                     {
-                        if (this.hasProperty(property))
+                        if (this.hasOwnProperty(property))
                         {
-                            this[property] = init[property];
+                            if (property === 'children')
+                            {
+                                var children = init.children;
+
+                                for (var childName in children)
+                                {
+                                    this.addChild(children[childName], childName);
+                                }
+                            }
+                            else
+                            {
+                                this[property] = init[property];
+                            }
                         }
                     }
                 }
             }
 
+            log(this.toString()+':new(', init, ')');
+
             this.init();
         }
-
-        /**
-         * @property
-         *
-         * View of this Element instance.
-         *
-         * @type {Object}
-         */
-        Object.defineProperty(Element.prototype, 'element',
-        {
-            get: function()
-            {
-                if (!this._element)
-                {
-                    Object.defineProperty(this, '_element', { value: this.factory(), writable: true });
-                }
-
-                return this._element;
-            },
-            set: function(value)
-            {
-                this.__set_element(value);
-            }
-        });
-
-        /**
-         * @property
-         *
-         * ID of this Element instance.
-         *
-         * @type {String}
-         */
-        Object.defineProperty(Element.prototype, 'id',
-        {
-            get: function()
-            {
-                return this.element.id;
-            },
-            set: function(value)
-            {
-                this.element.setAttribute('id', value);
-            }
-        });
-
-        /**
-         * @property
-         *
-         * Instance name of this Element instance.
-         *
-         * @type {String}
-         */
-        Object.defineProperty(Element.prototype, 'name', { value: null, writable: true });
-
-        /**
-         * @property
-         *
-         * Class of this Element instance.
-         *
-         * @type {String}
-         */
-        Object.defineProperty(Element.prototype, 'class',
-        {
-            get: function()
-            {
-                return this.element.className;
-            },
-            set: function(value)
-            {
-                this.element.className = value;
-            }
-        });
-
-        /**
-         * @property
-         *
-         * Class list of this Element instance.
-         *
-         * @type {String}
-         */
-        Object.defineProperty(Element.prototype, 'classList',
-        {
-            get: function()
-            {
-                return this.element.classList;
-            },
-            set: function(value)
-            {
-                this.element.classList = value;
-            }
-        });
-
-        /**
-         * @property (read-only)
-         *
-         * Virtual child elements.
-         *
-         * @type {Object}
-         */
-        Object.defineProperty(Element.prototype, 'virtualChildren', { value: {}, writable: false });
-
-        /**
-         * @property
-         *
-         * Specifies whether this Element instance generates debug data.
-         *
-         * @type {Object}
-         */
-        Object.defineProperty(Element.prototype, 'debug',
-        {
-            get: function()
-            {
-                return this._debug;
-            },
-            set: function(value)
-            {
-                Object.defineProperty(this, '_debug', { value: value, writable: true });
-
-                this.updateDelegate.debug = value;
-            }
-        });
-
-        /**
-         * @property
-         *
-         * Specifies the data providers of this Element instance.
-         *
-         * @type {*}
-         */
-        Object.defineProperty(Element.prototype, 'data',
-        {
-            get: function()
-            {
-                return this._data;
-            },
-            set: function(value)
-            {
-                Object.defineProperty(this, '_data', { value: value, writable: true });
-
-                this.updateDelegate.setDirty(DirtyType.DATA);
-            }
-        });
-
-        /**
-         * @property
-         *
-         * ViewUpdateDelegate instance.
-         *
-         * @type {ViewUpdateDelegate}
-         */
-        Object.defineProperty(Element.prototype, 'updateDelegate',
-        {
-            get: function()
-            {
-                if (!this._updateDelegate)
-                {
-                    Object.defineProperty(this, '_updateDelegate', { value: new ElementUpdateDelegate(this), writable: false });
-                }
-
-                return this._updateDelegate;
-            }
-        });
 
         /**
          * Initializes this Element instance. Must manually invoke.
@@ -2419,64 +1861,64 @@ define
         };
 
         /**
-         * Adds a virtual child to this Element instance.
+         * Adds a child to this Element instance.
          *
-         * @param {Object} child
-         * @param {Object} The added child.
+         * @param  {Object} child
+         * @param  {Object} The added child.
          */
-        Element.prototype.addVirtualChild = function(child, name)
+        Element.prototype.addChild = function(child, name)
         {
             if (!assert(child instanceof Element, 'Child must conform to VARS Element.')) return null;
 
             name = name || child.name;
 
             if (!assert(name || child.name, 'Child name must be provided.')) return null;
-            if (!assert(!this.virtualChildren[name], 'Child name is already taken.')) return null;
+            if (!assert(!this.children[name], 'Child name is already taken.')) return null;
 
-            this.virtualChildren[name] = child;
+            this.children[name] = child;
             child.name = name;
 
             return child;
         };
 
         /**
-         * Removes a virtual child from this Element instance.
+         * Removes a child from this Element instance.
          *
          * @param  {Object} child
          *
          * @return {Object} The removed child.
          */
-        Element.prototype.removeVirtualChild = function(child)
+        Element.prototype.removeChild = function(child)
         {
             if (!assert(child, 'Child is null.')) return null;
             if (!assert(child instanceof Element, 'Child must conform to VARS Element.')) return null;
 
-            var key = keyOfValue(this.virtualChildren, child);
+            var key = keyOfValue(this.children, child);
 
             if (key)
             {
-                delete this.virtualChildren[key];
+                delete this.children[key];
             }
 
             return child;
         };
 
         /**
-         * Removes a virtual child by its name.
+         * Removes a child by its name.
          *
          * @param  {String} name
          *
          * @return {Object} The removed child.
          */
-        Element.prototype.removeVirtualChildByName = function(name)
+        Element.prototype.removeChildByName = function(name)
         {
             if (!assert(name, 'Name is null.')) return null;
 
-            var child = this.virtualChildren[name];
+            var child = this.children[name];
 
             if (child)
             {
-                delete this.virtualChildren[name];
+                delete this.children[name];
             }
 
             return child;
@@ -2532,61 +1974,172 @@ define
 );
 
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
  */
 define
 (
-    'utils/inherit',[
+    'ui/changeElementState',[
+        'ui/Element',
+        'utils/assert'
     ],
     function
     (
+        Element,
+        assert
     )
     {
-
         /**
-         * Sets up prototypal inheritance between a child class and a parent class. This process
-         * also creates a new prototype method hasProperty() for the child class which allows
-         * verifying inherited properties (as opposed to the native hasOwnProperty() method).
+         * Changes the state of a DOM element, assumes that state classes
+         * are prefixed with 'state-'.
          *
-         * @param  {Object} child   Child class (function)
-         * @param  {Object} parent  Parent class (function)
-         *
-         * @return {Object} Parent class (function).
+         * @param  {Object} element
+         * @param  {String} state
          */
-        function inherit(child, parent)
+        function changeElementState(element, state)
         {
-            child.prototype = Object.create(parent.prototype);
-            child.prototype.constructor = child;
+            if (!assert((element) && ((element instanceof HTMLElement) || (element instanceof Element)), 'Invalid element specified. Element must be an instance of HTMLElement')) return;
 
-            // Create a 'hasProperty' member during the process to be able to identify all immediate and inherited properties.
-            Object.defineProperty(child.prototype, 'hasProperty',
-            {
-                value: function(prop)
-                {
-                    return child.prototype.hasOwnProperty(prop) || (parent.prototype.hasProperty && parent.prototype.hasProperty(prop)) || parent.prototype.hasOwnProperty(prop);
-                },
-                writable: false
-            });
+            if (element instanceof Element) element = element.element;
+            if (element.classList.contains('state'+state)) return;
 
-            return parent;
+            element.className = element.className.replace(/(^|\s)state-\S+/g, '');
+            element.classList.add('state-'+state);
         }
 
-        return inherit;
+        return changeElementState;
     }
 );
 
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  View model of DOM 'video' element.
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * @type {Function}
+ */
+define
+(
+    'ui/getClassIndex',[
+        'ui/Element',
+        'utils/assert'
+    ],
+    function
+    (
+        Element,
+        assert
+    )
+    {
+        /**
+         * Gets the index of a specified class in a DOM element,
+         *
+         * @param  {Object} element
+         * @param  {String} className
+         */
+        function getClassIndex(element, className)
+        {
+            if (!assert((element) && ((element instanceof HTMLElement) || (element instanceof Element)), 'Invalid element specified. Element must be an instance of HTMLElement or Element.')) return null;
+            if (element instanceof Element) element = element.element;
+
+            if (!assert(className && (typeof className === 'string'), 'Invalid class name: ' + className)) return null;
+
+            if (!element.className) return -1;
+
+            var classList = element.className.split(' ');
+
+            return classList.indexOf(className);
+        }
+
+        return getClassIndex;
+    }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * Custom DOM directives used by VARS.
+ *
+ * @type {Object}
+ */
+define
+(
+    'ui/Directives',{
+        Controller: 'vs-controller',
+        Instance: 'vs-instance'
+    }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
+ */
+define
+    (
+        'utils/inherit',[],
+        function()
+        {
+
+            /**
+             * Sets up prototypal inheritance between a child class and a parent class. This process
+             * also creates a new prototype method hasProperty() for the child class which allows
+             * verifying inherited properties (as opposed to the native hasOwnProperty() method).
+             *
+             * @param  {Object} child   Child class (function)
+             * @param  {Object} parent  Parent class (function)
+             *
+             * @return {Object} Parent class (function).
+             */
+            function inherit(child, parent)
+            {
+                for (var key in parent)
+                {
+                    if (parent.hasOwnProperty(key))
+                    {
+                        child[key] = parent[key];
+                    }
+                }
+
+                function c()
+                {
+                    this.constructor = child;
+                }
+
+                c.prototype = Object.create(parent.prototype);
+                child.prototype = new c();
+                child.__super__ = parent.prototype;
+                return child;
+            }
+
+            return inherit;
+        }
+    );
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * Controller of a DOM 'video' element.
+ *
+ * @type {Class}
  */
 define
 (
@@ -2606,15 +2159,162 @@ define
         Element
     )
     {
+        inherit(Video, Element);
+
         /**
          * @constructor
          *
          * Creates a new Video instance.
          */
-        function Video(init)
+        function Video()
         {
-            Element.call(this, init);
-        } var parent = inherit(Video, Element);
+            /**
+             * @property
+             *
+             * Specifies that the video will start playing as soon as it is ready.
+             *
+             * @type {Boolean}
+             */
+            Object.defineProperty(this, 'autoplay',
+            {
+                get: function()
+                {
+                    return this.element.autoplay;
+                },
+                set: function(value)
+                {
+                    this.element.autoplay = value;
+                    this.updateDelegate.setDirty(DirtyType.CUSTOM);
+                }
+            });
+
+            /**
+             * @property
+             *
+             * Specifies that video controls should be displayed (such as a play/pause button etc).
+             *
+             * @type {Boolean}
+             */
+            Object.defineProperty(this, 'controls',
+            {
+                get: function()
+                {
+                    return this.element.controls;
+                },
+                set: function(value)
+                {
+                    this.element.controls = value;
+                    this.updateDelegate.setDirty(DirtyType.CUSTOM);
+                }
+            });
+
+            /**
+             * @property
+             *
+             * Specifies that the video will start over again, every time it is finished.
+             *
+             * @type {Boolean}
+             */
+            Object.defineProperty(this, 'loop',
+            {
+                get: function()
+                {
+                    return this.element.loop;
+                },
+                set: function(value)
+                {
+                    this.element.loop = value;
+                    this.updateDelegate.setDirty(DirtyType.CUSTOM);
+                }
+            });
+
+            /**
+             * @property
+             *
+             * Specifies that the audio output of the video should be muted.
+             *
+             * @type {Boolean}
+             */
+            Object.defineProperty(this, 'muted',
+            {
+                get: function()
+                {
+                    return this.element.muted;
+                },
+                set: function(value)
+                {
+                    this.element.muted = value;
+                    this.updateDelegate.setDirty(DirtyType.CUSTOM);
+                }
+            });
+
+            /**
+             * @property
+             *
+             * Specifies an image to be shown while the video is downloading, or until the user hits the play button.
+             *
+             * @type {String}   URL of image
+             */
+            Object.defineProperty(this, 'poster',
+            {
+                get: function()
+                {
+                    return this.element.poster;
+                },
+                set: function(value)
+                {
+                    this.element.poster = value;
+                    this.updateDelegate.setDirty(DirtyType.CUSTOM);
+                }
+            });
+
+            /**
+             * @property
+             *
+             * Specifies if and how the author thinks the video should be loaded when the page loads
+             *
+             * @type {String}   See Video.AUTOPLAY
+             */
+            Object.defineProperty(this, 'preload',
+            {
+                get: function()
+                {
+                    return this.element.preload;
+                },
+                set: function(value)
+                {
+                    this.element.preload = value;
+                    this.updateDelegate.setDirty(DirtyType.CUSTOM);
+                }
+            });
+
+            /**
+             * @property
+             *
+             * Array of sources containing elements in the form of:
+             *     Object
+             *     {
+             *         src: {PATH_OF_SOURCE} (String)
+             *         type: {TYPE_OF_SOURCE} (String)
+             *     }
+             *
+             * @type {Array}
+             */
+            Object.defineProperty(this, 'source',
+            {
+                get: function()
+                {
+                    return this._source;
+                },
+                set: function(value)
+                {
+                    Object.defineProperty(this, '_source', { value: value, writable: true });
+                    this.updateDelegate.setDirty(DirtyType.DATA);
+                }
+            });
+
+            Video.__super__.constructor.apply(this, arguments);
+        }
 
         /**
          * @static
@@ -2633,154 +2333,9 @@ define
         };
 
         /**
-         * @property
-         *
-         * Specifies that the video will start playing as soon as it is ready.
-         *
-         * @type {Boolean}
-         */
-        Object.defineProperty(Video.prototype, 'autoplay',
-        {
-            get: function()
-            {
-                return this.element.autoplay;
-            },
-            set: function(value)
-            {
-                this.element.autoplay = value;
-                this.updateDelegate.setDirty(DirtyType.CUSTOM);
-            }
-        });
-
-        /**
-         * @property
-         *
-         * Specifies that video controls should be displayed (such as a play/pause button etc).
-         *
-         * @type {Boolean}
-         */
-        Object.defineProperty(Video.prototype, 'controls',
-        {
-            get: function()
-            {
-                return this.element.controls;
-            },
-            set: function(value)
-            {
-                this.element.controls = value;
-                this.updateDelegate.setDirty(DirtyType.CUSTOM);
-            }
-        });
-
-        /**
-         * @property
-         *
-         * Specifies that the video will start over again, every time it is finished.
-         *
-         * @type {Boolean}
-         */
-        Object.defineProperty(Video.prototype, 'loop',
-        {
-            get: function()
-            {
-                return this.element.loop;
-            },
-            set: function(value)
-            {
-                this.element.loop = value;
-                this.updateDelegate.setDirty(DirtyType.CUSTOM);
-            }
-        });
-
-        /**
-         * @property
-         *
-         * Specifies that the audio output of the video should be muted.
-         *
-         * @type {Boolean}
-         */
-        Object.defineProperty(Video.prototype, 'muted',
-        {
-            get: function()
-            {
-                return this.element.muted;
-            },
-            set: function(value)
-            {
-                this.element.muted = value;
-                this.updateDelegate.setDirty(DirtyType.CUSTOM);
-            }
-        });
-
-        /**
-         * @property
-         *
-         * Specifies an image to be shown while the video is downloading, or until the user hits the play button.
-         *
-         * @type {String}   URL of image
-         */
-        Object.defineProperty(Video.prototype, 'poster',
-        {
-            get: function()
-            {
-                return this.element.poster;
-            },
-            set: function(value)
-            {
-                this.element.poster = value;
-                this.updateDelegate.setDirty(DirtyType.CUSTOM);
-            }
-        });
-
-        /**
-         * @property
-         *
-         * Specifies if and how the author thinks the video should be loaded when the page loads
-         *
-         * @type {String}   See Video.AUTOPLAY
-         */
-        Object.defineProperty(Video.prototype, 'preload',
-        {
-            get: function()
-            {
-                return this.element.preload;
-            },
-            set: function(value)
-            {
-                this.element.preload = value;
-                this.updateDelegate.setDirty(DirtyType.CUSTOM);
-            }
-        });
-
-        /**
-         * @property
-         *
-         * Array of sources containing elements in the form of:
-         *     Object
-         *     {
-         *         src: {PATH_OF_SOURCE} (String)
-         *         type: {TYPE_OF_SOURCE} (String)
-         *     }
-         *
-         * @type {Array}
-         */
-        Object.defineProperty(Video.prototype, 'source',
-        {
-            get: function()
-            {
-                return this._source;
-            },
-            set: function(value)
-            {
-                Object.defineProperty(this, '_source', { value: value, writable: true });
-                this.updateDelegate.setDirty(DirtyType.DATA);
-            }
-        });
-
-        /**
          * @inheritDoc
          */
-        Video.prototype.update = function(dirtyTypes)
+        Video.prototype.update = function()
         {
             if (this.updateDelegate.isDirty(DirtyType.DATA))
             {
@@ -2792,7 +2347,7 @@ define
 
             }
 
-            parent.prototype.update.call(this, dirtyTypes);
+            Video.__super__.update.call(this);
         };
 
         /**
@@ -2857,7 +2412,7 @@ define
         Video.prototype.__set_element = function(value)
         {
             assert(value instanceof HTMLVideoElement, 'Invalid element type specified. Must be an instance of HTMLVideoElement.');
-            parent.prototype.__set_element.call(this, value);
+            Video.__super__.__set_element.call(this, value);
         };
 
         return Video;
@@ -2865,69 +2420,13 @@ define
 );
 
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  Module of methods/classes related to UI manipulation and
- *  operations.
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
- */
-define
-(
-    'ui',[
-        'ui/changeElementState',
-        'ui/getElementState',
-        'ui/translate',
-        'ui/translate3d',
-        'ui/transform',
-        'ui/getViewportRect',
-        'ui/getRect',
-        'ui/getIntersectRect',
-        'ui/Element',
-        'ui/Video',
-        'ui/ElementUpdateDelegate'
-    ],
-    function
-    (
-        changeElementState,
-        getElementState,
-        translate,
-        translate3d,
-        transform,
-        getViewportRect,
-        getRect,
-        getIntersectRect,
-        Element,
-        Video,
-        ElementUpdateDelegate
-    )
-    {
-        var api = function(obj) { return obj; };
-
-        Object.defineProperty(api, 'changeElementState', { value: changeElementState, writable: false, enumerable: true });
-        Object.defineProperty(api, 'getElementState', { value: getElementState, writable: false, enumerable: true });
-        Object.defineProperty(api, 'translate', { value: translate, writable: false, enumerable: true });
-        Object.defineProperty(api, 'translate3d', { value: translate3d, writable: false, enumerable: true });
-        Object.defineProperty(api, 'transform', { value: transform, writable: false, enumerable: true });
-        Object.defineProperty(api, 'getViewportRect', { value: getViewportRect, writable: false, enumerable: true });
-        Object.defineProperty(api, 'getRect', { value: getRect, writable: false, enumerable: true });
-        Object.defineProperty(api, 'getIntersectRect', { value: getIntersectRect, writable: false, enumerable: true });
-        Object.defineProperty(api, 'Element', { value: Element, writable: false, enumerable: true });
-        Object.defineProperty(api, 'Video', { value: Video, writable: false, enumerable: true });
-        Object.defineProperty(api, 'ElementUpdateDelegate', { value: ElementUpdateDelegate, writable: false, enumerable: true });
-
-        return api;
-    }
-);
-
-/**
- *  vars
- *  (c) VARIANTE (http://variante.io)
- *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * @type {Function}
  */
 define
 (
@@ -2968,31 +2467,30 @@ define
 );
 
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
  */
 define
 (
-    'utils/module',[
+    'utils/ready',[
     ],
     function
     (
     )
     {
         /**
-         * Creates a new module and attaches it to the window when DOM is ready. Option
-         * to pass an init object to initialize the module. A typical use-case will be to
-         * create a new Element module.
+         * Invokes a function when the DOM is ready.
          *
-         * @param  {Function}   impl Module implementation.
-         * @param  {Object}     init Optional object passed into the impl.
+         * @param  {Function}   callback    Function invoked when the DOM is ready.
          */
-        function module(impl, init)
+        function ready(callback)
         {
-            if (!document) return;
+            if (!document) return null;
 
             var onLoaded = function(event)
             {
@@ -3007,22 +2505,12 @@ define
                     window.detachEvent('onload', onLoaded);
                 }
 
-                setTimeout(initialize, 1);
-            };
-
-            var initialize = function()
-            {
-                var module = new impl(init);
-
-                if (window && !window.module)
-                {
-                    window.module = module;
-                }
+                setTimeout(callback, 1);
             };
 
             if (document.readyState === 'complete')
             {
-                return setTimeout(initialize, 1);
+                return setTimeout(callback, 1);
             }
 
             if (document.addEventListener)
@@ -3035,17 +2523,849 @@ define
                 document.attachEvent('onreadystatechange', onLoaded);
                 window.attachEvent('onload', onLoaded);
             }
+
+            return null;
         }
 
-        return module;
+        return ready;
     }
 );
+
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
+ */
+define
+(
+    'ui/getChildElements',[
+        'ui/Directives',
+        'ui/Element',
+        'ui/Video',
+        'utils/assert',
+        'utils/namespace',
+        'utils/ready',
+        'utils/sizeOf'
+    ],
+    function
+    (
+        Directives,
+        Element,
+        Video,
+        assert,
+        namespace,
+        ready,
+        sizeOf
+    )
+    {
+        /**
+         * Transforms all the DOM elements inside the specified element marked with custom
+         * VARS attributes into an instance of either its specified controller class or a generic
+         * VARS Element. If a marked DOM element is a child of another marked DOM element, it will
+         * be passed into the parent element's children tree as its specified controller
+         * class instance or a generic VARS Element.
+         *
+         * @param  {Object} element
+         * @param  {Object} controllerScope
+         */
+        function getChildElements(element, controllerScope)
+        {
+            var children = null;
+
+            if (!element) element = document;
+
+            if (!assert((element instanceof HTMLElement) || (element instanceof Element) || (document && element === document), 'Element must be an instance of an HTMLElement or the DOM itself.')) return null;
+
+            if (element instanceof Element) element = element.element;
+
+            if (!assert(element.querySelectorAll, 'Element does not support "querySelectorAll".')) return null;
+
+            var qualifiedChildren = element.querySelectorAll('['+Directives.Controller+'], ['+'data-'+Directives.Controller+'], ['+Directives.Instance+'], ['+'data-'+Directives.Instance+']');
+            var n = sizeOf(qualifiedChildren);
+
+            for (var i = 0; i < n; i++)
+            {
+                var child = qualifiedChildren[i];
+                var className = child.getAttribute(Directives.Controller);
+                var childName = child.getAttribute(Directives.Instance);
+                var controller = (className) ? namespace(className, controllerScope) : null;
+
+                // If no controller class is specified but element is marked as an  instance, default the controller class to
+                // Element.
+                if (!controller && sizeOf(childName) > 0)
+                {
+                    controller = vars.Element;
+                }
+                else if (typeof controller !== 'function')
+                {
+                    switch (className)
+                    {
+                        case 'Video':   { controller = vars.Video; break; }
+                        case 'Element': { controller = vars.Element; break; }
+                        default:        { controller = null; break; }
+                    }
+                }
+
+                // Check if discovered child is also an immediate child of another discovered
+                // child.
+                var ignore = false;
+
+                for (var j = 0; j < n; j++)
+                {
+                    if (j === i) continue;
+
+                    var parent = qualifiedChildren[j];
+
+                    if (parent.contains && parent.contains(child))
+                    {
+                        ignore = true;
+                        break;
+                    }
+                }
+
+                if (ignore) continue;
+
+                if (!assert(typeof controller === 'function', 'Class "' + className + '" is not found in specified controllerScope ' + (controllerScope || window) + '.')) continue;
+
+                var m = new controller({ element: child, name: childName, children: getChildElements(child, controllerScope) });
+
+                if (sizeOf(childName) > 0)
+                {
+                    if (!children)
+                    {
+                        children = {};
+                    }
+
+                    if (!assert(!children[childName], 'Repeated child name "'+childName+'".')) continue;
+
+                    children[childName] = m;
+                }
+            }
+
+            return children;
+        }
+
+        return getChildElements;
+    }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
+ */
+define
+(
+    'ui/getElementState',[
+        'utils/assert',
+        'utils/sizeOf'
+    ],
+    function
+    (
+        assert,
+        sizeOf
+    )
+    {
+        /**
+         * Gets the state of a DOM element, assumes that state classes
+         * are prefixed with 'state-'.
+         *
+         * @param  {Object} element
+         */
+        function getElementState(element)
+        {
+            if (!assert((element) && (element instanceof HTMLElement), 'Invalid element specified. Element must be an instance of HTMLElement')) return null;
+
+            var s = element.className.match(/(^|\s)state-\S+/g);
+            var n = sizeOf(s);
+
+            if (!assert(n <= 1, 'Multiple states detected.')) return null;
+
+            if (n < 1)
+            {
+                return null;
+            }
+            else
+            {
+                return s[0].replace(/\sstate-/, '');
+            }
+        }
+
+        return getElementState;
+    }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
+ */
+define
+(
+    'ui/getViewportRect',[
+        'utils/assert'
+    ],
+    function
+    (
+        assert
+    )
+    {
+        /**
+         * Gets the rect of the viewport (FOV).
+         *
+         * @return {Object} Object containing top, left, bottom, right, width, height.
+         */
+        function getViewportRect()
+        {
+            if (!assert(window && document, 'Window or document undefined.')) return null;
+
+            var rect = {};
+
+            rect.width  = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+            rect.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+            rect.top    = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+            rect.left   = (window.pageXOffset !== undefined) ? window.pageXOffset : (document.documentElement || document.body.parentNode || document.body).scrollLeft;
+            rect.bottom = rect.top + rect.height;
+            rect.right  = rect.left + rect.width;
+
+            return rect;
+        }
+
+        return getViewportRect;
+    }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
+ */
+define
+(
+    'ui/getRect',[
+        'utils/assert',
+        'ui/getViewportRect',
+        'ui/Element'
+    ],
+    function
+    (
+        assert,
+        getViewportRect,
+        Element
+    )
+    {
+        /**
+         * Gets the rect of a given element.
+         *
+         * @param  {Object} element
+         *
+         * @return {Object} Object containing top, left, bottom, right, width, height.
+         */
+        function getRect(element)
+        {
+            if (!assert(element, 'Invalid element specified.')) return null;
+            if (!assert(window, 'Window undefined.')) return null;
+
+            if (element instanceof Element) element = element.element;
+
+            if (element === window) return getViewportRect();
+
+            var fov = getViewportRect();
+            var rect = {};
+
+            rect.width  = (element.outerWidth) ? element.outerWidth() : element.getBoundingClientRect().width;
+            rect.height = (element.outerHeight) ? element.outerHeight() : element.getBoundingClientRect().height;
+            rect.top    = (element.offset) ? element.offset().top : element.getBoundingClientRect().top + fov.top;
+            rect.left   = (element.offset) ? element.offset().left : element.getBoundingClientRect().left + fov.left;
+            rect.bottom = rect.top + rect.height;
+            rect.right  = rect.left + rect.width;
+
+            return rect;
+        }
+
+        return getRect;
+    }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
+ */
+define
+(
+    'ui/getIntersectRect',[
+        'ui/Element',
+        'utils/assert',
+        'ui/getRect'
+    ],
+    function
+    (
+        Element,
+        assert,
+        getRect
+    )
+    {
+        /**
+         * Computes the intersecting rect of 2 given elements. If only 1 element is specified, the other
+         * element will default to the current viewport.
+         *
+         * @param  {Object} element1
+         * @param  {Object} element2
+         *
+         * @return {Object} Object containing width, height.
+         */
+        function getIntersectRect(element1, element2)
+        {
+            if (!assert(element1 || element2, 'Invalid elements specified.')) return null;
+            if (!assert(window, 'Window undefined.')) return null;
+
+            if (element1 instanceof Element) element1 = element1.element;
+            if (element2 instanceof Element) element2 = element2.element;
+
+            var rect1 = getRect(element1 || window);
+            var rect2 = getRect(element2 || window);
+
+            if (!rect1 || !rect2) return null;
+
+            var rect = {};
+
+            rect.width  = Math.max(0.0, Math.min(rect1.right, rect2.right) - Math.max(rect1.left, rect2.left));
+            rect.height = Math.max(0.0, Math.min(rect1.bottom, rect2.bottom) - Math.max(rect1.top, rect2.top));
+            rect.top    = Math.max(rect1.top, rect2.top);
+            rect.left   = Math.max(rect1.left, rect2.left);
+            rect.bottom = rect.top + rect.height;
+            rect.right  = rect.left + rect.width;
+
+            if (rect.width*rect.height === 0)
+            {
+                rect.width  = 0;
+                rect.height = 0;
+                rect.top    = 0;
+                rect.left   = 0;
+                rect.bottom = 0;
+                rect.right  = 0;
+            }
+
+            return rect;
+        }
+
+        return getIntersectRect;
+    }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
+ */
+define
+(
+    'ui/initDOM',[
+        'ui/getChildElements',
+        'utils/ready'
+    ],
+    function
+    (
+        getChildElements,
+        ready
+    )
+    {
+        /**
+         * Parses the entire DOM and transforms elements marked with VARS attributes
+         * into instances of its corresponding controller class (or VARS Element by
+         * by default).
+         *
+         * @param  {Object} controllerScope
+         */
+        function initDOM(controllerScope)
+        {
+            ready(function()
+            {
+                getChildElements(document, controllerScope);
+            });
+        }
+
+        return initDOM;
+    }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
+ */
+define
+(
+    'ui/transform',[
+        'utils/assert'
+    ],
+    function
+    (
+        assert
+    )
+    {
+        /**
+         * Transforms a DOM element.
+         *
+         * @param  {Object} element     Target DOM element.
+         * @param  {Object} properties  Transformation properties:
+         *                              {
+         *                                  {Number} width:  Target width of the element
+         *                                  {Number} height: Target height of the element
+         *                                  {String} unit:   Unit of width/height values
+         *                                  {String} type:   Resizing constraint: 'default', 'contain', 'cover'
+         *                              }
+         *                              (if unspecified, all transformation styles will be reset to 'initial')
+         * @param  {Object} constraints Transformation constraints:
+         *                              {
+         *                                  {Number} width:  Bounded width of the element.
+         *                                  {Number} height: Bounded height of the element.
+         *                              }
+         *
+         * @return {Object} Transformed properties.
+         */
+        function transform(element, properties, constraints)
+        {
+            if (properties)
+            {
+                if (!assert(!properties.width || !isNaN(properties.width), 'Width property must be a number.')) return null;
+                if (!assert(!properties.height || !isNaN(properties.height), 'Height property must be a number.')) return null;
+                if (!assert(!properties.aspectRatio || !isNaN(properties.aspectRatio), 'Aspect ratio property must be a number.')) return null;
+
+                var units = properties.units || 'px';
+                var aspectRatio = (properties.aspectRatio) ? Number(properties.aspectRatio) : properties.width/properties.height;
+                var maxW = properties.width;
+                var maxH = properties.height;
+                var minW = properties.width;
+                var minH = properties.height;
+                var type = properties.type || 'default';
+
+                if (constraints && type !== 'default')
+                {
+                    assert(!constraints.width || !isNaN(constraints.width), 'Width constraint must be a number.');
+                    assert(!constraints.height || !isNaN(constraints.height), 'Height constraint must be a number.');
+
+                    if (type && type === 'cover')
+                    {
+                        if (constraints.width) minW = Math.min(constraints.width, minW);
+                        if (constraints.width) minH = Math.min(constraints.height, minH);
+                    }
+                    else
+                    {
+                        if (constraints.width) maxW = Math.min(constraints.width, maxW);
+                        if (constraints.height) maxH = Math.min(constraints.height, maxH);
+                    }
+                }
+
+                var w, h;
+
+                if (type === 'contain')
+                {
+                    w = (maxW > maxH) ? maxH * aspectRatio : maxW;
+                    h = (maxW > maxH) ? maxH : maxW / aspectRatio;
+
+                    if (w > maxW)
+                    {
+                        w = maxW;
+                        h = w / aspectRatio;
+                    }
+                    else if (h > maxH)
+                    {
+                        h = maxH;
+                        w = h * aspectRatio;
+                    }
+                }
+                else if (type == 'cover')
+                {
+                    w = (minW > minH) ? minH * aspectRatio : minW;
+                    h = (minW > minH) ? minH : minW / aspectRatio;
+
+                    if (w < minW)
+                    {
+                        w = minW;
+                        h = w / aspectRatio;
+                    }
+                    else if (h < minH)
+                    {
+                        h = minH;
+                        w = h * aspectRatio;
+                    }
+                }
+                else
+                {
+                    w = maxW;
+                    h = maxH;
+                }
+
+                if (element)
+                {
+                    if (element.style)
+                    {
+                        if (properties.width) element.style.width = String(w) + units;
+                        if (properties.height) element.style.height = String(h) + units;
+                    }
+                    else if (element.css)
+                    {
+                        if (properties.width) element.css({ 'width': String(w) + units });
+                        if (properties.height) element.css({ 'height': String(h) + units });
+                    }
+                }
+
+                return { width: w, height: h };
+            }
+            else
+            {
+                if (element)
+                {
+                    if (element.style)
+                    {
+                        element.style.width = 'initial';
+                        element.style.height = 'initial';
+                    }
+                    else if (element.css)
+                    {
+                        element.css({ 'width': 'initial' });
+                        element.css({ 'height': 'initial' });
+                    }
+                }
+
+                return { width: 'initial', height: 'initial' };
+            }
+        }
+
+        return transform;
+    }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
+ */
+define
+(
+    'ui/translate',[
+        'utils/assert'
+    ],
+    function
+    (
+        assert
+    )
+    {
+        /**
+         * Translates a DOM element.
+         *
+         * @param  {Object} element     Target DOM element
+         * @param  {Object} properties  Translation properties:
+         *                              {
+         *                                  {Number} top:    Top translation value
+         *                                  {Number} right:  Right translation value
+         *                                  {Number} bottom: Bottom translation value
+         *                                  {Number} left:   Left translation value
+         *                                  {String} units:  Unit of translation values
+         *                              }
+         *                              (if unspecified, all translation values will be reset to 'initial')
+         * @param  {Object} constraints Translation constraints:
+         *                              {
+         *                                  {Number} top:    Bounded top translation value
+         *                                  {Number} right:  Bounded right translation value
+         *                                  {Number} bottom: Bounded bottom translation value
+         *                                  {Number} left:   Bounded left translation value
+         *                              }
+         *
+         * @return {Object} Translated properties.
+         */
+        function translate(element, properties, constraints)
+        {
+            if (properties)
+            {
+                if (!assert(!properties.top || !isNaN(properties.top), 'Top property must be a number.')) return null;
+                if (!assert(!properties.right || !isNaN(properties.right), 'Right property must be a number.')) return null;
+                if (!assert(!properties.bottom || !isNaN(properties.bottom), 'Bottom property must be a number.')) return null;
+                if (!assert(!properties.left || !isNaN(properties.left), 'Left property must be a number.')) return null;
+
+                var units = properties.units || 'px';
+
+                if (constraints)
+                {
+                    if (!assert(!constraints.top || !isNaN(constraints.top), 'Top constraint must be a number.')) return null;
+                    if (!assert(!constraints.right || !isNaN(constraints.right), 'Right constraint must be a number.')) return null;
+                    if (!assert(!constraints.bottom || !isNaN(constraints.bottom), 'Bottom constraint must be a number.')) return null;
+                    if (!assert(!constraints.left || !isNaN(constraints.left), 'Left constraint must be a number.')) return null;
+                }
+
+                var top = (constraints && constraints.top) ? Math.min(properties.top, constraints.top) : properties.top;
+                var right = (constraints && constraints.right) ? Math.min(properties.right, constraints.right) : properties.right;
+                var bottom = (constraints && constraints.bottom) ? Math.min(properties.bottom, constraints.bottom) : properties.bottom;
+                var left = (constraints && constraints.left) ? Math.min(properties.left, constraints.left) : properties.left;
+
+                if (element)
+                {
+                    if (element.style)
+                    {
+                        element.style.top = String(top) + units;
+                        element.style.right = String(right) + units;
+                        element.style.bottom = String(bottom) + units;
+                        element.style.left = String(left) + units;
+                    }
+                    else if (element.css)
+                    {
+                        element.css({ 'top': String(top) + units });
+                        element.css({ 'right': String(right) + units });
+                        element.css({ 'bottom': String(bottom) + units });
+                        element.css({ 'left': String(left) + units });
+                    }
+                }
+
+                return { top: top, right: right, bottom: bottom, left: left };
+            }
+            else
+            {
+                if (element)
+                {
+                    if (element.style)
+                    {
+                        element.style.top = 'initial';
+                        element.style.right = 'initial';
+                        element.style.bottom = 'initial';
+                        element.style.left = 'initial';
+                    }
+                    else if (element.css)
+                    {
+                        element.css({ 'top': 'initial' });
+                        element.css({ 'right': 'initial' });
+                        element.css({ 'bottom': 'initial' });
+                        element.css({ 'left': 'initial' });
+                    }
+                }
+
+                return { top: 'initial', right: 'initial', bottom: 'initial', left: 'initial' };
+            }
+        }
+
+        return translate;
+    }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
+ */
+define
+(
+    'ui/translate3d',[
+        'utils/assert'
+    ],
+    function
+    (
+        assert
+    )
+    {
+        /**
+         * Translates a DOM element.
+         *
+         * @param  {Object} element     Target DOM element
+         * @param  {Object} properties  Translation properties: x/y/z/units
+         *                              {
+         *                                  {Number} x:     X-coordinate
+         *                                  {Number} y:     Y-coordinate
+         *                                  {Number} z:     Z-coordinate
+         *                                  {String} units: Unit of translation values
+         *                              }
+         *                              (if unspecified, all translation coordinates will be reset to 0)
+         * @param  {Object} constraints Translation constraints:
+         *                              {
+         *                                  {Number} x:     Bounded x-coordinate
+         *                                  {Number} y:     Bounded y-coordinate
+         *                                  {Number} z:     Bounded z-coordinate
+         *                              }
+         *
+         * @return {Object} Translated properties.
+         */
+        function translate3d(element, properties, constraints)
+        {
+            if (properties)
+            {
+                if (!assert(!properties.x || !isNaN(properties.x), 'X property must be a number.')) return null;
+                if (!assert(!properties.y || !isNaN(properties.y), 'Y property must be a number.')) return null;
+                if (!assert(!properties.z || !isNaN(properties.z), 'Z property must be a number.')) return null;
+
+                var units = properties.units || 'px';
+
+                if (constraints)
+                {
+                    if (!assert(!constraints.x || !isNaN(constraints.x), 'X constraint must be a number.')) return null;
+                    if (!assert(!constraints.y || !isNaN(constraints.y), 'Y constraint must be a number.')) return null;
+                    if (!assert(!constraints.z || !isNaN(constraints.z), 'Z constraint must be a number.')) return null;
+                }
+
+                var x = (constraints && constraints.x) ? Math.min(properties.x, constraints.x) : properties.x;
+                var y = (constraints && constraints.y) ? Math.min(properties.y, constraints.y) : properties.y;
+                var z = (constraints && constraints.z) ? Math.min(properties.z, constraints.z) : properties.z;
+
+                if (element)
+                {
+                    var translateX = properties.x ? 'translateX('+x+units+')' : null;
+                    var translateY = properties.y ? 'translateY('+y+units+')' : null;
+                    var translateZ = properties.z ? 'translateZ('+z+units+')' : null;
+                    var transforms = '';
+
+                    if (translateX) transforms += (transforms === '') ? translateX : ' ' + translateX;
+                    if (translateY) transforms += (transforms === '') ? translateY : ' ' + translateY;
+                    if (translateZ) transforms += (transforms === '') ? translateZ : ' ' + translateZ;
+
+                    if (element.style)
+                    {
+                        element.style.transform = (transforms);
+                    }
+                    else if (element.css)
+                    {
+                        element.css('transform', transforms);
+                    }
+                }
+
+                return { x: x, y: y, z: z };
+            }
+            else
+            {
+                if (element)
+                {
+                    if (element.style)
+                    {
+                        element.style.transform = 'translateX(0) translateY(0) translateZ(0)';
+                    }
+                    else if (element.css)
+                    {
+                        element.css({ 'transform': 'translateX(0) translateY(0) translateZ(0)' });
+                    }
+                }
+
+                return { x: 0, y: 0, z: 0 };
+            }
+        }
+
+        return translate3d;
+    }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * Module of methods/classes related to UI manipulation and
+ * operations.
+ *
+ * @type {Module}
+ */
+define
+(
+    'ui',[
+        'ui/changeElementState',
+        'ui/getClassIndex',
+        'ui/getChildElements',
+        'ui/getElementState',
+        'ui/getIntersectRect',
+        'ui/getRect',
+        'ui/getViewportRect',
+        'ui/initDOM',
+        'ui/transform',
+        'ui/translate',
+        'ui/translate3d',
+        'ui/Directives',
+        'ui/Element',
+        'ui/ElementUpdateDelegate',
+        'ui/Video'
+    ],
+    function
+    (
+        changeElementState,
+        getClassIndex,
+        getChildElements,
+        getElementState,
+        getIntersectRect,
+        getRect,
+        getViewportRect,
+        initDOM,
+        transform,
+        translate,
+        translate3d,
+        Directives,
+        Element,
+        ElementUpdateDelegate,
+        Video
+    )
+    {
+        var api = function(obj) { return obj; };
+
+        Object.defineProperty(api, 'changeElementState', { value: changeElementState, writable: false, enumerable: true });
+        Object.defineProperty(api, 'getClassIndex', { value: getClassIndex, writable: false, enumerable: true });
+        Object.defineProperty(api, 'getChildElements', { value: getChildElements, writable: false, enumerable: true });
+        Object.defineProperty(api, 'getElementState', { value: getElementState, writable: false, enumerable: true });
+        Object.defineProperty(api, 'getIntersectRect', { value: getIntersectRect, writable: false, enumerable: true });
+        Object.defineProperty(api, 'getRect', { value: getRect, writable: false, enumerable: true });
+        Object.defineProperty(api, 'getViewportRect', { value: getViewportRect, writable: false, enumerable: true });
+        Object.defineProperty(api, 'initDOM', { value: initDOM, writable: false, enumerable: true });
+        Object.defineProperty(api, 'translate', { value: translate, writable: false, enumerable: true });
+        Object.defineProperty(api, 'translate3d', { value: translate3d, writable: false, enumerable: true });
+        Object.defineProperty(api, 'transform', { value: transform, writable: false, enumerable: true });
+        Object.defineProperty(api, 'Directives', { value: Directives, writable: false, enumerable: true });
+        Object.defineProperty(api, 'Element', { value: Element, writable: false, enumerable: true });
+        Object.defineProperty(api, 'ElementUpdateDelegate', { value: ElementUpdateDelegate, writable: false, enumerable: true });
+        Object.defineProperty(api, 'Video', { value: Video, writable: false, enumerable: true });
+
+        return api;
+    }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
  */
 define
 (
@@ -3079,13 +3399,54 @@ define
 );
 
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  Asset loader for images, videos, and audios.
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * @type {Function}
+ */
+define
+(
+    'utils/module',[
+        'utils/ready'
+    ],
+    function
+    (
+        ready
+    )
+    {
+        /**
+         * Creates a new module and attaches it to the window when DOM is ready. Option
+         * to pass an init object to initialize the module. A typical use-case will be to
+         * create a new Element module.
+         *
+         * @param  {Function}   impl Module implementation.
+         * @param  {Object}     init Optional object passed into the impl.
+         */
+        function module(impl, init)
+        {
+            ready(function()
+            {
+                var m = new impl(init);
+            });
+        }
+
+        return module;
+    }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * Asset loader for images, videos, and audios.
+ *
+ * @type {Class}
  */
 define
 (
@@ -3177,10 +3538,193 @@ define
          */
         function AssetLoader()
         {
-            EventDispatcher.call(this);
+            /**
+             * @property
+             *
+             * Specifies the current state of this AssetLoader instance.
+             *
+             * @type {Number}
+             */
+            Object.defineProperty(this, 'state',
+            {
+                get: function()
+                {
+                    if (!this._state)
+                    {
+                        Object.defineProperty(this, '_state', { value: AssetLoader.STATE.IDLE, writable: true });
+                    }
 
-            if (this.debug) log('[AssetLoader]::new()');
-        } var parent = inherit(AssetLoader, EventDispatcher);
+                    return this._state;
+                }
+            });
+
+            /**
+             * @property
+             *
+             * View of this AssetLoader instance.
+             *
+             * @type {Object}
+             */
+            Object.defineProperty(this, 'queue',
+            {
+                get: function()
+                {
+                    if (!this._queue)
+                    {
+                        Object.defineProperty(this, '_queue', { value: [], writable: true });
+                    }
+
+                    return this._queue;
+                }
+            });
+
+            /**
+             * @property
+             *
+             * Loaded assets.
+             *
+             * @type {Object}
+             */
+            Object.defineProperty(this, 'assets',
+            {
+                get: function()
+                {
+                    if (!this._assets)
+                    {
+                        Object.defineProperty(this, '_assets', { value: {}, writable: true });
+                    }
+
+                    return this._assets;
+                }
+            });
+
+            /**
+             * @property
+             *
+             * Specifies whether the XHR operations run in async.
+             *
+             * @type {Boolean}
+             */
+            Object.defineProperty(this, 'async',
+            {
+                get: function()
+                {
+                    if (this._async === undefined)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return this._async;
+                    }
+                },
+                set: function(value)
+                {
+                    assert(this.state !== AssetLoader.STATE.IN_PROGRESS, 'Cannot change the async mode while it is in progress.');
+
+                    if (this.state !== AssetLoader.STATE.IN_PROGRESS)
+                    {
+                        Object.defineProperty(this, '_async', { value: value, writable: true });
+                    }
+                }
+            });
+
+            /**
+             * @property
+             *
+             * Specifies the total bytes loaded for all assets in the queue.
+             *
+             * @type {Number}
+             */
+            Object.defineProperty(this, 'bytesLoaded',
+            {
+                get: function()
+                {
+                    if (!this._bytesLoaded)
+                    {
+                        return 0.0;
+                    }
+                    else
+                    {
+                        var total = 0;
+                        var arrlen = this._bytesLoaded.length;
+
+                        for (var i = 0; i < arrlen; i++)
+                        {
+                            total += this._bytesLoaded[i];
+                        }
+
+                        return total;
+                    }
+
+                    return this._bytesLoaded;
+                }
+            });
+
+            /**
+             * @property
+             *
+             * Specifies the total bytes for all assets in the queue.
+             *
+             * @type {Number}
+             */
+            Object.defineProperty(this, 'bytesTotal',
+            {
+                get: function()
+                {
+                    if (!this._bytesTotal)
+                    {
+                        return 0.0;
+                    }
+                    else
+                    {
+                        var total = 0;
+                        var arrlen = this._bytesTotal.length;
+
+                        for (var i = 0; i < arrlen; i++)
+                        {
+                            total += this._bytesTotal[i];
+                        }
+
+                        return total;
+                    }
+                }
+            });
+
+            /**
+             * @property
+             *
+             * Specifies the current progress (in decimals) of the entire operation.
+             *
+             * @return {Number}
+             */
+            Object.defineProperty(this, 'progress',
+            {
+                get: function()
+                {
+                    if (!this._bytesTotal || !this._bytesLoaded) return 0.0;
+                    if (this._bytesTotal.length !== this._bytesLoaded.length) return 0.0;
+
+                    var arrlen = this._bytesTotal.length;
+                    var sum = 0.0;
+
+                    for (var i = 0; i < arrlen; i++)
+                    {
+                        var loaded = this._bytesLoaded[i];
+                        var total = this._bytesTotal[i];
+
+                        if (total > 0.0)
+                        {
+                            sum += loaded/total;
+                        }
+                    }
+
+                    return sum/arrlen;
+                }
+            });
+
+            AssetLoader.__super__.constructor.apply(this, arguments);
+        } inherit(AssetLoader, EventDispatcher);
 
         /**
          * @static
@@ -3213,207 +3757,13 @@ define
         };
 
         /**
-         * @property
-         *
-         * Specifies whether this AssetLoader instance generates debug data.
-         *
-         * @type {Object}
-         */
-        Object.defineProperty(AssetLoader.prototype, 'debug', { value: false, writable: true });
-
-        /**
-         * @property
-         *
-         * Specifies the current state of this AssetLoader instance.
-         *
-         * @type {Number}
-         */
-        Object.defineProperty(AssetLoader.prototype, 'state',
-        {
-            get: function()
-            {
-                if (!this._state)
-                {
-                    Object.defineProperty(this, '_state', { value: AssetLoader.STATE.IDLE, writable: true });
-                }
-
-                return this._state;
-            }
-        });
-
-        /**
-         * @property
-         *
-         * View of this AssetLoader instance.
-         *
-         * @type {Object}
-         */
-        Object.defineProperty(AssetLoader.prototype, 'queue',
-        {
-            get: function()
-            {
-                if (!this._queue)
-                {
-                    Object.defineProperty(this, '_queue', { value: [], writable: true });
-                }
-
-                return this._queue;
-            }
-        });
-
-        /**
-         * @property
-         *
-         * Loaded assets.
-         *
-         * @type {Object}
-         */
-        Object.defineProperty(AssetLoader.prototype, 'assets',
-        {
-            get: function()
-            {
-                if (!this._assets)
-                {
-                    Object.defineProperty(this, '_assets', { value: {}, writable: true });
-                }
-
-                return this._assets;
-            }
-        });
-
-        /**
-         * @property
-         *
-         * Specifies whether the XHR operations run in async.
-         *
-         * @type {Boolean}
-         */
-        Object.defineProperty(AssetLoader.prototype, 'async',
-        {
-            get: function()
-            {
-                if (this._async === undefined)
-                {
-                    return true;
-                }
-                else
-                {
-                    return this._async;
-                }
-            },
-            set: function(value)
-            {
-                assert(this.state !== AssetLoader.STATE.IN_PROGRESS, 'Cannot change the async mode while it is in progress.');
-
-                if (this.state !== AssetLoader.STATE.IN_PROGRESS)
-                {
-                    Object.defineProperty(this, '_async', { value: value, writable: true });
-                }
-            }
-        });
-
-        /**
-         * @property
-         *
-         * Specifies the total bytes loaded for all assets in the queue.
-         *
-         * @type {Number}
-         */
-        Object.defineProperty(AssetLoader.prototype, 'bytesLoaded',
-        {
-            get: function()
-            {
-                if (!this._bytesLoaded)
-                {
-                    return 0.0;
-                }
-                else
-                {
-                    var total = 0;
-                    var arrlen = this._bytesLoaded.length;
-
-                    for (var i = 0; i < arrlen; i++)
-                    {
-                        total += this._bytesLoaded[i];
-                    }
-
-                    return total;
-                }
-
-                return this._bytesLoaded;
-            }
-        });
-
-        /**
-         * @property
-         *
-         * Specifies the total bytes for all assets in the queue.
-         *
-         * @type {Number}
-         */
-        Object.defineProperty(AssetLoader.prototype, 'bytesTotal',
-        {
-            get: function()
-            {
-                if (!this._bytesTotal)
-                {
-                    return 0.0;
-                }
-                else
-                {
-                    var total = 0;
-                    var arrlen = this._bytesTotal.length;
-
-                    for (var i = 0; i < arrlen; i++)
-                    {
-                        total += this._bytesTotal[i];
-                    }
-
-                    return total;
-                }
-            }
-        });
-
-        /**
-         * @property
-         *
-         * Specifies the current progress (in decimals) of the entire operation.
-         *
-         * @return {Number}
-         */
-        Object.defineProperty(AssetLoader.prototype, 'progress',
-        {
-            get: function()
-            {
-                if (!this._bytesTotal || !this._bytesLoaded) return 0.0;
-                if (this._bytesTotal.length !== this._bytesLoaded.length) return 0.0;
-
-                var arrlen = this._bytesTotal.length;
-                var sum = 0.0;
-
-                for (var i = 0; i < arrlen; i++)
-                {
-                    var loaded = this._bytesLoaded[i];
-                    var total = this._bytesTotal[i];
-
-                    if (total > 0.0)
-                    {
-                        sum += loaded/total;
-                    }
-                }
-
-                return sum/arrlen;
-            }
-        });
-
-        /**
          * Initializes this AssetLoader instance and begins loading assets in the queue.
          */
         AssetLoader.prototype.init = function()
         {
             if (this.queue.length < 1) return;
 
-            if (this.debug) log('[AssetLoader]::init()');
+            log('[AssetLoader]::init()');
 
             var arrlen = this.queue.length;
 
@@ -3424,7 +3774,7 @@ define
             {
                 var target = this.queue[i];
 
-                if (this.debug) log('[AssetLoader]::Started loading: ' + target.path);
+                log('[AssetLoader]::Started loading: ' + target.path);
 
                 var xhr = this.getXHR({ id: i, path: target.path, type: target.type });
                 xhr.send();
@@ -3475,7 +3825,7 @@ define
             if (arguments.length <= 0) return;
             if (this.state === AssetLoader.STATE.IN_PROGRESS) return;
 
-            if (this.debug) log('[AssetLoader]::enqueue(' + arguments + ')');
+            log('[AssetLoader]::enqueue(' + arguments + ')');
 
             var arrlen = arguments.length;
 
@@ -3620,7 +3970,7 @@ define
 
             if (!this._bytesLoaded) this._bytesLoaded = [];
 
-            if (this.debug) log('[AssetLoader]::_onXHRProgress("'+path+'":'+bytesLoaded+'/'+bytesTotal+')');
+            log('[AssetLoader]::_onXHRProgress("'+path+'":'+bytesLoaded+'/'+bytesTotal+')');
 
             var progressEvent = document.createEvent('CustomEvent');
             progressEvent.initCustomEvent(EventType.OBJECT.PROGRESS, true, true, { id: id, path: path, type: type, pending: this._pending, loaded: this.bytesLoaded, total: this.bytesTotal });
@@ -3642,7 +3992,7 @@ define
             var path = xhr.data.path;
             var type = xhr.data.type;
 
-            if (this.debug) log('[AssetLoader]::_onXHRLoadComplete("'+path+'"")');
+            log('[AssetLoader]::_onXHRLoadComplete("'+path+'"")');
 
             this._pending--;
 
@@ -3666,7 +4016,7 @@ define
             var path = xhr.data.path;
             var type = xhr.data.type;
 
-            if (this.debug) log('[AssetLoader]::_onXHRLoadError("'+path+'"")');
+            log('[AssetLoader]::_onXHRLoadError("'+path+'"")');
 
             this._pending--;
 
@@ -3698,7 +4048,7 @@ define
             var path = xhr.data.path;
             var type = xhr.data.type;
 
-            if (this.debug) log('[AssetLoader]::_onXHRLoadError("'+path+'"")');
+            log('[AssetLoader]::_onXHRLoadError("'+path+'"")');
 
             this._pending--;
 
@@ -3721,39 +4071,43 @@ define
 );
 
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  Module of utility methods/classes.
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * Module of utility methods/classes.
+ *
+ * @type {Module}
  */
 define
 (
     'utils',[
         'utils/assert',
         'utils/debounce',
-        'utils/log',
-        'utils/namespace',
         'utils/inherit',
-        'utils/sizeOf',
-        'utils/module',
-        'utils/keyOfValue',
         'utils/isNull',
+        'utils/keyOfValue',
+        'utils/log',
+        'utils/module',
+        'utils/namespace',
+        'utils/ready',
+        'utils/sizeOf',
         'utils/AssetLoader'
     ],
     function
     (
         assert,
         debounce,
-        log,
-        namespace,
         inherit,
-        sizeOf,
-        module,
-        keyOfValue,
         isNull,
+        keyOfValue,
+        log,
+        module,
+        namespace,
+        ready,
+        sizeOf,
         AssetLoader
     )
     {
@@ -3761,13 +4115,14 @@ define
 
         Object.defineProperty(api, 'assert', { value: assert, writable: false, enumerable: true });
         Object.defineProperty(api, 'debounce', { value: debounce, writable: false, enumerable: true });
-        Object.defineProperty(api, 'log', { value: log, writable: false, enumerable: true });
-        Object.defineProperty(api, 'namespace', { value: namespace, writable: false, enumerable: true });
         Object.defineProperty(api, 'inherit', { value: inherit, writable: false, enumerable: true });
-        Object.defineProperty(api, 'sizeOf', { value: sizeOf, writable: false, enumerable: true });
-        Object.defineProperty(api, 'module', { value: module, writable: false, enumerable: true });
-        Object.defineProperty(api, 'keyOfValue', { value: keyOfValue, writable: false, enumerable: true });
         Object.defineProperty(api, 'isNull', { value: isNull, writable: false, enumerable: true });
+        Object.defineProperty(api, 'keyOfValue', { value: keyOfValue, writable: false, enumerable: true });
+        Object.defineProperty(api, 'log', { value: log, writable: false, enumerable: true });
+        Object.defineProperty(api, 'module', { value: module, writable: false, enumerable: true });
+        Object.defineProperty(api, 'namespace', { value: namespace, writable: false, enumerable: true });
+        Object.defineProperty(api, 'ready', { value: ready, writable: false, enumerable: true });
+        Object.defineProperty(api, 'sizeOf', { value: sizeOf, writable: false, enumerable: true });
         Object.defineProperty(api, 'AssetLoader', { value: AssetLoader, writable: false, enumerable: true });
 
         return api;
@@ -3775,13 +4130,13 @@ define
 );
 
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  Construction of the VARS API.
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * Construction of the VARS API.
  */
 define
 (
@@ -3869,14 +4224,15 @@ define
 );
 
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  End file for r.js.
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * End file for r.js.
  */
     return require('vars');
 }()));
+
 //# sourceMappingURL=vars.js.map

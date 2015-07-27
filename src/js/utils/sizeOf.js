@@ -1,9 +1,11 @@
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
  */
 define
 (
@@ -27,7 +29,7 @@ define
         function sizeOf(object)
         {
             if (object === undefined || object === null) return 0;
-            
+
             // If object internally has length property, use it.
             if (object.length !== undefined) return object.length;
 

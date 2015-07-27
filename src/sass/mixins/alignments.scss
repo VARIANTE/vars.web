@@ -135,47 +135,130 @@
 }
 
 /**
- * Aligns containing selector to specified x/y directions in absolute
- * position.
+ * Aligns containing selector to specified x/y directions in absolute position.
  *
- * @param  {String} $alignH     Horizontal alignment (i.e. left, center, right).
- * @param  {String} $alignV     Vertical alignment (i.e. top, middle, bottom).
+ * @param  {List} $alignH     Horizontal alignment (left|center|right, left|right offset, right offset).
+ * @param  {List} $alignV     Vertical alignment (top|center|middle|bottom, top|bottom offset, bottom offset).
  */
 @mixin abs-align($alignH:null, $alignV:null)
 {
     display: block;
     position: absolute;
 
-    @if $alignH == 'left'
+    @if $alignH != null and length($alignH) > 0
     {
-        left: 0px;
-    }
-    @else if $alignH == 'center' or $alignH == 'middle'
-    {
-        left: 0px;
-        right: 0px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    @else if $alignH == 'right'
-    {
-        right: 0px;
+        $align: nth($alignH, 1);
+        $offset1: null;
+        $offset2: null;
+
+        @if length($alignH) > 1 { $offset1: nth($alignH, 2); }
+        @if length($alignH) > 2 { $offset2: nth($alignH, 3); }
+
+        @if $align == 'left'
+        {
+            @if $offset1 == null { left: 0px; } @else { left: $offset1; }
+        }
+        @else if $align == 'center' or $align == 'middle'
+        {
+            margin-left: auto;
+            margin-right: auto;
+            @if $offset1 == null { left: 0px;  } @else { left: $offset1;  }
+            @if $offset2 == null { right: 0px; } @else { right: $offset2; }
+        }
+        @else if $align == 'right'
+        {
+            @if $offset1 == null { right: 0px; } @else { right: $offset1; }
+        }
     }
 
-    @if $alignV == 'top'
+    @if $alignV != null and length($alignV) > 0
     {
-        top: 0px;
+        $align: nth($alignV, 1);
+        $offset1: null;
+        $offset2: null;
+
+        @if length($alignV) > 1 { $offset1: nth($alignV, 2); }
+        @if length($alignV) > 2 { $offset2: nth($alignV, 3); }
+
+        @if $align == 'top'
+        {
+            @if $offset1 == null { top: 0px; } @else { top: $offset1; }
+        }
+        @else if $align == 'center' or $align == 'middle'
+        {
+            margin-top: auto;
+            margin-bottom: auto;
+            @if $offset1 == null { top: 0px;    } @else { top: $offset1;    }
+            @if $offset2 == null { bottom: 0px; } @else { bottom: $offset2; }
+        }
+        @else if $align == 'bottom'
+        {
+            @if $offset1 == null { bottom: 0px; } @else { bottom: $offset1; }
+        }
     }
-    @else if $alignV == 'center' or $alignV == 'middle'
+}
+
+/**
+ * Aligns containing selector to specified x/y directions in fixed position.
+ *
+ * @param  {List} $alignH     Horizontal alignment (left|center|right, left|right offset, right offset).
+ * @param  {List} $alignV     Vertical alignment (top|center|middle|bottom, top|bottom offset, bottom offset).
+ */
+@mixin fixed-align($alignH:null, $alignV:null)
+{
+    display: block;
+    position: fixed;
+
+    @if $alignH != null and length($alignH) > 0
     {
-        top: 0px;
-        bottom: 0px;
-        margin-top: auto;
-        margin-bottom: auto;
+        $align: nth($alignH, 1);
+        $offset1: null;
+        $offset2: null;
+
+        @if length($alignH) > 1 { $offset1: nth($alignH, 2); }
+        @if length($alignH) > 2 { $offset2: nth($alignH, 3); }
+
+        @if $align == 'left'
+        {
+            @if $offset1 == null { left: 0px; } @else { left: $offset1; }
+        }
+        @else if $align == 'center' or $align == 'middle'
+        {
+            margin-left: auto;
+            margin-right: auto;
+            @if $offset1 == null { left: 0px;  } @else { left: $offset1;  }
+            @if $offset2 == null { right: 0px; } @else { right: $offset2; }
+        }
+        @else if $align == 'right'
+        {
+            @if $offset1 == null { right: 0px; } @else { right: $offset1; }
+        }
     }
-    @else if $alignV == 'bottom'
+
+    @if $alignV != null and length($alignV) > 0
     {
-        bottom: 0px;
+        $align: nth($alignV, 1);
+        $offset1: null;
+        $offset2: null;
+
+        @if length($alignV) > 1 { $offset1: nth($alignV, 2); }
+        @if length($alignV) > 2 { $offset2: nth($alignV, 3); }
+
+        @if $align == 'top'
+        {
+            @if $offset1 == null { top: 0px; } @else { top: $offset1; }
+        }
+        @else if $align == 'center' or $align == 'middle'
+        {
+            margin-top: auto;
+            margin-bottom: auto;
+            @if $offset1 == null { top: 0px;    } @else { top: $offset1;    }
+            @if $offset2 == null { bottom: 0px; } @else { bottom: $offset2; }
+        }
+        @else if $align == 'bottom'
+        {
+            @if $offset1 == null { bottom: 0px; } @else { bottom: $offset1; }
+        }
     }
 }
 
@@ -234,4 +317,56 @@
     {
         transform: translateZ(#{$z + px});
     }
+}
+
+/**
+ * Sets the diameter of the target selector.
+ *
+ * @param  {Number}  $diameter
+ * @param  {Boolean} $oval
+ */
+@mixin diameter($diameter, $oval:false)
+{
+    width: $diameter;
+    height: $diameter;
+
+    @if $oval == true
+    {
+        border-radius: $diameter / 2;
+        overflow: hidden;
+    }
+}
+
+/**
+ * Fits dimension to parent container.
+ *
+ * @param  {Boolean} $w     Specifies whether to fit the width.
+ * @param  {Boolean} $h     Specifies whether to fit the height.
+ */
+@mixin auto-fit($w:true, $h:true)
+{
+    @if $w == true
+    {
+        width: 100%;
+    }
+
+    @if $h == true
+    {
+        height: 100%;
+    }
+}
+
+/**
+ * Sets the background-size and background-position of a target element
+ * which is using an image map to the corresponding item in the map.
+ *
+ * @param  {Number} $row-index 0-based index of the row of the target item.
+ * @param  {Number} $col-index 0-based index of the column of the target item.
+ * @param  {Number} $num-rows  Total number of rows in the image map.
+ * @param  {Number} $num-cols  Total number of columns in the image map.
+ */
+@mixin image-map-item($row-index, $col-index, $num-rows, $num-cols)
+{
+    background-size: #{$num-cols * 100}% #{$num-rows * 100}%;
+    background-position: #{((100 / ($num-cols - 1)) * $col-index)}% #{((100 / ($num-rows - 1)) * $row-index)}%;
 }

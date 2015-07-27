@@ -458,14 +458,21 @@ button:hover {
 button:disabled {
   cursor: default; }
 
-input:focus {
-  outline-width: 0; }
-
-input:-webkit-autofill {
-  box-shadow: 0 0 0px 1000px white inset; }
-
-input[type='checkbox'] {
-  cursor: pointer; }
+input,
+textarea {
+  resize: none; }
+  input:focus
+,
+  textarea:focus {
+    outline-width: 0; }
+  input:-webkit-autofill
+,
+  textarea:-webkit-autofill {
+    box-shadow: 0 0 0px 1000px white inset; }
+  input[type='checkbox']
+,
+  textarea[type='checkbox'] {
+    cursor: pointer; }
 
 /**
  *  vars
@@ -497,11 +504,16 @@ input[type='checkbox'] {
  * @param   {String}  $inline       Specifies if this flexbox is inline.
  */
 /**
- * Aligns containing selector to specified x/y directions in absolute
- * position.
+ * Aligns containing selector to specified x/y directions in absolute position.
  *
- * @param  {String} $alignH     Horizontal alignment (i.e. left, center, right).
- * @param  {String} $alignV     Vertical alignment (i.e. top, middle, bottom).
+ * @param  {List} $alignH     Horizontal alignment (left|center|right, left|right offset, right offset).
+ * @param  {List} $alignV     Vertical alignment (top|center|middle|bottom, top|bottom offset, bottom offset).
+ */
+/**
+ * Aligns containing selector to specified x/y directions in fixed position.
+ *
+ * @param  {List} $alignH     Horizontal alignment (left|center|right, left|right offset, right offset).
+ * @param  {List} $alignV     Vertical alignment (top|center|middle|bottom, top|bottom offset, bottom offset).
  */
 /**
  * Aligns containing inline-block to specified x/y directions in relative
@@ -524,6 +536,27 @@ input[type='checkbox'] {
  * @param  {String} $type   Layer type, either 'group' or 'layer'.
  * @param  {Number} $z      Position in the z-axis.
  * @see parallax-block
+ */
+/**
+ * Sets the diameter of the target selector.
+ *
+ * @param  {Number}  $diameter
+ * @param  {Boolean} $oval
+ */
+/**
+ * Fits dimension to parent container.
+ *
+ * @param  {Boolean} $w     Specifies whether to fit the width.
+ * @param  {Boolean} $h     Specifies whether to fit the height.
+ */
+/**
+ * Sets the background-size and background-position of a target element
+ * which is using an image map to the corresponding item in the map.
+ *
+ * @param  {Number} $row-index 0-based index of the row of the target item.
+ * @param  {Number} $col-index 0-based index of the column of the target item.
+ * @param  {Number} $num-rows  Total number of rows in the image map.
+ * @param  {Number} $num-cols  Total number of columns in the image map.
  */
 /**
  *  vars

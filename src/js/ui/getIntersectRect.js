@@ -1,18 +1,22 @@
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
  */
 define
 (
     [
+        'ui/Element',
         'utils/assert',
         'ui/getRect'
     ],
     function
     (
+        Element,
         assert,
         getRect
     )
@@ -29,7 +33,10 @@ define
         function getIntersectRect(element1, element2)
         {
             if (!assert(element1 || element2, 'Invalid elements specified.')) return null;
-            if (!assert(window && document, 'Window or document undefined.')) return null;
+            if (!assert(window, 'Window undefined.')) return null;
+
+            if (element1 instanceof Element) element1 = element1.element;
+            if (element2 instanceof Element) element2 = element2.element;
 
             var rect1 = getRect(element1 || window);
             var rect2 = getRect(element2 || window);

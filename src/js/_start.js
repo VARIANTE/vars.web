@@ -1,11 +1,11 @@
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  Start file for r.js.
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * Start file for r.js.
  */
 (function(root, factory, undefined)
 {
@@ -19,7 +19,6 @@
     // Browser (?).
     else
     {
-        vars.utils.namespace('io').variante = vars;
         root.vars = vars;
     }
 }((typeof window !== 'undefined') ? window : this, function() {

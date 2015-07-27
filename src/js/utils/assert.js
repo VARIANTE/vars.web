@@ -1,9 +1,11 @@
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
  */
 define
 (
@@ -25,7 +27,7 @@ define
         {
             if (!condition && (window && window.vars && window.vars.debug))
             {
-                throw message || '[vars]: Assertion failed.';
+                throw ('Error: ' + message) || '[vars]: Assertion failed.';
             }
 
             return condition;

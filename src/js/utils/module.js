@@ -1,16 +1,20 @@
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
  */
 define
 (
     [
+        'utils/ready'
     ],
     function
     (
+        ready
     )
     {
         /**
@@ -23,49 +27,10 @@ define
          */
         function module(impl, init)
         {
-            if (!document) return;
-
-            var onLoaded = function(event)
+            ready(function()
             {
-                if (document.addEventListener)
-                {
-                    document.removeEventListener('DOMContentLoaded', onLoaded, false);
-                    window.removeEventListener('load', onLoaded, false);
-                }
-                else if (document.attachEvent)
-                {
-                    document.detachEvent('onreadystatechange', onLoaded);
-                    window.detachEvent('onload', onLoaded);
-                }
-
-                setTimeout(initialize, 1);
-            };
-
-            var initialize = function()
-            {
-                var module = new impl(init);
-
-                if (window && !window.module)
-                {
-                    window.module = module;
-                }
-            };
-
-            if (document.readyState === 'complete')
-            {
-                return setTimeout(initialize, 1);
-            }
-
-            if (document.addEventListener)
-            {
-                document.addEventListener('DOMContentLoaded', onLoaded, false);
-                window.addEventListener('load', onLoaded, false);
-            }
-            else if (document.attachEvent)
-            {
-                document.attachEvent('onreadystatechange', onLoaded);
-                window.attachEvent('onload', onLoaded);
-            }
+                var m = new impl(init);
+            });
         }
 
         return module;

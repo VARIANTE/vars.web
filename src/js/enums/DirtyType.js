@@ -1,11 +1,13 @@
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  UI dirty types.
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * UI dirty types.
+ *
+ * @type {Object}
  */
 define
 (

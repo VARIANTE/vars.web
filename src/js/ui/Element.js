@@ -1,11 +1,13 @@
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  View model of any DOM element.
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * Controller of a DOM element.
+ *
+ * @type {Class}
  */
 define
 (
@@ -13,6 +15,7 @@ define
         'utils/assert',
         'utils/log',
         'utils/keyOfValue',
+        'utils/sizeOf',
         'enums/DirtyType',
         'ui/ElementUpdateDelegate'
     ],
@@ -21,6 +24,7 @@ define
         assert,
         log,
         keyOfValue,
+        sizeOf,
         DirtyType,
         ElementUpdateDelegate
     )
@@ -30,11 +34,149 @@ define
          *
          * Creates a new Element instance.
          *
-         * @param {Object} init Optional initial properties/element of this Element instance.
+         * @param  {Object} init Optional initial properties/element of this Element instance.
          */
         function Element(init)
         {
-            log(this.toString()+':new(', init, ')');
+            /**
+             * @property
+             *
+             * View of this Element instance.
+             *
+             * @type {Object}
+             */
+            Object.defineProperty(this, 'element',
+            {
+                get: function()
+                {
+                    if (!this._element)
+                    {
+                        Object.defineProperty(this, '_element', { value: this.factory(), writable: true });
+                    }
+
+                    return this._element;
+                },
+                set: function(value)
+                {
+                    this.__set_element(value);
+                }
+            });
+
+            /**
+             * @property
+             *
+             * ID of this Element instance.
+             *
+             * @type {String}
+             */
+            Object.defineProperty(this, 'id',
+            {
+                get: function()
+                {
+                    return this.element.id;
+                },
+                set: function(value)
+                {
+                    this.element.setAttribute('id', value);
+                }
+            });
+
+            /**
+             * @property
+             *
+             * Instance name of this Element instance.
+             *
+             * @type {String}
+             */
+            Object.defineProperty(this, 'name', { value: null, writable: true });
+
+            /**
+             * @property
+             *
+             * Class of this Element instance.
+             *
+             * @type {String}
+             */
+            Object.defineProperty(this, 'class',
+            {
+                get: function()
+                {
+                    return this.element.className;
+                },
+                set: function(value)
+                {
+                    this.element.className = value;
+                }
+            });
+
+            /**
+             * @property
+             *
+             * Class list of this Element instance.
+             *
+             * @type {String}
+             */
+            Object.defineProperty(this, 'classList',
+            {
+                get: function()
+                {
+                    return this.element.classList;
+                },
+                set: function(value)
+                {
+                    this.element.classList = value;
+                }
+            });
+
+            /**
+             * @property (read-only)
+             *
+             * Child elements.
+             *
+             * @type {Object}
+             */
+            Object.defineProperty(this, 'children', { value: {}, writable: false });
+
+            /**
+             * @property
+             *
+             * Specifies the data providers of this Element instance.
+             *
+             * @type {*}
+             */
+            Object.defineProperty(this, 'data',
+            {
+                get: function()
+                {
+                    return this._data;
+                },
+                set: function(value)
+                {
+                    Object.defineProperty(this, '_data', { value: value, writable: true });
+
+                    this.updateDelegate.setDirty(DirtyType.DATA);
+                }
+            });
+
+            /**
+             * @property
+             *
+             * ViewUpdateDelegate instance.
+             *
+             * @type {ViewUpdateDelegate}
+             */
+            Object.defineProperty(this, 'updateDelegate',
+            {
+                get: function()
+                {
+                    if (!this._updateDelegate)
+                    {
+                        Object.defineProperty(this, '_updateDelegate', { value: new ElementUpdateDelegate(this), writable: false });
+                    }
+
+                    return this._updateDelegate;
+                }
+            });
 
             if (init)
             {
@@ -50,177 +192,30 @@ define
                 {
                     for (var property in init)
                     {
-                        if (this.hasProperty(property))
+                        if (this.hasOwnProperty(property))
                         {
-                            this[property] = init[property];
+                            if (property === 'children')
+                            {
+                                var children = init.children;
+
+                                for (var childName in children)
+                                {
+                                    this.addChild(children[childName], childName);
+                                }
+                            }
+                            else
+                            {
+                                this[property] = init[property];
+                            }
                         }
                     }
                 }
             }
 
+            log(this.toString()+':new(', init, ')');
+
             this.init();
         }
-
-        /**
-         * @property
-         *
-         * View of this Element instance.
-         *
-         * @type {Object}
-         */
-        Object.defineProperty(Element.prototype, 'element',
-        {
-            get: function()
-            {
-                if (!this._element)
-                {
-                    Object.defineProperty(this, '_element', { value: this.factory(), writable: true });
-                }
-
-                return this._element;
-            },
-            set: function(value)
-            {
-                this.__set_element(value);
-            }
-        });
-
-        /**
-         * @property
-         *
-         * ID of this Element instance.
-         *
-         * @type {String}
-         */
-        Object.defineProperty(Element.prototype, 'id',
-        {
-            get: function()
-            {
-                return this.element.id;
-            },
-            set: function(value)
-            {
-                this.element.setAttribute('id', value);
-            }
-        });
-
-        /**
-         * @property
-         *
-         * Instance name of this Element instance.
-         *
-         * @type {String}
-         */
-        Object.defineProperty(Element.prototype, 'name', { value: null, writable: true });
-
-        /**
-         * @property
-         *
-         * Class of this Element instance.
-         *
-         * @type {String}
-         */
-        Object.defineProperty(Element.prototype, 'class',
-        {
-            get: function()
-            {
-                return this.element.className;
-            },
-            set: function(value)
-            {
-                this.element.className = value;
-            }
-        });
-
-        /**
-         * @property
-         *
-         * Class list of this Element instance.
-         *
-         * @type {String}
-         */
-        Object.defineProperty(Element.prototype, 'classList',
-        {
-            get: function()
-            {
-                return this.element.classList;
-            },
-            set: function(value)
-            {
-                this.element.classList = value;
-            }
-        });
-
-        /**
-         * @property (read-only)
-         *
-         * Virtual child elements.
-         *
-         * @type {Object}
-         */
-        Object.defineProperty(Element.prototype, 'virtualChildren', { value: {}, writable: false });
-
-        /**
-         * @property
-         *
-         * Specifies whether this Element instance generates debug data.
-         *
-         * @type {Object}
-         */
-        Object.defineProperty(Element.prototype, 'debug',
-        {
-            get: function()
-            {
-                return this._debug;
-            },
-            set: function(value)
-            {
-                Object.defineProperty(this, '_debug', { value: value, writable: true });
-
-                this.updateDelegate.debug = value;
-            }
-        });
-
-        /**
-         * @property
-         *
-         * Specifies the data providers of this Element instance.
-         *
-         * @type {*}
-         */
-        Object.defineProperty(Element.prototype, 'data',
-        {
-            get: function()
-            {
-                return this._data;
-            },
-            set: function(value)
-            {
-                Object.defineProperty(this, '_data', { value: value, writable: true });
-
-                this.updateDelegate.setDirty(DirtyType.DATA);
-            }
-        });
-
-        /**
-         * @property
-         *
-         * ViewUpdateDelegate instance.
-         *
-         * @type {ViewUpdateDelegate}
-         */
-        Object.defineProperty(Element.prototype, 'updateDelegate',
-        {
-            get: function()
-            {
-                if (!this._updateDelegate)
-                {
-                    Object.defineProperty(this, '_updateDelegate', { value: new ElementUpdateDelegate(this), writable: false });
-                }
-
-                return this._updateDelegate;
-            }
-        });
 
         /**
          * Initializes this Element instance. Must manually invoke.
@@ -251,64 +246,64 @@ define
         };
 
         /**
-         * Adds a virtual child to this Element instance.
+         * Adds a child to this Element instance.
          *
-         * @param {Object} child
-         * @param {Object} The added child.
+         * @param  {Object} child
+         * @param  {Object} The added child.
          */
-        Element.prototype.addVirtualChild = function(child, name)
+        Element.prototype.addChild = function(child, name)
         {
             if (!assert(child instanceof Element, 'Child must conform to VARS Element.')) return null;
 
             name = name || child.name;
 
             if (!assert(name || child.name, 'Child name must be provided.')) return null;
-            if (!assert(!this.virtualChildren[name], 'Child name is already taken.')) return null;
+            if (!assert(!this.children[name], 'Child name is already taken.')) return null;
 
-            this.virtualChildren[name] = child;
+            this.children[name] = child;
             child.name = name;
 
             return child;
         };
 
         /**
-         * Removes a virtual child from this Element instance.
+         * Removes a child from this Element instance.
          *
          * @param  {Object} child
          *
          * @return {Object} The removed child.
          */
-        Element.prototype.removeVirtualChild = function(child)
+        Element.prototype.removeChild = function(child)
         {
             if (!assert(child, 'Child is null.')) return null;
             if (!assert(child instanceof Element, 'Child must conform to VARS Element.')) return null;
 
-            var key = keyOfValue(this.virtualChildren, child);
+            var key = keyOfValue(this.children, child);
 
             if (key)
             {
-                delete this.virtualChildren[key];
+                delete this.children[key];
             }
 
             return child;
         };
 
         /**
-         * Removes a virtual child by its name.
+         * Removes a child by its name.
          *
          * @param  {String} name
          *
          * @return {Object} The removed child.
          */
-        Element.prototype.removeVirtualChildByName = function(name)
+        Element.prototype.removeChildByName = function(name)
         {
             if (!assert(name, 'Name is null.')) return null;
 
-            var child = this.virtualChildren[name];
+            var child = this.children[name];
 
             if (child)
             {
-                delete this.virtualChildren[name];
+                delete this.children[name];
             }
 
             return child;

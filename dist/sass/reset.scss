@@ -116,8 +116,11 @@ button
     }
 }
 
-input
+input,
+textarea
 {
+    resize: none;
+    
     &:focus
     {
         outline-width: 0;

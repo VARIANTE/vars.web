@@ -1,11 +1,13 @@
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  Delegate for managing update calls of a VARS modeled element.
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * Delegate for managing update calls of a VARS modeled element.
+ *
+ * @type {Class}
  */
 define
 (
@@ -52,7 +54,7 @@ define
              *
              * Sets a dirty type as dirty.
              *
-             * @param {Number} dirtyType
+             * @param  {Number} dirtyType
              */
             this.setDirty = function(dirtyType, validateNow)
             {
@@ -60,11 +62,11 @@ define
 
                 if (this.transmissive !== DirtyType.NONE)
                 {
-                    if (this.delegate.virtualChildren)
+                    if (this.delegate.children)
                     {
-                        for (var name in this.delegate.virtualChildren)
+                        for (var name in this.delegate.children)
                         {
-                            var child = this.delegate.virtualChildren[name];
+                            var child = this.delegate.children[name];
 
                             if (child.updateDelegate && child.updateDelegate.setDirty)
                             {
@@ -207,7 +209,7 @@ define
 
                 if (this.delegate && this.delegate.update)
                 {
-                    this.delegate.update.call(this.delegate, mDirtyTable);
+                    this.delegate.update.call(this.delegate);
                 }
 
                 // Reset the dirty status of all types.

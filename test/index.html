@@ -1,14 +1,25 @@
 <!doctype html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>VARSjs Playground</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="../dist/js/vars.js"></script>
+    <meta charset='utf-8'>
+    <title>varsjs Playground</title>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src='../dist/js/vars.js'></script>
 </head>
 <body>
-    <script src="test.js"></script>
-    <div id="foo" class="asdf state-a" style="width:100px;height:100px;background-color:#000;transform:translateY(50px);">
+    <script src='test.js'></script>
+    <div id='foo' class='asdf state-a' vs-class='Foo' style='width:100px;height:100px;background-color:#000;transform:translateY(50px);'>
+        <div id='foo-1' vs-class='Foo' vs-name='asdf'>
+        </div>
+        <div id='foo-2'>
+        </div>
+        <div id='foo-3'>
+        </div>
     </div>
+    <div id='bar' class='asdf state-a' vs-class='Bar' style='width:100px;height:100px;background-color:#ff0;transform:translateY(250px);'>
+        <div id='wee' class='asdf state-a' style='width:100px;height:100px;background-color:#ff0;transform:translateY(250px);'>
+        </div>
+    </div>
+    <video id='vid' vs-class='Video'></video>
 </body>
 </html>

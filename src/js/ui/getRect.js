@@ -1,20 +1,24 @@
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * vars
+ * (c) VARIANTE (http://variante.io)
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
  */
 define
 (
     [
         'utils/assert',
-        'ui/getViewportRect'
+        'ui/getViewportRect',
+        'ui/Element'
     ],
     function
     (
         assert,
-        getViewportRect
+        getViewportRect,
+        Element
     )
     {
         /**
@@ -27,7 +31,9 @@ define
         function getRect(element)
         {
             if (!assert(element, 'Invalid element specified.')) return null;
-            if (!assert(window && document, 'Window or document undefined.')) return null;
+            if (!assert(window, 'Window undefined.')) return null;
+
+            if (element instanceof Element) element = element.element;
 
             if (element === window) return getViewportRect();
 

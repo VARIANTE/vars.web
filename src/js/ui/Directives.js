@@ -5,7 +5,14 @@
  * This software is released under the MIT License:
  * http://www.opensource.org/licenses/mit-license.php
  *
- * End file for r.js.
+ * Custom DOM directives used by VARS.
+ *
+ * @type {Object}
  */
-    return require('vars');
-}()));
+define
+(
+    {
+        Controller: 'vs-controller',
+        Instance: 'vs-instance'
+    }
+);
