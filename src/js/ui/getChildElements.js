@@ -65,14 +65,14 @@ define
                 // Element.
                 if (!controller && sizeOf(childName) > 0)
                 {
-                    controller = vars.Element;
+                    controller = Element;
                 }
                 else if (typeof controller !== 'function')
                 {
                     switch (className)
                     {
-                        case 'Video':   { controller = vars.Video; break; }
-                        case 'Element': { controller = vars.Element; break; }
+                        case 'Video':   { controller = Video; break; }
+                        case 'Element': { controller = Element; break; }
                         default:        { controller = null; break; }
                     }
                 }
