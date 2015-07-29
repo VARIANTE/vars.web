@@ -10,11 +10,13 @@
 define
 (
     [
+        'ui/Element',
         'utils/assert',
         'utils/sizeOf'
     ],
     function
     (
+        Element,
         assert,
         sizeOf
     )

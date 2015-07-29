@@ -2975,11 +2975,13 @@ define
 define
 (
     'ui/getElementState',[
+        'ui/Element',
         'utils/assert',
         'utils/sizeOf'
     ],
     function
     (
+        Element,
         assert,
         sizeOf
     )
