@@ -16,6 +16,7 @@
         A.prototype.init = function()
         {
             console.log('I am', this.toString());
+            console.log(this.fooBar);
 
             document.addEventListener(vars.EventType.MOUSE.CLICK, function(event)
             {

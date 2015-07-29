@@ -13,6 +13,7 @@ define
 (
     {
         Controller: 'vs-controller',
-        Instance: 'vs-instance'
+        Instance: 'vs-instance',
+        Property: 'vs-property'
     }
 );

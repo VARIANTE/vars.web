@@ -1069,111 +1069,16 @@ define
  * This software is released under the MIT License:
  * http://www.opensource.org/licenses/mit-license.php
  *
- * @type {Function}
+ * Custom DOM directives used by VARS.
+ *
+ * @type {Object}
  */
 define
 (
-    'utils/keyOfValue',[
-    ],
-    function
-    (
-    )
-    {
-        /**
-         * Gets the key of a given value in a given object.
-         *
-         * @param  {Object} object  Target object.
-         * @param  {Value}  value   Target value.
-         */
-        function keyOfValue(object, value)
-        {
-            if (!object || !value) return null;
-            if (typeof object !== 'object') return null;
-
-            for (var property in object)
-            {
-                if (object.hasOwnProperty(property))
-                {
-                    if (object[property] === value)
-                    {
-                        return property;
-                    }
-                }
-            }
-
-            return null;
-        }
-
-        return keyOfValue;
-    }
-);
-
-/**
- * vars
- * (c) VARIANTE (http://variante.io)
- *
- * This software is released under the MIT License:
- * http://www.opensource.org/licenses/mit-license.php
- *
- * @type {Function}
- */
-define
-(
-    'utils/sizeOf',[
-    ],
-    function
-    (
-    )
-    {
-        /**
-         * Gets the number of keys in a given object.
-         *
-         * @param  {*} object   Any object type.
-         *
-         * @return {Number} Size of specified object (depending on the object type,
-         *                  it can be the number of keys in a plain object, number
-         *                  of elements in an array, number of characters in a
-         *                  string, number of digits in a number, and 0 for all
-         *                  other types.
-         */
-        function sizeOf(object)
-        {
-            if (object === undefined || object === null) return 0;
-
-            // If object internally has length property, use it.
-            if (object.length !== undefined) return object.length;
-
-            var size = 0;
-
-            switch (typeof object)
-            {
-                case 'object':
-                {
-                    if (object !== null && object !== undefined)
-                    {
-                        for (var k in object) size++;
-                    }
-
-                    break;
-                }
-
-                case 'number':
-                {
-                    size = ('' + object).length;
-                    break;
-                }
-
-                default:
-                {
-                    size = 0;
-                    break;
-                }
-            }
-
-            return size;
-        }
-
-        return sizeOf;
+    'ui/Directives',{
+        Controller: 'vs-controller',
+        Instance: 'vs-instance',
+        Property: 'vs-property'
     }
 );
 
@@ -1630,6 +1535,121 @@ define
  * This software is released under the MIT License:
  * http://www.opensource.org/licenses/mit-license.php
  *
+ * @type {Function}
+ */
+define
+(
+    'utils/keyOfValue',[
+    ],
+    function
+    (
+    )
+    {
+        /**
+         * Gets the key of a given value in a given object.
+         *
+         * @param  {Object} object  Target object.
+         * @param  {Value}  value   Target value.
+         */
+        function keyOfValue(object, value)
+        {
+            if (!object || !value) return null;
+            if (typeof object !== 'object') return null;
+
+            for (var property in object)
+            {
+                if (object.hasOwnProperty(property))
+                {
+                    if (object[property] === value)
+                    {
+                        return property;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        return keyOfValue;
+    }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
+ */
+define
+(
+    'utils/sizeOf',[
+    ],
+    function
+    (
+    )
+    {
+        /**
+         * Gets the number of keys in a given object.
+         *
+         * @param  {*} object   Any object type.
+         *
+         * @return {Number} Size of specified object (depending on the object type,
+         *                  it can be the number of keys in a plain object, number
+         *                  of elements in an array, number of characters in a
+         *                  string, number of digits in a number, and 0 for all
+         *                  other types.
+         */
+        function sizeOf(object)
+        {
+            if (object === undefined || object === null) return 0;
+
+            // If object internally has length property, use it.
+            if (object.length !== undefined) return object.length;
+
+            var size = 0;
+
+            switch (typeof object)
+            {
+                case 'object':
+                {
+                    if (object !== null && object !== undefined)
+                    {
+                        for (var k in object) size++;
+                    }
+
+                    break;
+                }
+
+                case 'number':
+                {
+                    size = ('' + object).length;
+                    break;
+                }
+
+                default:
+                {
+                    size = 0;
+                    break;
+                }
+            }
+
+            return size;
+        }
+
+        return sizeOf;
+    }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
  * Controller of a DOM element.
  *
  * @type {Class}
@@ -1637,21 +1657,23 @@ define
 define
 (
     'ui/Element',[
-        'utils/assert',
-        'utils/log',
-        'utils/keyOfValue',
-        'utils/sizeOf',
         'enums/DirtyType',
-        'ui/ElementUpdateDelegate'
+        'ui/Directives',
+        'ui/ElementUpdateDelegate',
+        'utils/assert',
+        'utils/keyOfValue',
+        'utils/log',
+        'utils/sizeOf'
     ],
     function
     (
-        assert,
-        log,
-        keyOfValue,
-        sizeOf,
         DirtyType,
-        ElementUpdateDelegate
+        Directives,
+        ElementUpdateDelegate,
+        assert,
+        keyOfValue,
+        log,
+        sizeOf
     )
     {
         /**
@@ -1663,8 +1685,10 @@ define
          */
         function Element(init)
         {
+            // Define instance properties.
             this.__define_properties();
 
+            // Set instance properties per init object.
             if (init)
             {
                 if (init instanceof HTMLElement)
@@ -1696,6 +1720,22 @@ define
                             }
                         }
                     }
+                }
+            }
+
+            // Further define instance properties per custom attribute.
+            var attributes = this.element.attributes;
+            var nAtributes = sizeOf(attributes);
+            var reg = new RegExp('^'+Directives.Property+'-'+'|^data-'+Directives.Property+'-', 'i');
+
+            for (var i = 0; i < nAtributes; i++)
+            {
+                if (reg.test(attributes[i].name))
+                {
+                    var a = attributes[i];
+                    var p = a.name.replace(reg, '').replace(/-([a-z])/g, function(g) { return g[1].toUpperCase(); });
+
+                    Object.defineProperty(this, p, { value: (a.value === '') ? true : a.value, writable: true });
                 }
             }
 
@@ -2211,25 +2251,6 @@ define
         }
 
         return changeElementState;
-    }
-);
-
-/**
- * vars
- * (c) VARIANTE (http://variante.io)
- *
- * This software is released under the MIT License:
- * http://www.opensource.org/licenses/mit-license.php
- *
- * Custom DOM directives used by VARS.
- *
- * @type {Object}
- */
-define
-(
-    'ui/Directives',{
-        Controller: 'vs-controller',
-        Instance: 'vs-instance'
     }
 );
 

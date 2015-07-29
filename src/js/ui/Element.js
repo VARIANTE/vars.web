@@ -12,21 +12,23 @@
 define
 (
     [
-        'utils/assert',
-        'utils/log',
-        'utils/keyOfValue',
-        'utils/sizeOf',
         'enums/DirtyType',
-        'ui/ElementUpdateDelegate'
+        'ui/Directives',
+        'ui/ElementUpdateDelegate',
+        'utils/assert',
+        'utils/keyOfValue',
+        'utils/log',
+        'utils/sizeOf'
     ],
     function
     (
-        assert,
-        log,
-        keyOfValue,
-        sizeOf,
         DirtyType,
-        ElementUpdateDelegate
+        Directives,
+        ElementUpdateDelegate,
+        assert,
+        keyOfValue,
+        log,
+        sizeOf
     )
     {
         /**
@@ -38,8 +40,10 @@ define
          */
         function Element(init)
         {
+            // Define instance properties.
             this.__define_properties();
 
+            // Set instance properties per init object.
             if (init)
             {
                 if (init instanceof HTMLElement)
@@ -71,6 +75,22 @@ define
                             }
                         }
                     }
+                }
+            }
+
+            // Further define instance properties per custom attribute.
+            var attributes = this.element.attributes;
+            var nAtributes = sizeOf(attributes);
+            var reg = new RegExp('^'+Directives.Property+'-'+'|^data-'+Directives.Property+'-', 'i');
+
+            for (var i = 0; i < nAtributes; i++)
+            {
+                if (reg.test(attributes[i].name))
+                {
+                    var a = attributes[i];
+                    var p = a.name.replace(reg, '').replace(/-([a-z])/g, function(g) { return g[1].toUpperCase(); });
+
+                    Object.defineProperty(this, p, { value: (a.value === '') ? true : a.value, writable: true });
                 }
             }
 
