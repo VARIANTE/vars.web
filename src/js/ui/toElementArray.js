@@ -32,9 +32,13 @@ define
 
             var elements;
 
-            if (element instanceof Array || element instanceof NodeList)
+            if (element instanceof Array)
             {
                 elements = element;
+            }
+            else if (element instanceof NodeList)
+            {
+                elements = Array.prototype.slice.call(element);
             }
             else if (element.jquery)
             {
