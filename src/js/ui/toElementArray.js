@@ -32,7 +32,7 @@ define
 
             var elements;
 
-            if (element instanceof Array)
+            if (element instanceof Array || element instanceof NodeList)
             {
                 elements = element;
             }
