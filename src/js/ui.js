@@ -14,6 +14,7 @@ define
 (
     [
         'ui/changeElementState',
+        'ui/elementHasClass',
         'ui/getClassIndex',
         'ui/getChildElements',
         'ui/getElementState',
@@ -33,6 +34,7 @@ define
     function
     (
         changeElementState,
+        elementHasClass,
         getClassIndex,
         getChildElements,
         getElementState,
@@ -53,6 +55,7 @@ define
         var api = function(obj) { return obj; };
 
         Object.defineProperty(api, 'changeElementState', { value: changeElementState, writable: false, enumerable: true });
+        Object.defineProperty(api, 'elementHasClass', { value: elementHasClass, writable: false, enumerable: true });
         Object.defineProperty(api, 'getClassIndex', { value: getClassIndex, writable: false, enumerable: true });
         Object.defineProperty(api, 'getChildElements', { value: getChildElements, writable: false, enumerable: true });
         Object.defineProperty(api, 'getElementState', { value: getElementState, writable: false, enumerable: true });
