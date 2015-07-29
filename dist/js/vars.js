@@ -3011,7 +3011,7 @@ define
             }
             else
             {
-                return s[0].replace(/\sstate-/, '');
+                return s[0].replace(/(^|\s)state-/, '');
             }
         }
 
