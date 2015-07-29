@@ -21,7 +21,7 @@
 
             console.log('I am', this.toString());
 
-            document.addEventListener(vars.EventType.MOUSE.CLICK, function(event)
+            this.getChild('cs1').addEventListener(vars.EventType.MOUSE.CLICK, function(event)
             {
                 console.log(this.getChild('cs1.vs'));
             }.bind(this));
