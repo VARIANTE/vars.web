@@ -128,24 +128,51 @@ define
         };
 
         /**
-         * Adds a child to this Element instance.
+         * Adds a child/children to this Element instance.
          *
-         * @param  {Object} child
-         * @param  {Object} The added child.
+         * @param  {Object/Array} child
+         * @param  {Object}       The added child.
          */
         Element.prototype.addChild = function(child, name)
         {
-            if (!assert(child instanceof Element, 'Child must conform to VARS Element.')) return null;
+            if (child instanceof Array)
+            {
+                var n = sizeOf(child);
 
-            name = name || child.name;
+                for (var i = 0; i < n; i++)
+                {
+                    var c = child[i];
 
-            if (!assert(name || child.name, 'Child name must be provided.')) return null;
-            if (!assert(!this.children[name], 'Child name is already taken.')) return null;
+                    this.addChild(c, name);
+                }
+            }
+            else
+            {
+                if (!assert(child instanceof Element, 'Child must conform to VARS Element.')) return null;
 
-            this.children[name] = child;
-            child.name = name;
+                name = name || child.name;
 
-            return child;
+                if (!assert(name || child.name, 'Child name must be provided.')) return null;
+
+                if (this.children[name])
+                {
+                    if (this.children[name] instanceof Array)
+                    {
+                        this.children[name].push(child);
+                    }
+                    else
+                    {
+                        var a = [this.children[name]];
+                        a.push(child);
+                        this.children[name] = a;
+                    }
+                }
+                else
+                {
+                    this.children[name] = child;
+                    child.name = name;
+                }
+            }
         };
 
         /**
@@ -166,8 +193,21 @@ define
             {
                 delete this.children[key];
             }
+            else
+            {
+                for (var c in this.children)
+                {
+                    if (this.children[c] instanceof Array)
+                    {
+                        var i = this.children[c].indexOf(child);
 
-            return child;
+                        if (i > -1)
+                        {
+                            this.children[c].splice(i, 1);
+                        }
+                    }
+                }
+            }
         };
 
         /**
@@ -187,8 +227,6 @@ define
             {
                 delete this.children[name];
             }
-
-            return child;
         };
 
         /**

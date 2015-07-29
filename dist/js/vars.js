@@ -1153,6 +1153,75 @@ define
  * This software is released under the MIT License:
  * http://www.opensource.org/licenses/mit-license.php
  *
+ * @type {Function}
+ */
+define
+(
+    'utils/sizeOf',[
+    ],
+    function
+    (
+    )
+    {
+        /**
+         * Gets the number of keys in a given object.
+         *
+         * @param  {*} object   Any object type.
+         *
+         * @return {Number} Size of specified object (depending on the object type,
+         *                  it can be the number of keys in a plain object, number
+         *                  of elements in an array, number of characters in a
+         *                  string, number of digits in a number, and 0 for all
+         *                  other types.
+         */
+        function sizeOf(object)
+        {
+            if (object === undefined || object === null) return 0;
+
+            // If object internally has length property, use it.
+            if (object.length !== undefined) return object.length;
+
+            var size = 0;
+
+            switch (typeof object)
+            {
+                case 'object':
+                {
+                    if (object !== null && object !== undefined)
+                    {
+                        for (var k in object) size++;
+                    }
+
+                    break;
+                }
+
+                case 'number':
+                {
+                    size = ('' + object).length;
+                    break;
+                }
+
+                default:
+                {
+                    size = 0;
+                    break;
+                }
+            }
+
+            return size;
+        }
+
+        return sizeOf;
+    }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
  * Delegate for managing update calls of a VARS modeled element.
  *
  * @type {Class}
@@ -1160,17 +1229,19 @@ define
 define
 (
     'ui/ElementUpdateDelegate',[
+        'enums/DirtyType',
         'utils/assert',
         'utils/debounce',
         'utils/log',
-        'enums/DirtyType'
+        'utils/sizeOf'
     ],
     function
     (
+        DirtyType,
         assert,
         debounce,
         log,
-        DirtyType
+        sizeOf
     )
     {
         /**
@@ -1214,15 +1285,31 @@ define
                     {
                         for (var name in this.delegate.children)
                         {
-                            var child = this.delegate.children[name];
+                            var children;
 
-                            if (child.updateDelegate && child.updateDelegate.setDirty)
+                            if (this.delegate.children[name] instanceof Array)
                             {
-                                var transmitted = dirtyType & child.updateDelegate.receptive;
+                                children = this.delegate.children[name];
+                            }
+                            else
+                            {
+                                children = [this.delegate.children[name]];
+                            }
 
-                                if (transmitted !== DirtyType.NONE)
+                            var n = sizeOf(children);
+
+                            for (var i = 0; i < n; i++)
+                            {
+                                var child = children[i];
+
+                                if (child.updateDelegate && child.updateDelegate.setDirty)
                                 {
-                                    child.updateDelegate.setDirty(transmitted, validateNow);
+                                    var transmitted = dirtyType & child.updateDelegate.receptive;
+
+                                    if (transmitted !== DirtyType.NONE)
+                                    {
+                                        child.updateDelegate.setDirty(transmitted, validateNow);
+                                    }
                                 }
                             }
                         }
@@ -1581,75 +1668,6 @@ define
  * This software is released under the MIT License:
  * http://www.opensource.org/licenses/mit-license.php
  *
- * @type {Function}
- */
-define
-(
-    'utils/sizeOf',[
-    ],
-    function
-    (
-    )
-    {
-        /**
-         * Gets the number of keys in a given object.
-         *
-         * @param  {*} object   Any object type.
-         *
-         * @return {Number} Size of specified object (depending on the object type,
-         *                  it can be the number of keys in a plain object, number
-         *                  of elements in an array, number of characters in a
-         *                  string, number of digits in a number, and 0 for all
-         *                  other types.
-         */
-        function sizeOf(object)
-        {
-            if (object === undefined || object === null) return 0;
-
-            // If object internally has length property, use it.
-            if (object.length !== undefined) return object.length;
-
-            var size = 0;
-
-            switch (typeof object)
-            {
-                case 'object':
-                {
-                    if (object !== null && object !== undefined)
-                    {
-                        for (var k in object) size++;
-                    }
-
-                    break;
-                }
-
-                case 'number':
-                {
-                    size = ('' + object).length;
-                    break;
-                }
-
-                default:
-                {
-                    size = 0;
-                    break;
-                }
-            }
-
-            return size;
-        }
-
-        return sizeOf;
-    }
-);
-
-/**
- * vars
- * (c) VARIANTE (http://variante.io)
- *
- * This software is released under the MIT License:
- * http://www.opensource.org/licenses/mit-license.php
- *
  * Controller of a DOM element.
  *
  * @type {Class}
@@ -1773,24 +1791,51 @@ define
         };
 
         /**
-         * Adds a child to this Element instance.
+         * Adds a child/children to this Element instance.
          *
-         * @param  {Object} child
-         * @param  {Object} The added child.
+         * @param  {Object/Array} child
+         * @param  {Object}       The added child.
          */
         Element.prototype.addChild = function(child, name)
         {
-            if (!assert(child instanceof Element, 'Child must conform to VARS Element.')) return null;
+            if (child instanceof Array)
+            {
+                var n = sizeOf(child);
 
-            name = name || child.name;
+                for (var i = 0; i < n; i++)
+                {
+                    var c = child[i];
 
-            if (!assert(name || child.name, 'Child name must be provided.')) return null;
-            if (!assert(!this.children[name], 'Child name is already taken.')) return null;
+                    this.addChild(c, name);
+                }
+            }
+            else
+            {
+                if (!assert(child instanceof Element, 'Child must conform to VARS Element.')) return null;
 
-            this.children[name] = child;
-            child.name = name;
+                name = name || child.name;
 
-            return child;
+                if (!assert(name || child.name, 'Child name must be provided.')) return null;
+
+                if (this.children[name])
+                {
+                    if (this.children[name] instanceof Array)
+                    {
+                        this.children[name].push(child);
+                    }
+                    else
+                    {
+                        var a = [this.children[name]];
+                        a.push(child);
+                        this.children[name] = a;
+                    }
+                }
+                else
+                {
+                    this.children[name] = child;
+                    child.name = name;
+                }
+            }
         };
 
         /**
@@ -1811,8 +1856,21 @@ define
             {
                 delete this.children[key];
             }
+            else
+            {
+                for (var c in this.children)
+                {
+                    if (this.children[c] instanceof Array)
+                    {
+                        var i = this.children[c].indexOf(child);
 
-            return child;
+                        if (i > -1)
+                        {
+                            this.children[c].splice(i, 1);
+                        }
+                    }
+                }
+            }
         };
 
         /**
@@ -1832,8 +1890,6 @@ define
             {
                 delete this.children[name];
             }
-
-            return child;
         };
 
         /**
@@ -2249,8 +2305,6 @@ define
         {
             var elements = toElementArray(element);
             var n = sizeOf(elements);
-
-            console.log(elements);
 
             for (var i = 0; i < n; i++)
             {
@@ -2826,14 +2880,25 @@ define
 
                 if (sizeOf(childName) > 0)
                 {
-                    if (!children)
+                    if (!children) children = {};
+
+                    if (!children[childName])
                     {
-                        children = {};
+                        children[childName] = m;
                     }
-
-                    if (!assert(!children[childName], 'Repeated child name "'+childName+'".')) continue;
-
-                    children[childName] = m;
+                    else
+                    {
+                        if (children[childName] instanceof Array)
+                        {
+                            children[childName].push(m);
+                        }
+                        else
+                        {
+                            var a = [children[childName]];
+                            a.push(m);
+                            children[childName] = a;
+                        }
+                    }
                 }
             }
 

@@ -12,17 +12,19 @@
 define
 (
     [
+        'enums/DirtyType',
         'utils/assert',
         'utils/debounce',
         'utils/log',
-        'enums/DirtyType'
+        'utils/sizeOf'
     ],
     function
     (
+        DirtyType,
         assert,
         debounce,
         log,
-        DirtyType
+        sizeOf
     )
     {
         /**
@@ -66,15 +68,31 @@ define
                     {
                         for (var name in this.delegate.children)
                         {
-                            var child = this.delegate.children[name];
+                            var children;
 
-                            if (child.updateDelegate && child.updateDelegate.setDirty)
+                            if (this.delegate.children[name] instanceof Array)
                             {
-                                var transmitted = dirtyType & child.updateDelegate.receptive;
+                                children = this.delegate.children[name];
+                            }
+                            else
+                            {
+                                children = [this.delegate.children[name]];
+                            }
 
-                                if (transmitted !== DirtyType.NONE)
+                            var n = sizeOf(children);
+
+                            for (var i = 0; i < n; i++)
+                            {
+                                var child = children[i];
+
+                                if (child.updateDelegate && child.updateDelegate.setDirty)
                                 {
-                                    child.updateDelegate.setDirty(transmitted, validateNow);
+                                    var transmitted = dirtyType & child.updateDelegate.receptive;
+
+                                    if (transmitted !== DirtyType.NONE)
+                                    {
+                                        child.updateDelegate.setDirty(transmitted, validateNow);
+                                    }
                                 }
                             }
                         }

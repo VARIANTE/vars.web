@@ -15,19 +15,23 @@
 
         A.prototype.init = function()
         {
+            // this.updateDelegate.responsive = true;
+            this.updateDelegate.refreshRate = 10.0;
+            this.updateDelegate.transmissive = vars.DirtyType.POSITION;
+
             console.log('I am', this.toString());
+
             document.addEventListener(vars.EventType.MOUSE.CLICK, function(event)
             {
-                if (vars.sizeOf(this.children) > 0)
-                {
-                    // var r = vars.getIntersectRect([this.children.C1, this.children.C2], this.children.C3);
-                    // var t = vars.translate([this.children.C1, this.children.C3], { left: 20, top: 50});
-
-                    vars.changeElementState([this.children.C1, this.children.C2], 'foo');
-                }
+                console.log(this.children);
             }.bind(this));
 
             A.__super__.init.call(this);
+        };
+
+        A.prototype.update = function()
+        {
+            A.__super__.update.call(this);
         };
 
         return A;
@@ -54,18 +58,19 @@
         function C()
         {
             C.__super__.constructor.apply(this, arguments);
-        } vars.inherit(C, vars.namespace('test.controllers').A);
+        } vars.inherit(C, vars.Element);
 
         C.prototype.init = function()
         {
+            this.updateDelegate.receptive = vars.DirtyType.POSITION;
+            console.log('I am', this.toString());
             C.__super__.init.call(this);
         };
 
-        C.prototype.toString = function()
+        C.prototype.update = function()
         {
-            var s = C.__super__.toString.call(this);
-
-            return s + ' of A';
+            console.log('foo');
+            C.__super__.update.call(this);
         };
 
         return C;

@@ -99,14 +99,25 @@ define
 
                 if (sizeOf(childName) > 0)
                 {
-                    if (!children)
+                    if (!children) children = {};
+
+                    if (!children[childName])
                     {
-                        children = {};
+                        children[childName] = m;
                     }
-
-                    if (!assert(!children[childName], 'Repeated child name "'+childName+'".')) continue;
-
-                    children[childName] = m;
+                    else
+                    {
+                        if (children[childName] instanceof Array)
+                        {
+                            children[childName].push(m);
+                        }
+                        else
+                        {
+                            var a = [children[childName]];
+                            a.push(m);
+                            children[childName] = a;
+                        }
+                    }
                 }
             }
 
