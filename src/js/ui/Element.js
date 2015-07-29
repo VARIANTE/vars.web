@@ -268,6 +268,22 @@ define
         };
 
         /**
+         * @see HTMLElement#addEventListener
+         */
+        Element.prototype.addEventListener = function()
+        {
+            return this.element.addEventListener.apply(this.element, arguments);
+        };
+
+        /**
+         * @see HTMLElement#removeEventListener
+         */
+        Element.prototype.removeEventListener = function()
+        {
+            return this.element.removeEventListener.apply(this.element, arguments);
+        };
+
+        /**
          * Creates the associated DOM element from scratch.
          *
          * @return {Element}
