@@ -21,6 +21,7 @@ define
         'ui/getRect',
         'ui/getViewportRect',
         'ui/initDOM',
+        'ui/toElementArray',
         'ui/transform',
         'ui/translate',
         'ui/translate3d',
@@ -39,6 +40,7 @@ define
         getRect,
         getViewportRect,
         initDOM,
+        toElementArray,
         transform,
         translate,
         translate3d,
@@ -58,6 +60,7 @@ define
         Object.defineProperty(api, 'getRect', { value: getRect, writable: false, enumerable: true });
         Object.defineProperty(api, 'getViewportRect', { value: getViewportRect, writable: false, enumerable: true });
         Object.defineProperty(api, 'initDOM', { value: initDOM, writable: false, enumerable: true });
+        Object.defineProperty(api, 'toElementArray', { value: toElementArray, writable: false, enumerable: true });
         Object.defineProperty(api, 'translate', { value: translate, writable: false, enumerable: true });
         Object.defineProperty(api, 'translate3d', { value: translate3d, writable: false, enumerable: true });
         Object.defineProperty(api, 'transform', { value: transform, writable: false, enumerable: true });

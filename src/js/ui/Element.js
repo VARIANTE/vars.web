@@ -276,17 +276,17 @@ define
              *
              * Class list of this Element instance.
              *
-             * @type {String}
+             * @type {Array}
              */
             Object.defineProperty(this, 'classList',
             {
                 get: function()
                 {
-                    return this.element.classList;
+                    return this.element.className.split(' ');
                 },
                 set: function(value)
                 {
-                    this.element.classList = value;
+                    this.element.className = value.join(' ');
                 }
             });
 

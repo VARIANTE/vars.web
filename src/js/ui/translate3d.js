@@ -10,36 +10,43 @@
 define
 (
     [
-        'utils/assert'
+        'ui/toElementArray',
+        'utils/assert',
+        'utils/sizeOf'
     ],
     function
     (
-        assert
+        toElementArray,
+        assert,
+        sizeOf
     )
     {
         /**
          * Translates a DOM element.
          *
-         * @param  {Object} element     Target DOM element
-         * @param  {Object} properties  Translation properties: x/y/z/units
-         *                              {
-         *                                  {Number} x:     X-coordinate
-         *                                  {Number} y:     Y-coordinate
-         *                                  {Number} z:     Z-coordinate
-         *                                  {String} units: Unit of translation values
-         *                              }
-         *                              (if unspecified, all translation coordinates will be reset to 0)
-         * @param  {Object} constraints Translation constraints:
-         *                              {
-         *                                  {Number} x:     Bounded x-coordinate
-         *                                  {Number} y:     Bounded y-coordinate
-         *                                  {Number} z:     Bounded z-coordinate
-         *                              }
+         * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
+         * @param  {Object} properties      Translation properties: x/y/z/units
+         *                                  {
+         *                                  	{Number} x:     X-coordinate
+         *                                   	{Number} y:     Y-coordinate
+         *                                    	{Number} z:     Z-coordinate
+         *                                     	{String} units: Unit of translation values
+         *                                  }
+         *                                  (if unspecified, all translation coordinates will be reset to 0)
+         * @param  {Object} constraints     Translation constraints:
+         *                                  {
+         *                                  	{Number} x:     Bounded x-coordinate
+         *                                   	{Number} y:     Bounded y-coordinate
+         *                                    	{Number} z:     Bounded z-coordinate
+         *                                  }
          *
          * @return {Object} Translated properties.
          */
         function translate3d(element, properties, constraints)
         {
+            var elements = toElementArray(element);
+            var n = sizeOf(elements);
+
             if (properties)
             {
                 if (!assert(!properties.x || !isNaN(properties.x), 'X property must be a number.')) return null;
@@ -59,41 +66,33 @@ define
                 var y = (constraints && constraints.y) ? Math.min(properties.y, constraints.y) : properties.y;
                 var z = (constraints && constraints.z) ? Math.min(properties.z, constraints.z) : properties.z;
 
-                if (element)
+                var translateX = properties.x ? 'translateX('+x+units+')' : null;
+                var translateY = properties.y ? 'translateY('+y+units+')' : null;
+                var translateZ = properties.z ? 'translateZ('+z+units+')' : null;
+                var transforms = '';
+
+                if (translateX) transforms += (transforms === '') ? translateX : ' ' + translateX;
+                if (translateY) transforms += (transforms === '') ? translateY : ' ' + translateY;
+                if (translateZ) transforms += (transforms === '') ? translateZ : ' ' + translateZ;
+
+                for (var i = 0; i < n; i++)
                 {
-                    var translateX = properties.x ? 'translateX('+x+units+')' : null;
-                    var translateY = properties.y ? 'translateY('+y+units+')' : null;
-                    var translateZ = properties.z ? 'translateZ('+z+units+')' : null;
-                    var transforms = '';
-
-                    if (translateX) transforms += (transforms === '') ? translateX : ' ' + translateX;
-                    if (translateY) transforms += (transforms === '') ? translateY : ' ' + translateY;
-                    if (translateZ) transforms += (transforms === '') ? translateZ : ' ' + translateZ;
-
-                    if (element.style)
-                    {
-                        element.style.transform = (transforms);
-                    }
-                    else if (element.css)
-                    {
-                        element.css('transform', transforms);
-                    }
+                    elements[i].style.transform = transforms;
                 }
 
-                return { x: x, y: y, z: z };
+                var t = {};
+
+                if (translateX) t.x = x;
+                if (translateY) t.y = y;
+                if (translateZ) t.z = z;
+
+                return t;
             }
             else
             {
-                if (element)
+                for (var j = 0; j < n; j++)
                 {
-                    if (element.style)
-                    {
-                        element.style.transform = 'translateX(0) translateY(0) translateZ(0)';
-                    }
-                    else if (element.css)
-                    {
-                        element.css({ 'transform': 'translateX(0) translateY(0) translateZ(0)' });
-                    }
+                    elements[j].style.transform = 'translateX(0) translateY(0) translateZ(0)';
                 }
 
                 return { x: 0, y: 0, z: 0 };

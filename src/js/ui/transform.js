@@ -10,35 +10,42 @@
 define
 (
     [
-        'utils/assert'
+        'ui/toElementArray',
+        'utils/assert',
+        'utils/sizeOf'
     ],
     function
     (
-        assert
+        toElementArray,
+        assert,
+        sizeOf
     )
     {
         /**
          * Transforms a DOM element.
          *
-         * @param  {Object} element     Target DOM element.
-         * @param  {Object} properties  Transformation properties:
-         *                              {
-         *                                  {Number} width:  Target width of the element
-         *                                  {Number} height: Target height of the element
-         *                                  {String} unit:   Unit of width/height values
-         *                                  {String} type:   Resizing constraint: 'default', 'contain', 'cover'
-         *                              }
-         *                              (if unspecified, all transformation styles will be reset to 'initial')
-         * @param  {Object} constraints Transformation constraints:
-         *                              {
-         *                                  {Number} width:  Bounded width of the element.
-         *                                  {Number} height: Bounded height of the element.
-         *                              }
+         * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
+         * @param  {Object} properties      Transformation properties:
+         *                                  {
+         *                                  	{Number} width:  Target width of the element
+         *                                   	{Number} height: Target height of the element
+         *                                    	{String} unit:   Unit of width/height values
+         *                                     {String} type:   Resizing constraint: 'default', 'contain', 'cover'
+         *                                  }
+         *                                  (if unspecified, all transformation styles will be reset to 'initial')
+         * @param  {Object} constraints     Transformation constraints:
+         *                                  {
+         *                                  	{Number} width:  Bounded width of the element.
+         *                                   	{Number} height: Bounded height of the element.
+         *                                  }
          *
          * @return {Object} Transformed properties.
          */
         function transform(element, properties, constraints)
         {
+            var elements = toElementArray(element);
+            var n = sizeOf(elements);
+
             if (properties)
             {
                 if (!assert(!properties.width || !isNaN(properties.width), 'Width property must be a number.')) return null;
@@ -110,36 +117,27 @@ define
                     h = maxH;
                 }
 
-                if (element)
+                for (var i = 0; i < n; i++)
                 {
-                    if (element.style)
-                    {
-                        if (properties.width) element.style.width = String(w) + units;
-                        if (properties.height) element.style.height = String(h) + units;
-                    }
-                    else if (element.css)
-                    {
-                        if (properties.width) element.css({ 'width': String(w) + units });
-                        if (properties.height) element.css({ 'height': String(h) + units });
-                    }
+                    var e = elements[i];
+
+                    if (properties.width) e.style.width = String(w) + units;
+                    if (properties.height) e.style.height = String(h) + units;
                 }
 
-                return { width: w, height: h };
+                var t = {};
+
+                if (properties.width) t.width = w;
+                if (properties.height) t.height = h;
+
+                return t;
             }
             else
             {
-                if (element)
+                for (var j = 0; j < n; j++)
                 {
-                    if (element.style)
-                    {
-                        element.style.width = 'initial';
-                        element.style.height = 'initial';
-                    }
-                    else if (element.css)
-                    {
-                        element.css({ 'width': 'initial' });
-                        element.css({ 'height': 'initial' });
-                    }
+                    elements[j].style.width = 'initial';
+                    elements[j].style.height = 'initial';
                 }
 
                 return { width: 'initial', height: 'initial' };

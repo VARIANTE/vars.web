@@ -22,17 +22,18 @@ define
         /**
          * Gets the index of a specified class in a DOM element,
          *
-         * @param  {Object} element
+         * @param  {Object} element     HTMLElement, VARS Element, or jQuery object.
          * @param  {String} className
+         *
+         * @return {Number} Index of given class name. -1 if not found.
          */
         function getClassIndex(element, className)
         {
-            if (!assert((element) && ((element instanceof HTMLElement) || (element instanceof Element)), 'Invalid element specified. Element must be an instance of HTMLElement or Element.')) return null;
+            if (!assert((element) && ((element instanceof HTMLElement) || (element instanceof Element) || (element.jquery)), 'Invalid element specified. Element must be an instance of HTMLElement or Element.')) return null;
             if (element instanceof Element) element = element.element;
+            if (element.jquery) element = element.get(0);
 
-            if (!assert(className && (typeof className === 'string'), 'Invalid class name: ' + className)) return null;
-
-            if (!element.className) return -1;
+            if (!assert(className && (typeof className === 'string'), 'Invalid class name: ' + className)) return -1;
 
             var classList = element.className.split(' ');
 

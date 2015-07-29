@@ -20,14 +20,18 @@ define
     )
     {
         /**
-         * Gets the state of a DOM element, assumes that state classes
-         * are prefixed with 'state-'.
+         * Gets the state of a DOM element, assumes that state classes are prefixed with 'state-'.
          *
-         * @param  {Object} element
+         * @param  {Object} element HTMLElement, VARS Element, or jQuery object.
+         *
+         * @return {String} State of the given element ('state-' prefix is omitted).
          */
         function getElementState(element)
         {
-            if (!assert((element) && (element instanceof HTMLElement), 'Invalid element specified. Element must be an instance of HTMLElement')) return null;
+            if (!assert((element) && ((element instanceof HTMLElement) || (element instanceof Element) || (element.jquery)), 'Invalid element specified.')) return null;
+
+            if (element instanceof Element) element = element.element;
+            if (element.jquery) element = element.get(0);
 
             var s = element.className.match(/(^|\s)state-\S+/g);
             var n = sizeOf(s);

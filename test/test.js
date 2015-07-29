@@ -1,28 +1,74 @@
-/* global:vars */
+/* globals vars:true */
 
-(function() {
+(function()
+{
     'use strict';
 
     // vars.debug = true;
 
-    var a = {};
-
-    a.Foo = function(init)
+    vars.namespace('test.controllers').A = (function()
     {
-        a.Foo.__super__.constructor.apply(this, arguments);
-    }; vars.inherit(a.Foo, vars.Element);
+        function A()
+        {
+            A.__super__.constructor.apply(this, arguments);
+        } vars.inherit(A, vars.Element);
 
+        A.prototype.init = function()
+        {
+            console.log('I am', this.toString());
 
-    a.Bar = function(init)
+            document.addEventListener(vars.EventType.MOUSE.CLICK, function(event)
+            {
+                if (vars.sizeOf(this.children) > 0)
+                {
+                    var r = vars.getIntersectRect([this.children.C1, this.children.C2], this.children.C3);
+                    var t = vars.translate([this.children.C1, this.children.C3], { left: 20, top: 50});
+                }
+            }.bind(this));
+
+            A.__super__.init.call(this);
+        };
+
+        return A;
+    }());
+
+    vars.namespace('test.controllers').B = (function()
     {
-        a.Bar.__super__.constructor.apply(this, arguments);
-    }; vars.inherit(a.Bar, vars.Element);
+        function B()
+        {
+            B.__super__.constructor.apply(this, arguments);
+        } vars.inherit(B, vars.Element);
 
-    a.Foo.prototype.init = function()
+        B.prototype.init = function()
+        {
+            console.log('I am', this.toString());
+            B.__super__.init.call(this);
+        };
+
+        return B;
+    }());
+
+    vars.namespace('test.controllers').C = (function()
     {
-        console.log(this.name);
-        a.Foo.__super__.init.call(this);
-    };
+        function C()
+        {
+            C.__super__.constructor.apply(this, arguments);
+        } vars.inherit(C, vars.namespace('test.controllers').A);
 
-    vars.initDOM(a);
+        C.prototype.init = function()
+        {
+            C.__super__.init.call(this);
+        };
+
+        C.prototype.toString = function()
+        {
+            var s = C.__super__.toString.call(this);
+
+            return s + ' of A';
+        };
+
+        return C;
+    }());
+
+    vars.initDOM(vars.namespace('test'));
 }());

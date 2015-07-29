@@ -10,31 +10,41 @@
 define
 (
     [
-        'ui/Element',
         'ui/getClassIndex',
+        'ui/toElementArray',
+        'ui/Element',
         'utils/assert'
     ],
     function
     (
-        Element,
         getClassIndex,
+        toElementArray,
+        Element,
         assert
     )
     {
         /**
-         * Verifies that the specified element has the specified class.
+         * Verifies that the specified element(s) has the specified class.
          *
-         * @param  {Object} element
-         * @param  {String} className
+         * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
+         * @param  {String}       className 
+         *
+         * @return {Boolean} True if element(s) has given class, false otherwise.
          */
         function elementHasClass(element, className)
         {
-            if (!assert((element) && ((element instanceof HTMLElement) || (element instanceof Element)), 'Invalid element specified. Element must be an instance of HTMLElement or Element.')) return null;
-            if (element instanceof Element) element = element.element;
+            if (!assert(className && (typeof className === 'string'), 'Invalid class name: ' + className)) return false;
 
-            if (!assert(className && (typeof className === 'string'), 'Invalid class name: ' + className)) return null;
+            var elements = toElementArray(element);
+            var n = sizeOf(elements);
 
-            return (getClassIndex(element, className) > -1);
+            for (var i = 0; i < n; i++)
+            {
+                var e = elements[i];
+                if (getClassIndex(e, className) < 0) return false;
+            }
+
+            return true;
         }
 
         return elementHasClass;

@@ -10,56 +10,77 @@
 define
 (
     [
+        'ui/getRect',
         'ui/Element',
         'utils/assert',
-        'ui/getRect'
+        'utils/sizeOf'
     ],
     function
     (
+        getRect,
         Element,
         assert,
-        getRect
+        sizeOf
     )
     {
         /**
          * Computes the intersecting rect of 2 given elements. If only 1 element is specified, the other
          * element will default to the current viewport.
          *
-         * @param  {Object} element1
-         * @param  {Object} element2
+         * @param  {Object/Array} arguments HTMLElement, VARS Element, or jQuery object.
          *
          * @return {Object} Object containing width, height.
          */
-        function getIntersectRect(element1, element2)
+        function getIntersectRect()
         {
-            if (!assert(element1 || element2, 'Invalid elements specified.')) return null;
-            if (!assert(window, 'Window undefined.')) return null;
+            if (!assert(window, 'This method relies on the window object, which is undefined.')) return null;
 
-            if (element1 instanceof Element) element1 = element1.element;
-            if (element2 instanceof Element) element2 = element2.element;
+            var n = sizeOf(arguments);
 
-            var rect1 = getRect(element1 || window);
-            var rect2 = getRect(element2 || window);
-
-            if (!rect1 || !rect2) return null;
+            if (!assert(n > 0, 'This method requires at least 1 argument specified.')) return null;
 
             var rect = {};
+            var currRect, nextRect;
 
-            rect.width  = Math.max(0.0, Math.min(rect1.right, rect2.right) - Math.max(rect1.left, rect2.left));
-            rect.height = Math.max(0.0, Math.min(rect1.bottom, rect2.bottom) - Math.max(rect1.top, rect2.top));
-            rect.top    = Math.max(rect1.top, rect2.top);
-            rect.left   = Math.max(rect1.left, rect2.left);
-            rect.bottom = rect.top + rect.height;
-            rect.right  = rect.left + rect.width;
-
-            if (rect.width*rect.height === 0)
+            for (var i = 0; i < n; i++)
             {
-                rect.width  = 0;
-                rect.height = 0;
-                rect.top    = 0;
-                rect.left   = 0;
-                rect.bottom = 0;
-                rect.right  = 0;
+                if (!currRect) currRect = getRect(arguments[i]);
+
+                if (!assert(currRect, 'Invalid computed rect.')) return null;
+
+                if (i === 0 && ((i+1) === n))
+                {
+                    nextRect = getRect(window);
+                }
+                else if ((i+1) < n)
+                {
+                    nextRect = getRect(arguments[i+1]);
+                }
+                else
+                {
+                    break;
+                }
+
+                if (!assert(nextRect, 'Invalid computed rect.')) return null;
+
+                rect.width  = Math.max(0.0, Math.min(currRect.right, nextRect.right) - Math.max(currRect.left, nextRect.left));
+                rect.height = Math.max(0.0, Math.min(currRect.bottom, nextRect.bottom) - Math.max(currRect.top, nextRect.top));
+                rect.top    = Math.max(currRect.top, nextRect.top);
+                rect.left   = Math.max(currRect.left, nextRect.left);
+                rect.bottom = rect.top + rect.height;
+                rect.right  = rect.left + rect.width;
+
+                if (rect.width*rect.height === 0)
+                {
+                    rect.width  = 0;
+                    rect.height = 0;
+                    rect.top    = 0;
+                    rect.left   = 0;
+                    rect.bottom = 0;
+                    rect.right  = 0;
+                }
+
+                currRect = rect;
             }
 
             return rect;

@@ -10,31 +10,40 @@
 define
 (
     [
+        'ui/elementHasClass',
+        'ui/toElementArray',
         'ui/Element',
-        'utils/assert'
+        'utils/assert',
+        'utils/sizeOf'
     ],
     function
     (
+        toElementArray,
         Element,
-        assert
+        assert,
+        sizeOf
     )
     {
         /**
-         * Changes the state of a DOM element, assumes that state classes
-         * are prefixed with 'state-'.
+         * Changes the state of DOM element(s), assumes that state classes are prefixed
+         * with 'state-'.
          *
-         * @param  {Object} element
-         * @param  {String} state
+         * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
+         * @param  {String}       state
          */
         function changeElementState(element, state)
         {
-            if (!assert((element) && ((element instanceof HTMLElement) || (element instanceof Element)), 'Invalid element specified. Element must be an instance of HTMLElement')) return;
+            var elements = toElementArray(element);
+            var n = sizeOf(elements);
 
-            if (element instanceof Element) element = element.element;
-            if (element.classList.contains('state'+state)) return;
+            for (var i = 0; i < n; i++)
+            {
+                var e = elements[i];
 
-            element.className = element.className.replace(/(^|\s)state-\S+/g, '');
-            element.classList.add('state-'+state);
+                if (elementHasClass(e, 'state'+state)) continue;
+                e.className = e.className.replace(/(^|\s)state-\S+/g, '');
+                e.className = e.className + ((e.className === '') ? ' ' : '') + ('state-'+state);
+            }
         }
 
         return changeElementState;

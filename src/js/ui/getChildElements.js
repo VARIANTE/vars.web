@@ -36,7 +36,7 @@ define
          * be passed into the parent element's children tree as its specified controller
          * class instance or a generic VARS Element.
          *
-         * @param  {Object} element
+         * @param  {Object} element         HTMLElement, VARS Element, or jQuery object.
          * @param  {Object} controllerScope
          */
         function getChildElements(element, controllerScope)
@@ -44,12 +44,9 @@ define
             var children = null;
 
             if (!element) element = document;
-
+            if (element.jquery) element = element.get(0);
             if (!assert((element instanceof HTMLElement) || (element instanceof Element) || (document && element === document), 'Element must be an instance of an HTMLElement or the DOM itself.')) return null;
-
             if (element instanceof Element) element = element.element;
-
-            if (!assert(element.querySelectorAll, 'Element does not support "querySelectorAll".')) return null;
 
             var qualifiedChildren = element.querySelectorAll('['+Directives.Controller+'], [data-'+Directives.Controller+'], ['+Directives.Instance+'], [data-'+Directives.Instance+']');
             var n = sizeOf(qualifiedChildren);

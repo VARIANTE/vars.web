@@ -1901,17 +1901,17 @@ define
              *
              * Class list of this Element instance.
              *
-             * @type {String}
+             * @type {Array}
              */
             Object.defineProperty(this, 'classList',
             {
                 get: function()
                 {
-                    return this.element.classList;
+                    return this.element.className.split(' ');
                 },
                 set: function(value)
                 {
-                    this.element.classList = value;
+                    this.element.className = value.join(' ');
                 }
             });
 
@@ -2004,7 +2004,7 @@ define
  */
 define
 (
-    'ui/changeElementState',[
+    'ui/getClassIndex',[
         'ui/Element',
         'utils/assert'
     ],
@@ -2015,24 +2015,27 @@ define
     )
     {
         /**
-         * Changes the state of a DOM element, assumes that state classes
-         * are prefixed with 'state-'.
+         * Gets the index of a specified class in a DOM element,
          *
-         * @param  {Object} element
-         * @param  {String} state
+         * @param  {Object} element     HTMLElement, VARS Element, or jQuery object.
+         * @param  {String} className
+         *
+         * @return {Number} Index of given class name. -1 if not found.
          */
-        function changeElementState(element, state)
+        function getClassIndex(element, className)
         {
-            if (!assert((element) && ((element instanceof HTMLElement) || (element instanceof Element)), 'Invalid element specified. Element must be an instance of HTMLElement')) return;
-
+            if (!assert((element) && ((element instanceof HTMLElement) || (element instanceof Element) || (element.jquery)), 'Invalid element specified. Element must be an instance of HTMLElement or Element.')) return null;
             if (element instanceof Element) element = element.element;
-            if (element.classList.contains('state'+state)) return;
+            if (element.jquery) element = element.get(0);
 
-            element.className = element.className.replace(/(^|\s)state-\S+/g, '');
-            element.classList.add('state-'+state);
+            if (!assert(className && (typeof className === 'string'), 'Invalid class name: ' + className)) return -1;
+
+            var classList = element.className.split(' ');
+
+            return classList.indexOf(className);
         }
 
-        return changeElementState;
+        return getClassIndex;
     }
 );
 
@@ -2047,37 +2050,167 @@ define
  */
 define
 (
-    'ui/getClassIndex',[
+    'ui/toElementArray',[
+        'ui/Element',
+        'utils/assert',
+        'utils/sizeOf'
+    ],
+    function
+    (
+        Element,
+        assert,
+        sizeOf
+    )
+    {
+        /**
+         * Transforms given element(s) to an element array.
+         *
+         * @param  {Object/Array} element
+         */
+        function toElementArray(element)
+        {
+            if (!assert(element, 'Element is undefined or null.')) return null;
+
+            var elements;
+
+            if (element instanceof Array)
+            {
+                elements = element;
+            }
+            else if (element.jquery)
+            {
+                elements = element.get();
+            }
+            else
+            {
+                if (!assert((element instanceof HTMLElement) || (element instanceof Element), 'Invalid element specified. Element must be an instance of HTMLElement or VARS Element.')) return null;
+
+                elements = [element];
+            }
+
+            var n = sizeOf(elements);
+
+            for (var i = 0; i < n; i++)
+            {
+                var e = elements[i];
+
+                if (!assert((e instanceof HTMLElement) || (e instanceof Element), 'Element array contains invalid element(s). Each element must be an instance of HTMLElement or VARS Element.')) return null;
+
+                if (e instanceof Element)
+                {
+                    elements[i] = e.element;
+                }
+            }
+
+            return elements;
+        }
+
+        return toElementArray;
+    }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
+ */
+define
+(
+    'ui/elementHasClass',[
+        'ui/getClassIndex',
+        'ui/toElementArray',
         'ui/Element',
         'utils/assert'
     ],
     function
     (
+        getClassIndex,
+        toElementArray,
         Element,
         assert
     )
     {
         /**
-         * Gets the index of a specified class in a DOM element,
+         * Verifies that the specified element(s) has the specified class.
          *
-         * @param  {Object} element
-         * @param  {String} className
+         * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
+         * @param  {String}       className 
+         *
+         * @return {Boolean} True if element(s) has given class, false otherwise.
          */
-        function getClassIndex(element, className)
+        function elementHasClass(element, className)
         {
-            if (!assert((element) && ((element instanceof HTMLElement) || (element instanceof Element)), 'Invalid element specified. Element must be an instance of HTMLElement or Element.')) return null;
-            if (element instanceof Element) element = element.element;
+            if (!assert(className && (typeof className === 'string'), 'Invalid class name: ' + className)) return false;
 
-            if (!assert(className && (typeof className === 'string'), 'Invalid class name: ' + className)) return null;
+            var elements = toElementArray(element);
+            var n = sizeOf(elements);
 
-            if (!element.className) return -1;
+            for (var i = 0; i < n; i++)
+            {
+                var e = elements[i];
+                if (getClassIndex(e, className) < 0) return false;
+            }
 
-            var classList = element.className.split(' ');
-
-            return classList.indexOf(className);
+            return true;
         }
 
-        return getClassIndex;
+        return elementHasClass;
+    }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
+ */
+define
+(
+    'ui/changeElementState',[
+        'ui/elementHasClass',
+        'ui/toElementArray',
+        'ui/Element',
+        'utils/assert',
+        'utils/sizeOf'
+    ],
+    function
+    (
+        toElementArray,
+        Element,
+        assert,
+        sizeOf
+    )
+    {
+        /**
+         * Changes the state of DOM element(s), assumes that state classes are prefixed
+         * with 'state-'.
+         *
+         * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
+         * @param  {String}       state
+         */
+        function changeElementState(element, state)
+        {
+            var elements = toElementArray(element);
+            var n = sizeOf(elements);
+
+            for (var i = 0; i < n; i++)
+            {
+                var e = elements[i];
+
+                if (elementHasClass(e, 'state'+state)) continue;
+                e.className = e.className.replace(/(^|\s)state-\S+/g, '');
+                e.className = e.className + ((e.className === '') ? ' ' : '') + ('state-'+state);
+            }
+        }
+
+        return changeElementState;
     }
 );
 
@@ -2597,7 +2730,7 @@ define
          * be passed into the parent element's children tree as its specified controller
          * class instance or a generic VARS Element.
          *
-         * @param  {Object} element
+         * @param  {Object} element         HTMLElement, VARS Element, or jQuery object.
          * @param  {Object} controllerScope
          */
         function getChildElements(element, controllerScope)
@@ -2605,12 +2738,9 @@ define
             var children = null;
 
             if (!element) element = document;
-
+            if (element.jquery) element = element.get(0);
             if (!assert((element instanceof HTMLElement) || (element instanceof Element) || (document && element === document), 'Element must be an instance of an HTMLElement or the DOM itself.')) return null;
-
             if (element instanceof Element) element = element.element;
-
-            if (!assert(element.querySelectorAll, 'Element does not support "querySelectorAll".')) return null;
 
             var qualifiedChildren = element.querySelectorAll('['+Directives.Controller+'], [data-'+Directives.Controller+'], ['+Directives.Instance+'], [data-'+Directives.Instance+']');
             var n = sizeOf(qualifiedChildren);
@@ -2703,14 +2833,18 @@ define
     )
     {
         /**
-         * Gets the state of a DOM element, assumes that state classes
-         * are prefixed with 'state-'.
+         * Gets the state of a DOM element, assumes that state classes are prefixed with 'state-'.
          *
-         * @param  {Object} element
+         * @param  {Object} element HTMLElement, VARS Element, or jQuery object.
+         *
+         * @return {String} State of the given element ('state-' prefix is omitted).
          */
         function getElementState(element)
         {
-            if (!assert((element) && (element instanceof HTMLElement), 'Invalid element specified. Element must be an instance of HTMLElement')) return null;
+            if (!assert((element) && ((element instanceof HTMLElement) || (element instanceof Element) || (element.jquery)), 'Invalid element specified.')) return null;
+
+            if (element instanceof Element) element = element.element;
+            if (element.jquery) element = element.get(0);
 
             var s = element.className.match(/(^|\s)state-\S+/g);
             var n = sizeOf(s);
@@ -2787,42 +2921,68 @@ define
 define
 (
     'ui/getRect',[
-        'utils/assert',
         'ui/getViewportRect',
-        'ui/Element'
+        'ui/toElementArray',
+        'ui/Element',
+        'utils/assert',
+        'utils/sizeOf'
     ],
     function
     (
-        assert,
         getViewportRect,
-        Element
+        toElementArray,
+        Element,
+        assert,
+        sizeOf
     )
     {
         /**
-         * Gets the rect of a given element.
+         * Gets the rect of a given element or the overall rect of an array of elements.
          *
-         * @param  {Object} element
+         * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
+         * @param  {Object}       reference The reference FOV, defaults to window.
          *
          * @return {Object} Object containing top, left, bottom, right, width, height.
          */
-        function getRect(element)
+        function getRect(element, reference)
         {
-            if (!assert(element, 'Invalid element specified.')) return null;
-            if (!assert(window, 'Window undefined.')) return null;
-
-            if (element instanceof Element) element = element.element;
-
+            if (!assert(window, 'This method relies on the window object, which is undefined.')) return null;
             if (element === window) return getViewportRect();
 
-            var fov = getViewportRect();
+            if (!reference) reference = window;
+
+            var elements = toElementArray(element);
+            var n = sizeOf(elements);
+
+            if (n <= 0) return null;
+
+            var refRect = getRect(reference);
+
+            if (!assert(refRect, 'Cannot determine reference FOV.')) return null;
+
+            var winRect = getRect(window);
             var rect = {};
 
-            rect.width  = (element.outerWidth) ? element.outerWidth() : element.getBoundingClientRect().width;
-            rect.height = (element.outerHeight) ? element.outerHeight() : element.getBoundingClientRect().height;
-            rect.top    = (element.offset) ? element.offset().top : element.getBoundingClientRect().top + fov.top;
-            rect.left   = (element.offset) ? element.offset().left : element.getBoundingClientRect().left + fov.left;
-            rect.bottom = rect.top + rect.height;
-            rect.right  = rect.left + rect.width;
+            for (var i = 0; i < n; i++)
+            {
+                var e = elements[i];
+                var c = e.getBoundingClientRect();
+
+                var w = c.width;
+                var h = c.height;
+                var t = c.top + winRect.top; if (reference !== window) t -= refRect.top;
+                var l = c.left + winRect.left; if (reference !== window) l -= refRect.left;
+                var b = t + h;
+                var r = l + w;
+
+                if (rect.left === undefined) { rect.left = l; } else { rect.left = Math.min(rect.left, l); }
+                if (rect.right === undefined) { rect.right = r; } else { rect.right = Math.max(rect.right, r); }
+                if (rect.top === undefined) { rect.top = t; } else { rect.top = Math.min(rect.top, t); }
+                if (rect.bottom === undefined) { rect.bottom = b; } else { rect.bottom = Math.max(rect.bottom, b); }
+            }
+
+            rect.width  = rect.right - rect.left;
+            rect.height = rect.bottom - rect.top;
 
             return rect;
         }
@@ -2843,56 +3003,77 @@ define
 define
 (
     'ui/getIntersectRect',[
+        'ui/getRect',
         'ui/Element',
         'utils/assert',
-        'ui/getRect'
+        'utils/sizeOf'
     ],
     function
     (
+        getRect,
         Element,
         assert,
-        getRect
+        sizeOf
     )
     {
         /**
          * Computes the intersecting rect of 2 given elements. If only 1 element is specified, the other
          * element will default to the current viewport.
          *
-         * @param  {Object} element1
-         * @param  {Object} element2
+         * @param  {Object/Array} arguments HTMLElement, VARS Element, or jQuery object.
          *
          * @return {Object} Object containing width, height.
          */
-        function getIntersectRect(element1, element2)
+        function getIntersectRect()
         {
-            if (!assert(element1 || element2, 'Invalid elements specified.')) return null;
-            if (!assert(window, 'Window undefined.')) return null;
+            if (!assert(window, 'This method relies on the window object, which is undefined.')) return null;
 
-            if (element1 instanceof Element) element1 = element1.element;
-            if (element2 instanceof Element) element2 = element2.element;
+            var n = sizeOf(arguments);
 
-            var rect1 = getRect(element1 || window);
-            var rect2 = getRect(element2 || window);
-
-            if (!rect1 || !rect2) return null;
+            if (!assert(n > 0, 'This method requires at least 1 argument specified.')) return null;
 
             var rect = {};
+            var currRect, nextRect;
 
-            rect.width  = Math.max(0.0, Math.min(rect1.right, rect2.right) - Math.max(rect1.left, rect2.left));
-            rect.height = Math.max(0.0, Math.min(rect1.bottom, rect2.bottom) - Math.max(rect1.top, rect2.top));
-            rect.top    = Math.max(rect1.top, rect2.top);
-            rect.left   = Math.max(rect1.left, rect2.left);
-            rect.bottom = rect.top + rect.height;
-            rect.right  = rect.left + rect.width;
-
-            if (rect.width*rect.height === 0)
+            for (var i = 0; i < n; i++)
             {
-                rect.width  = 0;
-                rect.height = 0;
-                rect.top    = 0;
-                rect.left   = 0;
-                rect.bottom = 0;
-                rect.right  = 0;
+                if (!currRect) currRect = getRect(arguments[i]);
+
+                if (!assert(currRect, 'Invalid computed rect.')) return null;
+
+                if (i === 0 && ((i+1) === n))
+                {
+                    nextRect = getRect(window);
+                }
+                else if ((i+1) < n)
+                {
+                    nextRect = getRect(arguments[i+1]);
+                }
+                else
+                {
+                    break;
+                }
+
+                if (!assert(nextRect, 'Invalid computed rect.')) return null;
+
+                rect.width  = Math.max(0.0, Math.min(currRect.right, nextRect.right) - Math.max(currRect.left, nextRect.left));
+                rect.height = Math.max(0.0, Math.min(currRect.bottom, nextRect.bottom) - Math.max(currRect.top, nextRect.top));
+                rect.top    = Math.max(currRect.top, nextRect.top);
+                rect.left   = Math.max(currRect.left, nextRect.left);
+                rect.bottom = rect.top + rect.height;
+                rect.right  = rect.left + rect.width;
+
+                if (rect.width*rect.height === 0)
+                {
+                    rect.width  = 0;
+                    rect.height = 0;
+                    rect.top    = 0;
+                    rect.left   = 0;
+                    rect.bottom = 0;
+                    rect.right  = 0;
+                }
+
+                currRect = rect;
             }
 
             return rect;
@@ -2954,35 +3135,42 @@ define
 define
 (
     'ui/transform',[
-        'utils/assert'
+        'ui/toElementArray',
+        'utils/assert',
+        'utils/sizeOf'
     ],
     function
     (
-        assert
+        toElementArray,
+        assert,
+        sizeOf
     )
     {
         /**
          * Transforms a DOM element.
          *
-         * @param  {Object} element     Target DOM element.
-         * @param  {Object} properties  Transformation properties:
-         *                              {
-         *                                  {Number} width:  Target width of the element
-         *                                  {Number} height: Target height of the element
-         *                                  {String} unit:   Unit of width/height values
-         *                                  {String} type:   Resizing constraint: 'default', 'contain', 'cover'
-         *                              }
-         *                              (if unspecified, all transformation styles will be reset to 'initial')
-         * @param  {Object} constraints Transformation constraints:
-         *                              {
-         *                                  {Number} width:  Bounded width of the element.
-         *                                  {Number} height: Bounded height of the element.
-         *                              }
+         * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
+         * @param  {Object} properties      Transformation properties:
+         *                                  {
+         *                                  	{Number} width:  Target width of the element
+         *                                   	{Number} height: Target height of the element
+         *                                    	{String} unit:   Unit of width/height values
+         *                                     {String} type:   Resizing constraint: 'default', 'contain', 'cover'
+         *                                  }
+         *                                  (if unspecified, all transformation styles will be reset to 'initial')
+         * @param  {Object} constraints     Transformation constraints:
+         *                                  {
+         *                                  	{Number} width:  Bounded width of the element.
+         *                                   	{Number} height: Bounded height of the element.
+         *                                  }
          *
          * @return {Object} Transformed properties.
          */
         function transform(element, properties, constraints)
         {
+            var elements = toElementArray(element);
+            var n = sizeOf(elements);
+
             if (properties)
             {
                 if (!assert(!properties.width || !isNaN(properties.width), 'Width property must be a number.')) return null;
@@ -3054,36 +3242,27 @@ define
                     h = maxH;
                 }
 
-                if (element)
+                for (var i = 0; i < n; i++)
                 {
-                    if (element.style)
-                    {
-                        if (properties.width) element.style.width = String(w) + units;
-                        if (properties.height) element.style.height = String(h) + units;
-                    }
-                    else if (element.css)
-                    {
-                        if (properties.width) element.css({ 'width': String(w) + units });
-                        if (properties.height) element.css({ 'height': String(h) + units });
-                    }
+                    var e = elements[i];
+
+                    if (properties.width) e.style.width = String(w) + units;
+                    if (properties.height) e.style.height = String(h) + units;
                 }
 
-                return { width: w, height: h };
+                var t = {};
+
+                if (properties.width) t.width = w;
+                if (properties.height) t.height = h;
+
+                return t;
             }
             else
             {
-                if (element)
+                for (var j = 0; j < n; j++)
                 {
-                    if (element.style)
-                    {
-                        element.style.width = 'initial';
-                        element.style.height = 'initial';
-                    }
-                    else if (element.css)
-                    {
-                        element.css({ 'width': 'initial' });
-                        element.css({ 'height': 'initial' });
-                    }
+                    elements[j].style.width = 'initial';
+                    elements[j].style.height = 'initial';
                 }
 
                 return { width: 'initial', height: 'initial' };
@@ -3106,38 +3285,45 @@ define
 define
 (
     'ui/translate',[
-        'utils/assert'
+        'ui/toElementArray',
+        'utils/assert',
+        'utils/sizeOf'
     ],
     function
     (
-        assert
+        toElementArray,
+        assert,
+        sizeOf
     )
     {
         /**
          * Translates a DOM element.
          *
-         * @param  {Object} element     Target DOM element
-         * @param  {Object} properties  Translation properties:
-         *                              {
-         *                                  {Number} top:    Top translation value
-         *                                  {Number} right:  Right translation value
-         *                                  {Number} bottom: Bottom translation value
-         *                                  {Number} left:   Left translation value
-         *                                  {String} units:  Unit of translation values
-         *                              }
-         *                              (if unspecified, all translation values will be reset to 'initial')
-         * @param  {Object} constraints Translation constraints:
-         *                              {
-         *                                  {Number} top:    Bounded top translation value
-         *                                  {Number} right:  Bounded right translation value
-         *                                  {Number} bottom: Bounded bottom translation value
-         *                                  {Number} left:   Bounded left translation value
-         *                              }
+         * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
+         * @param  {Object} properties      Translation properties:
+         *                                  {
+         *                                      {Number} top:    Top translation value
+         *                                      {Number} right:  Right translation value
+         *                                      {Number} bottom: Bottom translation value
+         *                                      {Number} left:   Left translation value
+         *                                      {String} units:  Unit of translation values
+         *                                  }
+         *                                  (if unspecified, all translation values will be reset to 'initial')
+         * @param  {Object} constraints     Translation constraints:
+         *                                  {
+         *                                      {Number} top:    Bounded top translation value
+         *                                      {Number} right:  Bounded right translation value
+         *                                      {Number} bottom: Bounded bottom translation value
+         *                                      {Number} left:   Bounded left translation value
+         *                                  }
          *
          * @return {Object} Translated properties.
          */
         function translate(element, properties, constraints)
         {
+            var elements = toElementArray(element);
+            var n = sizeOf(elements);
+
             if (properties)
             {
                 if (!assert(!properties.top || !isNaN(properties.top), 'Top property must be a number.')) return null;
@@ -3160,44 +3346,31 @@ define
                 var bottom = (constraints && constraints.bottom) ? Math.min(properties.bottom, constraints.bottom) : properties.bottom;
                 var left = (constraints && constraints.left) ? Math.min(properties.left, constraints.left) : properties.left;
 
-                if (element)
+                for (var i = 0; i < n; i++)
                 {
-                    if (element.style)
-                    {
-                        element.style.top = String(top) + units;
-                        element.style.right = String(right) + units;
-                        element.style.bottom = String(bottom) + units;
-                        element.style.left = String(left) + units;
-                    }
-                    else if (element.css)
-                    {
-                        element.css({ 'top': String(top) + units });
-                        element.css({ 'right': String(right) + units });
-                        element.css({ 'bottom': String(bottom) + units });
-                        element.css({ 'left': String(left) + units });
-                    }
+                    if (properties.top) elements[i].style.top = String(top) + units;
+                    if (properties.right) elements[i].style.right = String(right) + units;
+                    if (properties.bottom) elements[i].style.bottom = String(bottom) + units;
+                    if (properties.left) elements[i].style.left = String(left) + units;
                 }
 
-                return { top: top, right: right, bottom: bottom, left: left };
+                var t = {};
+
+                if (properties.top) t.top = top;
+                if (properties.right) t.right = right;
+                if (properties.bottom) t.bottom = bottom;
+                if (properties.left) t.left = left;
+
+                return t;
             }
             else
             {
-                if (element)
+                for (var j = 0; j < n; j++)
                 {
-                    if (element.style)
-                    {
-                        element.style.top = 'initial';
-                        element.style.right = 'initial';
-                        element.style.bottom = 'initial';
-                        element.style.left = 'initial';
-                    }
-                    else if (element.css)
-                    {
-                        element.css({ 'top': 'initial' });
-                        element.css({ 'right': 'initial' });
-                        element.css({ 'bottom': 'initial' });
-                        element.css({ 'left': 'initial' });
-                    }
+                    elements[j].style.top = 'initial';
+                    elements[j].style.right = 'initial';
+                    elements[j].style.bottom = 'initial';
+                    elements[j].style.left = 'initial';
                 }
 
                 return { top: 'initial', right: 'initial', bottom: 'initial', left: 'initial' };
@@ -3220,36 +3393,43 @@ define
 define
 (
     'ui/translate3d',[
-        'utils/assert'
+        'ui/toElementArray',
+        'utils/assert',
+        'utils/sizeOf'
     ],
     function
     (
-        assert
+        toElementArray,
+        assert,
+        sizeOf
     )
     {
         /**
          * Translates a DOM element.
          *
-         * @param  {Object} element     Target DOM element
-         * @param  {Object} properties  Translation properties: x/y/z/units
-         *                              {
-         *                                  {Number} x:     X-coordinate
-         *                                  {Number} y:     Y-coordinate
-         *                                  {Number} z:     Z-coordinate
-         *                                  {String} units: Unit of translation values
-         *                              }
-         *                              (if unspecified, all translation coordinates will be reset to 0)
-         * @param  {Object} constraints Translation constraints:
-         *                              {
-         *                                  {Number} x:     Bounded x-coordinate
-         *                                  {Number} y:     Bounded y-coordinate
-         *                                  {Number} z:     Bounded z-coordinate
-         *                              }
+         * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
+         * @param  {Object} properties      Translation properties: x/y/z/units
+         *                                  {
+         *                                  	{Number} x:     X-coordinate
+         *                                   	{Number} y:     Y-coordinate
+         *                                    	{Number} z:     Z-coordinate
+         *                                     	{String} units: Unit of translation values
+         *                                  }
+         *                                  (if unspecified, all translation coordinates will be reset to 0)
+         * @param  {Object} constraints     Translation constraints:
+         *                                  {
+         *                                  	{Number} x:     Bounded x-coordinate
+         *                                   	{Number} y:     Bounded y-coordinate
+         *                                    	{Number} z:     Bounded z-coordinate
+         *                                  }
          *
          * @return {Object} Translated properties.
          */
         function translate3d(element, properties, constraints)
         {
+            var elements = toElementArray(element);
+            var n = sizeOf(elements);
+
             if (properties)
             {
                 if (!assert(!properties.x || !isNaN(properties.x), 'X property must be a number.')) return null;
@@ -3269,41 +3449,33 @@ define
                 var y = (constraints && constraints.y) ? Math.min(properties.y, constraints.y) : properties.y;
                 var z = (constraints && constraints.z) ? Math.min(properties.z, constraints.z) : properties.z;
 
-                if (element)
+                var translateX = properties.x ? 'translateX('+x+units+')' : null;
+                var translateY = properties.y ? 'translateY('+y+units+')' : null;
+                var translateZ = properties.z ? 'translateZ('+z+units+')' : null;
+                var transforms = '';
+
+                if (translateX) transforms += (transforms === '') ? translateX : ' ' + translateX;
+                if (translateY) transforms += (transforms === '') ? translateY : ' ' + translateY;
+                if (translateZ) transforms += (transforms === '') ? translateZ : ' ' + translateZ;
+
+                for (var i = 0; i < n; i++)
                 {
-                    var translateX = properties.x ? 'translateX('+x+units+')' : null;
-                    var translateY = properties.y ? 'translateY('+y+units+')' : null;
-                    var translateZ = properties.z ? 'translateZ('+z+units+')' : null;
-                    var transforms = '';
-
-                    if (translateX) transforms += (transforms === '') ? translateX : ' ' + translateX;
-                    if (translateY) transforms += (transforms === '') ? translateY : ' ' + translateY;
-                    if (translateZ) transforms += (transforms === '') ? translateZ : ' ' + translateZ;
-
-                    if (element.style)
-                    {
-                        element.style.transform = (transforms);
-                    }
-                    else if (element.css)
-                    {
-                        element.css('transform', transforms);
-                    }
+                    elements[i].style.transform = transforms;
                 }
 
-                return { x: x, y: y, z: z };
+                var t = {};
+
+                if (translateX) t.x = x;
+                if (translateY) t.y = y;
+                if (translateZ) t.z = z;
+
+                return t;
             }
             else
             {
-                if (element)
+                for (var j = 0; j < n; j++)
                 {
-                    if (element.style)
-                    {
-                        element.style.transform = 'translateX(0) translateY(0) translateZ(0)';
-                    }
-                    else if (element.css)
-                    {
-                        element.css({ 'transform': 'translateX(0) translateY(0) translateZ(0)' });
-                    }
+                    elements[j].style.transform = 'translateX(0) translateY(0) translateZ(0)';
                 }
 
                 return { x: 0, y: 0, z: 0 };
@@ -3337,6 +3509,7 @@ define
         'ui/getRect',
         'ui/getViewportRect',
         'ui/initDOM',
+        'ui/toElementArray',
         'ui/transform',
         'ui/translate',
         'ui/translate3d',
@@ -3355,6 +3528,7 @@ define
         getRect,
         getViewportRect,
         initDOM,
+        toElementArray,
         transform,
         translate,
         translate3d,
@@ -3374,6 +3548,7 @@ define
         Object.defineProperty(api, 'getRect', { value: getRect, writable: false, enumerable: true });
         Object.defineProperty(api, 'getViewportRect', { value: getViewportRect, writable: false, enumerable: true });
         Object.defineProperty(api, 'initDOM', { value: initDOM, writable: false, enumerable: true });
+        Object.defineProperty(api, 'toElementArray', { value: toElementArray, writable: false, enumerable: true });
         Object.defineProperty(api, 'translate', { value: translate, writable: false, enumerable: true });
         Object.defineProperty(api, 'translate3d', { value: translate3d, writable: false, enumerable: true });
         Object.defineProperty(api, 'transform', { value: transform, writable: false, enumerable: true });
