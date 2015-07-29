@@ -48,12 +48,12 @@ define
 
             if (properties)
             {
-                if (!assert(!properties.width || !isNaN(properties.width), 'Width property must be a number.')) return null;
-                if (!assert(!properties.height || !isNaN(properties.height), 'Height property must be a number.')) return null;
-                if (!assert(!properties.aspectRatio || !isNaN(properties.aspectRatio), 'Aspect ratio property must be a number.')) return null;
+                if (!assert((properties.width === undefined) || !isNaN(properties.width), 'Width property must be a number.')) return null;
+                if (!assert((properties.height === undefined) || !isNaN(properties.height), 'Height property must be a number.')) return null;
+                if (!assert((properties.aspectRatio === undefined) || !isNaN(properties.aspectRatio), 'Aspect ratio property must be a number.')) return null;
 
                 var units = properties.units || 'px';
-                var aspectRatio = (properties.aspectRatio) ? Number(properties.aspectRatio) : properties.width/properties.height;
+                var aspectRatio = (properties.aspectRatio !== undefined) ? Number(properties.aspectRatio) : properties.width/properties.height;
                 var maxW = properties.width;
                 var maxH = properties.height;
                 var minW = properties.width;
@@ -62,18 +62,18 @@ define
 
                 if (constraints && type !== 'default')
                 {
-                    assert(!constraints.width || !isNaN(constraints.width), 'Width constraint must be a number.');
-                    assert(!constraints.height || !isNaN(constraints.height), 'Height constraint must be a number.');
+                    assert((constraints.width === undefined) || !isNaN(constraints.width), 'Width constraint must be a number.');
+                    assert((constraints.height === undefined) || !isNaN(constraints.height), 'Height constraint must be a number.');
 
                     if (type && type === 'cover')
                     {
-                        if (constraints.width) minW = Math.min(constraints.width, minW);
-                        if (constraints.width) minH = Math.min(constraints.height, minH);
+                        if (constraints.width !== undefined) minW = Math.min(constraints.width, minW);
+                        if (constraints.width !== undefined) minH = Math.min(constraints.height, minH);
                     }
                     else
                     {
-                        if (constraints.width) maxW = Math.min(constraints.width, maxW);
-                        if (constraints.height) maxH = Math.min(constraints.height, maxH);
+                        if (constraints.width !== undefined) maxW = Math.min(constraints.width, maxW);
+                        if (constraints.height !== undefined) maxH = Math.min(constraints.height, maxH);
                     }
                 }
 
@@ -121,14 +121,14 @@ define
                 {
                     var e = elements[i];
 
-                    if (properties.width) e.style.width = String(w) + units;
-                    if (properties.height) e.style.height = String(h) + units;
+                    if (properties.width !== undefined) e.style.width = String(w) + units;
+                    if (properties.height !== undefined) e.style.height = String(h) + units;
                 }
 
                 var t = {};
 
-                if (properties.width) t.width = w;
-                if (properties.height) t.height = h;
+                if (properties.width !== undefined) t.width = w;
+                if (properties.height !== undefined) t.height = h;
 
                 return t;
             }

@@ -51,40 +51,40 @@ define
 
             if (properties)
             {
-                if (!assert(!properties.top || !isNaN(properties.top), 'Top property must be a number.')) return null;
-                if (!assert(!properties.right || !isNaN(properties.right), 'Right property must be a number.')) return null;
-                if (!assert(!properties.bottom || !isNaN(properties.bottom), 'Bottom property must be a number.')) return null;
-                if (!assert(!properties.left || !isNaN(properties.left), 'Left property must be a number.')) return null;
+                if (!assert((properties.top === undefined) || !isNaN(properties.top), 'Top property must be a number.')) return null;
+                if (!assert((properties.right === undefined) || !isNaN(properties.right), 'Right property must be a number.')) return null;
+                if (!assert((properties.bottom === undefined) || !isNaN(properties.bottom), 'Bottom property must be a number.')) return null;
+                if (!assert((properties.left === undefined) || !isNaN(properties.left), 'Left property must be a number.')) return null;
 
                 var units = properties.units || 'px';
 
                 if (constraints)
                 {
-                    if (!assert(!constraints.top || !isNaN(constraints.top), 'Top constraint must be a number.')) return null;
-                    if (!assert(!constraints.right || !isNaN(constraints.right), 'Right constraint must be a number.')) return null;
-                    if (!assert(!constraints.bottom || !isNaN(constraints.bottom), 'Bottom constraint must be a number.')) return null;
-                    if (!assert(!constraints.left || !isNaN(constraints.left), 'Left constraint must be a number.')) return null;
+                    if (!assert((constraints.top === undefined) || !isNaN(constraints.top), 'Top constraint must be a number.')) return null;
+                    if (!assert((constraints.right === undefined) || !isNaN(constraints.right), 'Right constraint must be a number.')) return null;
+                    if (!assert((constraints.bottom === undefined) || !isNaN(constraints.bottom), 'Bottom constraint must be a number.')) return null;
+                    if (!assert((constraints.left === undefined) || !isNaN(constraints.left), 'Left constraint must be a number.')) return null;
                 }
 
-                var top = (constraints && constraints.top) ? Math.min(properties.top, constraints.top) : properties.top;
-                var right = (constraints && constraints.right) ? Math.min(properties.right, constraints.right) : properties.right;
-                var bottom = (constraints && constraints.bottom) ? Math.min(properties.bottom, constraints.bottom) : properties.bottom;
-                var left = (constraints && constraints.left) ? Math.min(properties.left, constraints.left) : properties.left;
+                var top = (constraints && (constraints.top !== undefined)) ? Math.min(properties.top, constraints.top) : properties.top;
+                var right = (constraints && (constraints.right !== undefined)) ? Math.min(properties.right, constraints.right) : properties.right;
+                var bottom = (constraints && (constraints.bottom !== undefined)) ? Math.min(properties.bottom, constraints.bottom) : properties.bottom;
+                var left = (constraints && (constraints.left !== undefined)) ? Math.min(properties.left, constraints.left) : properties.left;
 
                 for (var i = 0; i < n; i++)
                 {
-                    if (properties.top) elements[i].style.top = String(top) + units;
-                    if (properties.right) elements[i].style.right = String(right) + units;
-                    if (properties.bottom) elements[i].style.bottom = String(bottom) + units;
-                    if (properties.left) elements[i].style.left = String(left) + units;
+                    if (properties.top !== undefined) elements[i].style.top = String(top) + units;
+                    if (properties.right !== undefined) elements[i].style.right = String(right) + units;
+                    if (properties.bottom !== undefined) elements[i].style.bottom = String(bottom) + units;
+                    if (properties.left !== undefined) elements[i].style.left = String(left) + units;
                 }
 
                 var t = {};
 
-                if (properties.top) t.top = top;
-                if (properties.right) t.right = right;
-                if (properties.bottom) t.bottom = bottom;
-                if (properties.left) t.left = left;
+                if (properties.top !== undefined) t.top = top;
+                if (properties.right !== undefined) t.right = right;
+                if (properties.bottom !== undefined) t.bottom = bottom;
+                if (properties.left !== undefined) t.left = left;
 
                 return t;
             }

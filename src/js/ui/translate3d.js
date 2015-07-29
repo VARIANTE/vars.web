@@ -49,26 +49,26 @@ define
 
             if (properties)
             {
-                if (!assert(!properties.x || !isNaN(properties.x), 'X property must be a number.')) return null;
-                if (!assert(!properties.y || !isNaN(properties.y), 'Y property must be a number.')) return null;
-                if (!assert(!properties.z || !isNaN(properties.z), 'Z property must be a number.')) return null;
+                if (!assert(properties.x === undefined || !isNaN(properties.x), 'X property must be a number.')) return null;
+                if (!assert(properties.y === undefined || !isNaN(properties.y), 'Y property must be a number.')) return null;
+                if (!assert(properties.z === undefined || !isNaN(properties.z), 'Z property must be a number.')) return null;
 
                 var units = properties.units || 'px';
 
                 if (constraints)
                 {
-                    if (!assert(!constraints.x || !isNaN(constraints.x), 'X constraint must be a number.')) return null;
-                    if (!assert(!constraints.y || !isNaN(constraints.y), 'Y constraint must be a number.')) return null;
-                    if (!assert(!constraints.z || !isNaN(constraints.z), 'Z constraint must be a number.')) return null;
+                    if (!assert(constraints.x === undefined || !isNaN(constraints.x), 'X constraint must be a number.')) return null;
+                    if (!assert(constraints.y === undefined || !isNaN(constraints.y), 'Y constraint must be a number.')) return null;
+                    if (!assert(constraints.z === undefined || !isNaN(constraints.z), 'Z constraint must be a number.')) return null;
                 }
 
-                var x = (constraints && constraints.x) ? Math.min(properties.x, constraints.x) : properties.x;
-                var y = (constraints && constraints.y) ? Math.min(properties.y, constraints.y) : properties.y;
-                var z = (constraints && constraints.z) ? Math.min(properties.z, constraints.z) : properties.z;
+                var x = (constraints && (constraints.x !== undefined)) ? Math.min(properties.x, constraints.x) : properties.x;
+                var y = (constraints && (constraints.y !== undefined)) ? Math.min(properties.y, constraints.y) : properties.y;
+                var z = (constraints && (constraints.z !== undefined)) ? Math.min(properties.z, constraints.z) : properties.z;
 
-                var translateX = properties.x ? 'translateX('+x+units+')' : null;
-                var translateY = properties.y ? 'translateY('+y+units+')' : null;
-                var translateZ = properties.z ? 'translateZ('+z+units+')' : null;
+                var translateX = (properties.x !== undefined) ? 'translateX('+x+units+')' : null;
+                var translateY = (properties.y !== undefined) ? 'translateY('+y+units+')' : null;
+                var translateZ = (properties.z !== undefined) ? 'translateZ('+z+units+')' : null;
                 var transforms = '';
 
                 if (translateX) transforms += (transforms === '') ? translateX : ' ' + translateX;
