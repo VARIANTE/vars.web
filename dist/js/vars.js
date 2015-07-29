@@ -3327,12 +3327,12 @@ define
 
             if (properties)
             {
-                if (!assert(!properties.width || !isNaN(properties.width), 'Width property must be a number.')) return null;
-                if (!assert(!properties.height || !isNaN(properties.height), 'Height property must be a number.')) return null;
-                if (!assert(!properties.aspectRatio || !isNaN(properties.aspectRatio), 'Aspect ratio property must be a number.')) return null;
+                if (!assert((properties.width === undefined) || !isNaN(properties.width), 'Width property must be a number.')) return null;
+                if (!assert((properties.height === undefined) || !isNaN(properties.height), 'Height property must be a number.')) return null;
+                if (!assert((properties.aspectRatio === undefined) || !isNaN(properties.aspectRatio), 'Aspect ratio property must be a number.')) return null;
 
                 var units = properties.units || 'px';
-                var aspectRatio = (properties.aspectRatio) ? Number(properties.aspectRatio) : properties.width/properties.height;
+                var aspectRatio = (properties.aspectRatio !== undefined) ? Number(properties.aspectRatio) : properties.width/properties.height;
                 var maxW = properties.width;
                 var maxH = properties.height;
                 var minW = properties.width;
@@ -3341,18 +3341,18 @@ define
 
                 if (constraints && type !== 'default')
                 {
-                    assert(!constraints.width || !isNaN(constraints.width), 'Width constraint must be a number.');
-                    assert(!constraints.height || !isNaN(constraints.height), 'Height constraint must be a number.');
+                    assert((constraints.width === undefined) || !isNaN(constraints.width), 'Width constraint must be a number.');
+                    assert((constraints.height === undefined) || !isNaN(constraints.height), 'Height constraint must be a number.');
 
                     if (type && type === 'cover')
                     {
-                        if (constraints.width) minW = Math.min(constraints.width, minW);
-                        if (constraints.width) minH = Math.min(constraints.height, minH);
+                        if (constraints.width !== undefined) minW = Math.min(constraints.width, minW);
+                        if (constraints.width !== undefined) minH = Math.min(constraints.height, minH);
                     }
                     else
                     {
-                        if (constraints.width) maxW = Math.min(constraints.width, maxW);
-                        if (constraints.height) maxH = Math.min(constraints.height, maxH);
+                        if (constraints.width !== undefined) maxW = Math.min(constraints.width, maxW);
+                        if (constraints.height !== undefined) maxH = Math.min(constraints.height, maxH);
                     }
                 }
 
@@ -3400,14 +3400,14 @@ define
                 {
                     var e = elements[i];
 
-                    if (properties.width) e.style.width = String(w) + units;
-                    if (properties.height) e.style.height = String(h) + units;
+                    if (properties.width !== undefined) e.style.width = String(w) + units;
+                    if (properties.height !== undefined) e.style.height = String(h) + units;
                 }
 
                 var t = {};
 
-                if (properties.width) t.width = w;
-                if (properties.height) t.height = h;
+                if (properties.width !== undefined) t.width = w;
+                if (properties.height !== undefined) t.height = h;
 
                 return t;
             }
@@ -3480,40 +3480,40 @@ define
 
             if (properties)
             {
-                if (!assert(!properties.top || !isNaN(properties.top), 'Top property must be a number.')) return null;
-                if (!assert(!properties.right || !isNaN(properties.right), 'Right property must be a number.')) return null;
-                if (!assert(!properties.bottom || !isNaN(properties.bottom), 'Bottom property must be a number.')) return null;
-                if (!assert(!properties.left || !isNaN(properties.left), 'Left property must be a number.')) return null;
+                if (!assert((properties.top === undefined) || !isNaN(properties.top), 'Top property must be a number.')) return null;
+                if (!assert((properties.right === undefined) || !isNaN(properties.right), 'Right property must be a number.')) return null;
+                if (!assert((properties.bottom === undefined) || !isNaN(properties.bottom), 'Bottom property must be a number.')) return null;
+                if (!assert((properties.left === undefined) || !isNaN(properties.left), 'Left property must be a number.')) return null;
 
                 var units = properties.units || 'px';
 
                 if (constraints)
                 {
-                    if (!assert(!constraints.top || !isNaN(constraints.top), 'Top constraint must be a number.')) return null;
-                    if (!assert(!constraints.right || !isNaN(constraints.right), 'Right constraint must be a number.')) return null;
-                    if (!assert(!constraints.bottom || !isNaN(constraints.bottom), 'Bottom constraint must be a number.')) return null;
-                    if (!assert(!constraints.left || !isNaN(constraints.left), 'Left constraint must be a number.')) return null;
+                    if (!assert((constraints.top === undefined) || !isNaN(constraints.top), 'Top constraint must be a number.')) return null;
+                    if (!assert((constraints.right === undefined) || !isNaN(constraints.right), 'Right constraint must be a number.')) return null;
+                    if (!assert((constraints.bottom === undefined) || !isNaN(constraints.bottom), 'Bottom constraint must be a number.')) return null;
+                    if (!assert((constraints.left === undefined) || !isNaN(constraints.left), 'Left constraint must be a number.')) return null;
                 }
 
-                var top = (constraints && constraints.top) ? Math.min(properties.top, constraints.top) : properties.top;
-                var right = (constraints && constraints.right) ? Math.min(properties.right, constraints.right) : properties.right;
-                var bottom = (constraints && constraints.bottom) ? Math.min(properties.bottom, constraints.bottom) : properties.bottom;
-                var left = (constraints && constraints.left) ? Math.min(properties.left, constraints.left) : properties.left;
+                var top = (constraints && (constraints.top !== undefined)) ? Math.min(properties.top, constraints.top) : properties.top;
+                var right = (constraints && (constraints.right !== undefined)) ? Math.min(properties.right, constraints.right) : properties.right;
+                var bottom = (constraints && (constraints.bottom !== undefined)) ? Math.min(properties.bottom, constraints.bottom) : properties.bottom;
+                var left = (constraints && (constraints.left !== undefined)) ? Math.min(properties.left, constraints.left) : properties.left;
 
                 for (var i = 0; i < n; i++)
                 {
-                    if (properties.top) elements[i].style.top = String(top) + units;
-                    if (properties.right) elements[i].style.right = String(right) + units;
-                    if (properties.bottom) elements[i].style.bottom = String(bottom) + units;
-                    if (properties.left) elements[i].style.left = String(left) + units;
+                    if (properties.top !== undefined) elements[i].style.top = String(top) + units;
+                    if (properties.right !== undefined) elements[i].style.right = String(right) + units;
+                    if (properties.bottom !== undefined) elements[i].style.bottom = String(bottom) + units;
+                    if (properties.left !== undefined) elements[i].style.left = String(left) + units;
                 }
 
                 var t = {};
 
-                if (properties.top) t.top = top;
-                if (properties.right) t.right = right;
-                if (properties.bottom) t.bottom = bottom;
-                if (properties.left) t.left = left;
+                if (properties.top !== undefined) t.top = top;
+                if (properties.right !== undefined) t.right = right;
+                if (properties.bottom !== undefined) t.bottom = bottom;
+                if (properties.left !== undefined) t.left = left;
 
                 return t;
             }
@@ -3586,26 +3586,26 @@ define
 
             if (properties)
             {
-                if (!assert(!properties.x || !isNaN(properties.x), 'X property must be a number.')) return null;
-                if (!assert(!properties.y || !isNaN(properties.y), 'Y property must be a number.')) return null;
-                if (!assert(!properties.z || !isNaN(properties.z), 'Z property must be a number.')) return null;
+                if (!assert(properties.x === undefined || !isNaN(properties.x), 'X property must be a number.')) return null;
+                if (!assert(properties.y === undefined || !isNaN(properties.y), 'Y property must be a number.')) return null;
+                if (!assert(properties.z === undefined || !isNaN(properties.z), 'Z property must be a number.')) return null;
 
                 var units = properties.units || 'px';
 
                 if (constraints)
                 {
-                    if (!assert(!constraints.x || !isNaN(constraints.x), 'X constraint must be a number.')) return null;
-                    if (!assert(!constraints.y || !isNaN(constraints.y), 'Y constraint must be a number.')) return null;
-                    if (!assert(!constraints.z || !isNaN(constraints.z), 'Z constraint must be a number.')) return null;
+                    if (!assert(constraints.x === undefined || !isNaN(constraints.x), 'X constraint must be a number.')) return null;
+                    if (!assert(constraints.y === undefined || !isNaN(constraints.y), 'Y constraint must be a number.')) return null;
+                    if (!assert(constraints.z === undefined || !isNaN(constraints.z), 'Z constraint must be a number.')) return null;
                 }
 
-                var x = (constraints && constraints.x) ? Math.min(properties.x, constraints.x) : properties.x;
-                var y = (constraints && constraints.y) ? Math.min(properties.y, constraints.y) : properties.y;
-                var z = (constraints && constraints.z) ? Math.min(properties.z, constraints.z) : properties.z;
+                var x = (constraints && (constraints.x !== undefined)) ? Math.min(properties.x, constraints.x) : properties.x;
+                var y = (constraints && (constraints.y !== undefined)) ? Math.min(properties.y, constraints.y) : properties.y;
+                var z = (constraints && (constraints.z !== undefined)) ? Math.min(properties.z, constraints.z) : properties.z;
 
-                var translateX = properties.x ? 'translateX('+x+units+')' : null;
-                var translateY = properties.y ? 'translateY('+y+units+')' : null;
-                var translateZ = properties.z ? 'translateZ('+z+units+')' : null;
+                var translateX = (properties.x !== undefined) ? 'translateX('+x+units+')' : null;
+                var translateY = (properties.y !== undefined) ? 'translateY('+y+units+')' : null;
+                var translateZ = (properties.z !== undefined) ? 'translateZ('+z+units+')' : null;
                 var transforms = '';
 
                 if (translateX) transforms += (transforms === '') ? translateX : ' ' + translateX;
