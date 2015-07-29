@@ -13,21 +13,23 @@ define
         'ui/getClassIndex',
         'ui/toElementArray',
         'ui/Element',
-        'utils/assert'
+        'utils/assert',
+        'utils/sizeOf'
     ],
     function
     (
         getClassIndex,
         toElementArray,
         Element,
-        assert
+        assert,
+        sizeOf
     )
     {
         /**
          * Verifies that the specified element(s) has the specified class.
          *
          * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
-         * @param  {String}       className 
+         * @param  {String}       className
          *
          * @return {Boolean} True if element(s) has given class, false otherwise.
          */

@@ -2125,7 +2125,14 @@ define
             {
                 if (!assert((element instanceof HTMLElement) || (element instanceof Element), 'Invalid element specified. Element must be an instance of HTMLElement or VARS Element.')) return null;
 
-                elements = [element];
+                if (element instanceof HTMLElement)
+                {
+                    elements = [element];
+                }
+                else if (element instanceof Element)
+                {
+                    elements = [element.element];
+                }
             }
 
             var n = sizeOf(elements);
@@ -2164,21 +2171,23 @@ define
         'ui/getClassIndex',
         'ui/toElementArray',
         'ui/Element',
-        'utils/assert'
+        'utils/assert',
+        'utils/sizeOf'
     ],
     function
     (
         getClassIndex,
         toElementArray,
         Element,
-        assert
+        assert,
+        sizeOf
     )
     {
         /**
          * Verifies that the specified element(s) has the specified class.
          *
          * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
-         * @param  {String}       className 
+         * @param  {String}       className
          *
          * @return {Boolean} True if element(s) has given class, false otherwise.
          */
@@ -2222,6 +2231,7 @@ define
     ],
     function
     (
+        elementHasClass,
         toElementArray,
         Element,
         assert,
@@ -2240,13 +2250,15 @@ define
             var elements = toElementArray(element);
             var n = sizeOf(elements);
 
+            console.log(elements);
+
             for (var i = 0; i < n; i++)
             {
                 var e = elements[i];
 
                 if (elementHasClass(e, 'state'+state)) continue;
                 e.className = e.className.replace(/(^|\s)state-\S+/g, '');
-                e.className = e.className + ((e.className === '') ? ' ' : '') + ('state-'+state);
+                e.className = e.className + ((e.className === '') ? '' : ' ') + ('state-'+state);
             }
         }
 

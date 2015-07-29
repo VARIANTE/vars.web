@@ -16,14 +16,14 @@
         A.prototype.init = function()
         {
             console.log('I am', this.toString());
-            console.log(this.fooBar);
-
             document.addEventListener(vars.EventType.MOUSE.CLICK, function(event)
             {
                 if (vars.sizeOf(this.children) > 0)
                 {
-                    var r = vars.getIntersectRect([this.children.C1, this.children.C2], this.children.C3);
-                    var t = vars.translate([this.children.C1, this.children.C3], { left: 20, top: 50});
+                    // var r = vars.getIntersectRect([this.children.C1, this.children.C2], this.children.C3);
+                    // var t = vars.translate([this.children.C1, this.children.C3], { left: 20, top: 50});
+
+                    vars.changeElementState([this.children.C1, this.children.C2], 'foo');
                 }
             }.bind(this));
 

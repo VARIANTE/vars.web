@@ -18,6 +18,7 @@ define
     ],
     function
     (
+        elementHasClass,
         toElementArray,
         Element,
         assert,
@@ -42,7 +43,7 @@ define
 
                 if (elementHasClass(e, 'state'+state)) continue;
                 e.className = e.className.replace(/(^|\s)state-\S+/g, '');
-                e.className = e.className + ((e.className === '') ? ' ' : '') + ('state-'+state);
+                e.className = e.className + ((e.className === '') ? '' : ' ') + ('state-'+state);
             }
         }
 

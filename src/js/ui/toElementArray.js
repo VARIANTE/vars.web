@@ -44,7 +44,14 @@ define
             {
                 if (!assert((element instanceof HTMLElement) || (element instanceof Element), 'Invalid element specified. Element must be an instance of HTMLElement or VARS Element.')) return null;
 
-                elements = [element];
+                if (element instanceof HTMLElement)
+                {
+                    elements = [element];
+                }
+                else if (element instanceof Element)
+                {
+                    elements = [element.element];
+                }
             }
 
             var n = sizeOf(elements);
