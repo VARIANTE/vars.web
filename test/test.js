@@ -23,7 +23,7 @@
 
             document.addEventListener(vars.EventType.MOUSE.CLICK, function(event)
             {
-                console.log(this.children);
+                console.log(this.getChild('cs1.vs'));
             }.bind(this));
 
             A.__super__.init.call(this);

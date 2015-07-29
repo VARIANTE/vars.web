@@ -1893,6 +1893,44 @@ define
         };
 
         /**
+         * Gets a child by its name (depth separated by .). If child is
+         * an array, it will be returned immediately.
+         *
+         * @param  {string} name
+         *
+         * @return {Object} The fetched child.
+         */
+        Element.prototype.getChild = function(name)
+        {
+            if (!assert(name, 'Name is null.')) return null;
+
+            var names = name.split('.');
+            var n = sizeOf(names);
+
+            var parent = this;
+
+            for (var i = 0; i < n; i++)
+            {
+                var child = parent.children[names[i]];
+
+                if (child instanceof Element)
+                {
+                    parent = child;
+                }
+                else if (child instanceof Array)
+                {
+                    return child;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+
+            return parent;
+        };
+
+        /**
          * Creates the associated DOM element from scratch.
          *
          * @return {Element}
