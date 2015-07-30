@@ -21,9 +21,14 @@
 
             console.log('I am', this.toString());
 
-            this.getChild('cs1').addEventListener(vars.EventType.MOUSE.CLICK, function(event)
+            document.addEventListener(vars.EventType.MOUSE.CLICK, function(event)
             {
-                console.log(this.getChild('cs1.vs'));
+                vars.debug = true;
+                var vector = { x: event.clientX, y: event.clientY };
+                var hitTest = vars.hitTestElement(vector, this.children.cs1, this.children.cs[0], this.children.cs[1]);
+                console.log(hitTest);
+
+
             }.bind(this));
 
             A.__super__.init.call(this);

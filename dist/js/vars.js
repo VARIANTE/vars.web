@@ -1791,6 +1791,38 @@ define
         };
 
         /**
+         * Sets up the responsiveness of the internal ElementUpdateDelegate instance.
+         *
+         * @param  {Object/Number}  Either the conductor or the refresh rate (if 1 argument supplied).
+         * @param  {Number}         Refresh rate.
+         */
+        Element.prototype.responds = function()
+        {
+            var n = sizeOf(arguments);
+
+            if (!assert(n <= 2, 'Too many arguments provided. Maximum 2 expected.')) return;
+
+            this.updateDelegate.responsive = true;
+
+            if (n === 1)
+            {
+                if (isNaN(arguments[0]))
+                {
+                    this.updateDelegate.conductor = arguments[0];
+                }
+                else
+                {
+                    this.updateDelegate.refreshRate = arguments[0];
+                }
+            }
+            else if (n == 2)
+            {
+                this.updateDelegate.conductor = arguments[0];
+                this.updateDelegate.refreshRate = arguments[1];
+            }
+        };
+
+        /**
          * Adds a child/children to this Element instance.
          *
          * @param  {Object/Array} child
@@ -3252,6 +3284,159 @@ define
  */
 define
 (
+    'ui/hitTestElement',[
+        'math/isClamped',
+        'ui/getIntersectRect',
+        'ui/getRect',
+        'ui/toElementArray',
+        'utils/assert',
+        'utils/sizeOf'
+    ],
+    function
+    (
+        isClamped,
+        getIntersectRect,
+        getRect,
+        toElementArray,
+        assert,
+        sizeOf
+    )
+    {
+        /**
+         * Hit tests a vector or element against other elements.
+         *
+         * @param  {Object/Array} Vector ({ x, y }), HTMLElement, VARS Element, or jQuery object.
+         * @param  {Object/Array} HTMLElement, VARS Element, or jQuery object.
+         *
+         * @return {Boolean} True if test passes, false otherwise.
+         */
+        function hitTestElement()
+        {
+            if (!assert(sizeOf(arguments) > 1, 'Insufficient arguments. Expecting at least 2.')) return false;
+
+            var args = Array.prototype.slice.call(arguments);
+            var isVector = (typeof args[0] === 'object') && args[0].hasOwnProperty('x') && args[0].hasOwnProperty('y');
+
+            if (isVector)
+            {
+                var vector = args.shift();
+                var n = sizeOf(args);
+                var pass = false;
+
+                for (var i = 0; i < n; i++)
+                {
+                    var rect = getRect(args[i]);
+
+                    if (isClamped(vector.x, rect.left, rect.right) && isClamped(vector.y, rect.top, rect.bottom))
+                    {
+                        pass = true;
+                    }
+                }
+
+                return pass;
+            }
+            else
+            {
+                var intersectRect = getIntersectRect.apply(null, arguments);
+
+                if (!assert(intersectRect, 'Invalid elements specified.')) return false;
+
+                return (intersectRect.width * intersectRect.height !== 0);
+            }
+        }
+
+        return hitTestElement;
+    }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
+ */
+define
+(
+    'ui/hitTestRect',[
+        'math/isClamped',
+        'ui/getIntersectRect',
+        'ui/getRect',
+        'ui/toElementArray',
+        'utils/assert',
+        'utils/sizeOf'
+    ],
+    function
+    (
+        isClamped,
+        getIntersectRect,
+        getRect,
+        toElementArray,
+        assert,
+        sizeOf
+    )
+    {
+        /**
+         * Hit tests a vector or element against other elements.
+         *
+         * @param  {Object/Array} Vector ({ x, y }), HTMLElement, VARS Element, or jQuery object.
+         * @param  {Object/Array} HTMLElement, VARS Element, or jQuery object.
+         *
+         * @return {Boolean} True if test passes, false otherwise.
+         */
+        function hitTestRect()
+        {
+            if (!assert(sizeOf(arguments) > 1, 'Insufficient arguments. Expecting at least 2.')) return false;
+
+            var args = Array.prototype.slice.call(arguments);
+            var isVector = (typeof args[0] === 'object') && args[0].hasOwnProperty('x') && args[0].hasOwnProperty('y');
+
+            if (isVector)
+            {
+                var vector = args.shift();
+                var n = sizeOf(args);
+                var pass = false;
+
+                for (var i = 0; i < n; i++)
+                {
+                    var rect = args[i];
+                    if (!assert(rect.top !== undefined && !isNaN(rect.top) && rect.right !== undefined && !isNaN(rect.right) && rect.bottom !== undefined && !isNaN(rect.bottom) && rect.left !== undefined && !isNaN(rect.left), 'Invalid rect supplied. Rect must be an object containing "top", "right", "bottom", and "left" key values.')) return false;
+
+                    if (isClamped(vector.x, rect.left, rect.right) && isClamped(vector.y, rect.top, rect.bottom))
+                    {
+                        pass = true;
+                    }
+                }
+
+                return pass;
+            }
+            else
+            {
+                var intersectRect = getIntersectRect.apply(null, arguments);
+
+                if (!assert(intersectRect, 'Invalid elements specified.')) return false;
+
+                return (intersectRect.width * intersectRect.height !== 0);
+            }
+        }
+
+        return hitTestRect;
+    }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
+ */
+define
+(
     'ui/initDOM',[
         'ui/getChildElements',
         'utils/ready'
@@ -3667,6 +3852,8 @@ define
         'ui/getIntersectRect',
         'ui/getRect',
         'ui/getViewportRect',
+        'ui/hitTestElement',
+        'ui/hitTestRect',
         'ui/initDOM',
         'ui/toElementArray',
         'ui/transform',
@@ -3687,6 +3874,8 @@ define
         getIntersectRect,
         getRect,
         getViewportRect,
+        hitTestElement,
+        hitTestRect,
         initDOM,
         toElementArray,
         transform,
@@ -3708,6 +3897,8 @@ define
         Object.defineProperty(api, 'getIntersectRect', { value: getIntersectRect, writable: false, enumerable: true });
         Object.defineProperty(api, 'getRect', { value: getRect, writable: false, enumerable: true });
         Object.defineProperty(api, 'getViewportRect', { value: getViewportRect, writable: false, enumerable: true });
+        Object.defineProperty(api, 'hitTestElement', { value: hitTestElement, writable: false, enumerable: true });
+        Object.defineProperty(api, 'hitTestRect', { value: hitTestRect, writable: false, enumerable: true });
         Object.defineProperty(api, 'initDOM', { value: initDOM, writable: false, enumerable: true });
         Object.defineProperty(api, 'toElementArray', { value: toElementArray, writable: false, enumerable: true });
         Object.defineProperty(api, 'translate', { value: translate, writable: false, enumerable: true });

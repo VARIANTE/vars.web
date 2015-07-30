@@ -128,6 +128,38 @@ define
         };
 
         /**
+         * Sets up the responsiveness of the internal ElementUpdateDelegate instance.
+         *
+         * @param  {Object/Number}  Either the conductor or the refresh rate (if 1 argument supplied).
+         * @param  {Number}         Refresh rate.
+         */
+        Element.prototype.responds = function()
+        {
+            var n = sizeOf(arguments);
+
+            if (!assert(n <= 2, 'Too many arguments provided. Maximum 2 expected.')) return;
+
+            this.updateDelegate.responsive = true;
+
+            if (n === 1)
+            {
+                if (isNaN(arguments[0]))
+                {
+                    this.updateDelegate.conductor = arguments[0];
+                }
+                else
+                {
+                    this.updateDelegate.refreshRate = arguments[0];
+                }
+            }
+            else if (n == 2)
+            {
+                this.updateDelegate.conductor = arguments[0];
+                this.updateDelegate.refreshRate = arguments[1];
+            }
+        };
+
+        /**
          * Adds a child/children to this Element instance.
          *
          * @param  {Object/Array} child

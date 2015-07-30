@@ -21,6 +21,8 @@ define
         'ui/getIntersectRect',
         'ui/getRect',
         'ui/getViewportRect',
+        'ui/hitTestElement',
+        'ui/hitTestRect',
         'ui/initDOM',
         'ui/toElementArray',
         'ui/transform',
@@ -41,6 +43,8 @@ define
         getIntersectRect,
         getRect,
         getViewportRect,
+        hitTestElement,
+        hitTestRect,
         initDOM,
         toElementArray,
         transform,
@@ -62,6 +66,8 @@ define
         Object.defineProperty(api, 'getIntersectRect', { value: getIntersectRect, writable: false, enumerable: true });
         Object.defineProperty(api, 'getRect', { value: getRect, writable: false, enumerable: true });
         Object.defineProperty(api, 'getViewportRect', { value: getViewportRect, writable: false, enumerable: true });
+        Object.defineProperty(api, 'hitTestElement', { value: hitTestElement, writable: false, enumerable: true });
+        Object.defineProperty(api, 'hitTestRect', { value: hitTestRect, writable: false, enumerable: true });
         Object.defineProperty(api, 'initDOM', { value: initDOM, writable: false, enumerable: true });
         Object.defineProperty(api, 'toElementArray', { value: toElementArray, writable: false, enumerable: true });
         Object.defineProperty(api, 'translate', { value: translate, writable: false, enumerable: true });
