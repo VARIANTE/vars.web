@@ -10,7 +10,7 @@
 define
 (
     [
-        'ui/elementHasClass',
+        'ui/getElementState',
         'ui/toElementArray',
         'ui/Element',
         'utils/assert',
@@ -18,7 +18,7 @@ define
     ],
     function
     (
-        elementHasClass,
+        getElementState,
         toElementArray,
         Element,
         assert,
@@ -41,7 +41,7 @@ define
             {
                 var e = elements[i];
 
-                if (elementHasClass(e, 'state'+state)) continue;
+                if (getElementState(e) === state) continue;
                 e.className = e.className.replace(/(^|\s)state-\S+/g, '');
                 e.className = e.className + ((e.className === '') ? '' : ' ') + ('state-'+state);
             }

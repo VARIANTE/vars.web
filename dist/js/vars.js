@@ -2186,38 +2186,48 @@ define
  */
 define
 (
-    'ui/getClassIndex',[
+    'ui/getElementState',[
         'ui/Element',
-        'utils/assert'
+        'utils/assert',
+        'utils/sizeOf'
     ],
     function
     (
         Element,
-        assert
+        assert,
+        sizeOf
     )
     {
         /**
-         * Gets the index of a specified class in a DOM element,
+         * Gets the state of a DOM element, assumes that state classes are prefixed with 'state-'.
          *
-         * @param  {Object} element     HTMLElement, VARS Element, or jQuery object.
-         * @param  {String} className
+         * @param  {Object} element HTMLElement, VARS Element, or jQuery object.
          *
-         * @return {Number} Index of given class name. -1 if not found.
+         * @return {String} State of the given element ('state-' prefix is omitted).
          */
-        function getClassIndex(element, className)
+        function getElementState(element)
         {
-            if (!assert((element) && ((element instanceof HTMLElement) || (element instanceof Element) || (element.jquery)), 'Invalid element specified. Element must be an instance of HTMLElement or Element.')) return null;
+            if (!assert((element) && ((element instanceof HTMLElement) || (element instanceof Element) || (element.jquery)), 'Invalid element specified.')) return null;
+
             if (element instanceof Element) element = element.element;
             if (element.jquery) element = element.get(0);
 
-            if (!assert(className && (typeof className === 'string'), 'Invalid class name: ' + className)) return -1;
+            var s = element.className.match(/(^|\s)state-\S+/g);
+            var n = sizeOf(s);
 
-            var classList = element.className.split(' ');
+            if (!assert(n <= 1, 'Multiple states detected.')) return null;
 
-            return classList.indexOf(className);
+            if (n < 1)
+            {
+                return null;
+            }
+            else
+            {
+                return s[0].replace(/(^|\s)state-/, '');
+            }
         }
 
-        return getClassIndex;
+        return getElementState;
     }
 );
 
@@ -2313,6 +2323,105 @@ define
  */
 define
 (
+    'ui/changeElementState',[
+        'ui/getElementState',
+        'ui/toElementArray',
+        'ui/Element',
+        'utils/assert',
+        'utils/sizeOf'
+    ],
+    function
+    (
+        getElementState,
+        toElementArray,
+        Element,
+        assert,
+        sizeOf
+    )
+    {
+        /**
+         * Changes the state of DOM element(s), assumes that state classes are prefixed
+         * with 'state-'.
+         *
+         * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
+         * @param  {String}       state
+         */
+        function changeElementState(element, state)
+        {
+            var elements = toElementArray(element);
+            var n = sizeOf(elements);
+
+            for (var i = 0; i < n; i++)
+            {
+                var e = elements[i];
+
+                if (getElementState(e) === state) continue;
+                e.className = e.className.replace(/(^|\s)state-\S+/g, '');
+                e.className = e.className + ((e.className === '') ? '' : ' ') + ('state-'+state);
+            }
+        }
+
+        return changeElementState;
+    }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
+ */
+define
+(
+    'ui/getClassIndex',[
+        'ui/Element',
+        'utils/assert'
+    ],
+    function
+    (
+        Element,
+        assert
+    )
+    {
+        /**
+         * Gets the index of a specified class in a DOM element,
+         *
+         * @param  {Object} element     HTMLElement, VARS Element, or jQuery object.
+         * @param  {String} className
+         *
+         * @return {Number} Index of given class name. -1 if not found.
+         */
+        function getClassIndex(element, className)
+        {
+            if (!assert((element) && ((element instanceof HTMLElement) || (element instanceof Element) || (element.jquery)), 'Invalid element specified. Element must be an instance of HTMLElement or Element.')) return null;
+            if (element instanceof Element) element = element.element;
+            if (element.jquery) element = element.get(0);
+
+            if (!assert(className && (typeof className === 'string'), 'Invalid class name: ' + className)) return -1;
+
+            var classList = element.className.split(' ');
+
+            return classList.indexOf(className);
+        }
+
+        return getClassIndex;
+    }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
+ */
+define
+(
     'ui/elementHasClass',[
         'ui/getClassIndex',
         'ui/toElementArray',
@@ -2354,59 +2463,6 @@ define
         }
 
         return elementHasClass;
-    }
-);
-
-/**
- * vars
- * (c) VARIANTE (http://variante.io)
- *
- * This software is released under the MIT License:
- * http://www.opensource.org/licenses/mit-license.php
- *
- * @type {Function}
- */
-define
-(
-    'ui/changeElementState',[
-        'ui/elementHasClass',
-        'ui/toElementArray',
-        'ui/Element',
-        'utils/assert',
-        'utils/sizeOf'
-    ],
-    function
-    (
-        elementHasClass,
-        toElementArray,
-        Element,
-        assert,
-        sizeOf
-    )
-    {
-        /**
-         * Changes the state of DOM element(s), assumes that state classes are prefixed
-         * with 'state-'.
-         *
-         * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
-         * @param  {String}       state
-         */
-        function changeElementState(element, state)
-        {
-            var elements = toElementArray(element);
-            var n = sizeOf(elements);
-
-            for (var i = 0; i < n; i++)
-            {
-                var e = elements[i];
-
-                if (elementHasClass(e, 'state'+state)) continue;
-                e.className = e.className.replace(/(^|\s)state-\S+/g, '');
-                e.className = e.className + ((e.className === '') ? '' : ' ') + ('state-'+state);
-            }
-        }
-
-        return changeElementState;
     }
 );
 
@@ -2996,62 +3052,6 @@ define
         }
 
         return getChildElements;
-    }
-);
-
-/**
- * vars
- * (c) VARIANTE (http://variante.io)
- *
- * This software is released under the MIT License:
- * http://www.opensource.org/licenses/mit-license.php
- *
- * @type {Function}
- */
-define
-(
-    'ui/getElementState',[
-        'ui/Element',
-        'utils/assert',
-        'utils/sizeOf'
-    ],
-    function
-    (
-        Element,
-        assert,
-        sizeOf
-    )
-    {
-        /**
-         * Gets the state of a DOM element, assumes that state classes are prefixed with 'state-'.
-         *
-         * @param  {Object} element HTMLElement, VARS Element, or jQuery object.
-         *
-         * @return {String} State of the given element ('state-' prefix is omitted).
-         */
-        function getElementState(element)
-        {
-            if (!assert((element) && ((element instanceof HTMLElement) || (element instanceof Element) || (element.jquery)), 'Invalid element specified.')) return null;
-
-            if (element instanceof Element) element = element.element;
-            if (element.jquery) element = element.get(0);
-
-            var s = element.className.match(/(^|\s)state-\S+/g);
-            var n = sizeOf(s);
-
-            if (!assert(n <= 1, 'Multiple states detected.')) return null;
-
-            if (n < 1)
-            {
-                return null;
-            }
-            else
-            {
-                return s[0].replace(/(^|\s)state-/, '');
-            }
-        }
-
-        return getElementState;
     }
 );
 
