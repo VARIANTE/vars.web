@@ -12,5 +12,6 @@ $modernizr-enabled: false !default;
 @import './reset';
 
 @import './mixins/alignments';
+@import './mixins/attributes';
+@import './mixins/features';
 @import './mixins/media';
-@import './mixins/states';

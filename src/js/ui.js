@@ -13,17 +13,19 @@
 define
 (
     [
+        'ui/addClass',
         'ui/changeElementState',
-        'ui/elementHasClass',
         'ui/getClassIndex',
         'ui/getChildElements',
         'ui/getElementState',
         'ui/getIntersectRect',
         'ui/getRect',
         'ui/getViewportRect',
+        'ui/hasClass',
         'ui/hitTestElement',
         'ui/hitTestRect',
         'ui/initDOM',
+        'ui/removeClass',
         'ui/toElementArray',
         'ui/transform',
         'ui/translate',
@@ -35,17 +37,19 @@ define
     ],
     function
     (
+        addClass,
         changeElementState,
-        elementHasClass,
         getClassIndex,
         getChildElements,
         getElementState,
         getIntersectRect,
         getRect,
         getViewportRect,
+        hasClass,
         hitTestElement,
         hitTestRect,
         initDOM,
+        removeClass,
         toElementArray,
         transform,
         translate,
@@ -58,8 +62,9 @@ define
     {
         var api = function(obj) { return obj; };
 
+        Object.defineProperty(api, 'addClass', { value: addClass, writable: false, enumerable: true });
         Object.defineProperty(api, 'changeElementState', { value: changeElementState, writable: false, enumerable: true });
-        Object.defineProperty(api, 'elementHasClass', { value: elementHasClass, writable: false, enumerable: true });
+        Object.defineProperty(api, 'hasClass', { value: hasClass, writable: false, enumerable: true });
         Object.defineProperty(api, 'getClassIndex', { value: getClassIndex, writable: false, enumerable: true });
         Object.defineProperty(api, 'getChildElements', { value: getChildElements, writable: false, enumerable: true });
         Object.defineProperty(api, 'getElementState', { value: getElementState, writable: false, enumerable: true });
@@ -69,6 +74,7 @@ define
         Object.defineProperty(api, 'hitTestElement', { value: hitTestElement, writable: false, enumerable: true });
         Object.defineProperty(api, 'hitTestRect', { value: hitTestRect, writable: false, enumerable: true });
         Object.defineProperty(api, 'initDOM', { value: initDOM, writable: false, enumerable: true });
+        Object.defineProperty(api, 'removeClass', { value: removeClass, writable: false, enumerable: true });
         Object.defineProperty(api, 'toElementArray', { value: toElementArray, writable: false, enumerable: true });
         Object.defineProperty(api, 'translate', { value: translate, writable: false, enumerable: true });
         Object.defineProperty(api, 'translate3d', { value: translate3d, writable: false, enumerable: true });

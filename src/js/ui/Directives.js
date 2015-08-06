@@ -14,6 +14,7 @@ define
     {
         Controller: 'vs-controller',
         Instance: 'vs-instance',
-        Property: 'vs-property'
+        Property: 'vs-property',
+        State: 'vs-state'
     }
 );

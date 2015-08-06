@@ -1,0 +1,100 @@
+/**
+ *  vars
+ *  (c) VARIANTE (http://variante.io)
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+
+/**
+ * Selector for elements with the vs-controller attribute.
+ *
+ * @param  {String} $name vs-controller attribute value.
+ */
+@mixin controller($name)
+{
+    [data-vs-controller='#{$name}'] { @content; }
+    [vs-controller='#{name}'] { @content; }
+}
+
+/**
+ * Selector for elements with the vs-instance attribute.
+ *
+ * @param  {String} $name vs-instance attribute value.
+ */
+@mixin instance($name)
+{
+    [data-vs-instance='#{$name}'] { @content; }
+    [vs-instance='#{name}'] { @content; }
+}
+
+/**
+ * Selects elements with the specified vs-property key and value.
+ * 
+ * @param  {String} $key        vs-property key.
+ * @param  {String} $value      vs-property value, if applicable.
+ */
+@mixin property($key, $value:null)
+{
+    @if $value == null
+    {
+        &[data-vs-property-#{$key}] { @content; }
+        &[vs-property-#{key}] { @content; }
+    }
+    @else
+    {
+        &[data-vs-property-#{$key}='#{$value}'] { @content; }
+        &[vs-property-#{key}='#{value}'] { @content; }
+    }
+}
+
+/**
+ * Binds the content to one/multiple class/classes prefixed with 'state-' of
+ * the target selector. Option to specify whether the class(es) are default.
+ *
+ * @param  {List}    $states    List of state names.
+ * @param  {Boolean} $default   Specifies whether the class(es) are default.
+ */
+@mixin state($states, $default:false)
+{
+    @each $state in $states
+    {
+        @if $state == 'hover'
+        {
+            @if $modernizr-enabled == true
+            {
+                .no-touch &:hover
+                {
+                    @content;
+                }
+            }
+            @else
+            {
+                &:hover
+                {
+                    @content;
+                }
+            }
+        }
+        @else
+        {
+            &[data-vs-state='#{$state}']
+            {
+                @content;
+            }
+
+            &[vs-state='#{$state}']
+            {
+                @content;
+            }
+        }
+    }
+
+    @if $default == true
+    {
+        &
+        {
+            @content;
+        }
+    }
+}

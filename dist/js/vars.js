@@ -1078,7 +1078,8 @@ define
     'ui/Directives',{
         Controller: 'vs-controller',
         Instance: 'vs-instance',
-        Property: 'vs-property'
+        Property: 'vs-property',
+        State: 'vs-state'
     }
 );
 
@@ -1979,6 +1980,87 @@ define
         };
 
         /**
+         * Adds class(es) to this Element instance.
+         *
+         * @param  {Stirng/Array} className
+         */
+        Element.prototype.addClass = function(className)
+        {
+            var classes = [];
+
+            if (!assert((typeof className === 'string') || (className instanceof Array), 'Invalid class name specified. Must be either a string or an array of strings.')) return;
+
+            if (typeof className === 'string')
+            {
+                classes.push(className);
+            }
+            else
+            {
+                classes = className;
+            }
+
+            var n = sizeOf(classes);
+
+            for (var i = 0; i < n; i++)
+            {
+                var c = classes[i];
+
+                if (!assert(typeof c === 'string', 'Invalid class detected: ' + c)) continue;
+                if (this.hasClass(c)) continue;
+
+                this.element.className = this.element.className + ((this.element.className === '') ? '' : ' ') + c;
+            }
+        };
+
+        /**
+         * Removes class(es) from this Element instance.
+         *
+         * @param  {Stirng/Array} className
+         */
+        Element.prototype.removeClass = function(className)
+        {
+            var classes = [];
+
+            if (!assert((typeof className === 'string') || (className instanceof Array), 'Invalid class name specified. Must be either a string or an array of strings.')) return;
+
+            if (typeof className === 'string')
+            {
+                classes.push(className);
+            }
+            else
+            {
+                classes = className;
+            }
+
+            var n = sizeOf(classes);
+
+            for (var i = 0; i < n; i++)
+            {
+                var c = classes[i];
+
+                if (!assert(typeof c === 'string', 'Invalid class detected: ' + c)) continue;
+
+                var regex = new RegExp('^'+c+'\\s+|\\s+'+c, 'g');
+                this.element.className = this.element.className.replace(regex, '');
+            }
+        };
+
+        /**
+         * Determines whether this Element instance has the specified
+         * class.
+         *
+         * @param  {String} className
+         *
+         * @return {Boolean}
+         */
+        Element.prototype.hasClass = function(className)
+        {
+            if (!assert(typeof className === 'string', 'Invalid class detected: ' + className)) return false;
+
+            return (this.class.indexOf(className) > -1);
+        };
+
+        /**
          * Creates the associated DOM element from scratch.
          *
          * @return {Element}
@@ -2053,28 +2135,33 @@ define
             /**
              * @property
              *
-             * Instance name of this Element instance.
+             * Instance name of this Element instance. Once set, it cannot be changed.
              *
              * @type {String}
              */
-            Object.defineProperty(this, 'name', { value: null, writable: true });
-
-            /**
-             * @property
-             *
-             * Class of this Element instance.
-             *
-             * @type {String}
-             */
-            Object.defineProperty(this, 'class',
+            Object.defineProperty(this, 'name',
             {
                 get: function()
                 {
-                    return this.element.className;
+                    var s = this.element.getAttribute(Directives.Instance) || this.element.getAttribute('data-'+Directives.Instance);
+
+                    if (!s || s === '')
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        return s;
+                    }
                 },
                 set: function(value)
                 {
-                    this.element.className = value;
+                    if (!value || value === '') return;
+
+                    if (!this.name)
+                    {
+                        this.element.setAttribute('data-'+Directives.Instance, value);
+                    }
                 }
             });
 
@@ -2085,7 +2172,7 @@ define
              *
              * @type {Array}
              */
-            Object.defineProperty(this, 'classList',
+            Object.defineProperty(this, 'class',
             {
                 get: function()
                 {
@@ -2094,6 +2181,46 @@ define
                 set: function(value)
                 {
                     this.element.className = value.join(' ');
+                }
+            });
+
+            /**
+             * @property
+             *
+             * State of this Element instance (depicted by Directives.State).
+             *
+             * @type {String}
+             */
+            Object.defineProperty(this, 'state',
+            {
+                get: function()
+                {
+                    var s = this.element.getAttribute(Directives.State) || this.element.getAttribute('data-'+Directives.State);
+
+                    if (!s || s === '')
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        return s;
+                    }
+                },
+                set: function(value)
+                {
+                    if (this.state === value) return;
+
+                    if (value === null || value === undefined)
+                    {
+                        this.element.removeAttribute(Directives.State);
+                        this.element.removeAttribute('data-'+Directives.State);
+                    }
+                    else
+                    {
+                        this.element.setAttribute('data-'+Directives.State, value);
+                    }
+
+                    this.updateDelegate.setDirty(DirtyType.STATE);
                 }
             });
 
@@ -2186,196 +2313,6 @@ define
  */
 define
 (
-    'ui/getElementState',[
-        'ui/Element',
-        'utils/assert',
-        'utils/sizeOf'
-    ],
-    function
-    (
-        Element,
-        assert,
-        sizeOf
-    )
-    {
-        /**
-         * Gets the state of a DOM element, assumes that state classes are prefixed with 'state-'.
-         *
-         * @param  {Object} element HTMLElement, VARS Element, or jQuery object.
-         *
-         * @return {String} State of the given element ('state-' prefix is omitted).
-         */
-        function getElementState(element)
-        {
-            if (!assert((element) && ((element instanceof HTMLElement) || (element instanceof Element) || (element.jquery)), 'Invalid element specified.')) return null;
-
-            if (element instanceof Element) element = element.element;
-            if (element.jquery) element = element.get(0);
-
-            var s = element.className.match(/(^|\s)state-\S+/g);
-            var n = sizeOf(s);
-
-            if (!assert(n <= 1, 'Multiple states detected.')) return null;
-
-            if (n < 1)
-            {
-                return null;
-            }
-            else
-            {
-                return s[0].replace(/(^|\s)state-/, '');
-            }
-        }
-
-        return getElementState;
-    }
-);
-
-/**
- * vars
- * (c) VARIANTE (http://variante.io)
- *
- * This software is released under the MIT License:
- * http://www.opensource.org/licenses/mit-license.php
- *
- * @type {Function}
- */
-define
-(
-    'ui/toElementArray',[
-        'ui/Element',
-        'utils/assert',
-        'utils/sizeOf'
-    ],
-    function
-    (
-        Element,
-        assert,
-        sizeOf
-    )
-    {
-        /**
-         * Transforms given element(s) to an element array.
-         *
-         * @param  {Object/Array} element
-         */
-        function toElementArray(element)
-        {
-            if (!assert(element, 'Element is undefined or null.')) return null;
-
-            var elements;
-
-            if (element instanceof Array)
-            {
-                elements = element;
-            }
-            else if (element instanceof NodeList)
-            {
-                elements = Array.prototype.slice.call(element);
-            }
-            else if (element.jquery)
-            {
-                elements = element.get();
-            }
-            else
-            {
-                if (!assert((element instanceof HTMLElement) || (element instanceof Element), 'Invalid element specified. Element must be an instance of HTMLElement or VARS Element.')) return null;
-
-                if (element instanceof HTMLElement)
-                {
-                    elements = [element];
-                }
-                else if (element instanceof Element)
-                {
-                    elements = [element.element];
-                }
-            }
-
-            var n = sizeOf(elements);
-
-            for (var i = 0; i < n; i++)
-            {
-                var e = elements[i];
-
-                if (!assert((e instanceof HTMLElement) || (e instanceof Element), 'Element array contains invalid element(s). Each element must be an instance of HTMLElement or VARS Element.')) return null;
-
-                if (e instanceof Element)
-                {
-                    elements[i] = e.element;
-                }
-            }
-
-            return elements;
-        }
-
-        return toElementArray;
-    }
-);
-
-/**
- * vars
- * (c) VARIANTE (http://variante.io)
- *
- * This software is released under the MIT License:
- * http://www.opensource.org/licenses/mit-license.php
- *
- * @type {Function}
- */
-define
-(
-    'ui/changeElementState',[
-        'ui/getElementState',
-        'ui/toElementArray',
-        'ui/Element',
-        'utils/assert',
-        'utils/sizeOf'
-    ],
-    function
-    (
-        getElementState,
-        toElementArray,
-        Element,
-        assert,
-        sizeOf
-    )
-    {
-        /**
-         * Changes the state of DOM element(s), assumes that state classes are prefixed
-         * with 'state-'.
-         *
-         * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
-         * @param  {String}       state
-         */
-        function changeElementState(element, state)
-        {
-            var elements = toElementArray(element);
-            var n = sizeOf(elements);
-
-            for (var i = 0; i < n; i++)
-            {
-                var e = elements[i];
-
-                if (getElementState(e) === state) continue;
-                e.className = e.className.replace(/(^|\s)state-\S+/g, '');
-                e.className = e.className + ((e.className === '') ? '' : ' ') + ('state-'+state);
-            }
-        }
-
-        return changeElementState;
-    }
-);
-
-/**
- * vars
- * (c) VARIANTE (http://variante.io)
- *
- * This software is released under the MIT License:
- * http://www.opensource.org/licenses/mit-license.php
- *
- * @type {Function}
- */
-define
-(
     'ui/getClassIndex',[
         'ui/Element',
         'utils/assert'
@@ -2422,7 +2359,89 @@ define
  */
 define
 (
-    'ui/elementHasClass',[
+    'ui/toElementArray',[
+        'ui/Element',
+        'utils/assert',
+        'utils/sizeOf'
+    ],
+    function
+    (
+        Element,
+        assert,
+        sizeOf
+    )
+    {
+        /**
+         * Transforms given element(s) to an element array.
+         *
+         * @param  {Object/Array} element
+         * @param  {Boolean}      keepElement
+         */
+        function toElementArray(element, keepElement)
+        {
+            if (!assert(element, 'Element is undefined or null.')) return null;
+
+            var elements;
+
+            if (element instanceof Array)
+            {
+                elements = element;
+            }
+            else if (element instanceof NodeList)
+            {
+                elements = Array.prototype.slice.call(element);
+            }
+            else if (element.jquery)
+            {
+                elements = element.get();
+            }
+            else
+            {
+                if (!assert((element instanceof HTMLElement) || (element instanceof Element), 'Invalid element specified. Element must be an instance of HTMLElement or VARS Element.')) return null;
+
+                if (element instanceof HTMLElement)
+                {
+                    elements = [element];
+                }
+                else if (element instanceof Element)
+                {
+                    elements = [element.element];
+                }
+            }
+
+            var n = sizeOf(elements);
+
+            for (var i = 0; i < n; i++)
+            {
+                var e = elements[i];
+
+                if (!assert((e instanceof HTMLElement) || (e instanceof Element), 'Element array contains invalid element(s). Each element must be an instance of HTMLElement or VARS Element.')) return null;
+
+                if (!keepElement && (e instanceof Element))
+                {
+                    elements[i] = e.element;
+                }
+            }
+
+            return elements;
+        }
+
+        return toElementArray;
+    }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
+ */
+define
+(
+    'ui/hasClass',[
         'ui/getClassIndex',
         'ui/toElementArray',
         'ui/Element',
@@ -2446,7 +2465,7 @@ define
          *
          * @return {Boolean} True if element(s) has given class, false otherwise.
          */
-        function elementHasClass(element, className)
+        function hasClass(element, className)
         {
             if (!assert(className && (typeof className === 'string'), 'Invalid class name: ' + className)) return false;
 
@@ -2462,7 +2481,202 @@ define
             return true;
         }
 
-        return elementHasClass;
+        return hasClass;
+    }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
+ */
+define
+(
+    'ui/addClass',[
+        'ui/hasClass',
+        'ui/toElementArray',
+        'utils/assert',
+        'utils/sizeOf'
+    ],
+    function
+    (
+        hasClass,
+        toElementArray,
+        assert,
+        sizeOf
+    )
+    {
+        /**
+         * Adds a class(es) to DOM element(s).
+         *
+         * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
+         * @param  {String/Array} className
+         */
+        function addClass(element, className)
+        {
+            var elements = toElementArray(element);
+            var classes = [];
+            var n = sizeOf(elements);
+
+            if (!assert((typeof className === 'string') || (className instanceof Array), 'Invalid class name specified. Must be either a string or an array of strings.')) return;
+
+            if (typeof className === 'string')
+            {
+                classes.push(className);
+            }
+            else
+            {
+                classes = className;
+            }
+
+            var nClasses = sizeOf(classes);
+
+            for (var i = 0; i < n; i++)
+            {
+                var e = elements[i];
+
+                for (var j = 0; j < nClasses; j++)
+                {
+                    var c = classes[j];
+
+                    if (!assert(typeof c === 'string', 'Invalid class detected: ' + c)) continue;
+                    if (hasClass(e, c)) continue;
+
+                    e.className = e.className + ((e.className === '') ? '' : ' ') + c;
+                }
+            }
+        }
+
+        return addClass;
+    }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
+ */
+define
+(
+    'ui/getElementState',[
+        'ui/Directives',
+        'ui/Element',
+        'utils/assert',
+        'utils/sizeOf'
+    ],
+    function
+    (
+        Directives,
+        Element,
+        assert,
+        sizeOf
+    )
+    {
+        /**
+         * Gets the state of a DOM element, assumes that state classes are prefixed with 'state-'.
+         *
+         * @param  {Object} element HTMLElement, VARS Element, or jQuery object.
+         *
+         * @return {String} State of the given element ('state-' prefix is omitted).
+         */
+        function getElementState(element)
+        {
+            if (!assert((element) && ((element instanceof HTMLElement) || (element instanceof Element) || (element.jquery)), 'Invalid element specified.')) return null;
+
+            if (element.jquery) element = element.get(0);
+
+            var s;
+
+            if (element instanceof Element)
+            {
+                s = element.state;
+            }
+            else
+            {
+                s = element.getAttribute(Directives.State) || element.getAttribute('data-'+Directives.State);
+            }
+
+            if (!s || s === '')
+            {
+                return null;
+            }
+            else
+            {
+                return s;
+            }
+        }
+
+        return getElementState;
+    }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
+ */
+define
+(
+    'ui/changeElementState',[
+        'ui/Directives',
+        'ui/getElementState',
+        'ui/toElementArray',
+        'ui/Element',
+        'utils/assert',
+        'utils/sizeOf'
+    ],
+    function
+    (
+        Directives,
+        getElementState,
+        toElementArray,
+        Element,
+        assert,
+        sizeOf
+    )
+    {
+        /**
+         * Changes the state of DOM element(s), assumes that state classes are prefixed
+         * with 'state-'.
+         *
+         * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
+         * @param  {String}       state
+         */
+        function changeElementState(element, state)
+        {
+            var elements = toElementArray(element, true);
+            var n = sizeOf(elements);
+
+            for (var i = 0; i < n; i++)
+            {
+                var e = elements[i];
+
+                if (getElementState(e) === state) continue;
+
+                if (e instanceof Element)
+                {
+                    e.state = state;
+                }
+                else
+                {
+                    e.setAttribute('data-'+Directives.State, state);
+                }
+            }
+        }
+
+        return changeElementState;
     }
 );
 
@@ -3477,6 +3691,74 @@ define
  */
 define
 (
+    'ui/removeClass',[
+        'ui/toElementArray',
+        'utils/assert',
+        'utils/sizeOf'
+    ],
+    function
+    (
+        toElementArray,
+        assert,
+        sizeOf
+    )
+    {
+        /**
+         * Removes a class(es) from DOM element(s).
+         *
+         * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
+         * @param  {String/Array} className
+         */
+        function removeClass(element, className)
+        {
+            var elements = toElementArray(element);
+            var classes = [];
+            var n = sizeOf(elements);
+
+            if (!assert((typeof className === 'string') || (className instanceof Array), 'Invalid class name specified. Must be either a string or an array of strings.')) return;
+
+            if (typeof className === 'string')
+            {
+                classes.push(className);
+            }
+            else
+            {
+                classes = className;
+            }
+
+            var nClasses = sizeOf(classes);
+
+            for (var i = 0; i < n; i++)
+            {
+                var e = elements[i];
+
+                for (var j = 0; j < nClasses; j++)
+                {
+                    var c = classes[j];
+
+                    if (!assert(typeof c === 'string', 'Invalid class detected: ' + c)) continue;
+
+                    var regex = new RegExp('^'+c+'\\s+|\\s+'+c, 'g');
+                    e.className = e.className.replace(regex, '');
+                }
+            }
+        }
+
+        return removeClass;
+    }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
+ */
+define
+(
     'ui/transform',[
         'ui/toElementArray',
         'utils/assert',
@@ -3844,17 +4126,19 @@ define
 define
 (
     'ui',[
+        'ui/addClass',
         'ui/changeElementState',
-        'ui/elementHasClass',
         'ui/getClassIndex',
         'ui/getChildElements',
         'ui/getElementState',
         'ui/getIntersectRect',
         'ui/getRect',
         'ui/getViewportRect',
+        'ui/hasClass',
         'ui/hitTestElement',
         'ui/hitTestRect',
         'ui/initDOM',
+        'ui/removeClass',
         'ui/toElementArray',
         'ui/transform',
         'ui/translate',
@@ -3866,17 +4150,19 @@ define
     ],
     function
     (
+        addClass,
         changeElementState,
-        elementHasClass,
         getClassIndex,
         getChildElements,
         getElementState,
         getIntersectRect,
         getRect,
         getViewportRect,
+        hasClass,
         hitTestElement,
         hitTestRect,
         initDOM,
+        removeClass,
         toElementArray,
         transform,
         translate,
@@ -3889,8 +4175,9 @@ define
     {
         var api = function(obj) { return obj; };
 
+        Object.defineProperty(api, 'addClass', { value: addClass, writable: false, enumerable: true });
         Object.defineProperty(api, 'changeElementState', { value: changeElementState, writable: false, enumerable: true });
-        Object.defineProperty(api, 'elementHasClass', { value: elementHasClass, writable: false, enumerable: true });
+        Object.defineProperty(api, 'hasClass', { value: hasClass, writable: false, enumerable: true });
         Object.defineProperty(api, 'getClassIndex', { value: getClassIndex, writable: false, enumerable: true });
         Object.defineProperty(api, 'getChildElements', { value: getChildElements, writable: false, enumerable: true });
         Object.defineProperty(api, 'getElementState', { value: getElementState, writable: false, enumerable: true });
@@ -3900,6 +4187,7 @@ define
         Object.defineProperty(api, 'hitTestElement', { value: hitTestElement, writable: false, enumerable: true });
         Object.defineProperty(api, 'hitTestRect', { value: hitTestRect, writable: false, enumerable: true });
         Object.defineProperty(api, 'initDOM', { value: initDOM, writable: false, enumerable: true });
+        Object.defineProperty(api, 'removeClass', { value: removeClass, writable: false, enumerable: true });
         Object.defineProperty(api, 'toElementArray', { value: toElementArray, writable: false, enumerable: true });
         Object.defineProperty(api, 'translate', { value: translate, writable: false, enumerable: true });
         Object.defineProperty(api, 'translate3d', { value: translate3d, writable: false, enumerable: true });
@@ -4307,7 +4595,7 @@ define
             xhr.addEventListener('abort', this._onXHRAbort.bind(this), false);
 
             xhr.open('GET', data.path, this.async);
-            xhr.overrideMimeType(mimeType);
+            if (xhr.overrideMimeType) xhr.overrideMimeType(mimeType);
             xhr.data = data;
 
             return xhr;

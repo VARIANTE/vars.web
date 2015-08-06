@@ -313,7 +313,7 @@ define
             xhr.addEventListener('abort', this._onXHRAbort.bind(this), false);
 
             xhr.open('GET', data.path, this.async);
-            xhr.overrideMimeType(mimeType);
+            if (xhr.overrideMimeType) xhr.overrideMimeType(mimeType);
             xhr.data = data;
 
             return xhr;

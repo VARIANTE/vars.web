@@ -4,7 +4,7 @@
 {
     'use strict';
 
-    // vars.debug = true;
+    vars.debug = true;
 
     vars.namespace('test.controllers').A = (function()
     {
@@ -19,16 +19,9 @@
             this.updateDelegate.refreshRate = 10.0;
             this.updateDelegate.transmissive = vars.DirtyType.POSITION;
 
-            console.log('I am', this.toString());
-
             document.addEventListener(vars.EventType.MOUSE.CLICK, function(event)
             {
-                vars.debug = true;
-                var vector = { x: event.clientX, y: event.clientY };
-                var hitTest = vars.hitTestElement(vector, this.children.cs1, this.children.cs[0], this.children.cs[1]);
-                console.log(hitTest);
-
-
+                console.log(this.addClass('f'));
             }.bind(this));
 
             A.__super__.init.call(this);

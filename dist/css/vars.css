@@ -550,15 +550,6 @@ textarea {
  * @param  {Boolean} $h     Specifies whether to fit the height.
  */
 /**
- * Sets the background-size and background-position of a target element
- * which is using an image map to the corresponding item in the map.
- *
- * @param  {Number} $row-index 0-based index of the row of the target item.
- * @param  {Number} $col-index 0-based index of the column of the target item.
- * @param  {Number} $num-rows  Total number of rows in the image map.
- * @param  {Number} $num-cols  Total number of columns in the image map.
- */
-/**
  *  vars
  *  (c) VARIANTE (http://variante.io)
  *
@@ -566,11 +557,20 @@ textarea {
  *  http://www.opensource.org/licenses/mit-license.php
  */
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * Selector for elements with the vs-controller attribute.
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * @param  {String} $name vs-controller attribute value.
+ */
+/**
+ * Selector for elements with the vs-instance attribute.
+ *
+ * @param  {String} $name vs-instance attribute value.
+ */
+/**
+ * Selects elements with the specified vs-property key and value.
+ * 
+ * @param  {String} $key        vs-property key.
+ * @param  {String} $value      vs-property value, if applicable.
  */
 /**
  * Binds the content to one/multiple class/classes prefixed with 'state-' of
@@ -578,6 +578,50 @@ textarea {
  *
  * @param  {List}    $states    List of state names.
  * @param  {Boolean} $default   Specifies whether the class(es) are default.
+ */
+/**
+ *  vars
+ *  (c) VARIANTE (http://variante.io)
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+/**
+ * Binds the content to the target selector based on the 'csstransitions' feature
+ * (requires Modernizr).
+ *
+ * @param  {Boolean} $enabled   Specifies whether 'csstransitions' class is required.
+ */
+/**
+ * Binds the content to the target selector based on the 'cssanimations' feature
+ * (requires Modernizr).
+ *
+ * @param  {Boolean} $enabled   Specifies whether 'cssanimations' class is required.
+ */
+/**
+ * Binds the content to the target selector based on the 'touch' and 'no-touch' feature
+ * (requires Modernizr).
+ *
+ * @param  {Boolean} $enabled   Specifies whether 'touch' class is required.
+ * @param  {Boolean} $exclusive Specifies whether 'no-touch' class is required if
+ *                              $enabled is false.
+ */
+/**
+ * Enables hardware acceleration for containing selector.
+ */
+/**
+ *  vars
+ *  (c) VARIANTE (http://variante.io)
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+/**
+ *  vars
+ *  (c) VARIANTE (http://variante.io)
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
  */
 /**
  * Binds the content to the target selector based on the 'csstransitions' feature
@@ -644,41 +688,13 @@ textarea {
  *                                  instead applies content normally.
  */
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * Sets the background-size and background-position of a target element
+ * which is using an image map to the corresponding item in the map.
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
- */
-/**
- * Binds the content to one/multiple class/classes prefixed with 'state-' of
- * the target selector. Option to specify whether the class(es) are default.
- *
- * @param  {List}    $states    List of state names.
- * @param  {Boolean} $default   Specifies whether the class(es) are default.
- */
-/**
- * Binds the content to the target selector based on the 'csstransitions' feature
- * (requires Modernizr).
- *
- * @param  {Boolean} $enabled   Specifies whether 'csstransitions' class is required.
- */
-/**
- * Binds the content to the target selector based on the 'cssanimations' feature
- * (requires Modernizr).
- *
- * @param  {Boolean} $enabled   Specifies whether 'cssanimations' class is required.
- */
-/**
- * Binds the content to the target selector based on the 'touch' and 'no-touch' feature
- * (requires Modernizr).
- *
- * @param  {Boolean} $enabled   Specifies whether 'touch' class is required.
- * @param  {Boolean} $exclusive Specifies whether 'no-touch' class is required if
- *                              $enabled is false.
- */
-/**
- * Enables hardware acceleration for containing selector.
+ * @param  {Number} $row-index 0-based index of the row of the target item.
+ * @param  {Number} $col-index 0-based index of the column of the target item.
+ * @param  {Number} $num-rows  Total number of rows in the image map.
+ * @param  {Number} $num-cols  Total number of columns in the image map.
  */
 
 /*# sourceMappingURL=vars.css.map */

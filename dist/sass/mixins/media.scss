@@ -6,7 +6,7 @@
  *  http://www.opensource.org/licenses/mit-license.php
  */
 
-@import './states';
+@import './features';
 
 /**
  * Media query for screens in portrait orientation.
@@ -110,6 +110,63 @@
             @else
             {
                 @media screen and (min-#{$measurement}: $min-threshold) { @include touch($touch, false) { @content; } }
+            }
+        }
+    }
+}
+
+/**
+ * Sets the background-size and background-position of a target element
+ * which is using an image map to the corresponding item in the map.
+ *
+ * @param  {Number} $row-index 0-based index of the row of the target item.
+ * @param  {Number} $col-index 0-based index of the column of the target item.
+ * @param  {Number} $num-rows  Total number of rows in the image map.
+ * @param  {Number} $num-cols  Total number of columns in the image map.
+ */
+@mixin image-map-item($row-index, $col-index, $num-rows, $num-cols)
+{
+    $x: 0;
+    $y: 0;
+
+    @if $num-cols > 1 { $x: #{((100 / ($num-cols - 1)) * $col-index)}; }
+    @if $num-rows > 1 { $y: #{((100 / ($num-rows - 1)) * $row-index)}; }
+
+    background-size: #{$num-cols * 100}% #{$num-rows * 100}%;
+    background-position: #{$x}% #{$y}%;
+}
+
+@mixin image-map($path, $map)
+{
+    $max-rows: length($map);
+
+    background-image: url($path);
+
+    @if $max-rows > 0
+    {
+        @if type-of(nth($map, 1)) == list
+        {
+            $max-cols: length(nth($map, 1));
+
+            @for $i from 1 through $max-rows
+            {
+                $row: nth($map, $i);
+
+                @for $j from 1 through length(nth($map, $i))
+                {
+                  $col: nth($row, $j);
+
+                  &.#{$col} { @include image-map-item($i - 1, $j - 1, $max-rows, $max-cols); }
+                }
+            }
+        }
+        @else
+        {
+            @for $i from 1 through $max-rows
+            {
+                $col: nth($map, $i);
+
+                &.#{$col} { @include image-map-item(0, $i - 1, 1, $max-rows); }
             }
         }
     }

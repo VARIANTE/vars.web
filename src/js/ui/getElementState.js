@@ -10,12 +10,14 @@
 define
 (
     [
+        'ui/Directives',
         'ui/Element',
         'utils/assert',
         'utils/sizeOf'
     ],
     function
     (
+        Directives,
         Element,
         assert,
         sizeOf
@@ -32,21 +34,26 @@ define
         {
             if (!assert((element) && ((element instanceof HTMLElement) || (element instanceof Element) || (element.jquery)), 'Invalid element specified.')) return null;
 
-            if (element instanceof Element) element = element.element;
             if (element.jquery) element = element.get(0);
 
-            var s = element.className.match(/(^|\s)state-\S+/g);
-            var n = sizeOf(s);
+            var s;
 
-            if (!assert(n <= 1, 'Multiple states detected.')) return null;
+            if (element instanceof Element)
+            {
+                s = element.state;
+            }
+            else
+            {
+                s = element.getAttribute(Directives.State) || element.getAttribute('data-'+Directives.State);
+            }
 
-            if (n < 1)
+            if (!s || s === '')
             {
                 return null;
             }
             else
             {
-                return s[0].replace(/(^|\s)state-/, '');
+                return s;
             }
         }
 

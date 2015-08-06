@@ -33,7 +33,7 @@ define
          *
          * @return {Boolean} True if element(s) has given class, false otherwise.
          */
-        function elementHasClass(element, className)
+        function hasClass(element, className)
         {
             if (!assert(className && (typeof className === 'string'), 'Invalid class name: ' + className)) return false;
 
@@ -49,6 +49,6 @@ define
             return true;
         }
 
-        return elementHasClass;
+        return hasClass;
     }
 );

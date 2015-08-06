@@ -25,8 +25,9 @@ define
          * Transforms given element(s) to an element array.
          *
          * @param  {Object/Array} element
+         * @param  {Boolean}      keepElement
          */
-        function toElementArray(element)
+        function toElementArray(element, keepElement)
         {
             if (!assert(element, 'Element is undefined or null.')) return null;
 
@@ -66,7 +67,7 @@ define
 
                 if (!assert((e instanceof HTMLElement) || (e instanceof Element), 'Element array contains invalid element(s). Each element must be an instance of HTMLElement or VARS Element.')) return null;
 
-                if (e instanceof Element)
+                if (!keepElement && (e instanceof Element))
                 {
                     elements[i] = e.element;
                 }

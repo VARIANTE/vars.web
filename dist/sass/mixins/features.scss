@@ -7,52 +7,6 @@
  */
 
 /**
- * Binds the content to one/multiple class/classes prefixed with 'state-' of
- * the target selector. Option to specify whether the class(es) are default.
- *
- * @param  {List}    $states    List of state names.
- * @param  {Boolean} $default   Specifies whether the class(es) are default.
- */
-@mixin state($states, $default:false)
-{
-    @each $state in $states
-    {
-        @if $state == 'hover'
-        {
-            @if $modernizr-enabled == true
-            {
-                .no-touch &:hover
-                {
-                    @content;
-                }
-            }
-            @else
-            {
-                &:hover
-                {
-                    @content;
-                }
-            }
-        }
-        @else
-        {
-            &.state-#{$state}
-            {
-                @content;
-            }
-        }
-    }
-
-    @if $default == true
-    {
-        &
-        {
-            @content;
-        }
-    }
-}
-
-/**
  * Binds the content to the target selector based on the 'csstransitions' feature
  * (requires Modernizr).
  *

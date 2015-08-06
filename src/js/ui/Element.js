@@ -316,6 +316,87 @@ define
         };
 
         /**
+         * Adds class(es) to this Element instance.
+         *
+         * @param  {Stirng/Array} className
+         */
+        Element.prototype.addClass = function(className)
+        {
+            var classes = [];
+
+            if (!assert((typeof className === 'string') || (className instanceof Array), 'Invalid class name specified. Must be either a string or an array of strings.')) return;
+
+            if (typeof className === 'string')
+            {
+                classes.push(className);
+            }
+            else
+            {
+                classes = className;
+            }
+
+            var n = sizeOf(classes);
+
+            for (var i = 0; i < n; i++)
+            {
+                var c = classes[i];
+
+                if (!assert(typeof c === 'string', 'Invalid class detected: ' + c)) continue;
+                if (this.hasClass(c)) continue;
+
+                this.element.className = this.element.className + ((this.element.className === '') ? '' : ' ') + c;
+            }
+        };
+
+        /**
+         * Removes class(es) from this Element instance.
+         *
+         * @param  {Stirng/Array} className
+         */
+        Element.prototype.removeClass = function(className)
+        {
+            var classes = [];
+
+            if (!assert((typeof className === 'string') || (className instanceof Array), 'Invalid class name specified. Must be either a string or an array of strings.')) return;
+
+            if (typeof className === 'string')
+            {
+                classes.push(className);
+            }
+            else
+            {
+                classes = className;
+            }
+
+            var n = sizeOf(classes);
+
+            for (var i = 0; i < n; i++)
+            {
+                var c = classes[i];
+
+                if (!assert(typeof c === 'string', 'Invalid class detected: ' + c)) continue;
+
+                var regex = new RegExp('^'+c+'\\s+|\\s+'+c, 'g');
+                this.element.className = this.element.className.replace(regex, '');
+            }
+        };
+
+        /**
+         * Determines whether this Element instance has the specified
+         * class.
+         *
+         * @param  {String} className
+         *
+         * @return {Boolean}
+         */
+        Element.prototype.hasClass = function(className)
+        {
+            if (!assert(typeof className === 'string', 'Invalid class detected: ' + className)) return false;
+
+            return (this.class.indexOf(className) > -1);
+        };
+
+        /**
          * Creates the associated DOM element from scratch.
          *
          * @return {Element}
@@ -390,28 +471,33 @@ define
             /**
              * @property
              *
-             * Instance name of this Element instance.
+             * Instance name of this Element instance. Once set, it cannot be changed.
              *
              * @type {String}
              */
-            Object.defineProperty(this, 'name', { value: null, writable: true });
-
-            /**
-             * @property
-             *
-             * Class of this Element instance.
-             *
-             * @type {String}
-             */
-            Object.defineProperty(this, 'class',
+            Object.defineProperty(this, 'name',
             {
                 get: function()
                 {
-                    return this.element.className;
+                    var s = this.element.getAttribute(Directives.Instance) || this.element.getAttribute('data-'+Directives.Instance);
+
+                    if (!s || s === '')
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        return s;
+                    }
                 },
                 set: function(value)
                 {
-                    this.element.className = value;
+                    if (!value || value === '') return;
+
+                    if (!this.name)
+                    {
+                        this.element.setAttribute('data-'+Directives.Instance, value);
+                    }
                 }
             });
 
@@ -422,7 +508,7 @@ define
              *
              * @type {Array}
              */
-            Object.defineProperty(this, 'classList',
+            Object.defineProperty(this, 'class',
             {
                 get: function()
                 {
@@ -431,6 +517,46 @@ define
                 set: function(value)
                 {
                     this.element.className = value.join(' ');
+                }
+            });
+
+            /**
+             * @property
+             *
+             * State of this Element instance (depicted by Directives.State).
+             *
+             * @type {String}
+             */
+            Object.defineProperty(this, 'state',
+            {
+                get: function()
+                {
+                    var s = this.element.getAttribute(Directives.State) || this.element.getAttribute('data-'+Directives.State);
+
+                    if (!s || s === '')
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        return s;
+                    }
+                },
+                set: function(value)
+                {
+                    if (this.state === value) return;
+
+                    if (value === null || value === undefined)
+                    {
+                        this.element.removeAttribute(Directives.State);
+                        this.element.removeAttribute('data-'+Directives.State);
+                    }
+                    else
+                    {
+                        this.element.setAttribute('data-'+Directives.State, value);
+                    }
+
+                    this.updateDelegate.setDirty(DirtyType.STATE);
                 }
             });
 

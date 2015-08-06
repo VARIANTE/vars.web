@@ -355,18 +355,3 @@
         height: 100%;
     }
 }
-
-/**
- * Sets the background-size and background-position of a target element
- * which is using an image map to the corresponding item in the map.
- *
- * @param  {Number} $row-index 0-based index of the row of the target item.
- * @param  {Number} $col-index 0-based index of the column of the target item.
- * @param  {Number} $num-rows  Total number of rows in the image map.
- * @param  {Number} $num-cols  Total number of columns in the image map.
- */
-@mixin image-map-item($row-index, $col-index, $num-rows, $num-cols)
-{
-    background-size: #{$num-cols * 100}% #{$num-rows * 100}%;
-    background-position: #{((100 / ($num-cols - 1)) * $col-index)}% #{((100 / ($num-rows - 1)) * $row-index)}%;
-}
