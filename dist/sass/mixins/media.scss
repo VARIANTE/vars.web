@@ -152,40 +152,43 @@
  *
  * @note This mixin is quite slow in performance due to the nested loop.
  */
-@mixin image-map($path, $map)
+@mixin image-map($path:null, $map:null)
 {
-    $max-rows: length($map);
-
     @if $path != null
     {
         background-image: url($path);
     }
 
-    @if $max-rows > 0
+    @if $map != null
     {
-        @if type-of(nth($map, 1)) == list
+        $max-rows: length($map);
+
+        @if $max-rows > 0
         {
-            $max-cols: length(nth($map, 1));
-
-            @for $i from 1 through $max-rows
+            @if type-of(nth($map, 1)) == list
             {
-                $row: nth($map, $i);
+                $max-cols: length(nth($map, 1));
 
-                @for $j from 1 through length(nth($map, $i))
+                @for $i from 1 through $max-rows
                 {
-                  $col: nth($row, $j);
+                    $row: nth($map, $i);
 
-                  &.#{$col} { @include image-map-item(null, $i - 1, $j - 1, $max-rows, $max-cols); }
+                    @for $j from 1 through length(nth($map, $i))
+                    {
+                      $col: nth($row, $j);
+
+                      &.#{$col} { @include image-map-item(null, $i - 1, $j - 1, $max-rows, $max-cols); }
+                    }
                 }
             }
-        }
-        @else
-        {
-            @for $i from 1 through $max-rows
+            @else
             {
-                $col: nth($map, $i);
+                @for $i from 1 through $max-rows
+                {
+                    $col: nth($map, $i);
 
-                &.#{$col} { @include image-map-item(null, 0, $i - 1, 1, $max-rows); }
+                    &.#{$col} { @include image-map-item(null, 0, $i - 1, 1, $max-rows); }
+                }
             }
         }
     }
