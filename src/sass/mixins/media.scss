@@ -119,12 +119,13 @@
  * Sets the background-size and background-position of a target element
  * which is using an image map to the corresponding item in the map.
  *
+ * @param  {String} $path      Path of sprite map.
  * @param  {Number} $col-index 0-based index of the column of the target item.
  * @param  {Number} $row-index 0-based index of the row of the target item.
  * @param  {Number} $num-cols  Total number of columns in the image map.
  * @param  {Number} $num-rows  Total number of rows in the image map.
  */
-@mixin image-map-item($path:null, $col-index, $row-index, $num-cols, $num-rows)
+@mixin image-map-item($path, $col-index, $row-index, $num-cols, $num-rows)
 {
     @if $path != null
     {
@@ -155,7 +156,10 @@
 {
     $max-rows: length($map);
 
-    background-image: url($path);
+    @if $path != null
+    {
+        background-image: url($path);
+    }
 
     @if $max-rows > 0
     {
