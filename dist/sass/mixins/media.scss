@@ -120,12 +120,12 @@
  * which is using an image map to the corresponding item in the map.
  *
  * @param  {String} $path      Path of sprite map.
- * @param  {Number} $col-index 0-based index of the column of the target item.
  * @param  {Number} $row-index 0-based index of the row of the target item.
- * @param  {Number} $num-cols  Total number of columns in the image map.
+ * @param  {Number} $col-index 0-based index of the column of the target item.
  * @param  {Number} $num-rows  Total number of rows in the image map.
+ * @param  {Number} $num-cols  Total number of columns in the image map.
  */
-@mixin image-map-item($path, $col-index, $row-index, $num-cols, $num-rows)
+@mixin image-map-item($path, $row-index, $col-index, $num-rows, $num-cols)
 {
     @if $path != null
     {
@@ -175,7 +175,7 @@
                 {
                   $col: nth($row, $j);
 
-                  &.#{$col} { @include image-map-item(null, $j - 1, $i - 1, $max-cols, $max-rows); }
+                  &.#{$col} { @include image-map-item(null, $i - 1, $j - 1, $max-rows, $max-cols); }
                 }
             }
         }
@@ -185,7 +185,7 @@
             {
                 $col: nth($map, $i);
 
-                &.#{$col} { @include image-map-item(null, $i - 1, 0, $max-rows, 1); }
+                &.#{$col} { @include image-map-item(null, 0, $i - 1, 1, $max-rows); }
             }
         }
     }

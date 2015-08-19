@@ -692,10 +692,10 @@ textarea {
  * which is using an image map to the corresponding item in the map.
  *
  * @param  {String} $path      Path of sprite map.
- * @param  {Number} $col-index 0-based index of the column of the target item.
  * @param  {Number} $row-index 0-based index of the row of the target item.
- * @param  {Number} $num-cols  Total number of columns in the image map.
+ * @param  {Number} $col-index 0-based index of the column of the target item.
  * @param  {Number} $num-rows  Total number of rows in the image map.
+ * @param  {Number} $num-cols  Total number of columns in the image map.
  */
 /**
  * Auto generates a list of class names of the target selector, where each
