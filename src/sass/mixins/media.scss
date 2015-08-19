@@ -171,7 +171,7 @@
                 {
                   $col: nth($row, $j);
 
-                  &.#{$col} { @include image-map-item($j - 1, $i - 1, $max-cols, $max-rows); }
+                  &.#{$col} { @include image-map-item(null, $j - 1, $i - 1, $max-cols, $max-rows); }
                 }
             }
         }
@@ -181,7 +181,7 @@
             {
                 $col: nth($map, $i);
 
-                &.#{$col} { @include image-map-item($i - 1, 0, $max-rows, 1); }
+                &.#{$col} { @include image-map-item(null, $i - 1, 0, $max-rows, 1); }
             }
         }
     }
