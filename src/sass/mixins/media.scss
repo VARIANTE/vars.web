@@ -119,13 +119,18 @@
  * Sets the background-size and background-position of a target element
  * which is using an image map to the corresponding item in the map.
  *
- * @param  {Number} $row-index 0-based index of the row of the target item.
  * @param  {Number} $col-index 0-based index of the column of the target item.
- * @param  {Number} $num-rows  Total number of rows in the image map.
+ * @param  {Number} $row-index 0-based index of the row of the target item.
  * @param  {Number} $num-cols  Total number of columns in the image map.
+ * @param  {Number} $num-rows  Total number of rows in the image map.
  */
-@mixin image-map-item($row-index, $col-index, $num-rows, $num-cols)
+@mixin image-map-item($path:null, $col-index, $row-index, $num-cols, $num-rows)
 {
+    @if $path != null
+    {
+        background-image: url($path);
+    }
+
     $x: 0;
     $y: 0;
 
@@ -136,6 +141,16 @@
     background-position: #{$x}% #{$y}%;
 }
 
+/**
+ * Auto generates a list of class names of the target selector, where each
+ * class represents a sprite as provided by the sprite map.
+ *
+ * @param  {String} $path Path of sprite map.
+ * @param  {List}   $map  List (1D or 2D) of class names. The position of each list item
+ *                        directly corresponds to the sprite position on the sprite map.
+ *
+ * @note This mixin is quite slow in performance due to the nested loop.
+ */
 @mixin image-map($path, $map)
 {
     $max-rows: length($map);
@@ -156,7 +171,7 @@
                 {
                   $col: nth($row, $j);
 
-                  &.#{$col} { @include image-map-item($i - 1, $j - 1, $max-rows, $max-cols); }
+                  &.#{$col} { @include image-map-item($j - 1, $i - 1, $max-cols, $max-rows); }
                 }
             }
         }
@@ -166,7 +181,7 @@
             {
                 $col: nth($map, $i);
 
-                &.#{$col} { @include image-map-item(0, $i - 1, 1, $max-rows); }
+                &.#{$col} { @include image-map-item($i - 1, 0, $max-rows, 1); }
             }
         }
     }
