@@ -31,20 +31,38 @@
 /**
  * Selects elements with the specified vs-property key and value.
  *
- * @param  {String} $key        vs-property key.
- * @param  {String} $value      vs-property value, if applicable.
+ * @param  {String}  $key       vs-property key.
+ * @param  {String}  $value     vs-property value, if applicable.
+ * @param  {Boolean} $descent   Specifies whether the target selector is a child of
+ *                              another selector with said property.
  */
-@mixin property($key, $value:null)
+@mixin property($key, $value:null, $descent:false)
 {
     @if $value == null
     {
-        &[data-vs-property-#{$key}] { @content; }
-        &[vs-property-#{key}] { @content; }
+        @if $descent == false
+        {
+            &[data-vs-property-#{$key}] { @content; }
+            &[vs-property-#{key}] { @content; }
+        }
+        @else
+        {
+            [data-vs-property-#{$key}] & { @content; }
+            [vs-property-#{key}] & { @content; }
+        }
     }
     @else
     {
-        &[data-vs-property-#{$key}='#{$value}'] { @content; }
-        &[vs-property-#{key}='#{value}'] { @content; }
+        @if $descent == false
+        {
+            &[data-vs-property-#{$key}='#{$value}'] { @content; }
+            &[vs-property-#{key}='#{value}'] { @content; }
+        }
+        @else
+        {
+            [data-vs-property-#{$key}='#{$value}'] & { @content; }
+            [vs-property-#{key}='#{value}'] & { @content; }
+        }
     }
 }
 

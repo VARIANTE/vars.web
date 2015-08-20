@@ -569,8 +569,10 @@ textarea {
 /**
  * Selects elements with the specified vs-property key and value.
  *
- * @param  {String} $key        vs-property key.
- * @param  {String} $value      vs-property value, if applicable.
+ * @param  {String}  $key       vs-property key.
+ * @param  {String}  $value     vs-property value, if applicable.
+ * @param  {Boolean} $descent   Specifies whether the target selector is a child of
+ *                              another selector with said property.
  */
 /**
  * Binds the content to one/multiple vs-states of the target selector.
