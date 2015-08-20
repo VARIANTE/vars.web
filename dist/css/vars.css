@@ -568,15 +568,22 @@ textarea {
  */
 /**
  * Selects elements with the specified vs-property key and value.
- * 
+ *
  * @param  {String} $key        vs-property key.
  * @param  {String} $value      vs-property value, if applicable.
  */
 /**
- * Binds the content to one/multiple class/classes prefixed with 'state-' of
- * the target selector. Option to specify whether the class(es) are default.
+ * Binds the content to one/multiple vs-states of the target selector.
+ * Option to specify whether the state(s) are default.
  *
  * @param  {List}    $states    List of state names.
+ * @param  {Boolean} $default   Specifies whether the class(es) are default.
+ */
+/**
+ * Binds the content to a vs-style of the target selector.
+ * Option to specify whether the style is default.
+ *
+ * @param  {String}  $style     Style name.
  * @param  {Boolean} $default   Specifies whether the class(es) are default.
  */
 /**
