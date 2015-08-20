@@ -31,37 +31,57 @@
 /**
  * Selects elements with the specified vs-property key and value.
  *
- * @param  {String}  $key       vs-property key.
- * @param  {String}  $value     vs-property value, if applicable.
- * @param  {Boolean} $descent   Specifies whether the target selector is a child of
- *                              another selector with said property.
+ * @param  {String} $key    vs-property key.
+ * @param  {String} $value  vs-property value, if applicable.
+ * @param  {String} $scope  Specifies whether the scope relative to the target selector
+ *                          in which this property applies to (any, this, parent, or child).
  */
-@mixin property($key, $value:null, $descent:false)
+@mixin property($key, $value:null, $scope:'this')
 {
     @if $value == null
     {
-        @if $descent == false
+        @if $scope == 'any'
+        {
+            @at-root [data-vs-property-#{$key}] { @content; }
+            @at-root [vs-property-#{key}] { @content; }
+        }
+        @else if $scope == 'this'
         {
             &[data-vs-property-#{$key}] { @content; }
             &[vs-property-#{key}] { @content; }
         }
-        @else
+        @else if $scope == 'parent'
         {
             [data-vs-property-#{$key}] & { @content; }
             [vs-property-#{key}] & { @content; }
         }
+        @else if $scope == 'child'
+        {
+            &[data-vs-property-#{$key}] * { @content; }
+            &[vs-property-#{key}] * { @content; }
+        }
     }
     @else
     {
-        @if $descent == false
+        @if $scope == 'any'
+        {
+            @at-root [data-vs-property-#{$key}='#{$value}'] { @content; }
+            @at-root [vs-property-#{key}='#{value}'] { @content; }
+        }
+        @else if $scope == 'this'
         {
             &[data-vs-property-#{$key}='#{$value}'] { @content; }
             &[vs-property-#{key}='#{value}'] { @content; }
         }
-        @else
+        @else if $scope == 'parent'
         {
             [data-vs-property-#{$key}='#{$value}'] & { @content; }
             [vs-property-#{key}='#{value}'] & { @content; }
+        }
+        @else if $scope == 'child'
+        {
+            &[data-vs-property-#{$key}='#{$value}'] * { @content; }
+            &[vs-property-#{key}='#{value}'] * { @content; }
         }
     }
 }
@@ -81,50 +101,21 @@
         {
             @if $modernizr-enabled == true
             {
-                .no-touch &:hover
-                {
-                    @content;
-                }
-
-                .no-touch &[data-vs-state='hover']
-                {
-                    @content;
-                }
-
-                .no-touch &[vs-state='hover']
-                {
-                    @content;
-                }
+                .no-touch &:hover { @content; }
+                .no-touch &[data-vs-state='hover'] { @content; }
+                .no-touch &[vs-state='hover'] { @content; }
             }
             @else
             {
-                &:hover
-                {
-                    @content;
-                }
-
-                &[data-vs-state='hover']
-                {
-                    @content;
-                }
-
-                &[vs-state='hover']
-                {
-                    @content;
-                }
+                &:hover { @content; }
+                &[data-vs-state='hover'] { @content; }
+                &[vs-state='hover'] { @content; }
             }
         }
         @else
         {
-            &[data-vs-state='#{$state}']
-            {
-                @content;
-            }
-
-            &[vs-state='#{$state}']
-            {
-                @content;
-            }
+            &[data-vs-state='#{$state}'] { @content; }
+            &[vs-state='#{$state}'] { @content; }
         }
     }
 
@@ -140,21 +131,52 @@
  *
  * @param  {String}  $style     Style name.
  * @param  {Boolean} $default   Specifies whether the class(es) are default.
+ * @param  {String}  $scope     Specifies whether the scope relative to the target selector
+ *                              in which this property applies to (any, this, parent, or child).
  */
-@mixin style($style, $default:false)
+@mixin style($style, $default:false, $scope:'this')
 {
-    &[data-vs-style='#{$style}']
+    @if $scope == 'any'
     {
-        @content;
-    }
+        @at-root [data-vs-style='#{$style}'] { @content; }
+        @at-root [vs-style='#{$style}'] { @content; }
 
-    &[vs-style='#{$style}']
-    {
-        @content;
+        @if $default == true
+        {
+            @at-root * { @content; }
+        }
     }
-
-    @if $default == true
+    @else if $scope == 'this'
     {
-        @content;
+        &[data-vs-style='#{$style}'] { @content; }
+        &[vs-style='#{$style}'] { @content; }
+
+        @if $default == true
+        {
+            @content;
+        }
+    }
+    @else if $scope == 'parent'
+    {
+        [data-vs-style='#{$style}'] & { @content; }
+        [vs-style='#{$style}'] & { @content; }
+
+        @if $default == true
+        {
+            @content;
+        }
+    }
+    @else if $scope == 'child'
+    {
+        &[data-vs-style='#{$style}'] * { @content; }
+        &[vs-style='#{$style}'] * { @content; }
+
+        @if $default == true
+        {
+            & *
+            {
+                @content;
+            }
+        }
     }
 }
