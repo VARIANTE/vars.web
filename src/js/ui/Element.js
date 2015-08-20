@@ -561,6 +561,46 @@ define
             });
 
             /**
+             * @property
+             *
+             * Style of this Element instance (depicted by Directives.Style).
+             *
+             * @type {String}
+             */
+            Object.defineProperty(this, 'style',
+            {
+                get: function()
+                {
+                    var s = this.element.getAttribute(Directives.Style) || this.element.getAttribute('data-'+Directives.Style);
+
+                    if (!s || s === '')
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        return s;
+                    }
+                },
+                set: function(value)
+                {
+                    if (this.style === value) return;
+
+                    if (value === null || value === undefined)
+                    {
+                        this.element.removeAttribute(Directives.Style);
+                        this.element.removeAttribute('data-'+Directives.Style);
+                    }
+                    else
+                    {
+                        this.element.setAttribute('data-'+Directives.Style, value);
+                    }
+
+                    this.updateDelegate.setDirty(DirtyType.STYLE);
+                }
+            });
+
+            /**
              * @property (read-only)
              *
              * Child elements.
