@@ -437,6 +437,8 @@ h6,
 a,
 button,
 input,
+label,
+textarea,
 span {
   margin: 0px;
   padding: 0px;
