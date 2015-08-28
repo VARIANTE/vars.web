@@ -1,0 +1,88 @@
+/**
+ *  vars
+ *  (c) VARIANTE (http://variante.io)
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+
+@mixin labels
+{
+    a      { @content; }
+    p      { @content; }
+    li     { @content; }
+    em     { @content; }
+    strong { @content; }
+    h1     { @content; }
+    h2     { @content; }
+    h3     { @content; }
+    h4     { @content; }
+    h5     { @content; }
+    h6     { @content; }
+    label  { @content; }
+    span   { @content; }
+}
+
+@mixin statics
+{
+    form { @content; }
+}
+
+@mixin buttons
+{
+    a[type='button']       { @content; }
+    input[type='submit']   { @content; }
+    input[type='button']   { @content; }
+    input[type='checkbox'] { @content; }
+    button                 { @content; }
+}
+
+@mixin textfields
+{
+    input[type='text']           { @content; }
+    input[type='password']       { @content; }
+    input[type='number']         { @content; }
+    input[type='date']           { @content; }
+    input[type='month']          { @content; }
+    input[type='week']           { @content; }
+    input[type='time']           { @content; }
+    input[type='datetime']       { @content; }
+    input[type='datetime-local'] { @content; }
+    input[type='email']          { @content; }
+    input[type='search']         { @content; }
+    input[type='tel']            { @content; }
+    input[type='url']            { @content; }
+    textarea                     { @content; }
+}
+
+@mixin boxes
+{
+    article    { @content; }
+    aside      { @content; }
+    details    { @content; }
+    dialog     { @content; }
+    summary    { @content; }
+    footer     { @content; }
+    header     { @content; }
+    main       { @content; }
+    figcaption { @content; }
+    figure     { @content; }
+    hgroup     { @content; }
+    nav        { @content; }
+    section    { @content; }
+    div        { @content; }
+    table      { @content; }
+    tr         { @content; }
+    td         { @content; }
+    th         { @content; }
+    tbody      { @content; }
+    thead      { @content; }
+    tfoot      { @content; }
+    col        { @content; }
+}
+
+@mixin lists
+{
+    ul { @content; }
+    ol { @content; }
+}

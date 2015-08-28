@@ -13,6 +13,7 @@ define
 (
     [
         'enums/DirtyType',
+        'enums/NodeState',
         'ui/Directives',
         'ui/ElementUpdateDelegate',
         'utils/assert',
@@ -23,6 +24,7 @@ define
     function
     (
         DirtyType,
+        NodeState,
         Directives,
         ElementUpdateDelegate,
         assert,
@@ -40,20 +42,28 @@ define
          */
         function Element(init)
         {
+            this._nodeState = NodeState.IDLE;
+
             // Define instance properties.
             this.__define_properties();
 
             // Set instance properties per init object.
             if (init)
             {
+                // If init object is an HTMLELement, simply assign it to the internal
+                // element.
                 if (init instanceof HTMLElement)
                 {
                     this.element = init;
                 }
+                // If init object is a VARS Element, assign its internal element to this
+                // internal element.
                 else if (init instanceof Element)
                 {
                     this.element = init.element;
                 }
+                // If init object is a regular hash object, assign each key/value pair
+                // to the corresponding property of this Element instance.
                 else if (typeof init === 'object')
                 {
                     for (var property in init)
@@ -106,6 +116,8 @@ define
         {
             log(this.toString()+'::init()');
 
+            this._nodeState = NodeState.INITIALIZED;
+
             this.updateDelegate.init();
         };
 
@@ -116,7 +128,15 @@ define
         {
             log(this.toString()+'::destroy()');
 
+            this.removeAllEventListeners();
             this.updateDelegate.destroy();
+
+            if (this.element.parentNode)
+            {
+                this.element.parentNode.removeChild(this.element);
+            }
+
+            this._nodeState = NodeState.DESTROYED;
         };
 
         /**
@@ -125,6 +145,8 @@ define
         Element.prototype.update = function()
         {
             log(this.toString()+'::update()');
+
+            this._nodeState = NodeState.UPDATED;
         };
 
         /**
@@ -162,12 +184,16 @@ define
         /**
          * Adds a child/children to this Element instance.
          *
-         * @param  {Object/Array} child
-         * @param  {Object}       The added child.
+         * @param  {Object/Array} child/children
+         * @param  {String}       The name of the child/children.
          */
         Element.prototype.addChild = function(child, name)
         {
-            if (child instanceof Array)
+            if (child.jquery)
+            {
+                this.addChild(child.get(), name);
+            }
+            else if (child instanceof Array)
             {
                 var n = sizeOf(child);
 
@@ -180,7 +206,12 @@ define
             }
             else
             {
-                if (!assert(child instanceof Element, 'Child must conform to VARS Element.')) return null;
+                if (!assert((child instanceof HTMLElement) || (child instanceof Element), 'Invalid child specified. Child must be an instance of HTMLElement or VARS Element.')) return;
+
+                if (child instanceof HTMLElement)
+                {
+                    child = new Element({ element: child, name: name });
+                }
 
                 name = name || child.name;
 
@@ -204,22 +235,77 @@ define
                     this.children[name] = child;
                     child.name = name;
                 }
+
+                if (child.nodeState === NodeState.IDLE || child.nodeState === NodeState.DESTROYED)
+                {
+                    child.init();
+                }
+
+                var shouldAddChild = true;
+
+                if (child.element.parentNode && document)
+                {
+                    var e = child.element;
+
+                    while (e !== null && e !== undefined && e !== document)
+                    {
+                        e = e.parentNode;
+
+                        if (e === this.element)
+                        {
+                            shouldAddChild = false;
+                            break;
+                        }
+                    }
+                }
+
+                if (shouldAddChild)
+                {
+                    this.element.appendChild(child.element);
+                }
             }
+        };
+
+        /**
+         * Determines if this Element instance contains the specified child.
+         *
+         * @param  {Object} child
+         *
+         * @return {Boolean} True if it does, false otherwise.
+         */
+        Element.prototype.hasChild = function(child)
+        {
+            if (!assert(child, 'Child is null.')) return false;
+            if (!assert(child instanceof Element, 'Child must be a VARS Element instance.')) return false;
+
+            var e = child.element;
+
+            while (e !== null && e !== undefined && e !== document)
+            {
+                e = e.parentNode;
+
+                if (e === this.element)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         };
 
         /**
          * Removes a child from this Element instance.
          *
          * @param  {Object} child
-         *
-         * @return {Object} The removed child.
          */
         Element.prototype.removeChild = function(child)
         {
-            if (!assert(child, 'Child is null.')) return null;
-            if (!assert(child instanceof Element, 'Child must conform to VARS Element.')) return null;
+            if (!assert(child, 'Child is null.')) return;
+            if (!assert(child instanceof Element, 'Child must conform to VARS Element.')) return;
 
             var key = keyOfValue(this.children, child);
+
+            child.destroy();
 
             if (key)
             {
@@ -246,8 +332,6 @@ define
          * Removes a child by its name.
          *
          * @param  {String} name
-         *
-         * @return {Object} The removed child.
          */
         Element.prototype.removeChildByName = function(name)
         {
@@ -304,7 +388,80 @@ define
          */
         Element.prototype.addEventListener = function()
         {
+            if (this.cachesListeners)
+            {
+                var event = arguments[0];
+                var listener = arguments[1];
+                var useCapture = arguments[2] || false;
+
+                if (!this._listenerMap)
+                {
+                    Object.defineProperty(this, '_listenerMap', { value: {}, writable: false });
+                }
+
+                if (!this._listenerMap[event])
+                {
+                    this._listenerMap[event] = [];
+                }
+
+                var m = this._listenerMap[event];
+                var n = sizeOf(m);
+                var b = true;
+
+                for (var i = 0; i < n; i++)
+                {
+                    var e = m[i];
+
+                    if (e.listener === listener)
+                    {
+                        b = false;
+                        break;
+                    }
+                }
+
+                if (b)
+                {
+                    m.push({ listener: listener, useCapture: useCapture });
+                }
+            }
+
             return this.element.addEventListener.apply(this.element, arguments);
+        };
+
+        /**
+         * Determines if a particular listener (or any listener in the specified
+         * event) exist in this Element instance. For this to work this Element
+         * must be configured to have 'cachesListeners' property enabled when event
+         * listeners were being added.
+         *
+         * @param  {String}   event    Event name.
+         * @param  {Function} listener Listener function.
+         *
+         * @return {Boolean}
+         */
+        Element.prototype.hasEventListener = function(event, listener)
+        {
+            if (!this._listenerMap) return false;
+            if (!this._listenerMap[event]) return false;
+
+            if (listener)
+            {
+                var m = this._listenerMap[event];
+                var n = sizeOf(m);
+
+                for (var i = 0; i < n; i++)
+                {
+                    var e = m[i];
+
+                    if (e.listener === listener) return true;
+                }
+
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         };
 
         /**
@@ -312,7 +469,67 @@ define
          */
         Element.prototype.removeEventListener = function()
         {
-            return this.element.removeEventListener.apply(this.element, arguments);
+            if (this._listenerMap)
+            {
+                var event = arguments[0];
+                var listener = arguments[1];
+                var useCapture = arguments[2] || false;
+
+                var m = this._listenerMap[event];
+                var n = sizeOf(m);
+                var s = -1;
+
+                if (listener)
+                {
+                    for (i = 0; i < n; i++)
+                    {
+                        var e = m[i];
+
+                        if (e.listener === listener)
+                        {
+                            s = i;
+                            break;
+                        }
+                    }
+
+                    if (s > -1)
+                    {
+                        m.splice(s, 1);
+
+                        if (sizeOf(m) === 0)
+                        {
+                            this._listenerMap[event] = null;
+                            delete this._listenerMap[event];
+                        }
+                    }
+                }
+                else
+                {
+                    while (this._listenerMap[event] !== undefined)
+                    {
+                        this.removeEventListener(event, this._listenerMap[event][0].listener, this._listenerMap[event][0].useCapture);
+                    }
+                }
+            }
+
+            if (arguments[1])
+            {
+                return this.element.removeEventListener.apply(this.element, arguments);
+            }
+        };
+
+        /**
+         * Removes all cached event listeners from this Element instance.
+         */
+        Element.prototype.removeAllEventListeners = function()
+        {
+            if (this._listenerMap)
+            {
+                for (var event in this._listenerMap)
+                {
+                    this.removeEventListener(event);
+                }
+            }
         };
 
         /**
@@ -404,6 +621,22 @@ define
         Element.prototype.factory = function()
         {
             return document.createElement('div');
+        };
+
+        /**
+         * @see ElementUpdateDelegate#isDirty
+         */
+        Element.prototype.isDirty = function()
+        {
+            return this.updateDelegate.isDirty.apply(this.updateDelegate, arguments);
+        };
+
+        /**
+         * @see ElementUpdateDelegate#setDirty
+         */
+        Element.prototype.setDirty = function()
+        {
+            return this.updateDelegate.setDirty.apply(this.updateDelegate, arguments);
         };
 
         /**
@@ -517,6 +750,21 @@ define
                 set: function(value)
                 {
                     this.element.className = value.join(' ');
+                }
+            });
+
+            /**
+             * @property
+             *
+             * Current node state of this Element instance.
+             *
+             * @type {Enum}
+             */
+            Object.defineProperty(this, 'nodeState',
+            {
+                get: function()
+                {
+                    return this._nodeState || NodeState.IDLE;
                 }
             });
 
@@ -649,6 +897,16 @@ define
                     return this._updateDelegate;
                 }
             });
+
+            /**
+             * @property
+             *
+             * Specifies whether this Element instance remembers caches every listener that
+             * is added to it (via the addEventListener/removeEventListener method).
+             *
+             * @type {Boolean}
+             */
+            Object.defineProperty(this, 'cachesListeners', { value: true, writable: true });
         };
 
         /**

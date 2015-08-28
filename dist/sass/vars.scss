@@ -8,10 +8,11 @@
 
 $modernizr-enabled: false !default;
 
-@import './normalize';
-@import './reset';
+@import 'normalize';
+@import 'reset';
 
-@import './mixins/alignments';
-@import './mixins/attributes';
-@import './mixins/features';
-@import './mixins/media';
+@import 'mixins/selectors';
+@import 'mixins/alignments';
+@import 'mixins/attributes';
+@import 'mixins/features';
+@import 'mixins/media';

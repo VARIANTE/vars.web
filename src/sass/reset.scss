@@ -6,111 +6,44 @@
  *  http://www.opensource.org/licenses/mit-license.php
  */
 
+@import './mixins/selectors';
+
 $font-size-reset: 16px !default;
 $font-size-scale: 100% !default;
 
 html
 {
-    margin: 0px;
-    padding: 0px;
+    @extend %box-reset;
+
+    width: 100%;
+    height: 100%;
     font-size: $font-size-reset;
 }
 
 body
 {
-    margin: 0px;
-    padding: 0px;
+    @extend %box-reset;
+
+    width: 100%;
+    height: 100%;
     font-size: $font-size-scale;
 }
 
-article,
-aside,
-details,
-dialog,
-summary,
-footer,
-header,
-main,
-figcaption,
-figure,
-hgroup,
-nav,
-section,
-div,
-table,
-tr,
-td,
-th,
-tbody,
-thead,
-tfoot,
-col,
-form,
-button,
+@include boxes
 {
-    margin: 0px;
-    padding: 0px;
-    outline: none;
-    border: none;
-    box-sizing: border-box;
-}
+    @extend %box-reset;
+    @extend %text-reset;
 
-article,
-aside,
-details,
-dialog,
-figcaption,
-figure,
-main,
-summary,
-footer,
-header,
-hgroup,
-nav,
-section,
-img,
-div
-{
-    vertical-align: top;
     display: block;
+    position: relative;
 }
 
-ul,
-ol,
-li,
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-a,
-button,
-input,
-label,
-textarea,
-span
+@include buttons
 {
-    margin: 0px;
-    padding: 0px;
-    font-weight: normal;
-    text-decoration: none;
-    line-height: normal;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-    -webkit-font-smoothing: antialiased;
-    -webkit-text-stroke: 0px;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-    text-size-adjust: 100%;
-}
+    @extend %box-reset;
+    @extend %text-reset;
 
-button
-{
-    &:hover
-    {
-        cursor: pointer;
-    }
+    cursor: pointer;
 
     &:disabled
     {
@@ -118,9 +51,23 @@ button
     }
 }
 
-input,
-textarea
+@include labels
 {
+    @extend %box-reset;
+    @extend %text-reset;
+}
+
+@include lists
+{
+    @extend %box-reset;
+    @extend %text-reset;
+}
+
+@include textfields
+{
+    @extend %box-reset;
+    @extend %text-reset;
+
     resize: none;
 
     &:focus
@@ -132,9 +79,34 @@ textarea
     {
       box-shadow: 0 0 0px 1000px white inset;
     }
+}
 
-    &[type='checkbox']
-    {
-        cursor: pointer;
-    }
+@include statics
+{
+    @extend %box-reset;
+    @extend %text-reset;
+
+    position: static;
+}
+
+%box-reset
+{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+}
+
+%text-reset
+{
+    font-weight: normal;
+    text-decoration: none;
+    line-height: normal;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke: 0px;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    text-size-adjust: 100%;
 }

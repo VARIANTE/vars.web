@@ -33,7 +33,7 @@
  *
  * @param  {String} $key    vs-property key.
  * @param  {String} $value  vs-property value, if applicable.
- * @param  {String} $scope  Specifies whether the scope relative to the target selector
+ * @param  {String} $scope  Specifies the scope relative to the target selector
  *                          in which this property applies to (any, this, parent, or child).
  */
 @mixin property($key, $value:null, $scope:'this')
@@ -131,7 +131,7 @@
  *
  * @param  {String}  $style     Style name.
  * @param  {Boolean} $default   Specifies whether the class(es) are default.
- * @param  {String}  $scope     Specifies whether the scope relative to the target selector
+ * @param  {String}  $scope     Specifies the scope relative to the target selector
  *                              in which this property applies to (any, this, parent, or child).
  */
 @mixin style($style, $default:false, $scope:'this')

@@ -4,7 +4,7 @@
 {
     'use strict';
 
-    vars.debug = true;
+    vars.debug = false;
 
     vars.namespace('test.controllers').A = (function()
     {
@@ -15,14 +15,10 @@
 
         A.prototype.init = function()
         {
-            // this.updateDelegate.responsive = true;
-            this.updateDelegate.refreshRate = 10.0;
-            this.updateDelegate.transmissive = vars.DirtyType.POSITION;
+            this.addEventListener(vars.EventType.MOUSE.CLICK, this.foo);
 
-            document.addEventListener(vars.EventType.MOUSE.CLICK, function(event)
-            {
-                console.log(this.addClass('f'));
-            }.bind(this));
+            var c1 = this.getChild('c1');
+            var c2_2 = this.getChild('c2')[1];
 
             A.__super__.init.call(this);
         };
@@ -30,6 +26,11 @@
         A.prototype.update = function()
         {
             A.__super__.update.call(this);
+        };
+
+        A.prototype.foo = function(event)
+        {
+            console.log('foo');
         };
 
         return A;
@@ -44,7 +45,7 @@
 
         B.prototype.init = function()
         {
-            console.log('I am', this.toString());
+            // console.log('I am', this.toString());
             B.__super__.init.call(this);
         };
 
@@ -61,13 +62,12 @@
         C.prototype.init = function()
         {
             this.updateDelegate.receptive = vars.DirtyType.POSITION;
-            console.log('I am', this.toString());
+            // console.log('I am', this.toString());
             C.__super__.init.call(this);
         };
 
         C.prototype.update = function()
         {
-            console.log('foo');
             C.__super__.update.call(this);
         };
 
@@ -75,4 +75,6 @@
     }());
 
     vars.initDOM(vars.namespace('test'));
+
+    var foo = new vars.Element();
 }());

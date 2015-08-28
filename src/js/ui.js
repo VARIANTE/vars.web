@@ -22,6 +22,7 @@ define
         'ui/getRect',
         'ui/getViewportRect',
         'ui/hasClass',
+        'ui/hasChild',
         'ui/hitTestElement',
         'ui/hitTestRect',
         'ui/initDOM',
@@ -46,6 +47,7 @@ define
         getRect,
         getViewportRect,
         hasClass,
+        hasChild,
         hitTestElement,
         hitTestRect,
         initDOM,
@@ -65,6 +67,7 @@ define
         Object.defineProperty(api, 'addClass', { value: addClass, writable: false, enumerable: true });
         Object.defineProperty(api, 'changeElementState', { value: changeElementState, writable: false, enumerable: true });
         Object.defineProperty(api, 'hasClass', { value: hasClass, writable: false, enumerable: true });
+        Object.defineProperty(api, 'hasChild', { value: hasChild, writable: false, enumerable: true });
         Object.defineProperty(api, 'getClassIndex', { value: getClassIndex, writable: false, enumerable: true });
         Object.defineProperty(api, 'getChildElements', { value: getChildElements, writable: false, enumerable: true });
         Object.defineProperty(api, 'getElementState', { value: getElementState, writable: false, enumerable: true });

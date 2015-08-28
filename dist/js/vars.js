@@ -491,6 +491,43 @@ define
  * This software is released under the MIT License:
  * http://www.opensource.org/licenses/mit-license.php
  *
+ * Element node states.
+ *
+ * @type {Object}
+ */
+define
+(
+    'enums/NodeState',{
+        /**
+         * Element is instantiated but not initialized yet. This state
+         * almost never persists.
+         */
+        IDLE: 0,
+
+        /**
+         * Element is initialized, but not updated yet.
+         */
+        INITIALIZED: 1,
+
+        /**
+         * Element is updated at least once.
+         */
+        UPDATED: 2,
+
+        /**
+         * Element is destroyed.
+         */
+        DESTROYED: 3
+    }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
  * Module of global VARS enums.
  *
  * @type {Module}
@@ -498,16 +535,19 @@ define
 define
 (
     'enums',[
-        'enums/DirtyType'
+        'enums/DirtyType',
+        'enums/NodeState'
     ],
     function
     (
-        DirtyType
+        DirtyType,
+        NodeState
     )
     {
         var api = function(obj) { return obj; };
 
         Object.defineProperty(api, 'DirtyType', { value: DirtyType, writable: false, enumerable: true });
+        Object.defineProperty(api, 'NodeState', { value: NodeState, writable: false, enumerable: true });
 
         return api;
     }
@@ -1678,6 +1718,7 @@ define
 (
     'ui/Element',[
         'enums/DirtyType',
+        'enums/NodeState',
         'ui/Directives',
         'ui/ElementUpdateDelegate',
         'utils/assert',
@@ -1688,6 +1729,7 @@ define
     function
     (
         DirtyType,
+        NodeState,
         Directives,
         ElementUpdateDelegate,
         assert,
@@ -1705,20 +1747,28 @@ define
          */
         function Element(init)
         {
+            this._nodeState = NodeState.IDLE;
+
             // Define instance properties.
             this.__define_properties();
 
             // Set instance properties per init object.
             if (init)
             {
+                // If init object is an HTMLELement, simply assign it to the internal
+                // element.
                 if (init instanceof HTMLElement)
                 {
                     this.element = init;
                 }
+                // If init object is a VARS Element, assign its internal element to this
+                // internal element.
                 else if (init instanceof Element)
                 {
                     this.element = init.element;
                 }
+                // If init object is a regular hash object, assign each key/value pair
+                // to the corresponding property of this Element instance.
                 else if (typeof init === 'object')
                 {
                     for (var property in init)
@@ -1771,6 +1821,8 @@ define
         {
             log(this.toString()+'::init()');
 
+            this._nodeState = NodeState.INITIALIZED;
+
             this.updateDelegate.init();
         };
 
@@ -1781,7 +1833,15 @@ define
         {
             log(this.toString()+'::destroy()');
 
+            this.removeAllEventListeners();
             this.updateDelegate.destroy();
+
+            if (this.element.parentNode)
+            {
+                this.element.parentNode.removeChild(this.element);
+            }
+
+            this._nodeState = NodeState.DESTROYED;
         };
 
         /**
@@ -1790,6 +1850,8 @@ define
         Element.prototype.update = function()
         {
             log(this.toString()+'::update()');
+
+            this._nodeState = NodeState.UPDATED;
         };
 
         /**
@@ -1827,12 +1889,16 @@ define
         /**
          * Adds a child/children to this Element instance.
          *
-         * @param  {Object/Array} child
-         * @param  {Object}       The added child.
+         * @param  {Object/Array} child/children
+         * @param  {String}       The name of the child/children.
          */
         Element.prototype.addChild = function(child, name)
         {
-            if (child instanceof Array)
+            if (child.jquery)
+            {
+                this.addChild(child.get(), name);
+            }
+            else if (child instanceof Array)
             {
                 var n = sizeOf(child);
 
@@ -1845,7 +1911,12 @@ define
             }
             else
             {
-                if (!assert(child instanceof Element, 'Child must conform to VARS Element.')) return null;
+                if (!assert((child instanceof HTMLElement) || (child instanceof Element), 'Invalid child specified. Child must be an instance of HTMLElement or VARS Element.')) return;
+
+                if (child instanceof HTMLElement)
+                {
+                    child = new Element({ element: child, name: name });
+                }
 
                 name = name || child.name;
 
@@ -1869,22 +1940,77 @@ define
                     this.children[name] = child;
                     child.name = name;
                 }
+
+                if (child.nodeState === NodeState.IDLE || child.nodeState === NodeState.DESTROYED)
+                {
+                    child.init();
+                }
+
+                var shouldAddChild = true;
+
+                if (child.element.parentNode && document)
+                {
+                    var e = child.element;
+
+                    while (e !== null && e !== undefined && e !== document)
+                    {
+                        e = e.parentNode;
+
+                        if (e === this.element)
+                        {
+                            shouldAddChild = false;
+                            break;
+                        }
+                    }
+                }
+
+                if (shouldAddChild)
+                {
+                    this.element.appendChild(child.element);
+                }
             }
+        };
+
+        /**
+         * Determines if this Element instance contains the specified child.
+         *
+         * @param  {Object} child
+         *
+         * @return {Boolean} True if it does, false otherwise.
+         */
+        Element.prototype.hasChild = function(child)
+        {
+            if (!assert(child, 'Child is null.')) return false;
+            if (!assert(child instanceof Element, 'Child must be a VARS Element instance.')) return false;
+
+            var e = child.element;
+
+            while (e !== null && e !== undefined && e !== document)
+            {
+                e = e.parentNode;
+
+                if (e === this.element)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         };
 
         /**
          * Removes a child from this Element instance.
          *
          * @param  {Object} child
-         *
-         * @return {Object} The removed child.
          */
         Element.prototype.removeChild = function(child)
         {
-            if (!assert(child, 'Child is null.')) return null;
-            if (!assert(child instanceof Element, 'Child must conform to VARS Element.')) return null;
+            if (!assert(child, 'Child is null.')) return;
+            if (!assert(child instanceof Element, 'Child must conform to VARS Element.')) return;
 
             var key = keyOfValue(this.children, child);
+
+            child.destroy();
 
             if (key)
             {
@@ -1911,8 +2037,6 @@ define
          * Removes a child by its name.
          *
          * @param  {String} name
-         *
-         * @return {Object} The removed child.
          */
         Element.prototype.removeChildByName = function(name)
         {
@@ -1969,7 +2093,80 @@ define
          */
         Element.prototype.addEventListener = function()
         {
+            if (this.cachesListeners)
+            {
+                var event = arguments[0];
+                var listener = arguments[1];
+                var useCapture = arguments[2] || false;
+
+                if (!this._listenerMap)
+                {
+                    Object.defineProperty(this, '_listenerMap', { value: {}, writable: false });
+                }
+
+                if (!this._listenerMap[event])
+                {
+                    this._listenerMap[event] = [];
+                }
+
+                var m = this._listenerMap[event];
+                var n = sizeOf(m);
+                var b = true;
+
+                for (var i = 0; i < n; i++)
+                {
+                    var e = m[i];
+
+                    if (e.listener === listener)
+                    {
+                        b = false;
+                        break;
+                    }
+                }
+
+                if (b)
+                {
+                    m.push({ listener: listener, useCapture: useCapture });
+                }
+            }
+
             return this.element.addEventListener.apply(this.element, arguments);
+        };
+
+        /**
+         * Determines if a particular listener (or any listener in the specified
+         * event) exist in this Element instance. For this to work this Element
+         * must be configured to have 'cachesListeners' property enabled when event
+         * listeners were being added.
+         *
+         * @param  {String}   event    Event name.
+         * @param  {Function} listener Listener function.
+         *
+         * @return {Boolean}
+         */
+        Element.prototype.hasEventListener = function(event, listener)
+        {
+            if (!this._listenerMap) return false;
+            if (!this._listenerMap[event]) return false;
+
+            if (listener)
+            {
+                var m = this._listenerMap[event];
+                var n = sizeOf(m);
+
+                for (var i = 0; i < n; i++)
+                {
+                    var e = m[i];
+
+                    if (e.listener === listener) return true;
+                }
+
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         };
 
         /**
@@ -1977,7 +2174,67 @@ define
          */
         Element.prototype.removeEventListener = function()
         {
-            return this.element.removeEventListener.apply(this.element, arguments);
+            if (this._listenerMap)
+            {
+                var event = arguments[0];
+                var listener = arguments[1];
+                var useCapture = arguments[2] || false;
+
+                var m = this._listenerMap[event];
+                var n = sizeOf(m);
+                var s = -1;
+
+                if (listener)
+                {
+                    for (i = 0; i < n; i++)
+                    {
+                        var e = m[i];
+
+                        if (e.listener === listener)
+                        {
+                            s = i;
+                            break;
+                        }
+                    }
+
+                    if (s > -1)
+                    {
+                        m.splice(s, 1);
+
+                        if (sizeOf(m) === 0)
+                        {
+                            this._listenerMap[event] = null;
+                            delete this._listenerMap[event];
+                        }
+                    }
+                }
+                else
+                {
+                    while (this._listenerMap[event] !== undefined)
+                    {
+                        this.removeEventListener(event, this._listenerMap[event][0].listener, this._listenerMap[event][0].useCapture);
+                    }
+                }
+            }
+
+            if (arguments[1])
+            {
+                return this.element.removeEventListener.apply(this.element, arguments);
+            }
+        };
+
+        /**
+         * Removes all cached event listeners from this Element instance.
+         */
+        Element.prototype.removeAllEventListeners = function()
+        {
+            if (this._listenerMap)
+            {
+                for (var event in this._listenerMap)
+                {
+                    this.removeEventListener(event);
+                }
+            }
         };
 
         /**
@@ -2069,6 +2326,22 @@ define
         Element.prototype.factory = function()
         {
             return document.createElement('div');
+        };
+
+        /**
+         * @see ElementUpdateDelegate#isDirty
+         */
+        Element.prototype.isDirty = function()
+        {
+            return this.updateDelegate.isDirty.apply(this.updateDelegate, arguments);
+        };
+
+        /**
+         * @see ElementUpdateDelegate#setDirty
+         */
+        Element.prototype.setDirty = function()
+        {
+            return this.updateDelegate.setDirty.apply(this.updateDelegate, arguments);
         };
 
         /**
@@ -2182,6 +2455,21 @@ define
                 set: function(value)
                 {
                     this.element.className = value.join(' ');
+                }
+            });
+
+            /**
+             * @property
+             *
+             * Current node state of this Element instance.
+             *
+             * @type {Enum}
+             */
+            Object.defineProperty(this, 'nodeState',
+            {
+                get: function()
+                {
+                    return this._nodeState || NodeState.IDLE;
                 }
             });
 
@@ -2314,6 +2602,16 @@ define
                     return this._updateDelegate;
                 }
             });
+
+            /**
+             * @property
+             *
+             * Specifies whether this Element instance remembers caches every listener that
+             * is added to it (via the addEventListener/removeEventListener method).
+             *
+             * @type {Boolean}
+             */
+            Object.defineProperty(this, 'cachesListeners', { value: true, writable: true });
         };
 
         /**
@@ -3539,6 +3837,65 @@ define
  */
 define
 (
+    'ui/hasChild',[
+        'ui/toElementArray',
+        'utils/assert',
+        'utils/sizeOf'
+    ],
+    function
+    (
+        toElementArray,
+        assert,
+        sizeOf
+    )
+    {
+        /**
+         * Checks if specified parent contains specified child.
+         *
+         * @param  {Object} parent  HTMLElement, VARS Element, or jQuery object.
+         * @param  {Object} child   HTMLElement, VARS Element, or jQuery object.
+         *
+         * @return {Boolean} True if parent has given child, false otherwise.
+         */
+        function hasChild(parent, child)
+        {
+            var ps = toElementArray(parent);
+            var cs = toElementArray(child);
+
+            if (!assert(sizeOf(ps) === 1, 'Invalid parent specified. Parent must be a single HTMLElement, VARS Element, or jQuery object.')) return false;
+            if (!assert(sizeOf(cs) === 1, 'Invalid child specified. Child must be a single HTMLElement, VARS Element, or jQuery object.')) return false;
+            if (!assert(document, 'Document not found. This method requires document to be valid.')) return false;
+
+            var p = ps[0];
+            var c = cs[0];
+
+            if (!c.parentNode) return false;
+
+            while (c !== null && c !== undefined && c !== document)
+            {
+                c = c.parentNode;
+
+                if (c === p) return true;
+            }
+
+            return false;
+        }
+
+        return hasChild;
+    }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
+ */
+define
+(
     'ui/hitTestElement',[
         'math/isClamped',
         'ui/getIntersectRect',
@@ -4176,6 +4533,7 @@ define
         'ui/getRect',
         'ui/getViewportRect',
         'ui/hasClass',
+        'ui/hasChild',
         'ui/hitTestElement',
         'ui/hitTestRect',
         'ui/initDOM',
@@ -4200,6 +4558,7 @@ define
         getRect,
         getViewportRect,
         hasClass,
+        hasChild,
         hitTestElement,
         hitTestRect,
         initDOM,
@@ -4219,6 +4578,7 @@ define
         Object.defineProperty(api, 'addClass', { value: addClass, writable: false, enumerable: true });
         Object.defineProperty(api, 'changeElementState', { value: changeElementState, writable: false, enumerable: true });
         Object.defineProperty(api, 'hasClass', { value: hasClass, writable: false, enumerable: true });
+        Object.defineProperty(api, 'hasChild', { value: hasChild, writable: false, enumerable: true });
         Object.defineProperty(api, 'getClassIndex', { value: getClassIndex, writable: false, enumerable: true });
         Object.defineProperty(api, 'getChildElements', { value: getChildElements, writable: false, enumerable: true });
         Object.defineProperty(api, 'getElementState', { value: getElementState, writable: false, enumerable: true });
