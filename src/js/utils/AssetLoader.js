@@ -565,8 +565,6 @@ define
 
                         return total;
                     }
-
-                    return this._bytesLoaded;
                 }
             });
 

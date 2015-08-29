@@ -29,7 +29,7 @@ define
         {
             ready(function()
             {
-                var m = new impl(init);
+                return new impl(init);
             });
         }
 
