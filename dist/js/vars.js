@@ -2178,7 +2178,6 @@ define
             {
                 var event = arguments[0];
                 var listener = arguments[1];
-                var useCapture = arguments[2] || false;
 
                 var m = this._listenerMap[event];
                 var n = sizeOf(m);
@@ -4673,7 +4672,7 @@ define
         {
             ready(function()
             {
-                var m = new impl(init);
+                return new impl(init);
             });
         }
 
@@ -5248,8 +5247,6 @@ define
 
                         return total;
                     }
-
-                    return this._bytesLoaded;
                 }
             });
 
