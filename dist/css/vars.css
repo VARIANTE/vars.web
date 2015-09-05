@@ -5,6 +5,227 @@
  *  This software is released under the MIT License:
  *  http://www.opensource.org/licenses/mit-license.php
  */
+/**
+ *  vars
+ *  (c) VARIANTE (http://variante.io)
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+/**
+ *  vars
+ *  (c) VARIANTE (http://variante.io)
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+/**
+ * Clearfix hack for floated elements.
+ */
+/**
+ * Transforms containing selector into a container that can freely align
+ * child inline-blocks with no fixed width/height requirements. Beware of whitespace
+ * between inline elements.
+ *
+ * @param   {String} $alignH    Horizontal alignment of child elements (i.e. left, center, right).
+ * @param   {String} $alignV    Vertical alignment of child elements (i.e. top, center, bototm).
+ * @param   {String} $inline    Specifies if this block is an inline block.
+ */
+/**
+ * Transforms containing selector into a flexbox which auto aligns child
+ * elements according to the specified params.
+ *
+ * @param   {String}  $alignH       Horizontal alignment of child elements (i.e. left, center, right).
+ * @param   {String}  $alignV       Vertical alignment of child elements (i.e. top, middle, bottom).
+ * @param   {Boolean} $direction    Determines the main axis (i.e. row, row-reverse, column, column-reverse).
+ * @param   {Boolean} $wrap         Determines if wrapping is enabled.
+ * @param   {String}  $inline       Specifies if this flexbox is inline.
+ */
+/**
+ * Aligns containing selector to specified x/y directions in absolute position.
+ *
+ * @param  {List} $alignH     Horizontal alignment (left|center|right, left|right offset, right offset).
+ * @param  {List} $alignV     Vertical alignment (top|center|middle|bottom, top|bottom offset, bottom offset).
+ */
+/**
+ * Aligns containing selector to specified x/y directions in fixed position.
+ *
+ * @param  {List} $alignH     Horizontal alignment (left|center|right, left|right offset, right offset).
+ * @param  {List} $alignV     Vertical alignment (top|center|middle|bottom, top|bottom offset, bottom offset).
+ */
+/**
+ * Aligns containing inline-block to specified x/y directions in relative
+ * position.
+ *
+ * @param  {String} $alignH     Horizontal alignment (i.e. left, center, right).
+ * @param  {String} $alignV     Vertical alignment (i.e. top, middle, bottom).
+ */
+/**
+ * Transforms target selector into a container for
+ * parallax elements.
+ *
+ * @param  {Number} $perspective    Tweak this value to adjust perspective.
+ * @see parallax-element
+ */
+/**
+ * Transforms target selector into a parallax element. The
+ * target selector must be a child of a parallax-block.
+ *
+ * @param  {String} $type   Layer type, either 'group' or 'layer'.
+ * @param  {Number} $z      Position in the z-axis.
+ * @see parallax-block
+ */
+/**
+ * Sets the diameter of the target selector.
+ *
+ * @param  {Number}  $diameter
+ * @param  {Boolean} $oval
+ */
+/**
+ * Fits dimension to parent container.
+ *
+ * @param  {Boolean} $w     Specifies whether to fit the width.
+ * @param  {Boolean} $h     Specifies whether to fit the height.
+ */
+/**
+ *  vars
+ *  (c) VARIANTE (http://variante.io)
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+/**
+ * Selector for elements with the vs-controller attribute.
+ *
+ * @param  {String} $name vs-controller attribute value.
+ */
+/**
+ * Selector for elements with the vs-instance attribute.
+ *
+ * @param  {String} $name vs-instance attribute value.
+ */
+/**
+ * Selects elements with the specified vs-property key and value.
+ *
+ * @param  {String} $key    vs-property key.
+ * @param  {String} $value  vs-property value, if applicable.
+ * @param  {String} $scope  Specifies the scope relative to the target selector
+ *                          in which this property applies to (any, this, parent, or child).
+ */
+/**
+ * Binds the content to one/multiple vs-states of the target selector.
+ * Option to specify whether the state(s) are default.
+ *
+ * @param  {List}    $states    List of state names.
+ * @param  {Boolean} $default   Specifies whether the class(es) are default.
+ */
+/**
+ * Binds the content to a vs-style of the target selector.
+ * Option to specify whether the style is default.
+ *
+ * @param  {String}  $style     Style name.
+ * @param  {Boolean} $default   Specifies whether the class(es) are default.
+ * @param  {String}  $scope     Specifies the scope relative to the target selector
+ *                              in which this property applies to (any, this, parent, or child).
+ */
+/**
+ *  vars
+ *  (c) VARIANTE (http://variante.io)
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+/**
+ * Binds the content to the target selector based on the 'csstransitions' feature
+ * (requires Modernizr).
+ *
+ * @param  {Boolean} $enabled   Specifies whether 'csstransitions' class is required.
+ */
+/**
+ * Binds the content to the target selector based on the 'cssanimations' feature
+ * (requires Modernizr).
+ *
+ * @param  {Boolean} $enabled   Specifies whether 'cssanimations' class is required.
+ */
+/**
+ * Binds the content to the target selector based on the 'touch' and 'no-touch' feature
+ * (requires Modernizr).
+ *
+ * @param  {Boolean} $enabled   Specifies whether 'touch' class is required.
+ * @param  {Boolean} $exclusive Specifies whether 'no-touch' class is required if
+ *                              $enabled is false.
+ */
+/**
+ * Enables hardware acceleration for containing selector.
+ */
+/**
+ *  vars
+ *  (c) VARIANTE (http://variante.io)
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+/**
+ * Media query for screens in portrait orientation.
+ */
+/**
+ * Media query for screens in landscape orientation.
+ */
+/**
+ * Media query for screens at a specified minimum width.
+ *
+ * @param  {Number} $minWidth
+ */
+/**
+ * Media query for screens at a specified maximum width.
+ *
+ * @param  {Number} $maxWidth
+ */
+/**
+ * Media query for screens at a specified minimum height.
+ *
+ * @param  {Number} $minHeight
+ */
+/**
+ * Media query for screens at a specified maximum height.
+ *
+ * @param  {Number} $maxHeight
+ */
+/**
+ * Media query for the minimum width/height threshold of the specified screen type.
+ *
+ * @param  {String}  $screen        Screen type (i.e. mobile, phablet, tablet, desktop).
+ * @param  {Boolean} $exclusive     Specifies whether the media queries should be exclusive to this screen
+ *                                  type. If false, the generated media query will use the minimum threshold
+ *                                  of the selected screen type. If true, the generated media query will be
+ *                                  bounded by the minimum and the maximum thresholds.
+ * @param  {Boolean} $invert        Inverts the generated media query.
+ * @param  {String}  $measurement   Specifies width or height measurement.
+ * @param  {Boolean} $touch         Specifues whether the condition is only valid for touch devices
+ *                                  (requires Modernizr feature detection), namely the '.touch' class.
+ *                                  If false (default), it does NOT use the '.no-touch' class, but
+ *                                  instead applies content normally.
+ */
+/**
+ * Sets the background-size and background-position of a target element
+ * which is using an image map to the corresponding item in the map.
+ *
+ * @param  {String} $path      Path of sprite map.
+ * @param  {Number} $row-index 0-based index of the row of the target item.
+ * @param  {Number} $col-index 0-based index of the column of the target item.
+ * @param  {Number} $num-rows  Total number of rows in the image map.
+ * @param  {Number} $num-cols  Total number of columns in the image map.
+ */
+/**
+ * Auto generates a list of class names of the target selector, where each
+ * class represents a sprite as provided by the sprite map.
+ *
+ * @param  {String} $path Path of sprite map.
+ * @param  {List}   $map  List (1D or 2D) of class names. The position of each list item
+ *                        directly corresponds to the sprite position on the sprite map.
+ *
+ * @note This mixin is quite slow in performance due to the nested loop.
+ */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 /**
  * 1. Set default font family to sans-serif.
@@ -366,13 +587,6 @@ th {
  *  This software is released under the MIT License:
  *  http://www.opensource.org/licenses/mit-license.php
  */
-/**
- *  vars
- *  (c) VARIANTE (http://variante.io)
- *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
- */
 html {
   width: 100%;
   height: 100%;
@@ -616,257 +830,5 @@ article, aside, details, dialog, summary, footer, header, main, figcaption, figu
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
           text-size-adjust: 100%; }
-
-/**
- *  vars
- *  (c) VARIANTE (http://variante.io)
- *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
- */
-/**
- *  vars
- *  (c) VARIANTE (http://variante.io)
- *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
- */
-/**
- * Clearfix hack for floated elements.
- */
-/**
- * Transforms containing selector into a container that can freely align
- * child inline-blocks with no fixed width/height requirements. Beware of whitespace
- * between inline elements.
- *
- * @param   {String} $alignH    Horizontal alignment of child elements (i.e. left, center, right).
- * @param   {String} $alignV    Vertical alignment of child elements (i.e. top, center, bototm).
- * @param   {String} $inline    Specifies if this block is an inline block.
- */
-/**
- * Transforms containing selector into a flexbox which auto aligns child
- * elements according to the specified params.
- *
- * @param   {String}  $alignH       Horizontal alignment of child elements (i.e. left, center, right).
- * @param   {String}  $alignV       Vertical alignment of child elements (i.e. top, middle, bottom).
- * @param   {Boolean} $direction    Determines the main axis (i.e. row, row-reverse, column, column-reverse).
- * @param   {Boolean} $wrap         Determines if wrapping is enabled.
- * @param   {String}  $inline       Specifies if this flexbox is inline.
- */
-/**
- * Aligns containing selector to specified x/y directions in absolute position.
- *
- * @param  {List} $alignH     Horizontal alignment (left|center|right, left|right offset, right offset).
- * @param  {List} $alignV     Vertical alignment (top|center|middle|bottom, top|bottom offset, bottom offset).
- */
-/**
- * Aligns containing selector to specified x/y directions in fixed position.
- *
- * @param  {List} $alignH     Horizontal alignment (left|center|right, left|right offset, right offset).
- * @param  {List} $alignV     Vertical alignment (top|center|middle|bottom, top|bottom offset, bottom offset).
- */
-/**
- * Aligns containing inline-block to specified x/y directions in relative
- * position.
- *
- * @param  {String} $alignH     Horizontal alignment (i.e. left, center, right).
- * @param  {String} $alignV     Vertical alignment (i.e. top, middle, bottom).
- */
-/**
- * Transforms target selector into a container for
- * parallax elements.
- *
- * @param  {Number} $perspective    Tweak this value to adjust perspective.
- * @see parallax-element
- */
-/**
- * Transforms target selector into a parallax element. The
- * target selector must be a child of a parallax-block.
- *
- * @param  {String} $type   Layer type, either 'group' or 'layer'.
- * @param  {Number} $z      Position in the z-axis.
- * @see parallax-block
- */
-/**
- * Sets the diameter of the target selector.
- *
- * @param  {Number}  $diameter
- * @param  {Boolean} $oval
- */
-/**
- * Fits dimension to parent container.
- *
- * @param  {Boolean} $w     Specifies whether to fit the width.
- * @param  {Boolean} $h     Specifies whether to fit the height.
- */
-/**
- *  vars
- *  (c) VARIANTE (http://variante.io)
- *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
- */
-/**
- * Selector for elements with the vs-controller attribute.
- *
- * @param  {String} $name vs-controller attribute value.
- */
-/**
- * Selector for elements with the vs-instance attribute.
- *
- * @param  {String} $name vs-instance attribute value.
- */
-/**
- * Selects elements with the specified vs-property key and value.
- *
- * @param  {String} $key    vs-property key.
- * @param  {String} $value  vs-property value, if applicable.
- * @param  {String} $scope  Specifies the scope relative to the target selector
- *                          in which this property applies to (any, this, parent, or child).
- */
-/**
- * Binds the content to one/multiple vs-states of the target selector.
- * Option to specify whether the state(s) are default.
- *
- * @param  {List}    $states    List of state names.
- * @param  {Boolean} $default   Specifies whether the class(es) are default.
- */
-/**
- * Binds the content to a vs-style of the target selector.
- * Option to specify whether the style is default.
- *
- * @param  {String}  $style     Style name.
- * @param  {Boolean} $default   Specifies whether the class(es) are default.
- * @param  {String}  $scope     Specifies the scope relative to the target selector
- *                              in which this property applies to (any, this, parent, or child).
- */
-/**
- *  vars
- *  (c) VARIANTE (http://variante.io)
- *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
- */
-/**
- * Binds the content to the target selector based on the 'csstransitions' feature
- * (requires Modernizr).
- *
- * @param  {Boolean} $enabled   Specifies whether 'csstransitions' class is required.
- */
-/**
- * Binds the content to the target selector based on the 'cssanimations' feature
- * (requires Modernizr).
- *
- * @param  {Boolean} $enabled   Specifies whether 'cssanimations' class is required.
- */
-/**
- * Binds the content to the target selector based on the 'touch' and 'no-touch' feature
- * (requires Modernizr).
- *
- * @param  {Boolean} $enabled   Specifies whether 'touch' class is required.
- * @param  {Boolean} $exclusive Specifies whether 'no-touch' class is required if
- *                              $enabled is false.
- */
-/**
- * Enables hardware acceleration for containing selector.
- */
-/**
- *  vars
- *  (c) VARIANTE (http://variante.io)
- *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
- */
-/**
- *  vars
- *  (c) VARIANTE (http://variante.io)
- *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
- */
-/**
- * Binds the content to the target selector based on the 'csstransitions' feature
- * (requires Modernizr).
- *
- * @param  {Boolean} $enabled   Specifies whether 'csstransitions' class is required.
- */
-/**
- * Binds the content to the target selector based on the 'cssanimations' feature
- * (requires Modernizr).
- *
- * @param  {Boolean} $enabled   Specifies whether 'cssanimations' class is required.
- */
-/**
- * Binds the content to the target selector based on the 'touch' and 'no-touch' feature
- * (requires Modernizr).
- *
- * @param  {Boolean} $enabled   Specifies whether 'touch' class is required.
- * @param  {Boolean} $exclusive Specifies whether 'no-touch' class is required if
- *                              $enabled is false.
- */
-/**
- * Enables hardware acceleration for containing selector.
- */
-/**
- * Media query for screens in portrait orientation.
- */
-/**
- * Media query for screens in landscape orientation.
- */
-/**
- * Media query for screens at a specified minimum width.
- *
- * @param  {Number} $minWidth
- */
-/**
- * Media query for screens at a specified maximum width.
- *
- * @param  {Number} $maxWidth
- */
-/**
- * Media query for screens at a specified minimum height.
- *
- * @param  {Number} $minHeight
- */
-/**
- * Media query for screens at a specified maximum height.
- *
- * @param  {Number} $maxHeight
- */
-/**
- * Media query for the minimum width/height threshold of the specified screen type.
- *
- * @param  {String}  $screen        Screen type (i.e. mobile, phablet, tablet, desktop).
- * @param  {Boolean} $exclusive     Specifies whether the media queries should be exclusive to this screen
- *                                  type. If false, the generated media query will use the minimum threshold
- *                                  of the selected screen type. If true, the generated media query will be
- *                                  bounded by the minimum and the maximum thresholds.
- * @param  {Boolean} $invert        Inverts the generated media query.
- * @param  {String}  $measurement   Specifies width or height measurement.
- * @param  {Boolean} $touch         Specifues whether the condition is only valid for touch devices
- *                                  (requires Modernizr feature detection), namely the '.touch' class.
- *                                  If false (default), it does NOT use the '.no-touch' class, but
- *                                  instead applies content normally.
- */
-/**
- * Sets the background-size and background-position of a target element
- * which is using an image map to the corresponding item in the map.
- *
- * @param  {String} $path      Path of sprite map.
- * @param  {Number} $row-index 0-based index of the row of the target item.
- * @param  {Number} $col-index 0-based index of the column of the target item.
- * @param  {Number} $num-rows  Total number of rows in the image map.
- * @param  {Number} $num-cols  Total number of columns in the image map.
- */
-/**
- * Auto generates a list of class names of the target selector, where each
- * class represents a sprite as provided by the sprite map.
- *
- * @param  {String} $path Path of sprite map.
- * @param  {List}   $map  List (1D or 2D) of class names. The position of each list item
- *                        directly corresponds to the sprite position on the sprite map.
- *
- * @note This mixin is quite slow in performance due to the nested loop.
- */
 
 /*# sourceMappingURL=vars.css.map */
