@@ -102,7 +102,7 @@ define([
 
           Object.defineProperty(this.data, pData, {
             get: function() {
-              if (!this.data[_pData]) {
+              if (this.data[_pData] === undefined) {
                 return val;
               }
               else {

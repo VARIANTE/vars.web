@@ -10,7 +10,7 @@
     vars.inherit(A, vars.Element);
 
     A.prototype.init = function() {
-      this.addEventListener(vars.EventType.MOUSE.CLICK, this.foo);
+      this.addEventListener(vars.EventType.MOUSE.CLICK, this.foo.bind(this));
       this.removeClass('a');
 
       var c1 = this.getChild('c1');
@@ -20,11 +20,12 @@
     };
 
     A.prototype.update = function() {
+      console.log('bar', Number(this.data.foo));
       A.__super__.update.call(this);
     };
 
     A.prototype.foo = function(event) {
-      console.log('foo');
+      this.data.foo--;
     };
 
     return A;
