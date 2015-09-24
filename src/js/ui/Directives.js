@@ -9,13 +9,10 @@
  *
  * @type {Object}
  */
-define
-(
-    {
-        Controller: 'vs-controller',
-        Instance:   'vs-instance',
-        Property:   'vs-property',
-        State:      'vs-state',
-        Style:      'vs-style'
-    }
-);
+define({
+  Controller: 'vs-controller',
+  Instance: 'vs-instance',
+  Property: 'vs-property',
+  State: 'vs-state',
+  Style: 'vs-style'
+});

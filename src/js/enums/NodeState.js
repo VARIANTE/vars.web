@@ -9,28 +9,25 @@
  *
  * @type {Object}
  */
-define
-(
-    {
-        /**
-         * Element is instantiated but not initialized yet. This state
-         * almost never persists.
-         */
-        IDLE: 0,
+define({
+  /**
+   * Element is instantiated but not initialized yet. This state
+   * almost never persists.
+   */
+  IDLE: 0,
 
-        /**
-         * Element is initialized, but not updated yet.
-         */
-        INITIALIZED: 1,
+  /**
+   * Element is initialized, but not updated yet.
+   */
+  INITIALIZED: 1,
 
-        /**
-         * Element is updated at least once.
-         */
-        UPDATED: 2,
+  /**
+   * Element is updated at least once.
+   */
+  UPDATED: 2,
 
-        /**
-         * Element is destroyed.
-         */
-        DESTROYED: 3
-    }
-);
+  /**
+   * Element is destroyed.
+   */
+  DESTROYED: 3
+});

@@ -9,22 +9,19 @@
 /**
  * Clearfix hack for floated elements.
  */
-@mixin clearfix
-{
-    *zoom: 1;
+@mixin clearfix {
+  *zoom: 1;
 
-    &:before
-    {
-        content: '';
-        display: table;
-    }
+  &:before {
+    content: '';
+    display: table;
+  }
 
-    &:after
-    {
-        content: '';
-        display: table;
-        clear: both;
-    }
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
 }
 
 /**
@@ -38,29 +35,27 @@
  */
 @mixin fluid-block($alignH:center, $alignV:center, $inline:false)
 {
-    @if      $alignH == 'left'                          { text-align: left;   }
-    @else if $alignH == 'center' or $alignH == 'middle' { text-align: center; }
-    @else if $alignH == 'right'                         { text-align: right;  }
+  @if      $alignH == 'left'                          { text-align: left;   }
+  @else if $alignH == 'center' or $alignH == 'middle' { text-align: center; }
+  @else if $alignH == 'right'                         { text-align: right;  }
 
-    @if $alignV == 'top'                                { & > * { vertical-align: top;    } }
-    @else if $alignV == 'center' or $alignV == 'middle' { & > * { vertical-align: middle; } }
-    @else if $alignV == 'bottom'                        { & > * { vertical-align: bottom; } }
+  @if $alignV == 'top'                                { & > * { vertical-align: top;    } }
+  @else if $alignV == 'center' or $alignV == 'middle' { & > * { vertical-align: middle; } }
+  @else if $alignV == 'bottom'                        { & > * { vertical-align: bottom; } }
 
-    @if   $inline == true { display: inline-block; }
-    @else                 { display: block;        }
+  @if   $inline == true { display: inline-block; }
+  @else                 { display: block;        }
 
-    & > *
-    {
-        display: inline-block;
-    }
+  & > * {
+    display: inline-block;
+  }
 
-    &:before
-    {
-        height: 100%;
-        vertical-align: middle;
-        content: '';
-        display: inline-block;
-    }
+  &:before {
+    height: 100%;
+    vertical-align: middle;
+    content: '';
+    display: inline-block;
+  }
 }
 
 /**
@@ -75,63 +70,59 @@
  */
 @mixin flex-block($alignH:center, $alignV:center, $direction:row, $wrap:false, $inline:false)
 {
-    line-height: normal;
-    white-space: normal;
+  line-height: normal;
+  white-space: normal;
 
-    @if   $wrap == true { flex-wrap: wrap;   }
-    @else               { flex-wrap: nowrap; }
+  @if   $wrap == true { flex-wrap: wrap;   }
+  @else               { flex-wrap: nowrap; }
 
-    @if $direction == 'row'
-    {
-        flex-direction: row;
+  @if $direction == 'row' {
+    flex-direction: row;
 
-        @if      $alignH == 'left'                          { justify-content: flex-start; }
-        @else if $alignH == 'center' or $alignH == 'middle' { justify-content: center;     }
-        @else if $alignH == 'right'                         { justify-content: flex-end;   }
+    @if      $alignH == 'left'                          { justify-content: flex-start; }
+    @else if $alignH == 'center' or $alignH == 'middle' { justify-content: center;     }
+    @else if $alignH == 'right'                         { justify-content: flex-end;   }
 
-        @if      $alignV == 'top'                           { align-items: flex-start; }
-        @else if $alignV == 'center' or $alignV == 'middle' { align-items: center;     }
-        @else if $alignV == 'bottom'                        { align-items: flex-end;   }
-    }
-    @else if $direction == 'row-reverse'
-    {
-        flex-direction: row-reverse;
+    @if      $alignV == 'top'                           { align-items: flex-start; }
+    @else if $alignV == 'center' or $alignV == 'middle' { align-items: center;     }
+    @else if $alignV == 'bottom'                        { align-items: flex-end;   }
+  }
+  @else if $direction == 'row-reverse' {
+    flex-direction: row-reverse;
 
-        @if      $alignH == 'left'                          { justify-content: flex-end;   }
-        @else if $alignH == 'center' or $alignH == 'middle' { justify-content: center;     }
-        @else if $alignH == 'right'                         { justify-content: flex-start; }
+    @if      $alignH == 'left'                          { justify-content: flex-end;   }
+    @else if $alignH == 'center' or $alignH == 'middle' { justify-content: center;     }
+    @else if $alignH == 'right'                         { justify-content: flex-start; }
 
-        @if      $alignV == 'top'                           { align-items: flex-start; }
-        @else if $alignV == 'center' or $alignV == 'middle' { align-items: center;     }
-        @else if $alignV == 'bottom'                        { align-items: flex-end;   }
-    }
-    @else if $direction == 'column'
-    {
-        flex-direction: column;
+    @if      $alignV == 'top'                           { align-items: flex-start; }
+    @else if $alignV == 'center' or $alignV == 'middle' { align-items: center;     }
+    @else if $alignV == 'bottom'                        { align-items: flex-end;   }
+  }
+  @else if $direction == 'column' {
+    flex-direction: column;
 
-        @if      $alignV == 'top'                            { justify-content: flex-start; }
-        @else if $alignV == 'center' or $alignV == 'middle'  { justify-content: center;     }
-        @else if $alignV == 'bottom'                         { justify-content: flex-end;   }
+    @if      $alignV == 'top'                            { justify-content: flex-start; }
+    @else if $alignV == 'center' or $alignV == 'middle'  { justify-content: center;     }
+    @else if $alignV == 'bottom'                         { justify-content: flex-end;   }
 
-        @if      $alignH == 'left'                          { align-items: flex-start; }
-        @else if $alignH == 'center' or $alignH == 'middle' { align-items: center;     }
-        @else if $alignH == 'right'                         { align-items: flex-end;   }
-    }
-    @else if $direction == 'column-reverse'
-    {
-        flex-direction: column-reverse;
+    @if      $alignH == 'left'                          { align-items: flex-start; }
+    @else if $alignH == 'center' or $alignH == 'middle' { align-items: center;     }
+    @else if $alignH == 'right'                         { align-items: flex-end;   }
+  }
+  @else if $direction == 'column-reverse' {
+    flex-direction: column-reverse;
 
-        @if      $alignV == 'top'                            { justify-content: flex-end;   }
-        @else if $alignV == 'center' or $alignV == 'middle'  { justify-content: center;     }
-        @else if $alignV == 'bottom'                         { justify-content: flex-start; }
+    @if      $alignV == 'top'                            { justify-content: flex-end;   }
+    @else if $alignV == 'center' or $alignV == 'middle'  { justify-content: center;     }
+    @else if $alignV == 'bottom'                         { justify-content: flex-start; }
 
-        @if      $alignH == 'left'                          { align-items: flex-start; }
-        @else if $alignH == 'center' or $alignH == 'middle' { align-items: center;     }
-        @else if $alignH == 'right'                         { align-items: flex-end;   }
-    }
+    @if      $alignH == 'left'                          { align-items: flex-start; }
+    @else if $alignH == 'center' or $alignH == 'middle' { align-items: center;     }
+    @else if $alignH == 'right'                         { align-items: flex-end;   }
+  }
 
-    @if   $inline == true { display: inline-flex; }
-    @else                 { display: flex;        }
+  @if   $inline == true { display: inline-flex; }
+  @else                 { display: flex;        }
 }
 
 /**
@@ -142,60 +133,52 @@
  */
 @mixin abs-align($alignH:null, $alignV:null)
 {
-    display: block;
-    position: absolute;
+  display: block;
+  position: absolute;
 
-    @if $alignH != null and length($alignH) > 0
-    {
-        $align: nth($alignH, 1);
-        $offset1: null;
-        $offset2: null;
+  @if $alignH != null and length($alignH) > 0 {
+    $align: nth($alignH, 1);
+    $offset1: null;
+    $offset2: null;
 
-        @if length($alignH) > 1 { $offset1: nth($alignH, 2); }
-        @if length($alignH) > 2 { $offset2: nth($alignH, 3); }
+    @if length($alignH) > 1 { $offset1: nth($alignH, 2); }
+    @if length($alignH) > 2 { $offset2: nth($alignH, 3); }
 
-        @if $align == 'left'
-        {
-            @if $offset1 == null { left: 0px; } @else { left: $offset1; }
-        }
-        @else if $align == 'center' or $align == 'middle'
-        {
-            margin-left: auto;
-            margin-right: auto;
-            @if $offset1 == null { left: 0px;  } @else { left: $offset1;  }
-            @if $offset2 == null { right: 0px; } @else { right: $offset2; }
-        }
-        @else if $align == 'right'
-        {
-            @if $offset1 == null { right: 0px; } @else { right: $offset1; }
-        }
+    @if $align == 'left' {
+      @if $offset1 == null { left: 0px; } @else { left: $offset1; }
     }
-
-    @if $alignV != null and length($alignV) > 0
-    {
-        $align: nth($alignV, 1);
-        $offset1: null;
-        $offset2: null;
-
-        @if length($alignV) > 1 { $offset1: nth($alignV, 2); }
-        @if length($alignV) > 2 { $offset2: nth($alignV, 3); }
-
-        @if $align == 'top'
-        {
-            @if $offset1 == null { top: 0px; } @else { top: $offset1; }
-        }
-        @else if $align == 'center' or $align == 'middle'
-        {
-            margin-top: auto;
-            margin-bottom: auto;
-            @if $offset1 == null { top: 0px;    } @else { top: $offset1;    }
-            @if $offset2 == null { bottom: 0px; } @else { bottom: $offset2; }
-        }
-        @else if $align == 'bottom'
-        {
-            @if $offset1 == null { bottom: 0px; } @else { bottom: $offset1; }
-        }
+    @else if $align == 'center' or $align == 'middle' {
+      margin-left: auto;
+      margin-right: auto;
+      @if $offset1 == null { left: 0px;  } @else { left: $offset1;  }
+      @if $offset2 == null { right: 0px; } @else { right: $offset2; }
     }
+    @else if $align == 'right' {
+      @if $offset1 == null { right: 0px; } @else { right: $offset1; }
+    }
+  }
+
+  @if $alignV != null and length($alignV) > 0 {
+    $align: nth($alignV, 1);
+    $offset1: null;
+    $offset2: null;
+
+    @if length($alignV) > 1 { $offset1: nth($alignV, 2); }
+    @if length($alignV) > 2 { $offset2: nth($alignV, 3); }
+
+    @if $align == 'top' {
+      @if $offset1 == null { top: 0px; } @else { top: $offset1; }
+    }
+    @else if $align == 'center' or $align == 'middle' {
+      margin-top: auto;
+      margin-bottom: auto;
+      @if $offset1 == null { top: 0px;    } @else { top: $offset1;    }
+      @if $offset2 == null { bottom: 0px; } @else { bottom: $offset2; }
+    }
+    @else if $align == 'bottom' {
+      @if $offset1 == null { bottom: 0px; } @else { bottom: $offset1; }
+    }
+  }
 }
 
 /**
@@ -204,62 +187,53 @@
  * @param  {List} $alignH     Horizontal alignment (left|center|right, left|right offset, right offset).
  * @param  {List} $alignV     Vertical alignment (top|center|middle|bottom, top|bottom offset, bottom offset).
  */
-@mixin fixed-align($alignH:null, $alignV:null)
-{
-    display: block;
-    position: fixed;
+@mixin fixed-align($alignH:null, $alignV:null) {
+  display: block;
+  position: fixed;
 
-    @if $alignH != null and length($alignH) > 0
-    {
-        $align: nth($alignH, 1);
-        $offset1: null;
-        $offset2: null;
+  @if $alignH != null and length($alignH) > 0 {
+    $align: nth($alignH, 1);
+    $offset1: null;
+    $offset2: null;
 
-        @if length($alignH) > 1 { $offset1: nth($alignH, 2); }
-        @if length($alignH) > 2 { $offset2: nth($alignH, 3); }
+    @if length($alignH) > 1 { $offset1: nth($alignH, 2); }
+    @if length($alignH) > 2 { $offset2: nth($alignH, 3); }
 
-        @if $align == 'left'
-        {
-            @if $offset1 == null { left: 0px; } @else { left: $offset1; }
-        }
-        @else if $align == 'center' or $align == 'middle'
-        {
-            margin-left: auto;
-            margin-right: auto;
-            @if $offset1 == null { left: 0px;  } @else { left: $offset1;  }
-            @if $offset2 == null { right: 0px; } @else { right: $offset2; }
-        }
-        @else if $align == 'right'
-        {
-            @if $offset1 == null { right: 0px; } @else { right: $offset1; }
-        }
+    @if $align == 'left' {
+      @if $offset1 == null { left: 0px; } @else { left: $offset1; }
     }
-
-    @if $alignV != null and length($alignV) > 0
-    {
-        $align: nth($alignV, 1);
-        $offset1: null;
-        $offset2: null;
-
-        @if length($alignV) > 1 { $offset1: nth($alignV, 2); }
-        @if length($alignV) > 2 { $offset2: nth($alignV, 3); }
-
-        @if $align == 'top'
-        {
-            @if $offset1 == null { top: 0px; } @else { top: $offset1; }
-        }
-        @else if $align == 'center' or $align == 'middle'
-        {
-            margin-top: auto;
-            margin-bottom: auto;
-            @if $offset1 == null { top: 0px;    } @else { top: $offset1;    }
-            @if $offset2 == null { bottom: 0px; } @else { bottom: $offset2; }
-        }
-        @else if $align == 'bottom'
-        {
-            @if $offset1 == null { bottom: 0px; } @else { bottom: $offset1; }
-        }
+    @else if $align == 'center' or $align == 'middle' {
+      margin-left: auto;
+      margin-right: auto;
+      @if $offset1 == null { left: 0px;  } @else { left: $offset1;  }
+      @if $offset2 == null { right: 0px; } @else { right: $offset2; }
     }
+    @else if $align == 'right' {
+      @if $offset1 == null { right: 0px; } @else { right: $offset1; }
+    }
+  }
+
+  @if $alignV != null and length($alignV) > 0 {
+    $align: nth($alignV, 1);
+    $offset1: null;
+    $offset2: null;
+
+    @if length($alignV) > 1 { $offset1: nth($alignV, 2); }
+    @if length($alignV) > 2 { $offset2: nth($alignV, 3); }
+
+    @if $align == 'top' {
+      @if $offset1 == null { top: 0px; } @else { top: $offset1; }
+    }
+    @else if $align == 'center' or $align == 'middle' {
+      margin-top: auto;
+      margin-bottom: auto;
+      @if $offset1 == null { top: 0px;    } @else { top: $offset1;    }
+      @if $offset2 == null { bottom: 0px; } @else { bottom: $offset2; }
+    }
+    @else if $align == 'bottom' {
+      @if $offset1 == null { bottom: 0px; } @else { bottom: $offset1; }
+    }
+  }
 }
 
 /**
@@ -269,17 +243,16 @@
  * @param  {String} $alignH     Horizontal alignment (i.e. left, center, right).
  * @param  {String} $alignV     Vertical alignment (i.e. top, middle, bottom).
  */
-@mixin inline-align($alignH:null, $alignV:null)
-{
-    display: inline-block;
-    position: relative;
+@mixin inline-align($alignH:null, $alignV:null) {
+  display: inline-block;
+  position: relative;
 
-    // Horizontal alignment cannot be altered at the child level. Tweak
-    // the parent's text-align rule instead.
+  // Horizontal alignment cannot be altered at the child level. Tweak
+  // the parent's text-align rule instead.
 
-    @if      $alignV == 'top'                           { vertical-align: top;    }
-    @else if $alignV == 'center' or $alignV == 'middle' { vertical-align: middle; }
-    @else if $alignV == 'bottom'                        { vertical-align: bottom; }
+  @if      $alignV == 'top'                           { vertical-align: top;    }
+  @else if $alignV == 'center' or $alignV == 'middle' { vertical-align: middle; }
+  @else if $alignV == 'bottom'                        { vertical-align: bottom; }
 }
 
 /**
@@ -289,12 +262,11 @@
  * @param  {Number} $perspective    Tweak this value to adjust perspective.
  * @see parallax-element
  */
-@mixin parallax-block($perspective:1)
-{
-    height: 100vh;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    perspective: #{$perspective + px};
+@mixin parallax-block($perspective:1) {
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  perspective: #{$perspective + px};
 }
 
 /**
@@ -305,18 +277,15 @@
  * @param  {Number} $z      Position in the z-axis.
  * @see parallax-block
  */
-@mixin parallax-element($type:layer, $z:0)
-{
-    @if $type == 'group'
-    {
-        height: 100vh;
-        position: relative;
-        transform-style: preserve-3d;
-    }
-    @else if $type == 'layer'
-    {
-        transform: translateZ(#{$z + px});
-    }
+@mixin parallax-element($type:layer, $z:0) {
+  @if $type == 'group' {
+    height: 100vh;
+    position: relative;
+    transform-style: preserve-3d;
+  }
+  @else if $type == 'layer' {
+    transform: translateZ(#{$z + px});
+  }
 }
 
 /**
@@ -325,16 +294,14 @@
  * @param  {Number}  $diameter
  * @param  {Boolean} $oval
  */
-@mixin diameter($diameter, $oval:false)
-{
-    width: $diameter;
-    height: $diameter;
+@mixin diameter($diameter, $oval:false) {
+  width: $diameter;
+  height: $diameter;
 
-    @if $oval == true
-    {
-        border-radius: $diameter / 2;
-        overflow: hidden;
-    }
+  @if $oval == true {
+    border-radius: $diameter / 2;
+    overflow: hidden;
+  }
 }
 
 /**
@@ -343,15 +310,12 @@
  * @param  {Boolean} $w     Specifies whether to fit the width.
  * @param  {Boolean} $h     Specifies whether to fit the height.
  */
-@mixin auto-fit($w:true, $h:true)
-{
-    @if $w == true
-    {
-        width: 100%;
-    }
+@mixin auto-fit($w:true, $h:true) {
+  @if $w == true {
+    width: 100%;
+  }
 
-    @if $h == true
-    {
-        height: 100%;
-    }
+  @if $h == true {
+    height: 100%;
+  }
 }

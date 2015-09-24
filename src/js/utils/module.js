@@ -7,32 +7,26 @@
  *
  * @type {Function}
  */
-define
-(
-    [
-        'utils/ready'
-    ],
-    function
-    (
-        ready
-    )
-    {
-        /**
-         * Creates a new module and attaches it to the window when DOM is ready. Option
-         * to pass an init object to initialize the module. A typical use-case will be to
-         * create a new Element module.
-         *
-         * @param  {Function}   impl Module implementation.
-         * @param  {Object}     init Optional object passed into the impl.
-         */
-        function module(impl, init)
-        {
-            ready(function()
-            {
-                return new impl(init);
-            });
-        }
-
-        return module;
+define([
+    'utils/ready'
+  ],
+  function(
+    ready
+  ) {
+    /**
+     * Creates a new module and attaches it to the window when DOM is ready. Option
+     * to pass an init object to initialize the module. A typical use-case will be to
+     * create a new Element module.
+     *
+     * @param  {Function}   impl Module implementation.
+     * @param  {Object}     init Optional object passed into the impl.
+     */
+    function module(impl, init) {
+      ready(function() {
+        return new impl(init);
+      });
     }
+
+    return module;
+  }
 );

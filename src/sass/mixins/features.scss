@@ -12,19 +12,15 @@
  *
  * @param  {Boolean} $enabled   Specifies whether 'csstransitions' class is required.
  */
-@mixin transition($enabled:true)
-{
-    @if $enabled == true and $modernizr-enabled == true
-    {
-        .csstransitions &
-        {
-            @content;
-        }
+@mixin transition($enabled:true) {
+  @if $enabled == true and $modernizr-enabled == true {
+    .csstransitions & {
+      @content;
     }
-    @else
-    {
-        @content;
-    }
+  }
+  @else {
+    @content;
+  }
 }
 
 /**
@@ -33,19 +29,15 @@
  *
  * @param  {Boolean} $enabled   Specifies whether 'cssanimations' class is required.
  */
-@mixin animation($enabled:true)
-{
-    @if $enabled == true and $modernizr-enabled == true
-    {
-        .cssanimations &
-        {
-            @content;
-        }
+@mixin animation($enabled:true) {
+  @if $enabled == true and $modernizr-enabled == true {
+    .cssanimations & {
+      @content;
     }
-    @else
-    {
-        @content;
-    }
+  }
+  @else {
+    @content;
+  }
 }
 
 /**
@@ -56,39 +48,31 @@
  * @param  {Boolean} $exclusive Specifies whether 'no-touch' class is required if
  *                              $enabled is false.
  */
-@mixin touch($enabled:true, $exclusive:false)
-{
-    @if $enabled == true and $modernizr-enabled == true
-    {
-        .touch &
-        {
-            @content;
-        }
+@mixin touch($enabled:true, $exclusive:false) {
+  @if $enabled == true and $modernizr-enabled == true {
+    .touch & {
+      @content;
     }
-    @else
-    {
-        @if $exclusive == true and $modernizr-enabled == true
-        {
-            .no-touch &
-            {
-                @content;
-            }
-        }
-        @else
-        {
-            @content;
-        }
+  }
+  @else {
+    @if $exclusive == true and $modernizr-enabled == true {
+      .no-touch & {
+        @content;
+      }
     }
+    @else {
+      @content;
+    }
+  }
 }
 
 /**
  * Enables hardware acceleration for containing selector.
  */
-@mixin hardware-acceleration
-{
-    transform: translateZ(0);
-    transform: translate3d(0, 0, 0);
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
-    perspective: 1000;
+@mixin hardware-acceleration {
+  transform: translateZ(0);
+  transform: translate3d(0, 0, 0);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  perspective: 1000;
 }

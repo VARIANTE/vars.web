@@ -7,33 +7,24 @@
  *
  * @type {Function}
  */
-define
-(
-    [
-    ],
-    function
-    (
-    )
-    {
-        /**
-         * Checks if a given object is equal to null (type-insensitive).
-         *
-         * @param  {Object} object
-         *
-         * @return {Boolean}
-         */
-        function isNull(object)
-        {
-            if (object === undefined || object === null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        return isNull;
+define([],
+  function() {
+    /**
+     * Checks if a given object is equal to null (type-insensitive).
+     *
+     * @param  {Object} object
+     *
+     * @return {Boolean}
+     */
+    function isNull(object) {
+      if (object === undefined || object === null) {
+        return true;
+      }
+      else {
+        return false;
+      }
     }
+
+    return isNull;
+  }
 );

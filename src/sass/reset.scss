@@ -9,102 +9,83 @@
 $font-size-reset: 16px !default;
 $font-size-scale: 100% !default;
 
-html
-{
-    @extend %box-reset;
-
-    width: 100%;
-    height: 100%;
-    font-size: $font-size-reset;
+html {
+  @extend %box-reset;
+  width: 100%;
+  height: 100%;
+  font-size: $font-size-reset;
 }
 
-body
-{
-    @extend %box-reset;
-
-    width: 100%;
-    height: 100%;
-    font-size: $font-size-scale;
+body {
+  @extend %box-reset;
+  width: 100%;
+  height: 100%;
+  font-size: $font-size-scale;
 }
 
-@include boxes
-{
-    @extend %box-reset;
-    @extend %text-reset;
-
-    display: block;
-    position: relative;
+@include boxes {
+  @extend %box-reset;
+  @extend %text-reset;
+  display: block;
+  position: relative;
 }
 
-@include buttons
-{
-    @extend %box-reset;
-    @extend %text-reset;
+@include buttons {
+  @extend %box-reset;
+  @extend %text-reset;
+  cursor: pointer;
 
-    cursor: pointer;
-
-    &:disabled
-    {
-        cursor: default;
-    }
+  &:disabled {
+    cursor: default;
+  }
 }
 
-@include labels
-{
-    @extend %box-reset;
-    @extend %text-reset;
+@include labels {
+  @extend %box-reset;
+  @extend %text-reset;
 }
 
-@include lists
-{
-    @extend %box-reset;
-    @extend %text-reset;
+@include lists {
+  @extend %box-reset;
+  @extend %text-reset;
 }
 
-@include textfields
-{
-    @extend %box-reset;
-    @extend %text-reset;
+@include textfields {
+  @extend %box-reset;
+  @extend %text-reset;
+  resize: none;
 
-    resize: none;
+  &:focus {
+    outline-width: 0;
+  }
 
-    &:focus
-    {
-        outline-width: 0;
-    }
-
-    &:-webkit-autofill
-    {
-      box-shadow: 0 0 0px 1000px white inset;
-    }
+  &:-webkit-autofill {
+    box-shadow: 0 0 0 1000px white inset;
+  }
 }
 
-@include statics
-{
-    @extend %box-reset;
-    @extend %text-reset;
-
-    position: static;
+@include statics {
+  @extend %box-reset;
+  @extend %text-reset;
+  position: static;
 }
 
-%box-reset
-{
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-    outline: none;
-    border: none;
+%box-reset {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
 }
 
-%text-reset
-{
-    font-weight: normal;
-    text-decoration: none;
-    line-height: normal;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-    -webkit-font-smoothing: antialiased;
-    -webkit-text-stroke: 0px;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-    text-size-adjust: 100%;
+%text-reset {
+  font-weight: normal;
+  text-decoration: none;
+  line-height: normal;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke: 0;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  text-size-adjust: 100%;
 }

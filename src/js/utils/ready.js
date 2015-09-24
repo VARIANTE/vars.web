@@ -7,58 +7,45 @@
  *
  * @type {Function}
  */
-define
-(
-    [
-    ],
-    function
-    (
-    )
-    {
-        /**
-         * Invokes a function when the DOM is ready.
-         *
-         * @param  {Function}   callback    Function invoked when the DOM is ready.
-         */
-        function ready(callback)
-        {
-            if (!document) return null;
+define([],
+  function() {
+    /**
+     * Invokes a function when the DOM is ready.
+     *
+     * @param  {Function}   callback    Function invoked when the DOM is ready.
+     */
+    function ready(callback) {
+      if (!document) return null;
 
-            var onLoaded = function(event)
-            {
-                if (document.addEventListener)
-                {
-                    document.removeEventListener('DOMContentLoaded', onLoaded, false);
-                    window.removeEventListener('load', onLoaded, false);
-                }
-                else if (document.attachEvent)
-                {
-                    document.detachEvent('onreadystatechange', onLoaded);
-                    window.detachEvent('onload', onLoaded);
-                }
-
-                setTimeout(callback, 1);
-            };
-
-            if (document.readyState === 'complete')
-            {
-                return setTimeout(callback, 1);
-            }
-
-            if (document.addEventListener)
-            {
-                document.addEventListener('DOMContentLoaded', onLoaded, false);
-                window.addEventListener('load', onLoaded, false);
-            }
-            else if (document.attachEvent)
-            {
-                document.attachEvent('onreadystatechange', onLoaded);
-                window.attachEvent('onload', onLoaded);
-            }
-
-            return null;
+      var onLoaded = function(event) {
+        if (document.addEventListener) {
+          document.removeEventListener('DOMContentLoaded', onLoaded, false);
+          window.removeEventListener('load', onLoaded, false);
+        }
+        else if (document.attachEvent) {
+          document.detachEvent('onreadystatechange', onLoaded);
+          window.detachEvent('onload', onLoaded);
         }
 
-        return ready;
+        setTimeout(callback, 1);
+      };
+
+      if (document.readyState === 'complete') {
+        return setTimeout(callback, 1);
+      }
+
+      if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', onLoaded, false);
+        window.addEventListener('load', onLoaded, false);
+      }
+      else if (document.attachEvent) {
+        document.attachEvent('onreadystatechange', onLoaded);
+        window.attachEvent('onload', onLoaded);
+      }
+
+      return null;
     }
+
+    return ready;
+  }
 );

@@ -7,39 +7,29 @@
  *
  * @type {Function}
  */
-define
-(
-    [
-    ],
-    function
-    (
-    )
-    {
-        /**
-         * Gets the key of a given value in a given object.
-         *
-         * @param  {Object} object  Target object.
-         * @param  {Value}  value   Target value.
-         */
-        function keyOfValue(object, value)
-        {
-            if (!object || !value) return null;
-            if (typeof object !== 'object') return null;
+define([],
+  function() {
+    /**
+     * Gets the key of a given value in a given object.
+     *
+     * @param  {Object} object  Target object.
+     * @param  {Value}  value   Target value.
+     */
+    function keyOfValue(object, value) {
+      if (!object || !value) return null;
+      if (typeof object !== 'object') return null;
 
-            for (var property in object)
-            {
-                if (object.hasOwnProperty(property))
-                {
-                    if (object[property] === value)
-                    {
-                        return property;
-                    }
-                }
-            }
-
-            return null;
+      for (var property in object) {
+        if (object.hasOwnProperty(property)) {
+          if (object[property] === value) {
+            return property;
+          }
         }
+      }
 
-        return keyOfValue;
+      return null;
     }
+
+    return keyOfValue;
+  }
 );

@@ -9,23 +9,21 @@
  *
  * @type {Module}
  */
-define
-(
-    [
-        'enums/DirtyType',
-        'enums/NodeState'
-    ],
-    function
-    (
-        DirtyType,
-        NodeState
-    )
-    {
-        var api = function(obj) { return obj; };
+define([
+    'enums/DirtyType',
+    'enums/NodeState'
+  ],
+  function(
+    DirtyType,
+    NodeState
+  ) {
+    var api = function(obj) {
+      return obj;
+    };
 
-        Object.defineProperty(api, 'DirtyType', { value: DirtyType, writable: false, enumerable: true });
-        Object.defineProperty(api, 'NodeState', { value: NodeState, writable: false, enumerable: true });
+    Object.defineProperty(api, 'DirtyType', { value: DirtyType, writable: false, enumerable: true });
+    Object.defineProperty(api, 'NodeState', { value: NodeState, writable: false, enumerable: true });
 
-        return api;
-    }
+    return api;
+  }
 );

@@ -13,8 +13,8 @@
  */
 @mixin controller($name)
 {
-    [data-vs-controller='#{$name}'] { @content; }
-    [vs-controller='#{name}'] { @content; }
+  [data-vs-controller='#{$name}'] { @content; }
+  [vs-controller='#{name}']       { @content; }
 }
 
 /**
@@ -24,8 +24,8 @@
  */
 @mixin instance($name)
 {
-    [data-vs-instance='#{$name}'] { @content; }
-    [vs-instance='#{name}'] { @content; }
+  [data-vs-instance='#{$name}'] { @content; }
+  [vs-instance='#{name}']       { @content; }
 }
 
 /**
@@ -36,54 +36,43 @@
  * @param  {String} $scope  Specifies the scope relative to the target selector
  *                          in which this property applies to (any, this, parent, or child).
  */
-@mixin property($key, $value:null, $scope:'this')
-{
-    @if $value == null
-    {
-        @if $scope == 'any'
-        {
-            @at-root [data-vs-property-#{$key}] { @content; }
-            @at-root [vs-property-#{key}] { @content; }
-        }
-        @else if $scope == 'this'
-        {
-            &[data-vs-property-#{$key}] { @content; }
-            &[vs-property-#{key}] { @content; }
-        }
-        @else if $scope == 'parent'
-        {
-            [data-vs-property-#{$key}] & { @content; }
-            [vs-property-#{key}] & { @content; }
-        }
-        @else if $scope == 'child'
-        {
-            &[data-vs-property-#{$key}] * { @content; }
-            &[vs-property-#{key}] * { @content; }
-        }
+@mixin property($key, $value:null, $scope:'this') {
+  @if $value == null {
+    @if $scope == 'any' {
+      @at-root [data-vs-property-#{$key}] { @content; }
+      @at-root [vs-property-#{key}]       { @content; }
     }
-    @else
-    {
-        @if $scope == 'any'
-        {
-            @at-root [data-vs-property-#{$key}='#{$value}'] { @content; }
-            @at-root [vs-property-#{key}='#{value}'] { @content; }
-        }
-        @else if $scope == 'this'
-        {
-            &[data-vs-property-#{$key}='#{$value}'] { @content; }
-            &[vs-property-#{key}='#{value}'] { @content; }
-        }
-        @else if $scope == 'parent'
-        {
-            [data-vs-property-#{$key}='#{$value}'] & { @content; }
-            [vs-property-#{key}='#{value}'] & { @content; }
-        }
-        @else if $scope == 'child'
-        {
-            &[data-vs-property-#{$key}='#{$value}'] * { @content; }
-            &[vs-property-#{key}='#{value}'] * { @content; }
-        }
+    @else if $scope == 'this' {
+      &[data-vs-property-#{$key}] { @content; }
+      &[vs-property-#{key}]       { @content; }
     }
+    @else if $scope == 'parent' {
+      [data-vs-property-#{$key}] & { @content; }
+      [vs-property-#{key}] &       { @content; }
+    }
+    @else if $scope == 'child' {
+      &[data-vs-property-#{$key}] * { @content; }
+      &[vs-property-#{key}] *       { @content; }
+    }
+  }
+  @else {
+    @if $scope == 'any' {
+      @at-root [data-vs-property-#{$key}='#{$value}'] { @content; }
+      @at-root [vs-property-#{key}='#{value}']        { @content; }
+    }
+    @else if $scope == 'this' {
+      &[data-vs-property-#{$key}='#{$value}'] { @content; }
+      &[vs-property-#{key}='#{value}']        { @content; }
+    }
+    @else if $scope == 'parent' {
+      [data-vs-property-#{$key}='#{$value}'] & { @content; }
+      [vs-property-#{key}='#{value}'] &        { @content; }
+    }
+    @else if $scope == 'child' {
+      &[data-vs-property-#{$key}='#{$value}'] * { @content; }
+      &[vs-property-#{key}='#{value}'] *        { @content; }
+    }
+  }
 }
 
 /**
@@ -93,36 +82,29 @@
  * @param  {List}    $states    List of state names.
  * @param  {Boolean} $default   Specifies whether the class(es) are default.
  */
-@mixin state($states, $default:false)
-{
-    @each $state in $states
-    {
-        @if $state == 'hover'
-        {
-            @if $modernizr-enabled == true
-            {
-                .no-touch &:hover { @content; }
-                .no-touch &[data-vs-state='hover'] { @content; }
-                .no-touch &[vs-state='hover'] { @content; }
-            }
-            @else
-            {
-                &:hover { @content; }
-                &[data-vs-state='hover'] { @content; }
-                &[vs-state='hover'] { @content; }
-            }
-        }
-        @else
-        {
-            &[data-vs-state='#{$state}'] { @content; }
-            &[vs-state='#{$state}'] { @content; }
-        }
+@mixin state($states, $default:false) {
+  @each $state in $states {
+    @if $state == 'hover' {
+      @if $modernizr-enabled == true {
+        .no-touch &:hover { @content; }
+        .no-touch &[data-vs-state='hover'] { @content; }
+        .no-touch &[vs-state='hover']      { @content; }
+      }
+      @else {
+        &:hover { @content; }
+        &[data-vs-state='hover'] { @content; }
+        &[vs-state='hover']      { @content; }
+      }
     }
+    @else {
+      &[data-vs-state='#{$state}'] { @content; }
+      &[vs-state='#{$state}']      { @content; }
+    }
+  }
 
-    @if $default == true
-    {
-        @content;
-    }
+  @if $default == true {
+    @content;
+  }
 }
 
 /**
@@ -134,49 +116,39 @@
  * @param  {String}  $scope     Specifies the scope relative to the target selector
  *                              in which this property applies to (any, this, parent, or child).
  */
-@mixin style($style, $default:false, $scope:'this')
-{
-    @if $scope == 'any'
-    {
-        @at-root [data-vs-style='#{$style}'] { @content; }
-        @at-root [vs-style='#{$style}'] { @content; }
+@mixin style($style, $default:false, $scope:'this') {
+  @if $scope == 'any' {
+    @at-root [data-vs-style='#{$style}'] { @content; }
+    @at-root [vs-style='#{$style}'] { @content; }
 
-        @if $default == true
-        {
-            @at-root * { @content; }
-        }
+    @if $default == true {
+      @at-root * { @content; }
     }
-    @else if $scope == 'this'
-    {
-        &[data-vs-style='#{$style}'] { @content; }
-        &[vs-style='#{$style}'] { @content; }
+  }
+  @else if $scope == 'this' {
+    &[data-vs-style='#{$style}'] { @content; }
+    &[vs-style='#{$style}']      { @content; }
 
-        @if $default == true
-        {
-            @content;
-        }
+    @if $default == true {
+        @content;
     }
-    @else if $scope == 'parent'
-    {
-        [data-vs-style='#{$style}'] & { @content; }
-        [vs-style='#{$style}'] & { @content; }
+  }
+  @else if $scope == 'parent' {
+    [data-vs-style='#{$style}'] & { @content; }
+    [vs-style='#{$style}'] &      { @content; }
 
-        @if $default == true
-        {
-            @content;
-        }
+    @if $default == true {
+      @content;
     }
-    @else if $scope == 'child'
-    {
-        &[data-vs-style='#{$style}'] * { @content; }
-        &[vs-style='#{$style}'] * { @content; }
+  }
+  @else if $scope == 'child' {
+    &[data-vs-style='#{$style}'] * { @content; }
+    &[vs-style='#{$style}'] *      { @content; }
 
-        @if $default == true
-        {
-            & *
-            {
-                @content;
-            }
-        }
+    @if $default == true {
+      & * {
+        @content;
+      }
     }
+  }
 }

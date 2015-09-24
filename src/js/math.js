@@ -9,23 +9,21 @@
  *
  * @type {Module}
  */
-define
-(
-    [
-        'math/clamp',
-        'math/isClamped'
-    ],
-    function
-    (
-        clamp,
-        isClamped
-    )
-    {
-        var api = function(obj) { return obj; };
+define([
+    'math/clamp',
+    'math/isClamped'
+  ],
+  function(
+    clamp,
+    isClamped
+  ) {
+    var api = function(obj) {
+      return obj;
+    };
 
-        Object.defineProperty(api, 'clamp', { value: clamp, writable: false, enumerable: true });
-        Object.defineProperty(api, 'isClamped', { value: isClamped, writable: false, enumerable: true });
+    Object.defineProperty(api, 'clamp', { value: clamp, writable: false, enumerable: true });
+    Object.defineProperty(api, 'isClamped', { value: isClamped, writable: false, enumerable: true });
 
-        return api;
-    }
+    return api;
+  }
 );

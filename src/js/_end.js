@@ -7,5 +7,5 @@
  *
  * End file for r.js.
  */
-    return require('vars');
+  return require('vars');
 }()));

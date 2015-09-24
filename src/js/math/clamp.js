@@ -7,35 +7,29 @@
  *
  * @type {Function}
  */
-define
-(
-    [
-    ],
-    function
-    (
-    )
-    {
-        /**
-         * Clamps a value to a min and max value.
-         *
-         * @param  {Number} value
-         * @param  {Number} min
-         * @param  {Number} max
-         *
-         * @return {Number} The clamped value.
-         */
-        function clamp(value, min, max)
-        {
-            if ((typeof value !== 'number') || (typeof min !== 'number') || (typeof max !== 'number')) return NaN;
+define([
+  ],
+  function() {
+    /**
+     * Clamps a value to a min and max value.
+     *
+     * @param  {Number} value
+     * @param  {Number} min
+     * @param  {Number} max
+     *
+     * @return {Number} The clamped value.
+     */
+    function clamp(value, min, max) {
+      if ((typeof value !== 'number') || (typeof min !== 'number') || (typeof max !== 'number')) return NaN;
 
-            var output = value;
+      var output = value;
 
-            output = Math.min(output, max);
-            output = Math.max(output, min);
+      output = Math.min(output, max);
+      output = Math.max(output, min);
 
-            return output;
-        }
-
-        return clamp;
+      return output;
     }
+
+    return clamp;
+  }
 );

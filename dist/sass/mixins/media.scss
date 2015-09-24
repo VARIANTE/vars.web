@@ -59,58 +59,46 @@
  *                                  If false (default), it does NOT use the '.no-touch' class, but
  *                                  instead applies content normally.
  */
-@mixin screen($screen, $exclusive:false, $invert:false, $measurement:width, $touch:false)
-{
-    @if $screen == mobile
-    {
-        $min-threshold: 0px;
-        $max-threshold: 667px;
-    }
+@mixin screen($screen, $exclusive:false, $invert:false, $measurement:width, $touch:false) {
+  @if $screen == mobile {
+    $min-threshold: 0px;
+    $max-threshold: 667px;
+  }
 
-    @else if $screen == phablet
-    {
-        $min-threshold: 668px;
-        $max-threshold: 767px;
-    }
+  @else if $screen == phablet {
+    $min-threshold: 668px;
+    $max-threshold: 767px;
+  }
 
-    @else if $screen == tablet
-    {
-        $min-threshold: 768px;
-        $max-threshold: 1024px;
-    }
+  @else if $screen == tablet {
+    $min-threshold: 768px;
+    $max-threshold: 1024px;
+  }
 
-    @else if $screen == desktop
-    {
-        $min-threshold: 1025px;
-        $max-threshold: 10000px; // some ridiculously large arbituary number
-    }
+  @else if $screen == desktop {
+    $min-threshold: 1025px;
+    $max-threshold: 10000px; // some ridiculously large arbituary number
+  }
 
-    @if $min-threshold != null and $max-threshold != null
-    {
-        @if $exclusive == true
-        {
-            @if $invert == true
-            {
-                @media screen and (max-#{$measurement}: #{$min-threshold - 1px}) { @include touch($touch, false) { @content; } }
-                @media screen and (min-#{$measurement}: #{$max-threshold + 1px}) { @include touch($touch, false) { @content; } }
-            }
-            @else
-            {
-                @media screen and (min-#{$measurement}: #{$min-threshold}) and (max-#{$measurement}: #{$max-threshold}) { @include touch($touch, false) { @content; } }
-            }
-        }
-        @else
-        {
-            @if $invert == true
-            {
-                @media screen and (max-#{$measurement}: #{$min-threshold - 1px}) { @include touch($touch, false) { @content; } }
-            }
-            @else
-            {
-                @media screen and (min-#{$measurement}: $min-threshold) { @include touch($touch, false) { @content; } }
-            }
-        }
+  @if $min-threshold != null and $max-threshold != null {
+    @if $exclusive == true {
+      @if $invert == true {
+        @media screen and (max-#{$measurement}: #{$min-threshold - 1px}) { @include touch($touch, false) { @content; } }
+        @media screen and (min-#{$measurement}: #{$max-threshold + 1px}) { @include touch($touch, false) { @content; } }
+      }
+      @else {
+        @media screen and (min-#{$measurement}: #{$min-threshold}) and (max-#{$measurement}: #{$max-threshold}) { @include touch($touch, false) { @content; } }
+      }
     }
+    @else {
+      @if $invert == true {
+          @media screen and (max-#{$measurement}: #{$min-threshold - 1px}) { @include touch($touch, false) { @content; } }
+      }
+      @else {
+          @media screen and (min-#{$measurement}: $min-threshold) { @include touch($touch, false) { @content; } }
+      }
+    }
+  }
 }
 
 /**
@@ -123,21 +111,19 @@
  * @param  {Number} $num-rows  Total number of rows in the image map.
  * @param  {Number} $num-cols  Total number of columns in the image map.
  */
-@mixin image-map-item($path, $row-index, $col-index, $num-rows, $num-cols)
-{
-    @if $path != null
-    {
-        background-image: url($path);
-    }
+@mixin image-map-item($path, $row-index, $col-index, $num-rows, $num-cols) {
+  @if $path != null {
+    background-image: url($path);
+  }
 
-    $x: 0;
-    $y: 0;
+  $x: 0;
+  $y: 0;
 
-    @if $num-cols > 1 { $x: #{((100 / ($num-cols - 1)) * $col-index)}; }
-    @if $num-rows > 1 { $y: #{((100 / ($num-rows - 1)) * $row-index)}; }
+  @if $num-cols > 1 { $x: #{((100 / ($num-cols - 1)) * $col-index)}; }
+  @if $num-rows > 1 { $y: #{((100 / ($num-rows - 1)) * $row-index)}; }
 
-    background-size: #{$num-cols * 100}% #{$num-rows * 100}%;
-    background-position: #{$x}% #{$y}%;
+  background-size: #{$num-cols * 100}% #{$num-rows * 100}%;
+  background-position: #{$x}% #{$y}%;
 }
 
 /**
@@ -150,44 +136,33 @@
  *
  * @note This mixin is quite slow in performance due to the nested loop.
  */
-@mixin image-map($path:null, $map:null)
-{
-    @if $path != null
-    {
-        background-image: url($path);
-    }
+@mixin image-map($path:null, $map:null) {
+  @if $path != null {
+    background-image: url($path);
+  }
 
-    @if $map != null
-    {
-        $max-rows: length($map);
+  @if $map != null {
+    $max-rows: length($map);
 
-        @if $max-rows > 0
-        {
-            @if type-of(nth($map, 1)) == list
-            {
-                $max-cols: length(nth($map, 1));
+    @if $max-rows > 0 {
+      @if type-of(nth($map, 1)) == list {
+        $max-cols: length(nth($map, 1));
 
-                @for $i from 1 through $max-rows
-                {
-                    $row: nth($map, $i);
+        @for $i from 1 through $max-rows {
+          $row: nth($map, $i);
 
-                    @for $j from 1 through length(nth($map, $i))
-                    {
-                      $col: nth($row, $j);
-
-                      &.#{$col} { @include image-map-item(null, $i - 1, $j - 1, $max-rows, $max-cols); }
-                    }
-                }
-            }
-            @else
-            {
-                @for $i from 1 through $max-rows
-                {
-                    $col: nth($map, $i);
-
-                    &.#{$col} { @include image-map-item(null, 0, $i - 1, 1, $max-rows); }
-                }
-            }
+          @for $j from 1 through length(nth($map, $i)) {
+            $col: nth($row, $j);
+            &.#{$col} { @include image-map-item(null, $i - 1, $j - 1, $max-rows, $max-cols); }
+          }
         }
+      }
+      @else {
+        @for $i from 1 through $max-rows {
+          $col: nth($map, $i);
+          &.#{$col} { @include image-map-item(null, 0, $i - 1, 1, $max-rows); }
+        }
+      }
     }
+  }
 }
