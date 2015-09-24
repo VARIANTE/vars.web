@@ -1630,30 +1630,34 @@ define('ui/Element',[
 
       for (var i = 0; i < nAtributes; i++) {
         var a = attributes[i];
-        var p = a.name.replace(reg, '').replace(/-([a-z])/g, function(g) {
-          return g[1].toUpperCase();
-        });
 
         if (regProperty.test(a.name)) {
-          Object.defineProperty(this, p, {
+          var pProperty = a.name.replace(regProperty, '').replace(/-([a-z])/g, function(g) {
+            return g[1].toUpperCase();
+          });
+
+          Object.defineProperty(this, pProperty, {
             value: (a.value === '') ? true : a.value,
             writable: true
           });
         }
         else if (regData.test(a.name)) {
-          var _p = '_'+p;
+          var pData = a.name.replace(regData, '').replace(/-([a-z])/g, function(g) {
+            return g[1].toUpperCase();
+          });
+          var _pData = '_'+pData;
 
-          Object.defineProperty(this, p, {
+          Object.defineProperty(this, pData, {
             get: function() {
-              if (!this[_p]) {
+              if (!this[_pData]) {
                 return a.value;
               }
               else {
-                return this[_p];
+                return this[_pData];
               }
             },
             set: function(value) {
-              this[_p] = value;
+              this[_pData] = value;
               this.updateDelegate.setDirty(DirtyType.DATA);
             }
           });
@@ -4970,7 +4974,7 @@ define(
      * @type {String}
      */
     Object.defineProperty(vars, 'version', {
-      value: '0.21.0',
+      value: '0.21.1',
       writable: false
     });
 
