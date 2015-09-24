@@ -10,7 +10,8 @@
 define([],
   function() {
     /**
-     * Asserts the specified condition and throws a warning if assertion fails.
+     * Asserts the specified condition and throws a warning if assertion fails. Internal use
+     * only.
      *
      * @param  {Boolean}    condition   Condition to validate against.
      * @param  {String}     message     (Optional) Message to be displayed when assertion fails.
@@ -18,8 +19,8 @@ define([],
      * @return {Boolean} True if assert passed, false otherwise.
      */
     function assert(condition, message) {
-      if (!condition && (window && window.vars && window.vars.debug)) {
-        throw ('Error: ' + message) || '[vars]: Assertion failed.';
+      if (!condition && (window && window.vars && window.VARS_DEBUG)) {
+        throw new Error((message || 'Assertion failed'));
       }
 
       return condition;

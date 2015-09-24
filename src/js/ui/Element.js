@@ -74,7 +74,7 @@ define([
         }
       }
 
-      // Further define instance properties per custom attribute.
+      // Further extend data/properties per custom attribute.
       var attributes = this.element.attributes;
       var nAtributes = sizeOf(attributes);
       var regProperty = new RegExp('^' + Directives.Property + '-' + '|^data-' + Directives.Property + '-', 'i');
@@ -88,7 +88,7 @@ define([
             return g[1].toUpperCase();
           });
 
-          Object.defineProperty(this, pProperty, {
+          Object.defineProperty(this.properties, pProperty, {
             value: (a.value === '') ? true : a.value,
             writable: true
           });
@@ -98,20 +98,21 @@ define([
             return g[1].toUpperCase();
           });
           var _pData = '_'+pData;
+          var val = a.value;
 
-          Object.defineProperty(this, pData, {
+          Object.defineProperty(this.data, pData, {
             get: function() {
-              if (!this[_pData]) {
-                return a.value;
+              if (!this.data[_pData]) {
+                return val;
               }
               else {
-                return this[_pData];
+                return this.data[_pData];
               }
-            },
+            }.bind(this),
             set: function(value) {
-              this[_pData] = value;
+              this.data[_pData] = value;
               this.updateDelegate.setDirty(DirtyType.DATA);
-            }
+            }.bind(this)
           });
         }
       }
@@ -770,24 +771,29 @@ define([
       });
 
       /**
-       * @property
+       * @property (read-only)
        *
-       * Specifies the data providers of this Element instance.
+       * Data attributes.
        *
-       * @type {*}
+       * @type {Object}
+       * @see ui.Directives.Data
        */
       Object.defineProperty(this, 'data', {
-        get: function() {
-          return this._data;
-        },
-        set: function(value) {
-          Object.defineProperty(this, '_data', {
-            value: value,
-            writable: true
-          });
+        value: {},
+        writable: false
+      });
 
-          this.updateDelegate.setDirty(DirtyType.DATA);
-        }
+      /**
+       * @property (read-only)
+       *
+       * Property attributes.
+       *
+       * @type {Object}
+       * @see ui.Directives.Property
+       */
+      Object.defineProperty(this, 'properties', {
+        value: {},
+        writable: false
       });
 
       /**

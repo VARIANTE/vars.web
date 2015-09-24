@@ -554,7 +554,8 @@ define('enums',[
 define('utils/assert',[],
   function() {
     /**
-     * Asserts the specified condition and throws a warning if assertion fails.
+     * Asserts the specified condition and throws a warning if assertion fails. Internal use
+     * only.
      *
      * @param  {Boolean}    condition   Condition to validate against.
      * @param  {String}     message     (Optional) Message to be displayed when assertion fails.
@@ -562,8 +563,8 @@ define('utils/assert',[],
      * @return {Boolean} True if assert passed, false otherwise.
      */
     function assert(condition, message) {
-      if (!condition && (window && window.vars && window.vars.debug)) {
-        throw ('Error: ' + message) || '[vars]: Assertion failed.';
+      if (!condition && (window && window.vars && window.VARS_DEBUG)) {
+        throw new Error((message || 'Assertion failed'));
       }
 
       return condition;
@@ -585,7 +586,7 @@ define('utils/assert',[],
 define('utils/log',[],
   function() {
     /**
-     * Logs to console if debug mode is on.
+     * Internal logger to console if debug mode is on.
      */
     function log() {
       if (window && window.VARS_DEBUG && window.console && console.log) {
@@ -1622,7 +1623,7 @@ define('ui/Element',[
         }
       }
 
-      // Further define instance properties per custom attribute.
+      // Further extend data/properties per custom attribute.
       var attributes = this.element.attributes;
       var nAtributes = sizeOf(attributes);
       var regProperty = new RegExp('^' + Directives.Property + '-' + '|^data-' + Directives.Property + '-', 'i');
@@ -1636,7 +1637,7 @@ define('ui/Element',[
             return g[1].toUpperCase();
           });
 
-          Object.defineProperty(this, pProperty, {
+          Object.defineProperty(this.properties, pProperty, {
             value: (a.value === '') ? true : a.value,
             writable: true
           });
@@ -1646,20 +1647,21 @@ define('ui/Element',[
             return g[1].toUpperCase();
           });
           var _pData = '_'+pData;
+          var val = a.value;
 
-          Object.defineProperty(this, pData, {
+          Object.defineProperty(this.data, pData, {
             get: function() {
-              if (!this[_pData]) {
-                return a.value;
+              if (!this.data[_pData]) {
+                return val;
               }
               else {
-                return this[_pData];
+                return this.data[_pData];
               }
-            },
+            }.bind(this),
             set: function(value) {
-              this[_pData] = value;
+              this.data[_pData] = value;
               this.updateDelegate.setDirty(DirtyType.DATA);
-            }
+            }.bind(this)
           });
         }
       }
@@ -2318,24 +2320,29 @@ define('ui/Element',[
       });
 
       /**
-       * @property
+       * @property (read-only)
        *
-       * Specifies the data providers of this Element instance.
+       * Data attributes.
        *
-       * @type {*}
+       * @type {Object}
+       * @see ui.Directives.Data
        */
       Object.defineProperty(this, 'data', {
-        get: function() {
-          return this._data;
-        },
-        set: function(value) {
-          Object.defineProperty(this, '_data', {
-            value: value,
-            writable: true
-          });
+        value: {},
+        writable: false
+      });
 
-          this.updateDelegate.setDirty(DirtyType.DATA);
-        }
+      /**
+       * @property (read-only)
+       *
+       * Property attributes.
+       *
+       * @type {Object}
+       * @see ui.Directives.Property
+       */
+      Object.defineProperty(this, 'properties', {
+        value: {},
+        writable: false
       });
 
       /**
@@ -4894,12 +4901,10 @@ define('utils/AssetLoader',[
  * @type {Module}
  */
 define('utils',[
-    'utils/assert',
     'utils/debounce',
     'utils/inherit',
     'utils/isNull',
     'utils/keyOfValue',
-    'utils/log',
     'utils/module',
     'utils/namespace',
     'utils/ready',
@@ -4907,12 +4912,10 @@ define('utils',[
     'utils/AssetLoader'
   ],
   function(
-    assert,
     debounce,
     inherit,
     isNull,
     keyOfValue,
-    log,
     module,
     namespace,
     ready,
@@ -4923,12 +4926,10 @@ define('utils',[
       return obj;
     };
 
-    Object.defineProperty(api, 'assert', { value: assert, writable: false, enumerable: true });
     Object.defineProperty(api, 'debounce', { value: debounce, writable: false, enumerable: true });
     Object.defineProperty(api, 'inherit', { value: inherit, writable: false, enumerable: true });
     Object.defineProperty(api, 'isNull', { value: isNull, writable: false, enumerable: true });
     Object.defineProperty(api, 'keyOfValue', { value: keyOfValue, writable: false, enumerable: true });
-    Object.defineProperty(api, 'log', { value: log, writable: false, enumerable: true });
     Object.defineProperty(api, 'module', { value: module, writable: false, enumerable: true });
     Object.defineProperty(api, 'namespace', { value: namespace, writable: false, enumerable: true });
     Object.defineProperty(api, 'ready', { value: ready, writable: false, enumerable: true });
@@ -4974,7 +4975,7 @@ define(
      * @type {String}
      */
     Object.defineProperty(vars, 'version', {
-      value: '0.21.1',
+      value: '0.22.0',
       writable: false
     });
 

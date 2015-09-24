@@ -10,7 +10,7 @@
 define([],
   function() {
     /**
-     * Logs to console if debug mode is on.
+     * Internal logger to console if debug mode is on.
      */
     function log() {
       if (window && window.VARS_DEBUG && window.console && console.log) {

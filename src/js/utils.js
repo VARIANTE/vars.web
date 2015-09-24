@@ -10,12 +10,10 @@
  * @type {Module}
  */
 define([
-    'utils/assert',
     'utils/debounce',
     'utils/inherit',
     'utils/isNull',
     'utils/keyOfValue',
-    'utils/log',
     'utils/module',
     'utils/namespace',
     'utils/ready',
@@ -23,12 +21,10 @@ define([
     'utils/AssetLoader'
   ],
   function(
-    assert,
     debounce,
     inherit,
     isNull,
     keyOfValue,
-    log,
     module,
     namespace,
     ready,
@@ -39,12 +35,10 @@ define([
       return obj;
     };
 
-    Object.defineProperty(api, 'assert', { value: assert, writable: false, enumerable: true });
     Object.defineProperty(api, 'debounce', { value: debounce, writable: false, enumerable: true });
     Object.defineProperty(api, 'inherit', { value: inherit, writable: false, enumerable: true });
     Object.defineProperty(api, 'isNull', { value: isNull, writable: false, enumerable: true });
     Object.defineProperty(api, 'keyOfValue', { value: keyOfValue, writable: false, enumerable: true });
-    Object.defineProperty(api, 'log', { value: log, writable: false, enumerable: true });
     Object.defineProperty(api, 'module', { value: module, writable: false, enumerable: true });
     Object.defineProperty(api, 'namespace', { value: namespace, writable: false, enumerable: true });
     Object.defineProperty(api, 'ready', { value: ready, writable: false, enumerable: true });
