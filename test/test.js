@@ -20,12 +20,14 @@
     };
 
     A.prototype.update = function() {
-      console.log('bar', Number(this.data.foo));
+      console.log('bar', this.data.foo, this.data.bar, this.data.me);
       A.__super__.update.call(this);
     };
 
     A.prototype.foo = function(event) {
       this.data.foo--;
+      this.data.bar++;
+      this.data.me = !this.data.me;
     };
 
     return A;

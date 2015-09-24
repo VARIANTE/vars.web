@@ -97,24 +97,25 @@ define([
           var pData = a.name.replace(regData, '').replace(/-([a-z])/g, function(g) {
             return g[1].toUpperCase();
           });
-          var _pData = '_'+pData;
-          var attr = a.name;
-          var val = a.value;
 
           Object.defineProperty(this.data, pData, {
-            get: function() {
-              if (this.data[_pData] === undefined) {
-                return val;
-              }
-              else {
-                return this.data[_pData];
-              }
-            }.bind(this),
-            set: function(value) {
-              this.data[_pData] = value;
-              this.element.setAttribute(attr, value);
-              this.updateDelegate.setDirty(DirtyType.DATA);
-            }.bind(this)
+            get: (function(key, val) {
+              return function() {
+                if (this.data[key] === undefined) {
+                  return val;
+                }
+                else {
+                  return this.data[key];
+                }
+              }.bind(this);
+            }.bind(this)('_'+pData, (a.value === '') ? true : a.value)),
+            set: (function(attr, key) {
+              return function(value) {
+                this.data[key] = value;
+                this.element.setAttribute(attr, value);
+                this.updateDelegate.setDirty(DirtyType.DATA);
+              }.bind(this);
+            }.bind(this)(a.name, '_'+pData))
           });
         }
       }
