@@ -98,6 +98,7 @@ define([
             return g[1].toUpperCase();
           });
           var _pData = '_'+pData;
+          var attr = a.name;
           var val = a.value;
 
           Object.defineProperty(this.data, pData, {
@@ -111,6 +112,7 @@ define([
             }.bind(this),
             set: function(value) {
               this.data[_pData] = value;
+              this.element.setAttribute(attr, value);
               this.updateDelegate.setDirty(DirtyType.DATA);
             }.bind(this)
           });

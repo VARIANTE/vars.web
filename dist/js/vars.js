@@ -1647,6 +1647,7 @@ define('ui/Element',[
             return g[1].toUpperCase();
           });
           var _pData = '_'+pData;
+          var attr = a.name;
           var val = a.value;
 
           Object.defineProperty(this.data, pData, {
@@ -1660,6 +1661,7 @@ define('ui/Element',[
             }.bind(this),
             set: function(value) {
               this.data[_pData] = value;
+              this.element.setAttribute(attr, value);
               this.updateDelegate.setDirty(DirtyType.DATA);
             }.bind(this)
           });
@@ -4975,7 +4977,7 @@ define(
      * @type {String}
      */
     Object.defineProperty(vars, 'version', {
-      value: '0.22.0',
+      value: '0.22.2',
       writable: false
     });
 
