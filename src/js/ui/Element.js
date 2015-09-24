@@ -591,8 +591,7 @@ define
                 var c = classes[i];
 
                 if (!assert(typeof c === 'string', 'Invalid class detected: ' + c)) continue;
-
-                var regex = new RegExp('^'+c+'\\s+|\\s+'+c, 'g');
+                var regex = new RegExp('^'+c+'\\s+|\\s+'+c+'|^'+c+'$', 'g');
                 this.element.className = this.element.className.replace(regex, '');
             }
         };

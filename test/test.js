@@ -16,6 +16,7 @@
         A.prototype.init = function()
         {
             this.addEventListener(vars.EventType.MOUSE.CLICK, this.foo);
+            this.removeClass('a');
 
             var c1 = this.getChild('c1');
             var c2_2 = this.getChild('c2')[1];
