@@ -1032,6 +1032,7 @@ define('ui/Directives',{
   Controller: 'vs-controller',
   Instance: 'vs-instance',
   Property: 'vs-property',
+  Data: 'vs-data',
   State: 'vs-state',
   Style: 'vs-style'
 });
@@ -1624,18 +1625,37 @@ define('ui/Element',[
       // Further define instance properties per custom attribute.
       var attributes = this.element.attributes;
       var nAtributes = sizeOf(attributes);
-      var reg = new RegExp('^' + Directives.Property + '-' + '|^data-' + Directives.Property + '-', 'i');
+      var regProperty = new RegExp('^' + Directives.Property + '-' + '|^data-' + Directives.Property + '-', 'i');
+      var regData = new RegExp('^' + Directives.Data + '-' + '|^data-' + Directives.Data + '-', 'i');
 
       for (var i = 0; i < nAtributes; i++) {
-        if (reg.test(attributes[i].name)) {
-          var a = attributes[i];
-          var p = a.name.replace(reg, '').replace(/-([a-z])/g, function(g) {
-            return g[1].toUpperCase();
-          });
+        var a = attributes[i];
+        var p = a.name.replace(reg, '').replace(/-([a-z])/g, function(g) {
+          return g[1].toUpperCase();
+        });
 
+        if (regProperty.test(a.name)) {
           Object.defineProperty(this, p, {
             value: (a.value === '') ? true : a.value,
             writable: true
+          });
+        }
+        else if (regData.test(a.name)) {
+          var _p = '_'+p;
+
+          Object.defineProperty(this, p, {
+            get: function() {
+              if (!this[_p]) {
+                return a.value;
+              }
+              else {
+                return this[_p];
+              }
+            },
+            set: function(value) {
+              this[_p] = value;
+              this.updateDelegate.setDirty(DirtyType.DATA);
+            }
           });
         }
       }
@@ -4950,7 +4970,7 @@ define(
      * @type {String}
      */
     Object.defineProperty(vars, 'version', {
-      value: '0.20.0',
+      value: '0.21.0',
       writable: false
     });
 

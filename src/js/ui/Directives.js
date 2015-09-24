@@ -13,6 +13,7 @@ define({
   Controller: 'vs-controller',
   Instance: 'vs-instance',
   Property: 'vs-property',
+  Data: 'vs-data',
   State: 'vs-state',
   Style: 'vs-style'
 });
