@@ -47,13 +47,16 @@
     @if length($alignV) > 2 { padding-bottom: nth($alignV, 3); }
   }
 
-  @if      $alignH == 'left'                          { text-align: left;   }
-  @else if $alignH == 'center' or $alignH == 'middle' { text-align: center; }
-  @else if $alignH == 'right'                         { text-align: right;  }
+  $h: nth($alignH, 1);
+  $v: nth($alignV, 1);
 
-  @if $alignV == 'top'                                { & > * { vertical-align: top;    } }
-  @else if $alignV == 'center' or $alignV == 'middle' { & > * { vertical-align: middle; } }
-  @else if $alignV == 'bottom'                        { & > * { vertical-align: bottom; } }
+  @if      $h == 'left'                     { text-align: left;   }
+  @else if $h == 'center' or $h == 'middle' { text-align: center; }
+  @else if $h == 'right'                    { text-align: right;  }
+
+  @if      $v == 'top'                      { & > * { vertical-align: top;    } }
+  @else if $v == 'center' or $v == 'middle' { & > * { vertical-align: middle; } }
+  @else if $v == 'bottom'                   { & > * { vertical-align: bottom; } }
 
   @if   $inline == true { display: inline-block; }
   @else                 { display: block;        }
@@ -100,49 +103,52 @@
     @if length($alignV) > 2 { padding-bottom: nth($alignV, 3); }
   }
 
+  $h: nth($alignH, 1);
+  $v: nth($alignV, 1);
+
   @if $direction == 'row' {
     flex-direction: row;
 
-    @if      $alignH == 'left'                          { justify-content: flex-start; }
-    @else if $alignH == 'center' or $alignH == 'middle' { justify-content: center;     }
-    @else if $alignH == 'right'                         { justify-content: flex-end;   }
+    @if      $h == 'left'                     { justify-content: flex-start; }
+    @else if $h == 'center' or $h == 'middle' { justify-content: center;     }
+    @else if $h == 'right'                    { justify-content: flex-end;   }
 
-    @if      $alignV == 'top'                           { align-items: flex-start; }
-    @else if $alignV == 'center' or $alignV == 'middle' { align-items: center;     }
-    @else if $alignV == 'bottom'                        { align-items: flex-end;   }
+    @if      $v == 'top'                      { align-items: flex-start; }
+    @else if $v == 'center' or $v == 'middle' { align-items: center;     }
+    @else if $v == 'bottom'                   { align-items: flex-end;   }
   }
   @else if $direction == 'row-reverse' {
     flex-direction: row-reverse;
 
-    @if      $alignH == 'left'                          { justify-content: flex-end;   }
-    @else if $alignH == 'center' or $alignH == 'middle' { justify-content: center;     }
-    @else if $alignH == 'right'                         { justify-content: flex-start; }
+    @if      $h == 'left'                     { justify-content: flex-end;   }
+    @else if $h == 'center' or $h == 'middle' { justify-content: center;     }
+    @else if $h == 'right'                    { justify-content: flex-start; }
 
-    @if      $alignV == 'top'                           { align-items: flex-start; }
-    @else if $alignV == 'center' or $alignV == 'middle' { align-items: center;     }
-    @else if $alignV == 'bottom'                        { align-items: flex-end;   }
+    @if      $v == 'top'                      { align-items: flex-start; }
+    @else if $v == 'center' or $v == 'middle' { align-items: center;     }
+    @else if $v == 'bottom'                   { align-items: flex-end;   }
   }
   @else if $direction == 'column' {
     flex-direction: column;
 
-    @if      $alignV == 'top'                            { justify-content: flex-start; }
-    @else if $alignV == 'center' or $alignV == 'middle'  { justify-content: center;     }
-    @else if $alignV == 'bottom'                         { justify-content: flex-end;   }
+    @if      $v == 'top'                       { justify-content: flex-start; }
+    @else if $v == 'center' or $v == 'middle'  { justify-content: center;     }
+    @else if $v == 'bottom'                    { justify-content: flex-end;   }
 
-    @if      $alignH == 'left'                          { align-items: flex-start; }
-    @else if $alignH == 'center' or $alignH == 'middle' { align-items: center;     }
-    @else if $alignH == 'right'                         { align-items: flex-end;   }
+    @if      $h == 'left'                     { align-items: flex-start; }
+    @else if $h == 'center' or $h == 'middle' { align-items: center;     }
+    @else if $h == 'right'                    { align-items: flex-end;   }
   }
   @else if $direction == 'column-reverse' {
     flex-direction: column-reverse;
 
-    @if      $alignV == 'top'                            { justify-content: flex-end;   }
-    @else if $alignV == 'center' or $alignV == 'middle'  { justify-content: center;     }
-    @else if $alignV == 'bottom'                         { justify-content: flex-start; }
+    @if      $v == 'top'                       { justify-content: flex-end;   }
+    @else if $v == 'center' or $v == 'middle'  { justify-content: center;     }
+    @else if $v == 'bottom'                    { justify-content: flex-start; }
 
-    @if      $alignH == 'left'                          { align-items: flex-start; }
-    @else if $alignH == 'center' or $alignH == 'middle' { align-items: center;     }
-    @else if $alignH == 'right'                         { align-items: flex-end;   }
+    @if      $h == 'left'                     { align-items: flex-start; }
+    @else if $h == 'center' or $h == 'middle' { align-items: center;     }
+    @else if $h == 'right'                    { align-items: flex-end;   }
   }
 
   @if   $inline == true { display: inline-flex; }
