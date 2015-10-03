@@ -176,6 +176,7 @@
 
     @if $align == 'left' {
       @if $offset1 == null { left: 0px; } @else { left: $offset1; }
+      right: initial;
     }
     @else if $align == 'center' or $align == 'middle' {
       margin-left: auto;
@@ -185,6 +186,7 @@
     }
     @else if $align == 'right' {
       @if $offset1 == null { right: 0px; } @else { right: $offset1; }
+      left: initial;
     }
   }
 
