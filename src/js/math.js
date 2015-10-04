@@ -11,11 +11,15 @@
  */
 define([
     'math/clamp',
-    'math/isClamped'
+    'math/isClamped',
+    'math/isEven',
+    'math/isOdd'
   ],
   function(
     clamp,
-    isClamped
+    isClamped,
+    isEven,
+    isOdd
   ) {
     var api = function(obj) {
       return obj;
@@ -23,6 +27,8 @@ define([
 
     Object.defineProperty(api, 'clamp', { value: clamp, writable: false, enumerable: true });
     Object.defineProperty(api, 'isClamped', { value: isClamped, writable: false, enumerable: true });
+    Object.defineProperty(api, 'isEven', { value: isEven, writable: false, enumerable: true });
+    Object.defineProperty(api, 'isOdd', { value: isOdd, writable: false, enumerable: true });
 
     return api;
   }

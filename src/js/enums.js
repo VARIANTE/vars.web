@@ -11,10 +11,12 @@
  */
 define([
     'enums/DirtyType',
+    'enums/KeyCode',
     'enums/NodeState'
   ],
   function(
     DirtyType,
+    KeyCode,
     NodeState
   ) {
     var api = function(obj) {
@@ -22,6 +24,7 @@ define([
     };
 
     Object.defineProperty(api, 'DirtyType', { value: DirtyType, writable: false, enumerable: true });
+    Object.defineProperty(api, 'KeyCode', { value: KeyCode, writable: false, enumerable: true });
     Object.defineProperty(api, 'NodeState', { value: NodeState, writable: false, enumerable: true });
 
     return api;

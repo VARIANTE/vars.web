@@ -485,6 +485,118 @@ define('enums/DirtyType',{
  * This software is released under the MIT License:
  * http://www.opensource.org/licenses/mit-license.php
  *
+ * Universal keyboard key codes.
+ *
+ * @type {Object}
+ */
+define('enums/KeyCode',{
+  BACKSPACE:     8,
+  TAB:           9,
+  ENTER:         13,
+  SHIFT:         16,
+  CTRL:          17,
+  ALT:           18,
+  PAUSE_BREAK:   19,
+  CAPS_LOCK:     20,
+  ESCAPE:        27,
+  PAGE_UP:       33,
+  PAGE_DOWN:     34,
+  END:           35,
+  HOME:          36,
+  LEFT_ARROW:    37,
+  UP_ARROW:      38,
+  RIGHT_ARROW:   39,
+  DOWN_ARROW:    40,
+  INSERT:        45,
+  DELETE:        46,
+  ZERO:          48,
+  ONE:           49,
+  TWO:           50,
+  THREE:         51,
+  FOUR:          52,
+  FIVE:          53,
+  SIX:           54,
+  SEVEN:         55,
+  EIGHT:         56,
+  NINE:          57,
+  A:             65,
+  B:             66,
+  C:             67,
+  D:             68,
+  E:             69,
+  F:             70,
+  G:             71,
+  H:             72,
+  I:             73,
+  J:             74,
+  K:             75,
+  L:             76,
+  M:             77,
+  N:             78,
+  O:             79,
+  P:             80,
+  Q:             81,
+  R:             82,
+  S:             83,
+  T:             84,
+  U:             85,
+  V:             86,
+  W:             87,
+  X:             88,
+  Y:             89,
+  Z:             90,
+  LEFT_CMD:      91,
+  RIGHT_CMD:     92,
+  SELECT:        93,
+  NUMPAD_ZERO:   96,
+  NUMPAD_ONE:    97,
+  NUMPAD_TWO:    98,
+  NUMPAD_THREE:  99,
+  NUMPAD_FOUR:   100,
+  NUMPAD_FIVE:   101,
+  NUMPAD_SIX:    102,
+  NUMPAD_SEVEN:  103,
+  NUMPAD_EIGHT:  104,
+  NUMPAD_NINE:   105,
+  MULTIPLY:      106,
+  ADD:           107,
+  SUBTRACT:      109,
+  DECIMAL:       110,
+  DIVIDE:        111,
+  F1:            112,
+  F2:            113,
+  F3:            114,
+  F4:            115,
+  F5:            116,
+  F6:            117,
+  F7:            118,
+  F8:            119,
+  F9:            120,
+  F10:           121,
+  F11:           122,
+  F12:           123,
+  NUM_LOCK:      144,
+  SCROLL_LOCK:   145,
+  SEMI_COLON:    186,
+  EQUAL:         187,
+  COMMA:         188,
+  DASH:          189,
+  PERIOD:        190,
+  FORWARD_SLASH: 191,
+  GRAVE_ACCENT:  192,
+  OPEN_BRACKET:  219,
+  BACK_SLASH:    220,
+  CLOSE_BRACKET: 221,
+  SINGLE_QUOTE:  222
+});
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
  * Element node states.
  *
  * @type {Object}
@@ -525,10 +637,12 @@ define('enums/NodeState',{
  */
 define('enums',[
     'enums/DirtyType',
+    'enums/KeyCode',
     'enums/NodeState'
   ],
   function(
     DirtyType,
+    KeyCode,
     NodeState
   ) {
     var api = function(obj) {
@@ -536,6 +650,7 @@ define('enums',[
     };
 
     Object.defineProperty(api, 'DirtyType', { value: DirtyType, writable: false, enumerable: true });
+    Object.defineProperty(api, 'KeyCode', { value: KeyCode, writable: false, enumerable: true });
     Object.defineProperty(api, 'NodeState', { value: NodeState, writable: false, enumerable: true });
 
     return api;
@@ -995,17 +1110,80 @@ define('math/isClamped',[
  * This software is released under the MIT License:
  * http://www.opensource.org/licenses/mit-license.php
  *
+ * @type {Function}
+ */
+define('math/isEven',[
+  ],
+  function() {
+    /**
+     * Determines if a number is an even number. Zero is considered even by default.
+     *
+     * @param  {Number}  value
+     * @param  {Boolean} excludeZero
+     *
+     * @return {Boolean} True if number is even, false otherwise.
+     */
+    function isEven(value, excludeZero) {
+      if (value === 0) return (excludeZero !== false);
+
+      return (value % 2) === 0;
+    }
+
+    return isEven;
+  }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
+ */
+define('math/isOdd',[
+  ],
+  function() {
+    /**
+     * Determines if a number is an odd number.
+     *
+     * @param  {Number} value
+     *
+     * @return {Boolean} True if number is odd, false otherwise.
+     */
+    function isOdd(value) {
+      if (value === 0) return false;
+
+      return (value % 2) !== 0;
+    }
+
+    return isOdd;
+  }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
  * Module of methods/classes related to math.
  *
  * @type {Module}
  */
 define('math',[
     'math/clamp',
-    'math/isClamped'
+    'math/isClamped',
+    'math/isEven',
+    'math/isOdd'
   ],
   function(
     clamp,
-    isClamped
+    isClamped,
+    isEven,
+    isOdd
   ) {
     var api = function(obj) {
       return obj;
@@ -1013,6 +1191,8 @@ define('math',[
 
     Object.defineProperty(api, 'clamp', { value: clamp, writable: false, enumerable: true });
     Object.defineProperty(api, 'isClamped', { value: isClamped, writable: false, enumerable: true });
+    Object.defineProperty(api, 'isEven', { value: isEven, writable: false, enumerable: true });
+    Object.defineProperty(api, 'isOdd', { value: isOdd, writable: false, enumerable: true });
 
     return api;
   }
@@ -4978,7 +5158,7 @@ define(
      * @type {String}
      */
     Object.defineProperty(vars, 'version', {
-      value: '0.22.6',
+      value: '0.22.7',
       writable: false
     });
 
