@@ -32,6 +32,11 @@ define({
     KEY_PRESS: 'keypress',
     KEY_UP: 'keyup'
   },
+  DEVICE: {
+    DEVICE_ORIENTATION: 'deviceorientation',
+    DEVICE_MOTION: 'devicemotion',
+    ORIENTATION: 'MozOrientation'
+  },
   OBJECT: {
     ABORT: 'abort',
     BEFORE_UNLOAD: 'beforeunload',

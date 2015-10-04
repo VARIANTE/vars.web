@@ -903,6 +903,11 @@ define('events/EventType',{
     KEY_PRESS: 'keypress',
     KEY_UP: 'keyup'
   },
+  DEVICE: {
+    DEVICE_ORIENTATION: 'deviceorientation',
+    DEVICE_MOTION: 'devicemotion',
+    ORIENTATION: 'MozOrientation'
+  },
   OBJECT: {
     ABORT: 'abort',
     BEFORE_UNLOAD: 'beforeunload',
@@ -5158,7 +5163,7 @@ define(
      * @type {String}
      */
     Object.defineProperty(vars, 'version', {
-      value: '0.22.7',
+      value: '0.22.8',
       writable: false
     });
 
