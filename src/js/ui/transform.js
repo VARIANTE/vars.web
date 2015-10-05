@@ -9,11 +9,13 @@
  */
 define([
     'ui/toElementArray',
+    'ui/getRect',
     'utils/assert',
     'utils/sizeOf'
   ],
   function(
     toElementArray,
+    getRect,
     assert,
     sizeOf
   ) {
@@ -25,8 +27,8 @@ define([
      *                                  {
      *                                  	{Number} width:  Target width of the element
      *                                   	{Number} height: Target height of the element
-     *                                    	{String} unit:   Unit of width/height values
-     *                                     {String} type:   Resizing constraint: 'default', 'contain', 'cover'
+     *                                    {String} unit:   Unit of width/height values (default: 'px')
+     *                                    {String} type:   Resizing constraint: 'default', 'contain', 'cover' (default: 'default')
      *                                  }
      *                                  (if unspecified, all transformation styles will be reset to 'initial')
      * @param  {Object} constraints     Transformation constraints:
@@ -46,8 +48,9 @@ define([
         if (!assert((properties.height === undefined) || !isNaN(properties.height), 'Height property must be a number.')) return null;
         if (!assert((properties.aspectRatio === undefined) || !isNaN(properties.aspectRatio), 'Aspect ratio property must be a number.')) return null;
 
+        var rect = getRect(element);
         var units = properties.units || 'px';
-        var aspectRatio = (properties.aspectRatio !== undefined) ? Number(properties.aspectRatio) : properties.width / properties.height;
+        var aspectRatio = (properties.aspectRatio !== undefined) ? Number(properties.aspectRatio) : rect.width / rect.height;
         var maxW = properties.width;
         var maxH = properties.height;
         var minW = properties.width;
