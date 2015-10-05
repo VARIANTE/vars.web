@@ -62,11 +62,11 @@
 @mixin screen($screen, $exclusive:false, $invert:false, $measurement:width, $touch:false) {
   @if $screen == mobile {
     $min-threshold: 0px;
-    $max-threshold: 667px;
+    $max-threshold: 599px;
   }
 
   @else if $screen == phablet {
-    $min-threshold: 668px;
+    $min-threshold: 600px;
     $max-threshold: 767px;
   }
 
