@@ -161,7 +161,7 @@
  * @param  {List} $alignH     Horizontal alignment (left|center|right, left|right offset, right offset).
  * @param  {List} $alignV     Vertical alignment (top|center|middle|bottom, top|bottom offset, bottom offset).
  */
-@mixin abs-align($alignH:null, $alignV:null)
+@mixin abs-align($alignH:'left', $alignV:'top')
 {
   display: block;
   position: absolute;
@@ -219,7 +219,7 @@
  * @param  {List} $alignH     Horizontal alignment (left|center|right, left|right offset, right offset).
  * @param  {List} $alignV     Vertical alignment (top|center|middle|bottom, top|bottom offset, bottom offset).
  */
-@mixin fixed-align($alignH:null, $alignV:null) {
+@mixin fixed-align($alignH:'left', $alignV:'top') {
   display: block;
   position: fixed;
 
@@ -275,7 +275,7 @@
  * @param  {String} $alignH     Horizontal alignment (i.e. left, center, right).
  * @param  {String} $alignV     Vertical alignment (i.e. top, middle, bottom).
  */
-@mixin inline-align($alignH:null, $alignV:null) {
+@mixin inline-align($alignH:'left', $alignV:'top') {
   display: inline-block;
   position: relative;
 
