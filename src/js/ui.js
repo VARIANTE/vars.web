@@ -14,7 +14,6 @@ define([
     'ui/addClass',
     'ui/changeElementState',
     'ui/getClassIndex',
-    'ui/getChildElements',
     'ui/getElementState',
     'ui/getIntersectRect',
     'ui/getRect',
@@ -38,7 +37,6 @@ define([
     addClass,
     changeElementState,
     getClassIndex,
-    getChildElements,
     getElementState,
     getIntersectRect,
     getRect,
@@ -67,7 +65,6 @@ define([
     Object.defineProperty(api, 'hasClass', { value: hasClass, writable: false, enumerable: true });
     Object.defineProperty(api, 'hasChild', { value: hasChild, writable: false, enumerable: true });
     Object.defineProperty(api, 'getClassIndex', { value: getClassIndex, writable: false, enumerable: true });
-    Object.defineProperty(api, 'getChildElements', { value: getChildElements, writable: false, enumerable: true });
     Object.defineProperty(api, 'getElementState', { value: getElementState, writable: false, enumerable: true });
     Object.defineProperty(api, 'getIntersectRect', { value: getIntersectRect, writable: false, enumerable: true });
     Object.defineProperty(api, 'getRect', { value: getRect, writable: false, enumerable: true });

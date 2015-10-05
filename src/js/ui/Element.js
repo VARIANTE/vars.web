@@ -339,26 +339,43 @@ define([
     Element.prototype.getChild = function(name) {
       if (!assert(name, 'Name is null.')) return null;
 
-      var names = name.split('.');
-      var n = sizeOf(names);
+      var targets = name.split('.');
+      var currentTarget = targets.shift();
+      var child = this.children[currentTarget];
 
-      var parent = this;
+      if (targets.length > 0) {
+        if (child instanceof Array) {
+          var children = [];
+          var n = sizeOf(child);
 
-      for (var i = 0; i < n; i++) {
-        var child = parent.children[names[i]];
+          for (var i = 0; i < n; i++) {
+            var c = child[i];
 
-        if (child instanceof Element) {
-          parent = child;
+            if (c instanceof Element) {
+              children.push(c.getChild(targets.join('.')));
+            }
+            else {
+              children.push(null);
+            }
+          }
+
+          return children;
         }
-        else if (child instanceof Array) {
+        else if (child instanceof Element) {
+          return child.getChild(targets.join('.'));
+        }
+        else {
+          return null;
+        }
+      }
+      else {
+        if (child) {
           return child;
         }
         else {
           return null;
         }
       }
-
-      return parent;
     };
 
     /**

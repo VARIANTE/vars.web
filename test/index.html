@@ -1,25 +1,38 @@
 <!doctype html>
 <html>
-<head style='width:100%;height:100%;'>
+  <head style='width:100%;height:100%;'>
     <meta charset='utf-8'>
     <title>varsjs Playground</title>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src='../dist/js/vars.js'></script>
-</head>
-<body style='width:200%;height:2000px;'>
+  </head>
+
+  <body style='width:200%;height:2000px;'>
     <script src='test.js'></script>
-    <div id='foo' class='a' vs-controller='controllers.A' vs-instance='A' data-vs-property-foo-bar='asf' data-vs-data-foo='1' data-vs-data-bar='0' data-vs-data-me style='width:100px;height:100px;background-color:#000;transform:translateY(50px);'>
-        <div id='foo-1' vs-controller='controllers.C' vs-instance='c1' style='width:20px;height:20px;background-color:#f0f;transform:translateY(10px);'>
-        </div>
-        <div id='foo-2' vs-controller='controllers.C' vs-instance='c2' style='width:20px;height:20px;background-color:#00f;transform:translateY(0px) translateX(10px);'>
-            <video id='vid' vs-controller='Video' vs-instance='vs'></video>
-        </div>
-        <div id='foo-3' vs-controller='controllers.C' vs-instance='c2' style='width:20px;height:20px;background-color:#ff0;transform:translateY(-11px) translateX(0px);'>
-        </div>
+    <div id='foo' data-vs-controller='controllers.A' data-vs-instance='a' style='width:100px;height:100px;background-color:#000;transform:translateY(50px);'>
+      <div id='foo-1' data-vs-controller='controllers.C' data-vs-instance='c' style='width:20px;height:20px;background-color:#f0f;transform:translateY(10px);'>
+        <video id='vid' data-vs-controller='Video' data-vs-instance='d'>
+          <div data-vs-instance='e'></div>
+          <div data-vs-instance='e'>
+            <div data-vs-instance='f'></div>
+          </div>
+          <div data-vs-instance='e'></div>
+          <div data-vs-instance='e'></div>
+        </video>
+      </div>
+      <div id='foo-2' data-vs-controller='controllers.C' data-vs-instance='c' style='width:20px;height:20px;background-color:#00f;transform:translateY(0px) translateX(10px);'>
+        <video id='vid' data-vs-controller='Video' data-vs-instance='d'>
+          <div data-vs-instance='e'>
+
+          </div>
+        </video>
+      </div>
+      <div id='foo-3' data-vs-controller='controllers.C' data-vs-instance='c' style='width:20px;height:20px;background-color:#ff0;transform:translateY(-11px) translateX(0px);'>
+      </div>
     </div>
-    <div id='bar' class='asdf state-a' vs-controller='controllers.B' vs-instance='B' style='width:100px;height:100px;background-color:#ff0;transform:translateY(250px);'>
-        <div id='wee' class='asdf state-a' style='width:100px;height:100px;background-color:#ff0;transform:translateY(250px);'>
-        </div>
+    <div id='bar' class='asdf state-a' data-vs-controller='controllers.B' data-vs-instance='b' style='width:100px;height:100px;background-color:#ff0;transform:translateY(250px);'>
+      <div id='wee' class='asdf state-a' style='width:100px;height:100px;background-color:#ff0;transform:translateY(250px);'>
+      </div>
     </div>
-</body>
+  </body>
 </html>

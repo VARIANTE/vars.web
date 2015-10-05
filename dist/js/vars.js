@@ -2073,26 +2073,43 @@ define('ui/Element',[
     Element.prototype.getChild = function(name) {
       if (!assert(name, 'Name is null.')) return null;
 
-      var names = name.split('.');
-      var n = sizeOf(names);
+      var targets = name.split('.');
+      var currentTarget = targets.shift();
+      var child = this.children[currentTarget];
 
-      var parent = this;
+      if (targets.length > 0) {
+        if (child instanceof Array) {
+          var children = [];
+          var n = sizeOf(child);
 
-      for (var i = 0; i < n; i++) {
-        var child = parent.children[names[i]];
+          for (var i = 0; i < n; i++) {
+            var c = child[i];
 
-        if (child instanceof Element) {
-          parent = child;
+            if (c instanceof Element) {
+              children.push(c.getChild(targets.join('.')));
+            }
+            else {
+              children.push(null);
+            }
+          }
+
+          return children;
         }
-        else if (child instanceof Array) {
+        else if (child instanceof Element) {
+          return child.getChild(targets.join('.'));
+        }
+        else {
+          return null;
+        }
+      }
+      else {
+        if (child) {
           return child;
         }
         else {
           return null;
         }
       }
-
-      return parent;
     };
 
     /**
@@ -2934,532 +2951,6 @@ define('ui/changeElementState',[
  *
  * @type {Function}
  */
-define('utils/inherit',[],
-  function() {
-
-    /**
-     * Sets up prototypal inheritance between a child class and a parent class. This process
-     * also creates a new prototype method hasProperty() for the child class which allows
-     * verifying inherited properties (as opposed to the native hasOwnProperty() method).
-     *
-     * @param  {Object} child   Child class (function)
-     * @param  {Object} parent  Parent class (function)
-     *
-     * @return {Object} Parent class (function).
-     */
-    function inherit(child, parent) {
-      for (var key in parent) {
-        if (parent.hasOwnProperty(key)) {
-          child[key] = parent[key];
-        }
-      }
-
-      function c() {
-        this.constructor = child;
-      }
-
-      c.prototype = Object.create(parent.prototype);
-      child.prototype = new c();
-      child.__super__ = parent.prototype;
-      return child;
-    }
-
-    return inherit;
-  }
-);
-
-/**
- * vars
- * (c) VARIANTE (http://variante.io)
- *
- * This software is released under the MIT License:
- * http://www.opensource.org/licenses/mit-license.php
- *
- * Controller of a DOM 'video' element.
- *
- * @type {Class}
- */
-define('ui/Video',[
-    'utils/assert',
-    'utils/log',
-    'utils/inherit',
-    'enums/DirtyType',
-    'ui/Element'
-  ],
-  function(
-    assert,
-    log,
-    inherit,
-    DirtyType,
-    Element
-  ) {
-    inherit(Video, Element);
-
-    /**
-     * @constructor
-     *
-     * Creates a new Video instance.
-     */
-    function Video() {
-      Video.__super__.constructor.apply(this, arguments);
-    }
-
-    /**
-     * @static
-     *
-     * Constants for the 'preload' attribute.
-     *
-     * @type {Object}
-     *
-     * @see  http://www.w3schools.com/tags/tag_video.asp
-     */
-    Video.PRELOAD = {
-      AUTO: 'auto',
-      METADATA: 'metada',
-      NONE: 'none'
-    };
-
-    /**
-     * @inheritDoc
-     */
-    Video.prototype.update = function() {
-      if (this.updateDelegate.isDirty(DirtyType.DATA)) {
-        this._updateSource();
-      }
-
-      if (this.updateDelegate.isDirty(DirtyType.CUSTOM)) {
-
-      }
-
-      Video.__super__.update.call(this);
-    };
-
-    /**
-     * @inheritDoc
-     */
-    Video.prototype.factory = function() {
-      return document.createElement('video');
-    };
-
-    /**
-     * @private
-     *
-     * Updates the sources in this Video instance.
-     */
-    Video.prototype._updateSource = function() {
-      var i;
-      var arrlen;
-
-      // Update source(s).
-      var oldSources = this.element.getElementsByTagName('source');
-
-      arrlen = oldSources.length;
-
-      for (i = 0; i < arrlen; i++) {
-        var oldSource = oldSources[i];
-
-        this.element.removeChild(oldSource);
-      }
-
-      if (!this.source) return;
-
-      arrlen = this.source.length;
-
-      for (i = 0; i < arrlen; i++) {
-        var newSource = document.createElement('source');
-        var path = this.source[i].src;
-        var type = this.source[i].type;
-        var ext = path.split('.').pop();
-
-        newSource.setAttribute('src', path);
-        newSource.setAttribute('type', type || 'video/' + ext);
-
-        this.element.appendChild(newSource);
-      }
-    };
-
-    /**
-     * @inheritDoc
-     */
-    Video.prototype.toString = function() {
-      return '[Video{' + this.name + '}]';
-    };
-
-    /**
-     * @inheritDoc
-     */
-    Video.prototype.__define_properties = function() {
-      /**
-       * @property
-       *
-       * Specifies that the video will start playing as soon as it is ready.
-       *
-       * @type {Boolean}
-       */
-      Object.defineProperty(this, 'autoplay', {
-        get: function() {
-          return this.element.autoplay;
-        },
-        set: function(value) {
-          this.element.autoplay = value;
-          this.updateDelegate.setDirty(DirtyType.CUSTOM);
-        }
-      });
-
-      /**
-       * @property
-       *
-       * Specifies that video controls should be displayed (such as a play/pause button etc).
-       *
-       * @type {Boolean}
-       */
-      Object.defineProperty(this, 'controls', {
-        get: function() {
-          return this.element.controls;
-        },
-        set: function(value) {
-          this.element.controls = value;
-          this.updateDelegate.setDirty(DirtyType.CUSTOM);
-        }
-      });
-
-      /**
-       * @property
-       *
-       * Specifies that the video will start over again, every time it is finished.
-       *
-       * @type {Boolean}
-       */
-      Object.defineProperty(this, 'loop', {
-        get: function() {
-          return this.element.loop;
-        },
-        set: function(value) {
-          this.element.loop = value;
-          this.updateDelegate.setDirty(DirtyType.CUSTOM);
-        }
-      });
-
-      /**
-       * @property
-       *
-       * Specifies that the audio output of the video should be muted.
-       *
-       * @type {Boolean}
-       */
-      Object.defineProperty(this, 'muted', {
-        get: function() {
-          return this.element.muted;
-        },
-        set: function(value) {
-          this.element.muted = value;
-          this.updateDelegate.setDirty(DirtyType.CUSTOM);
-        }
-      });
-
-      /**
-       * @property
-       *
-       * Specifies an image to be shown while the video is downloading, or until the user hits the play button.
-       *
-       * @type {String}   URL of image
-       */
-      Object.defineProperty(this, 'poster', {
-        get: function() {
-          return this.element.poster;
-        },
-        set: function(value) {
-          this.element.poster = value;
-          this.updateDelegate.setDirty(DirtyType.CUSTOM);
-        }
-      });
-
-      /**
-       * @property
-       *
-       * Specifies if and how the author thinks the video should be loaded when the page loads
-       *
-       * @type {String}   See Video.AUTOPLAY
-       */
-      Object.defineProperty(this, 'preload', {
-        get: function() {
-          return this.element.preload;
-        },
-        set: function(value) {
-          this.element.preload = value;
-          this.updateDelegate.setDirty(DirtyType.CUSTOM);
-        }
-      });
-
-      /**
-       * @property
-       *
-       * Array of sources containing elements in the form of:
-       *     Object
-       *     {
-       *         src: {PATH_OF_SOURCE} (String)
-       *         type: {TYPE_OF_SOURCE} (String)
-       *     }
-       *
-       * @type {Array}
-       */
-      Object.defineProperty(this, 'source', {
-        get: function() {
-          return this._source;
-        },
-        set: function(value) {
-          Object.defineProperty(this, '_source', {
-            value: value,
-            writable: true
-          });
-          this.updateDelegate.setDirty(DirtyType.DATA);
-        }
-      });
-
-      Video.__super__.__define_properties.call(this);
-    };
-
-    /**
-     * @inheritDoc
-     */
-    Video.prototype.__set_element = function(value) {
-      assert(value instanceof HTMLVideoElement, 'Invalid element type specified. Must be an instance of HTMLVideoElement.');
-      Video.__super__.__set_element.call(this, value);
-    };
-
-    return Video;
-  }
-);
-
-/**
- * vars
- * (c) VARIANTE (http://variante.io)
- *
- * This software is released under the MIT License:
- * http://www.opensource.org/licenses/mit-license.php
- *
- * @type {Function}
- */
-define('utils/namespace',[
-    'utils/assert'
-  ],
-  function(
-    assert
-  ) {
-    /**
-     * Creates the specified namespace in the specified scope.
-     *
-     * @param  {String} identifiers Namespace identifiers with parts separated by dots.
-     * @param  {Object} scope       (Optional) Object to create namespace in (defaults to window).
-     *
-     * @return {Object} Reference tothe created namespace.
-     */
-    function namespace(identifiers, scope) {
-      if (!assert(typeof identifiers === 'string', 'Invalid identifiers specified.')) return null;
-      if (!assert(typeof scope === 'undefined' || typeof scope === 'object', 'Invalid scope specified.')) return null;
-
-      var groups = identifiers.split('.');
-      var currentScope = (scope === undefined || scope === null) ? window : scope;
-
-      for (var i = 0; i < groups.length; i++) {
-        currentScope = currentScope[groups[i]] || (currentScope[groups[i]] = {});
-      }
-
-      return currentScope;
-    }
-
-    return namespace;
-  }
-);
-
-/**
- * vars
- * (c) VARIANTE (http://variante.io)
- *
- * This software is released under the MIT License:
- * http://www.opensource.org/licenses/mit-license.php
- *
- * @type {Function}
- */
-define('utils/ready',[],
-  function() {
-    /**
-     * Invokes a function when the DOM is ready.
-     *
-     * @param  {Function}   callback    Function invoked when the DOM is ready.
-     */
-    function ready(callback) {
-      if (!document) return null;
-
-      var onLoaded = function(event) {
-        if (document.addEventListener) {
-          document.removeEventListener('DOMContentLoaded', onLoaded, false);
-          window.removeEventListener('load', onLoaded, false);
-        }
-        else if (document.attachEvent) {
-          document.detachEvent('onreadystatechange', onLoaded);
-          window.detachEvent('onload', onLoaded);
-        }
-
-        setTimeout(callback, 1);
-      };
-
-      if (document.readyState === 'complete') {
-        return setTimeout(callback, 1);
-      }
-
-      if (document.addEventListener) {
-        document.addEventListener('DOMContentLoaded', onLoaded, false);
-        window.addEventListener('load', onLoaded, false);
-      }
-      else if (document.attachEvent) {
-        document.attachEvent('onreadystatechange', onLoaded);
-        window.attachEvent('onload', onLoaded);
-      }
-
-      return null;
-    }
-
-    return ready;
-  }
-);
-
-/**
- * vars
- * (c) VARIANTE (http://variante.io)
- *
- * This software is released under the MIT License:
- * http://www.opensource.org/licenses/mit-license.php
- *
- * @type {Function}
- */
-define('ui/getChildElements',[
-    'ui/Directives',
-    'ui/Element',
-    'ui/Video',
-    'utils/assert',
-    'utils/namespace',
-    'utils/ready',
-    'utils/sizeOf'
-  ],
-  function(
-    Directives,
-    Element,
-    Video,
-    assert,
-    namespace,
-    ready,
-    sizeOf
-  ) {
-    /**
-     * Transforms all the DOM elements inside the specified element marked with custom
-     * VARS attributes into an instance of either its specified controller class or a generic
-     * VARS Element. If a marked DOM element is a child of another marked DOM element, it will
-     * be passed into the parent element's children tree as its specified controller
-     * class instance or a generic VARS Element.
-     *
-     * @param  {Object} element         HTMLElement, VARS Element, or jQuery object.
-     * @param  {Object} controllerScope
-     */
-    function getChildElements(element, controllerScope) {
-      var children = null;
-
-      if (!element) element = document;
-      if (element.jquery) element = element.get(0);
-      if (!assert((element instanceof HTMLElement) || (element instanceof Element) || (document && element === document), 'Element must be an instance of an HTMLElement or the DOM itself.')) return null;
-      if (element instanceof Element) element = element.element;
-
-      var qualifiedChildren = element.querySelectorAll('[' + Directives.Controller + '], [data-' + Directives.Controller + '], [' + Directives.Instance + '], [data-' + Directives.Instance + ']');
-      var n = sizeOf(qualifiedChildren);
-
-      for (var i = 0; i < n; i++) {
-        var child = qualifiedChildren[i];
-        var className = child.getAttribute(Directives.Controller) || child.getAttribute('data-' + Directives.Controller);
-        var childName = child.getAttribute(Directives.Instance) || child.getAttribute('data-' + Directives.Instance);
-        var controller = (className) ? namespace(className, controllerScope) : null;
-
-        // If no controller class is specified but element is marked as an  instance, default the controller class to
-        // Element.
-        if (!controller && sizeOf(childName) > 0) {
-          controller = Element;
-        }
-        else if (typeof controller !== 'function') {
-          switch (className) {
-            case 'Video': {
-              controller = Video;
-              break;
-            }
-            case 'Element': {
-              controller = Element;
-              break;
-            }
-            default: {
-              controller = null;
-              break;
-            }
-          }
-        }
-
-        // Check if discovered child is also an immediate child of another discovered
-        // child.
-        var ignore = false;
-
-        for (var j = 0; j < n; j++) {
-          if (j === i) continue;
-
-          var parent = qualifiedChildren[j];
-
-          if (parent.contains && parent.contains(child)) {
-            ignore = true;
-            break;
-          }
-        }
-
-        if (ignore) continue;
-
-        if (!assert(typeof controller === 'function', 'Class "' + className + '" is not found in specified controllerScope ' + (controllerScope || window) + '.')) continue;
-
-        var m = new controller({
-          element: child,
-          name: childName,
-          children: getChildElements(child, controllerScope)
-        });
-
-        if (sizeOf(childName) > 0) {
-          if (!children) children = {};
-
-          if (!children[childName]) {
-            children[childName] = m;
-          }
-          else {
-            if (children[childName] instanceof Array) {
-              children[childName].push(m);
-            }
-            else {
-              var a = [children[childName]];
-              a.push(m);
-              children[childName] = a;
-            }
-          }
-        }
-      }
-
-      return children;
-    }
-
-    return getChildElements;
-  }
-);
-
-/**
- * vars
- * (c) VARIANTE (http://variante.io)
- *
- * This software is released under the MIT License:
- * http://www.opensource.org/licenses/mit-license.php
- *
- * @type {Function}
- */
 define('ui/getViewportRect',[
     'utils/assert'
   ],
@@ -3870,13 +3361,422 @@ define('ui/hitTestRect',[
  *
  * @type {Function}
  */
-define('ui/initDOM',[
-    'ui/getChildElements',
-    'utils/ready'
+define('utils/inherit',[],
+  function() {
+
+    /**
+     * Sets up prototypal inheritance between a child class and a parent class. This process
+     * also creates a new prototype method hasProperty() for the child class which allows
+     * verifying inherited properties (as opposed to the native hasOwnProperty() method).
+     *
+     * @param  {Object} child   Child class (function)
+     * @param  {Object} parent  Parent class (function)
+     *
+     * @return {Object} Parent class (function).
+     */
+    function inherit(child, parent) {
+      for (var key in parent) {
+        if (parent.hasOwnProperty(key)) {
+          child[key] = parent[key];
+        }
+      }
+
+      function c() {
+        this.constructor = child;
+      }
+
+      c.prototype = Object.create(parent.prototype);
+      child.prototype = new c();
+      child.__super__ = parent.prototype;
+      return child;
+    }
+
+    return inherit;
+  }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * Controller of a DOM 'video' element.
+ *
+ * @type {Class}
+ */
+define('ui/Video',[
+    'utils/assert',
+    'utils/log',
+    'utils/inherit',
+    'enums/DirtyType',
+    'ui/Element'
   ],
   function(
-    getChildElements,
-    ready
+    assert,
+    log,
+    inherit,
+    DirtyType,
+    Element
+  ) {
+    inherit(Video, Element);
+
+    /**
+     * @constructor
+     *
+     * Creates a new Video instance.
+     */
+    function Video() {
+      Video.__super__.constructor.apply(this, arguments);
+    }
+
+    /**
+     * @static
+     *
+     * Constants for the 'preload' attribute.
+     *
+     * @type {Object}
+     *
+     * @see  http://www.w3schools.com/tags/tag_video.asp
+     */
+    Video.PRELOAD = {
+      AUTO: 'auto',
+      METADATA: 'metada',
+      NONE: 'none'
+    };
+
+    /**
+     * @inheritDoc
+     */
+    Video.prototype.update = function() {
+      if (this.updateDelegate.isDirty(DirtyType.DATA)) {
+        this._updateSource();
+      }
+
+      if (this.updateDelegate.isDirty(DirtyType.CUSTOM)) {
+
+      }
+
+      Video.__super__.update.call(this);
+    };
+
+    /**
+     * @inheritDoc
+     */
+    Video.prototype.factory = function() {
+      return document.createElement('video');
+    };
+
+    /**
+     * @private
+     *
+     * Updates the sources in this Video instance.
+     */
+    Video.prototype._updateSource = function() {
+      var i;
+      var arrlen;
+
+      // Update source(s).
+      var oldSources = this.element.getElementsByTagName('source');
+
+      arrlen = oldSources.length;
+
+      for (i = 0; i < arrlen; i++) {
+        var oldSource = oldSources[i];
+
+        this.element.removeChild(oldSource);
+      }
+
+      if (!this.source) return;
+
+      arrlen = this.source.length;
+
+      for (i = 0; i < arrlen; i++) {
+        var newSource = document.createElement('source');
+        var path = this.source[i].src;
+        var type = this.source[i].type;
+        var ext = path.split('.').pop();
+
+        newSource.setAttribute('src', path);
+        newSource.setAttribute('type', type || 'video/' + ext);
+
+        this.element.appendChild(newSource);
+      }
+    };
+
+    /**
+     * @inheritDoc
+     */
+    Video.prototype.toString = function() {
+      return '[Video{' + this.name + '}]';
+    };
+
+    /**
+     * @inheritDoc
+     */
+    Video.prototype.__define_properties = function() {
+      /**
+       * @property
+       *
+       * Specifies that the video will start playing as soon as it is ready.
+       *
+       * @type {Boolean}
+       */
+      Object.defineProperty(this, 'autoplay', {
+        get: function() {
+          return this.element.autoplay;
+        },
+        set: function(value) {
+          this.element.autoplay = value;
+          this.updateDelegate.setDirty(DirtyType.CUSTOM);
+        }
+      });
+
+      /**
+       * @property
+       *
+       * Specifies that video controls should be displayed (such as a play/pause button etc).
+       *
+       * @type {Boolean}
+       */
+      Object.defineProperty(this, 'controls', {
+        get: function() {
+          return this.element.controls;
+        },
+        set: function(value) {
+          this.element.controls = value;
+          this.updateDelegate.setDirty(DirtyType.CUSTOM);
+        }
+      });
+
+      /**
+       * @property
+       *
+       * Specifies that the video will start over again, every time it is finished.
+       *
+       * @type {Boolean}
+       */
+      Object.defineProperty(this, 'loop', {
+        get: function() {
+          return this.element.loop;
+        },
+        set: function(value) {
+          this.element.loop = value;
+          this.updateDelegate.setDirty(DirtyType.CUSTOM);
+        }
+      });
+
+      /**
+       * @property
+       *
+       * Specifies that the audio output of the video should be muted.
+       *
+       * @type {Boolean}
+       */
+      Object.defineProperty(this, 'muted', {
+        get: function() {
+          return this.element.muted;
+        },
+        set: function(value) {
+          this.element.muted = value;
+          this.updateDelegate.setDirty(DirtyType.CUSTOM);
+        }
+      });
+
+      /**
+       * @property
+       *
+       * Specifies an image to be shown while the video is downloading, or until the user hits the play button.
+       *
+       * @type {String}   URL of image
+       */
+      Object.defineProperty(this, 'poster', {
+        get: function() {
+          return this.element.poster;
+        },
+        set: function(value) {
+          this.element.poster = value;
+          this.updateDelegate.setDirty(DirtyType.CUSTOM);
+        }
+      });
+
+      /**
+       * @property
+       *
+       * Specifies if and how the author thinks the video should be loaded when the page loads
+       *
+       * @type {String}   See Video.AUTOPLAY
+       */
+      Object.defineProperty(this, 'preload', {
+        get: function() {
+          return this.element.preload;
+        },
+        set: function(value) {
+          this.element.preload = value;
+          this.updateDelegate.setDirty(DirtyType.CUSTOM);
+        }
+      });
+
+      /**
+       * @property
+       *
+       * Array of sources containing elements in the form of:
+       *     Object
+       *     {
+       *         src: {PATH_OF_SOURCE} (String)
+       *         type: {TYPE_OF_SOURCE} (String)
+       *     }
+       *
+       * @type {Array}
+       */
+      Object.defineProperty(this, 'source', {
+        get: function() {
+          return this._source;
+        },
+        set: function(value) {
+          Object.defineProperty(this, '_source', {
+            value: value,
+            writable: true
+          });
+          this.updateDelegate.setDirty(DirtyType.DATA);
+        }
+      });
+
+      Video.__super__.__define_properties.call(this);
+    };
+
+    /**
+     * @inheritDoc
+     */
+    Video.prototype.__set_element = function(value) {
+      assert(value instanceof HTMLVideoElement, 'Invalid element type specified. Must be an instance of HTMLVideoElement.');
+      Video.__super__.__set_element.call(this, value);
+    };
+
+    return Video;
+  }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
+ */
+define('utils/namespace',[
+    'utils/assert'
+  ],
+  function(
+    assert
+  ) {
+    /**
+     * Creates the specified namespace in the specified scope.
+     *
+     * @param  {String} identifiers Namespace identifiers with parts separated by dots.
+     * @param  {Object} scope       (Optional) Object to create namespace in (defaults to window).
+     *
+     * @return {Object} Reference tothe created namespace.
+     */
+    function namespace(identifiers, scope) {
+      if (!assert(typeof identifiers === 'string', 'Invalid identifiers specified.')) return null;
+      if (!assert(typeof scope === 'undefined' || typeof scope === 'object', 'Invalid scope specified.')) return null;
+
+      var groups = identifiers.split('.');
+      var currentScope = (scope === undefined || scope === null) ? window : scope;
+
+      for (var i = 0; i < groups.length; i++) {
+        currentScope = currentScope[groups[i]] || (currentScope[groups[i]] = {});
+      }
+
+      return currentScope;
+    }
+
+    return namespace;
+  }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
+ */
+define('utils/ready',[],
+  function() {
+    /**
+     * Invokes a function when the DOM is ready.
+     *
+     * @param  {Function}   callback    Function invoked when the DOM is ready.
+     */
+    function ready(callback) {
+      if (!document) return null;
+
+      var onLoaded = function(event) {
+        if (document.addEventListener) {
+          document.removeEventListener('DOMContentLoaded', onLoaded, false);
+          window.removeEventListener('load', onLoaded, false);
+        }
+        else if (document.attachEvent) {
+          document.detachEvent('onreadystatechange', onLoaded);
+          window.detachEvent('onload', onLoaded);
+        }
+
+        setTimeout(callback, 1);
+      };
+
+      if (document.readyState === 'complete') {
+        return setTimeout(callback, 1);
+      }
+
+      if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', onLoaded, false);
+        window.addEventListener('load', onLoaded, false);
+      }
+      else if (document.attachEvent) {
+        document.attachEvent('onreadystatechange', onLoaded);
+        window.attachEvent('onload', onLoaded);
+      }
+
+      return null;
+    }
+
+    return ready;
+  }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
+ */
+define('ui/initDOM',[
+    'ui/Directives',
+    'ui/Element',
+    'ui/Video',
+    'utils/assert',
+    'utils/namespace',
+    'utils/ready',
+    'utils/sizeOf'
+  ],
+  function(
+    Directives,
+    Element,
+    Video,
+    assert,
+    namespace,
+    ready,
+    sizeOf
   ) {
     /**
      * Parses the entire DOM and transforms elements marked with VARS attributes
@@ -3889,6 +3789,102 @@ define('ui/initDOM',[
       ready(function() {
         getChildElements(document, controllerScope);
       });
+    }
+
+    /**
+     * Transforms all the DOM elements inside the specified element marked with custom
+     * VARS attributes into an instance of either its specified controller class or a generic
+     * VARS Element. If a marked DOM element is a child of another marked DOM element, it will
+     * be passed into the parent element's children tree as its specified controller
+     * class instance or a generic VARS Element.
+     *
+     * @param  {Object} element         HTMLElement, VARS Element, or jQuery object.
+     * @param  {Object} controllerScope
+     */
+    function getChildElements(element, controllerScope) {
+      var children = null;
+
+      if (!element) element = document;
+      if (element.jquery) element = element.get(0);
+      if (!assert((element instanceof HTMLElement) || (element instanceof Element) || (document && element === document), 'Element must be an instance of an HTMLElement or the DOM itself.')) return null;
+      if (element instanceof Element) element = element.element;
+
+      var qualifiedChildren = element.querySelectorAll('[' + Directives.Controller + '], [data-' + Directives.Controller + '], [' + Directives.Instance + '], [data-' + Directives.Instance + ']');
+      var n = sizeOf(qualifiedChildren);
+
+      for (var i = 0; i < n; i++) {
+        var child = qualifiedChildren[i];
+        var className = child.getAttribute(Directives.Controller) || child.getAttribute('data-' + Directives.Controller);
+        var childName = child.getAttribute(Directives.Instance) || child.getAttribute('data-' + Directives.Instance);
+        var controller = (className) ? namespace(className, controllerScope) : null;
+
+        // If no controller class is specified but element is marked as an  instance, default the controller class to
+        // Element.
+        if (!controller && sizeOf(childName) > 0) {
+          controller = Element;
+        }
+        else if (typeof controller !== 'function') {
+          switch (className) {
+            case 'Video': {
+              controller = Video;
+              break;
+            }
+            case 'Element': {
+              controller = Element;
+              break;
+            }
+            default: {
+              controller = null;
+              break;
+            }
+          }
+        }
+
+        // Check if discovered child is also an immediate child of another discovered
+        // child.
+        var ignore = false;
+
+        for (var j = 0; j < n; j++) {
+          if (j === i) continue;
+
+          var parent = qualifiedChildren[j];
+
+          if (parent.contains && parent.contains(child)) {
+            ignore = true;
+            break;
+          }
+        }
+
+        if (ignore) continue;
+
+        if (!assert(typeof controller === 'function', 'Class "' + className + '" is not found in specified controllerScope ' + (controllerScope || window) + '.')) continue;
+
+        var m = new controller({
+          element: child,
+          name: childName,
+          children: getChildElements(child, controllerScope)
+        });
+
+        if (sizeOf(childName) > 0) {
+          if (!children) children = {};
+
+          if (!children[childName]) {
+            children[childName] = m;
+          }
+          else {
+            if (children[childName] instanceof Array) {
+              children[childName].push(m);
+            }
+            else {
+              var a = [children[childName]];
+              a.push(m);
+              children[childName] = a;
+            }
+          }
+        }
+      }
+
+      return children;
     }
 
     return initDOM;
@@ -4306,7 +4302,6 @@ define('ui',[
     'ui/addClass',
     'ui/changeElementState',
     'ui/getClassIndex',
-    'ui/getChildElements',
     'ui/getElementState',
     'ui/getIntersectRect',
     'ui/getRect',
@@ -4330,7 +4325,6 @@ define('ui',[
     addClass,
     changeElementState,
     getClassIndex,
-    getChildElements,
     getElementState,
     getIntersectRect,
     getRect,
@@ -4359,7 +4353,6 @@ define('ui',[
     Object.defineProperty(api, 'hasClass', { value: hasClass, writable: false, enumerable: true });
     Object.defineProperty(api, 'hasChild', { value: hasChild, writable: false, enumerable: true });
     Object.defineProperty(api, 'getClassIndex', { value: getClassIndex, writable: false, enumerable: true });
-    Object.defineProperty(api, 'getChildElements', { value: getChildElements, writable: false, enumerable: true });
     Object.defineProperty(api, 'getElementState', { value: getElementState, writable: false, enumerable: true });
     Object.defineProperty(api, 'getIntersectRect', { value: getIntersectRect, writable: false, enumerable: true });
     Object.defineProperty(api, 'getRect', { value: getRect, writable: false, enumerable: true });
