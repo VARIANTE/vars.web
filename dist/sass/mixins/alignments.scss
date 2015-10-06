@@ -163,7 +163,6 @@
  */
 @mixin abs-align($alignH:'left', $alignV:'top')
 {
-  display: block;
   position: absolute;
 
   @if $alignH != null and length($alignH) > 0 {
@@ -220,7 +219,6 @@
  * @param  {List} $alignV     Vertical alignment (top|center|middle|bottom, top|bottom offset, bottom offset).
  */
 @mixin fixed-align($alignH:'left', $alignV:'top') {
-  display: block;
   position: fixed;
 
   @if $alignH != null and length($alignH) > 0 {
@@ -276,7 +274,6 @@
  * @param  {String} $alignV     Vertical alignment (i.e. top, middle, bottom).
  */
 @mixin inline-align($alignH:'left', $alignV:'top') {
-  display: inline-block;
   position: relative;
 
   // Horizontal alignment cannot be altered at the child level. Tweak
