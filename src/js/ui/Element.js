@@ -407,6 +407,14 @@ define([
         var n = sizeOf(m);
         var b = true;
 
+        if (event === EventType.MOUSE.CLICK_OUTSIDE) {
+          listener = function(event) {
+            if ((event.target !== this.element) && !this.hasChild(event.target)) {
+              listener(event);
+            }
+          }.bind(this);
+        }
+
         for (var i = 0; i < n; i++) {
           var e = m[i];
 

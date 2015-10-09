@@ -2421,6 +2421,14 @@ define('ui/Element',[
         var n = sizeOf(m);
         var b = true;
 
+        if (event === EventType.MOUSE.CLICK_OUTSIDE) {
+          listener = function(event) {
+            if ((event.target !== this.element) && !this.hasChild(event.target)) {
+              listener(event);
+            }
+          }.bind(this);
+        }
+
         for (var i = 0; i < n; i++) {
           var e = m[i];
 
@@ -5455,7 +5463,7 @@ define(
      * @type {String}
      */
     Object.defineProperty(vars, 'version', {
-      value: '0.25.2',
+      value: '0.25.3',
       writable: false
     });
 
