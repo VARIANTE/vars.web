@@ -20,6 +20,8 @@ define({
   DEPTH: 1 << 6,
   CONFIG: 1 << 7,
   STYLE: 1 << 8,
-  CUSTOM: 1 << 9,
+  INPUT: 1 << 9,
+  ORIENTATION: 1 << 10,
+  CUSTOM: 1 << 11,
   ALL: 0xFFFFFFFF
 });

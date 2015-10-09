@@ -35,7 +35,8 @@ define({
   DEVICE: {
     DEVICE_ORIENTATION: 'deviceorientation',
     DEVICE_MOTION: 'devicemotion',
-    ORIENTATION: 'MozOrientation'
+    ORIENTATION: 'MozOrientation',
+    ORIENTATION_CHANGE: 'orientationchange'
   },
   OBJECT: {
     ABORT: 'abort',

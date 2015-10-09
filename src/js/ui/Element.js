@@ -166,25 +166,28 @@ define([
      *
      * @param  {Object/Number}  Either the conductor or the refresh rate (if 1 argument supplied).
      * @param  {Number}         Refresh rate.
+     * @param  {...args}        EventType(s) which this element will respond to.
      */
-    Element.prototype.responds = function() {
-      var n = sizeOf(arguments);
+    Element.prototype.respondsTo = function() {
+      var args = Array.prototype.slice.call(arguments);
+      var n = sizeOf(args);
 
-      if (!assert(n <= 2, 'Too many arguments provided. Maximum 2 expected.')) return;
+      if (!assert(n > 0, 'Too few arguments')) return;
+      if (!assert(this.nodeState === NodeState.IDLE, 'Responsiveness must be defined when the node state of this element is IDLE')) return;
 
-      this.updateDelegate.responsive = true;
-
-      if (n === 1) {
-        if (isNaN(arguments[0])) {
-          this.updateDelegate.conductor = arguments[0];
-        }
-        else {
-          this.updateDelegate.refreshRate = arguments[0];
-        }
+      if (isNaN(args[0])) {
+        this.updateDelegate.conductor = args.shift();
+        this.updateDelegate.refreshRate = args.shift();
       }
-      else if (n == 2) {
-        this.updateDelegate.conductor = arguments[0];
-        this.updateDelegate.refreshRate = arguments[1];
+      else {
+        this.updateDelegate.refreshRate = args.shift();
+      }
+
+      if (sizeOf(args) === 0) {
+        this.updateDelegate.responsive = true;
+      }
+      else {
+        this.updateDelegate.responsive = args;
       }
     };
 

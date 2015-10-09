@@ -25,22 +25,15 @@ var $ = require('gulp-load-plugins')();
 gulp.task('clean', require('del').bind(null, ['dist']));
 
 /**
- * Wire CSS/JavaScript dependencies.
- */
-gulp.task('wiredep', function() {
-  return merge(
-    // CSS dependencies.
-    gulp.src('node_modules/normalize.css/normalize.css')
-      .pipe($.rename('normalize.scss'))
-      .pipe(gulp.dest('src/sass'))
-  );
-});
-
-/**
  * Builds the Sass library.
  */
-gulp.task('styles', ['wiredep'], function() {
+gulp.task('styles', function() {
   return merge(
+    // Wire dependencies.
+    gulp.src('node_modules/normalize.css/normalize.css')
+      .pipe($.rename('normalize.scss'))
+      .pipe(gulp.dest('src/sass')),
+      
     // Compile Sass to CSS.
     gulp.src('src/sass/vars.' + STYLES_PATTERN)
       .pipe($.sourcemaps.init())
@@ -52,6 +45,10 @@ gulp.task('styles', ['wiredep'], function() {
         browsers: ['last 2 version', 'ie 9']
       })]))
       .pipe($.sourcemaps.write('./'))
+      .pipe($.size({
+        title: '[styles:css]',
+        gzip: true
+      }))
       .pipe(gulp.dest('dist/css')),
 
     // Compile Sass to CSS (minified).
@@ -65,10 +62,18 @@ gulp.task('styles', ['wiredep'], function() {
       })]))
       .pipe($.csso())
       .pipe($.rename('vars.min.css'))
+      .pipe($.size({
+        title: '[styles:css.min]',
+        gzip: true
+      }))
       .pipe(gulp.dest('dist/css')),
 
     // Copy Sass to dist directory.
     gulp.src('src/sass/**/*' + STYLES_PATTERN)
+      .pipe($.size({
+        title: '[styles:sass]',
+        gzip: true
+      }))
       .pipe(gulp.dest('dist/sass'))
   );
 });
@@ -76,7 +81,7 @@ gulp.task('styles', ['wiredep'], function() {
 /**
  * Builds the JavaScript library.
  */
-gulp.task('scripts', ['wiredep'], function() {
+gulp.task('scripts', function() {
   r.optimize({
     baseUrl: 'src/js',
     out: 'dist/js/vars.js',
@@ -113,7 +118,14 @@ gulp.task('scripts', ['wiredep'], function() {
 /**
  * Build bask.
  */
-gulp.task('build', ['styles', 'scripts']);
+gulp.task('build', ['styles', 'scripts'], function() {
+  var watch = $.util.env['watch'] || $.util.env['w'];
+
+  if (watch) {
+    gulp.watch('src/**/*.' + STYLES_PATTERN, ['styles']);
+    gulp.watch('src/**/*.' + SCRIPTS_PATTERN, ['scripts']);
+  }
+});
 
 /**
  * Default task.
@@ -124,9 +136,4 @@ gulp.task('default', ['clean'], function() {
   var watch = $.util.env['watch'] || $.util.env['w'];
 
   gulp.start('build');
-
-  if (watch) {
-    gulp.watch('src/**/*.' + STYLES_PATTERN, ['build']);
-    gulp.watch('src/**/*.' + SCRIPTS_PATTERN, ['build']);
-  }
 });

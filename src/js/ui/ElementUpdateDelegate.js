@@ -11,6 +11,7 @@
  */
 define([
     'enums/DirtyType',
+    'events/EventType',
     'utils/assert',
     'utils/debounce',
     'utils/log',
@@ -18,6 +19,7 @@ define([
   ],
   function(
     DirtyType,
+    EventType,
     assert,
     debounce,
     log,
@@ -43,6 +45,9 @@ define([
       var mDirtyTable = 0;
       var mResizeHandler = null;
       var mScrollHandler = null;
+      var mMouseMoveHandler = null;
+      var mOrientationChangeHandler = null;
+      var mMouseWheelHandler = null;
 
       this.delegate = delegate;
 
@@ -146,18 +151,52 @@ define([
 
         var r = this.conductor || window;
 
-        if (window && r && r.addEventListener && this.responsive) {
-          if (this.refreshRate === 0.0) {
-            mResizeHandler = _onWindowResize.bind(this);
-            mScrollHandler = _onWindowScroll.bind(this);
-          } else {
-            mResizeHandler = debounce(_onWindowResize.bind(this), this.refreshRate);
-            mScrollHandler = debounce(_onWindowScroll.bind(this), this.refreshRate);
+        if (window && r && r.addEventListener && (this.responsive === true || this.responsive instanceof Array)) {
+          if (this.responsive === true || this.responsive.indexOf(EventType.OBJECT.RESIZE) > -1 || this.responsive.indexOf(EventType.DEVICE.ORIENTATION_CHANGE) > -1) {
+            mResizeHandler = (this.refreshRate === 0.0) ? _onWindowResize.bind(this) : debounce(_onWindowResize.bind(this), this.refreshRate);
           }
 
-          window.addEventListener('resize', mResizeHandler);
-          window.addEventListener('orientationchange', mResizeHandler);
-          r.addEventListener('scroll', mScrollHandler);
+          if (this.responsive === true || this.responsive.indexOf(EventType.OBJECT.SCROLL) > -1) {
+            mScrollHandler = (this.refreshRate === 0.0) ? _onWindowScroll.bind(this) : debounce(_onWindowScroll.bind(this), this.refreshRate);
+          }
+
+          if (this.responsive === true || this.responsive.indexOf(EventType.MISC.WHEEL) > -1) {
+            mMouseWheelHandler = (this.refreshRate === 0.0) ? _onWindowMouseWheel.bind(this) : debounce(_onWindowMouseWheel.bind(this), this.refreshRate);
+          }
+
+          if (this.responsive === true || this.responsive.indexOf(EventType.MOUSE.MOUSE_MOVE) > -1) {
+            mMouseMoveHandler = (this.refreshRate === 0.0) ? _onWindowMouseMove.bind(this) : debounce(_onWindowMouseMove.bind(this), this.refreshRate);
+          }
+
+          if (this.responsive === true || this.responsive.indexOf(EventType.DEVICE.DEVICE_ORIENTATION) > -1 || this.responsive.indexOf(EventType.DEVICE.DEVICE_MOTION) > -1 || this.responsive.indexOf(EventType.DEVICE.ORIENTATION) > -1) {
+            mOrientationChangeHandler = (this.refreshRate === 0.0) ? _onWindowOrientationChange.bind(this) : debounce(_onWindowOrientationChange.bind(this), this.refreshRate);
+          }
+
+          if (mResizeHandler) {
+            window.addEventListener(EventType.OBJECT.RESIZE, mResizeHandler);
+            window.addEventListener(EventType.DEVICE.ORIENTATION_CHANGE, mResizeHandler);
+          }
+
+          if (mScrollHandler) {
+            r.addEventListener(EventType.OBJECT.SCROLL, mScrollHandler);
+          }
+
+          if (mMouseWheelHandler) {
+            this.delegate.addEventListener(EventType.MISC.WHEEL, mMouseWheelHandler);
+          }
+
+          if (mMouseMoveHandler) {
+            this.delegate.addEventListener(EventType.MOUSE.MOUSE_MOVE, mMouseMoveHandler);
+          }
+
+          if (mOrientationChangeHandler) {
+            if (window.DeviceOrientationEvent) {
+              window.addEventListener(EventType.DEVICE.DEVICE_ORIENTATION, mOrientationChangeHandler);
+            }
+            else if (window.DeviceMotionEvent) {
+              window.addEventListener(EventType.DEVICE.DEVICE_MOTION, mOrientationChangeHandler);
+            }
+          }
         }
 
         this.setDirty(DirtyType.ALL);
@@ -175,14 +214,39 @@ define([
 
         var r = this.conductor || window;
 
-        if (window && r && r.removeEventListener && this.responsive) {
-          window.removeEventListener('resize', mResizeHandler);
-          window.removeEventListener('orientationchange', mResizeHandler);
-          r.removeEventListener('scroll', mScrollHandler);
+        if (window && r && r.removeEventListener) {
+          if (mResizeHandler) {
+            window.removeEventListener(EventType.OBJECT.RESIZE, mResizeHandler);
+            window.removeEventListener(EventType.DEVICE.ORIENTATION_CHANGE, mResizeHandler);
+          }
+
+          if (mScrollHandler) {
+            r.removeEventListener(EventType.OBJECT.SCROLL, mScrollHandler);
+          }
+
+          if (mMouseWheelHandler) {
+            this.delegate.removeEventListener(EventType.MISC.WHEEL, mMouseWheelHandler);
+          }
+
+          if (mMouseMoveHandler) {
+            this.delegate.removeEventListener(EventType.MOUSE.MOUSE_MOVE, mMouseMoveHandler);
+          }
+
+          if (mOrientationChangeHandler) {
+            if (window.DeviceOrientationEvent) {
+              window.removeEventListener(EventType.DEVICE.DEVICE_ORIENTATION, mOrientationChangeHandler);
+            }
+            else if (window.DeviceMotionEvent) {
+              window.removeEventListener(EventType.DEVICE.DEVICE_MOTION, mOrientationChangeHandler);
+            }
+          }
         }
 
         mResizeHandler = null;
         mScrollHandler = null;
+        mMouseWheelHandler = null;
+        mMouseMoveHandler = null;
+        mOrientationChangeHandler = null;
       };
 
       /**
@@ -200,7 +264,15 @@ define([
         }
 
         // Reset the dirty status of all types.
-        this.setDirty(0);
+        this.setDirty(DirtyType.NONE);
+
+        delete this.mouse.pointerX;
+        delete this.mouse.pointerY;
+        delete this.mouse.wheelX;
+        delete this.mouse.wheelY;
+        delete this.orientation.x;
+        delete this.orientation.y;
+        delete this.orientation.z;
 
         this._pendingAnimationFrame = null;
       };
@@ -272,6 +344,69 @@ define([
       var _onWindowScroll = function(event) {
         this.setDirty(DirtyType.POSITION);
       };
+
+      /**
+       * @private
+       *
+       * Handler invoked when mouse moves in the window.
+       *
+       * @param  {Object} event
+       */
+      var _onWindowMouseMove = function(event) {
+        this.mouse.pointerX = event.clientX;
+        this.mouse.pointerY = event.clientY;
+
+        this.setDirty(DirtyType.INPUT);
+      };
+
+      /**
+       * @private
+       *
+       * Handler invoked when mouse wheel moves in the window.
+       *
+       * @param  {Object} event
+       */
+      var _onWindowMouseWheel = function(event) {
+        this.mouse.wheelX = event.deltaX;
+        this.mouse.wheelY = event.deltaY;
+
+        this.setDirty(DirtyType.INPUT);
+      };
+
+      /**
+       * @private
+       *
+       * Handler invoked when device orientation changes.
+       *
+       * @param  {Object} event
+       */
+      var _onWindowOrientationChange = function(event) {
+        if (!window) return;
+
+        var x, y, z;
+
+        if (event instanceof window.DeviceOrientationEvent) {
+          x = event.beta;
+          y = event.gamma;
+          z = event.alpha;
+        }
+        else if (event instanceof window.DeviceMotionEvent) {
+          x = event.acceleration.x * 2;
+          y = event.acceleration.y * 2;
+          z = event.acceleration.z * 2;
+        }
+        else {
+          x = event.orientation.x * 50;
+          y = event.orientation.y * 50;
+          z = event.orientation.z * 50;
+        }
+
+        this.orientation.x = x;
+        this.orientation.y = y;
+        this.orientation.z = z;
+
+        this.setDirty(DirtyType.ORIENTATION);
+      };
     }
 
     /**
@@ -289,7 +424,8 @@ define([
     /**
      * @property
      *
-     * Indicates whether this ElementUpdateDelegate auto responds to window behaviors.
+     * Indicates whether this ElementUpdateDelegate auto responds to window behaviors
+     * (i.e. resizing, scrolling).
      *
      * @type {Boolean}
      */
@@ -313,7 +449,7 @@ define([
     /**
      * @property
      *
-     * Indicates the dirty flags in which ElementUpdateDelgate instance will transmit to its child instances.
+     * Indicates the dirty flags in which ElementUpdateDelgate instance will transmit to its child Elements.
      *
      * @type {Number}
      */
@@ -325,7 +461,7 @@ define([
     /**
      * @property
      *
-     * Indicates the dirty flags in which this ElementUpdateDelegate is capable of receiving.
+     * Indicates the dirty flags in which this ElementUpdateDelegate is capable of receiving from parent Elements.
      *
      * @type {Number}
      */
@@ -344,6 +480,31 @@ define([
     Object.defineProperty(ElementUpdateDelegate.prototype, 'conductor', {
       value: window,
       writable: true
+    });
+
+    /**
+     * @property
+     *
+     * Stores mouse properties if this ElementUpdateDelegate responds to mouse events.
+     *
+     * @type {Object}
+     */
+    Object.defineProperty(ElementUpdateDelegate.prototype, 'mouse', {
+      value: {},
+      writable: false
+    });
+
+    /**
+     * @property
+     *
+     * Stores orientation properties if this ElementUpdateDelgate responds to device
+     * orientations (i.e. device accelerometer).
+     *
+     * @type {Object}
+     */
+    Object.defineProperty(ElementUpdateDelegate.prototype, 'orientation', {
+      value: {},
+      writable: false
     });
 
     /**
