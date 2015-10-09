@@ -273,9 +273,9 @@ define([
      */
     Element.prototype.hasChild = function(child) {
       if (!assert(child, 'Child is null.')) return false;
-      if (!assert(child instanceof Element, 'Child must be a VARS Element instance.')) return false;
+      if (!assert((child instanceof Element) || (child instanceof HTMLElement), 'Child must be a VARS or DOM Element instance.')) return false;
 
-      var e = child.element;
+      var e = (child instanceof Element) ? child.element : child;
 
       while (e !== null && e !== undefined && e !== document) {
         e = e.parentNode;
@@ -385,11 +385,11 @@ define([
      * @see HTMLElement#addEventListener
      */
     Element.prototype.addEventListener = function() {
-      if (this.cachesListeners) {
-        var event = arguments[0];
-        var listener = arguments[1];
-        var useCapture = arguments[2] || false;
+      var event = arguments[0];
+      var listener = arguments[1];
+      var useCapture = arguments[2] || false;
 
+      if (this.cachesListeners) {
         if (!this._listenerMap) {
           Object.defineProperty(this, '_listenerMap', {
             value: {},
@@ -422,7 +422,12 @@ define([
         }
       }
 
-      return this.element.addEventListener.apply(this.element, arguments);
+      if (window && listener === EventType.MOUSE.CLICK_OUTSIDE) {
+        window.addEventListener(EventType.MOUSE.CLICK, listener, useCapture);
+      }
+      else {
+        this.element.addEventListener.apply(this.element, arguments);
+      }
     };
 
     /**
@@ -461,10 +466,11 @@ define([
      * @see HTMLElement#removeEventListener
      */
     Element.prototype.removeEventListener = function() {
-      if (this._listenerMap) {
-        var event = arguments[0];
-        var listener = arguments[1];
+      var event = arguments[0];
+      var listener = arguments[1];
+      var useCapture = arguments[2] || false;
 
+      if (this._listenerMap) {
         var m = this._listenerMap[event];
         var n = sizeOf(m);
         var s = -1;
@@ -495,8 +501,13 @@ define([
         }
       }
 
-      if (arguments[1]) {
-        return this.element.removeEventListener.apply(this.element, arguments);
+      if (listener) {
+        if (window && event === EventType.MOUSE.CLICK_OUTSIDE) {
+          window.removeEventListener(EventType.MOUSE.CLICK, listener, useCapture);
+        }
+        else {
+          this.element.removeEventListener.apply(this.element, arguments);
+        }
       }
     };
 

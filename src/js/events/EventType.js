@@ -18,6 +18,7 @@ define({
   MOUSE: {
     CLICK: 'click',
     CONTEXT_MENU: 'contextmenu',
+    CLICK_OUTSIDE: 'clickoutside', // VARS Element exclusive
     DOUBLE_CLICK: 'dblclick',
     MOUSE_DOWN: 'mousedown',
     MOUSE_ENTER: 'mouseenter',

@@ -891,6 +891,7 @@ define('events/EventType',{
   MOUSE: {
     CLICK: 'click',
     CONTEXT_MENU: 'contextmenu',
+    CLICK_OUTSIDE: 'clickoutside', // VARS Element exclusive
     DOUBLE_CLICK: 'dblclick',
     MOUSE_DOWN: 'mousedown',
     MOUSE_ENTER: 'mouseenter',
@@ -1386,6 +1387,9 @@ define('ui/ElementUpdateDelegate',[
       var mMouseMoveHandler = null;
       var mOrientationChangeHandler = null;
       var mMouseWheelHandler = null;
+      var mKeyUpHandler = null;
+      var mKeyPressHandler = null;
+      var mKeyDownHandler = null;
 
       this.delegate = delegate;
 
@@ -1510,6 +1514,18 @@ define('ui/ElementUpdateDelegate',[
             mOrientationChangeHandler = (this.refreshRate === 0.0) ? _onWindowOrientationChange.bind(this) : debounce(_onWindowOrientationChange.bind(this), this.refreshRate);
           }
 
+          if (this.responsive === true || this.responsive.indexOf(EventType.KEYBOARD.KEY_DOWN) > -1) {
+            mKeyDownHandler = _onWindowKeyDown.bind(this);
+          }
+
+          if (this.responsive === true || this.responsive.indexOf(EventType.KEYBOARD.KEY_PRESS) > -1) {
+            mKeyPressHandler = _onWindowKeyPress.bind(this);
+          }
+
+          if (this.responsive === true || this.responsive.indexOf(EventType.KEYBOARD.KEY_UP) > -1) {
+            mKeyUpHandler = _onWindowKeyUp.bind(this);
+          }
+
           if (mResizeHandler) {
             window.addEventListener(EventType.OBJECT.RESIZE, mResizeHandler);
             window.addEventListener(EventType.DEVICE.ORIENTATION_CHANGE, mResizeHandler);
@@ -1534,6 +1550,18 @@ define('ui/ElementUpdateDelegate',[
             else if (window.DeviceMotionEvent) {
               window.addEventListener(EventType.DEVICE.DEVICE_MOTION, mOrientationChangeHandler);
             }
+          }
+
+          if (mKeyDownHandler) {
+            window.addEventListener(EventType.KEYBOARD.KEY_DOWN, mKeyDownHandler);
+          }
+
+          if (mKeyPressHandler) {
+            window.addEventListener(EventType.KEYBOARD.KEY_PRESS, mKeyPressHandler);
+          }
+
+          if (mKeyUpHandler) {
+            window.addEventListener(EventType.KEYBOARD.KEY_UP, mKeyUpHandler);
           }
         }
 
@@ -1578,6 +1606,18 @@ define('ui/ElementUpdateDelegate',[
               window.removeEventListener(EventType.DEVICE.DEVICE_MOTION, mOrientationChangeHandler);
             }
           }
+
+          if (mKeyDownHandler) {
+            window.removeEventListener(EventType.KEYBOARD.KEY_DOWN, mKeyDownHandler);
+          }
+
+          if (mKeyPressHandler) {
+            window.removeEventListener(EventType.KEYBOARD.KEY_PRESS, mKeyPressHandler);
+          }
+
+          if (mKeyUpHandler) {
+            window.removeEventListener(EventType.KEYBOARD.KEY_UP, mKeyUpHandler);
+          }
         }
 
         mResizeHandler = null;
@@ -1585,6 +1625,9 @@ define('ui/ElementUpdateDelegate',[
         mMouseWheelHandler = null;
         mMouseMoveHandler = null;
         mOrientationChangeHandler = null;
+        mKeyDownHandler = null;
+        mKeyPressHandler = null;
+        mKeyUpHandler = null;
       };
 
       /**
@@ -1611,6 +1654,9 @@ define('ui/ElementUpdateDelegate',[
         delete this.orientation.x;
         delete this.orientation.y;
         delete this.orientation.z;
+        delete this.keyCode.up;
+        delete this.keyCode.press;
+        delete this.keyCode.down;
 
         this._pendingAnimationFrame = null;
       };
@@ -1745,6 +1791,63 @@ define('ui/ElementUpdateDelegate',[
 
         this.setDirty(DirtyType.ORIENTATION);
       };
+
+      /**
+       * @private
+       *
+       * Handler invoked when a key is pressed down.
+       *
+       * @param  {Object} event
+       */
+      var _onWindowKeyDown = function(event) {
+        if (!window) return;
+
+        if (this.keyCode.down === undefined) {
+          this.keyCode.down = [];
+        }
+
+        this.keyCode.down.push(event.keyCode);
+
+        this.setDirty(DirtyType.INPUT);
+      };
+
+      /**
+       * @private
+       *
+       * Handler invoked when a key is pressed.
+       *
+       * @param  {Object} event
+       */
+      var _onWindowKeyPress = function(event) {
+        if (!window) return;
+
+        if (this.keyCode.press === undefined) {
+          this.keyCode.press = [];
+        }
+
+        this.keyCode.press.push(event.keyCode);
+
+        this.setDirty(DirtyType.INPUT);
+      };
+
+      /**
+       * @private
+       *
+       * Handler invoked when a key is pressed up.
+       *
+       * @param  {Object} event
+       */
+      var _onWindowKeyUp = function(event) {
+        if (!window) return;
+
+        if (this.keyCode.up === undefined) {
+          this.keyCode.up = [];
+        }
+
+        this.keyCode.up.push(event.keyCode);
+
+        this.setDirty(DirtyType.INPUT);
+      };
     }
 
     /**
@@ -1841,6 +1944,19 @@ define('ui/ElementUpdateDelegate',[
      * @type {Object}
      */
     Object.defineProperty(ElementUpdateDelegate.prototype, 'orientation', {
+      value: {},
+      writable: false
+    });
+
+    /**
+     * @property
+     *
+     * Stores pressed keycodes if this ElementUpdateDelegate responds to keyboard
+     * events.
+     *
+     * @type {Object}
+     */
+    Object.defineProperty(ElementUpdateDelegate.prototpye, 'keyCode', {
       value: {},
       writable: false
     });
@@ -2171,9 +2287,9 @@ define('ui/Element',[
      */
     Element.prototype.hasChild = function(child) {
       if (!assert(child, 'Child is null.')) return false;
-      if (!assert(child instanceof Element, 'Child must be a VARS Element instance.')) return false;
+      if (!assert((child instanceof Element) || (child instanceof HTMLElement), 'Child must be a VARS or DOM Element instance.')) return false;
 
-      var e = child.element;
+      var e = (child instanceof Element) ? child.element : child;
 
       while (e !== null && e !== undefined && e !== document) {
         e = e.parentNode;
@@ -2283,11 +2399,11 @@ define('ui/Element',[
      * @see HTMLElement#addEventListener
      */
     Element.prototype.addEventListener = function() {
-      if (this.cachesListeners) {
-        var event = arguments[0];
-        var listener = arguments[1];
-        var useCapture = arguments[2] || false;
+      var event = arguments[0];
+      var listener = arguments[1];
+      var useCapture = arguments[2] || false;
 
+      if (this.cachesListeners) {
         if (!this._listenerMap) {
           Object.defineProperty(this, '_listenerMap', {
             value: {},
@@ -2320,7 +2436,12 @@ define('ui/Element',[
         }
       }
 
-      return this.element.addEventListener.apply(this.element, arguments);
+      if (window && listener === EventType.MOUSE.CLICK_OUTSIDE) {
+        window.addEventListener(EventType.MOUSE.CLICK, listener, useCapture);
+      }
+      else {
+        this.element.addEventListener.apply(this.element, arguments);
+      }
     };
 
     /**
@@ -2359,10 +2480,11 @@ define('ui/Element',[
      * @see HTMLElement#removeEventListener
      */
     Element.prototype.removeEventListener = function() {
-      if (this._listenerMap) {
-        var event = arguments[0];
-        var listener = arguments[1];
+      var event = arguments[0];
+      var listener = arguments[1];
+      var useCapture = arguments[2] || false;
 
+      if (this._listenerMap) {
         var m = this._listenerMap[event];
         var n = sizeOf(m);
         var s = -1;
@@ -2393,8 +2515,13 @@ define('ui/Element',[
         }
       }
 
-      if (arguments[1]) {
-        return this.element.removeEventListener.apply(this.element, arguments);
+      if (listener) {
+        if (window && event === EventType.MOUSE.CLICK_OUTSIDE) {
+          window.removeEventListener(EventType.MOUSE.CLICK, listener, useCapture);
+        }
+        else {
+          this.element.removeEventListener.apply(this.element, arguments);
+        }
       }
     };
 
@@ -5326,7 +5453,7 @@ define(
      * @type {String}
      */
     Object.defineProperty(vars, 'version', {
-      value: '0.24.0',
+      value: '0.25.0',
       writable: false
     });
 
