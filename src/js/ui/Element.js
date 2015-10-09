@@ -12,6 +12,7 @@
 define([
     'enums/DirtyType',
     'enums/NodeState',
+    'events/EventType',
     'ui/Directives',
     'ui/ElementUpdateDelegate',
     'utils/assert',
@@ -22,6 +23,7 @@ define([
   function(
     DirtyType,
     NodeState,
+    EventType,
     Directives,
     ElementUpdateDelegate,
     assert,

@@ -2026,6 +2026,7 @@ define('utils/keyOfValue',[],
 define('ui/Element',[
     'enums/DirtyType',
     'enums/NodeState',
+    'events/EventType',
     'ui/Directives',
     'ui/ElementUpdateDelegate',
     'utils/assert',
@@ -2036,6 +2037,7 @@ define('ui/Element',[
   function(
     DirtyType,
     NodeState,
+    EventType,
     Directives,
     ElementUpdateDelegate,
     assert,
@@ -5453,7 +5455,7 @@ define(
      * @type {String}
      */
     Object.defineProperty(vars, 'version', {
-      value: '0.25.1',
+      value: '0.25.2',
       writable: false
     });
 
