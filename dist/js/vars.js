@@ -2422,9 +2422,10 @@ define('ui/Element',[
         var b = true;
 
         if (event === EventType.MOUSE.CLICK_OUTSIDE) {
+          var _listener = listener;
           listener = function(event) {
             if ((event.target !== this.element) && !this.hasChild(event.target)) {
-              listener(event);
+              _listener(event);
             }
           }.bind(this);
         }
@@ -2446,7 +2447,7 @@ define('ui/Element',[
         }
       }
 
-      if (window && listener === EventType.MOUSE.CLICK_OUTSIDE) {
+      if (window && event === EventType.MOUSE.CLICK_OUTSIDE) {
         window.addEventListener(EventType.MOUSE.CLICK, listener, useCapture);
       }
       else {
@@ -5463,7 +5464,7 @@ define(
      * @type {String}
      */
     Object.defineProperty(vars, 'version', {
-      value: '0.25.3',
+      value: '0.25.4',
       writable: false
     });
 

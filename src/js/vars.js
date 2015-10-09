@@ -32,7 +32,7 @@ define(
      * @type {String}
      */
     Object.defineProperty(vars, 'version', {
-      value: '0.25.3',
+      value: '0.25.4',
       writable: false
     });
 
