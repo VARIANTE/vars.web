@@ -617,7 +617,7 @@ define([
      *
      * @type {Object}
      */
-    Object.defineProperty(ElementUpdateDelegate.prototpye, 'keyCode', {
+    Object.defineProperty(ElementUpdateDelegate.prototype, 'keyCode', {
       value: {},
       writable: false
     });
