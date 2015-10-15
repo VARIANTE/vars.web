@@ -238,8 +238,9 @@ define([
         }
         else {
           this.children[name] = child;
-          child.name = name;
         }
+
+        child.name = name;
 
         if (child.nodeState === NodeState.IDLE || child.nodeState === NodeState.DESTROYED) {
           child.init();
