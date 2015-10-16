@@ -464,20 +464,20 @@ define("almond", function(){});
  * @type {Object}
  */
 define('enums/DirtyType',{
-  NONE: 0x00000000,
-  POSITION: 1 << 0,
-  SIZE: 1 << 1,
-  LAYOUT: 1 << 2,
-  STATE: 1 << 3,
-  DATA: 1 << 4,
-  LOCALE: 1 << 5,
-  DEPTH: 1 << 6,
-  CONFIG: 1 << 7,
-  STYLE: 1 << 8,
-  INPUT: 1 << 9,
+  NONE:        0x00000000,
+  POSITION:    1 << 0,
+  SIZE:        1 << 1,
+  LAYOUT:      1 << 2,
+  STATE:       1 << 3,
+  DATA:        1 << 4,
+  LOCALE:      1 << 5,
+  DEPTH:       1 << 6,
+  CONFIG:      1 << 7,
+  STYLE:       1 << 8,
+  INPUT:       1 << 9,
   ORIENTATION: 1 << 10,
-  CUSTOM: 1 << 11,
-  ALL: 0xFFFFFFFF
+  CUSTOM:      1 << 11,
+  ALL:         0xFFFFFFFF
 });
 
 /**
@@ -637,6 +637,9 @@ define('enums/NodeState',{
  *
  * @type {Module}
  */
+
+
+
 define('enums',[
     'enums/DirtyType',
     'enums/KeyCode',
@@ -668,6 +671,9 @@ define('enums',[
  *
  * @type {Function}
  */
+
+
+
 define('utils/assert',[],
   function() {
     /**
@@ -700,6 +706,9 @@ define('utils/assert',[],
  *
  * @type {Function}
  */
+
+
+
 define('utils/log',[],
   function() {
     /**
@@ -726,6 +735,9 @@ define('utils/log',[],
  *
  * @type {Class}
  */
+
+
+
 define(
   'events/EventDispatcher',[
     'utils/assert',
@@ -882,6 +894,9 @@ define(
  *
  * @type {Object}
  */
+
+
+
 define('events/EventType',{
   /**
    * DOM native events.
@@ -1022,6 +1037,9 @@ define('events/EventType',{
  *
  * @type {Module}
  */
+
+
+
 define('events',[
     'events/EventDispatcher',
     'events/EventType'
@@ -1050,8 +1068,10 @@ define('events',[
  *
  * @type {Function}
  */
-define('math/clamp',[
-  ],
+
+
+
+define('math/clamp',[],
   function() {
     /**
      * Clamps a value to a min and max value.
@@ -1086,8 +1106,10 @@ define('math/clamp',[
  *
  * @type {Function}
  */
-define('math/isClamped',[
-  ],
+
+
+
+define('math/isClamped',[],
   function() {
     /**
      * Determines if value is bounded by the specified min and max values, defaults to inclusive.
@@ -1121,8 +1143,10 @@ define('math/isClamped',[
  *
  * @type {Function}
  */
-define('math/isEven',[
-  ],
+
+
+
+define('math/isEven',[],
   function() {
     /**
      * Determines if a number is an even number. Zero is considered even by default.
@@ -1151,8 +1175,10 @@ define('math/isEven',[
  *
  * @type {Function}
  */
-define('math/isOdd',[
-  ],
+
+
+
+define('math/isOdd',[],
   function() {
     /**
      * Determines if a number is an odd number.
@@ -1182,6 +1208,9 @@ define('math/isOdd',[
  *
  * @type {Module}
  */
+
+
+
 define('math',[
     'math/clamp',
     'math/isClamped',
@@ -1236,6 +1265,9 @@ define('ui/Directives',{
  *
  * @type {Function}
  */
+
+
+
 define('utils/debounce',[],
   function() {
     /**
@@ -1289,6 +1321,9 @@ define('utils/debounce',[],
  *
  * @type {Function}
  */
+
+
+
 define('utils/sizeOf',[],
   function() {
     /**
@@ -1348,6 +1383,9 @@ define('utils/sizeOf',[],
  *
  * @type {Class}
  */
+
+
+
 define('ui/ElementUpdateDelegate',[
     'enums/DirtyType',
     'events/EventType',
@@ -1472,14 +1510,10 @@ define('ui/ElementUpdateDelegate',[
         switch (dirtyType) {
           case DirtyType.NONE:
           case DirtyType.ALL:
-            {
-              return (mDirtyTable == dirtyType);
-            }
+            return (mDirtyTable === dirtyType);
 
           default:
-            {
-              return ((dirtyType & mDirtyTable) !== 0);
-            }
+            return ((dirtyType & mDirtyTable) !== 0);
         }
       };
 
@@ -1985,6 +2019,9 @@ define('ui/ElementUpdateDelegate',[
  *
  * @type {Function}
  */
+
+
+
 define('utils/keyOfValue',[],
   function() {
     /**
@@ -2023,6 +2060,9 @@ define('utils/keyOfValue',[],
  *
  * @type {Class}
  */
+
+
+
 define('ui/Element',[
     'enums/DirtyType',
     'enums/NodeState',
@@ -2252,8 +2292,9 @@ define('ui/Element',[
         }
         else {
           this.children[name] = child;
-          child.name = name;
         }
+
+        child.name = name;
 
         if (child.nodeState === NodeState.IDLE || child.nodeState === NodeState.DESTROYED) {
           child.init();
@@ -2501,7 +2542,7 @@ define('ui/Element',[
         var s = -1;
 
         if (listener) {
-          for (i = 0; i < n; i++) {
+          for (var i = 0; i < n; i++) {
             var e = m[i];
 
             if (e.listener === listener) {
@@ -2928,6 +2969,9 @@ define('ui/Element',[
  *
  * @type {Function}
  */
+
+
+
 define('ui/getClassIndex',[
     'ui/Element',
     'utils/assert'
@@ -2969,6 +3013,9 @@ define('ui/getClassIndex',[
  *
  * @type {Function}
  */
+
+
+
 define('ui/toElementArray',[
     'ui/Element',
     'utils/assert',
@@ -3038,6 +3085,9 @@ define('ui/toElementArray',[
  *
  * @type {Function}
  */
+
+
+
 define('ui/hasClass',[
     'ui/getClassIndex',
     'ui/toElementArray',
@@ -3087,6 +3137,9 @@ define('ui/hasClass',[
  *
  * @type {Function}
  */
+
+
+
 define('ui/addClass',[
     'ui/hasClass',
     'ui/toElementArray',
@@ -3148,6 +3201,9 @@ define('ui/addClass',[
  *
  * @type {Function}
  */
+
+
+
 define('ui/getElementState',[
     'ui/Directives',
     'ui/Element',
@@ -3202,6 +3258,9 @@ define('ui/getElementState',[
  *
  * @type {Function}
  */
+
+
+
 define('ui/changeElementState',[
     'ui/Directives',
     'ui/getElementState',
@@ -3256,6 +3315,9 @@ define('ui/changeElementState',[
  *
  * @type {Function}
  */
+
+
+
 define('ui/getViewportRect',[
     'utils/assert'
   ],
@@ -3295,6 +3357,9 @@ define('ui/getViewportRect',[
  *
  * @type {Function}
  */
+
+
+
 define('ui/getRect',[
     'ui/getViewportRect',
     'ui/toElementArray',
@@ -3396,6 +3461,9 @@ define('ui/getRect',[
  *
  * @type {Function}
  */
+
+
+
 define('ui/getIntersectRect',[
     'ui/getRect',
     'ui/Element',
@@ -3478,6 +3546,9 @@ define('ui/getIntersectRect',[
  *
  * @type {Function}
  */
+
+
+
 define('ui/hasChild',[
     'ui/toElementArray',
     'utils/assert',
@@ -3531,6 +3602,9 @@ define('ui/hasChild',[
  *
  * @type {Function}
  */
+
+
+
 define('ui/hitTestElement',[
     'math/isClamped',
     'ui/getIntersectRect',
@@ -3598,6 +3672,9 @@ define('ui/hitTestElement',[
  *
  * @type {Function}
  */
+
+
+
 define('ui/hitTestRect',[
     'math/isClamped',
     'ui/getIntersectRect',
@@ -3666,6 +3743,9 @@ define('ui/hitTestRect',[
  *
  * @type {Function}
  */
+
+
+
 define('utils/inherit',[],
   function() {
 
@@ -3686,12 +3766,12 @@ define('utils/inherit',[],
         }
       }
 
-      function c() {
+      function C() {
         this.constructor = child;
       }
 
-      c.prototype = Object.create(parent.prototype);
-      child.prototype = new c();
+      C.prototype = Object.create(parent.prototype);
+      child.prototype = new C();
       child.__super__ = parent.prototype;
       return child;
     }
@@ -3711,6 +3791,9 @@ define('utils/inherit',[],
  *
  * @type {Class}
  */
+
+
+
 define('ui/Video',[
     'utils/assert',
     'utils/log',
@@ -3972,6 +4055,9 @@ define('ui/Video',[
  *
  * @type {Function}
  */
+
+
+
 define('utils/namespace',[
     'utils/assert'
   ],
@@ -4013,6 +4099,9 @@ define('utils/namespace',[
  *
  * @type {Function}
  */
+
+
+
 define('utils/ready',[],
   function() {
     /**
@@ -4065,6 +4154,9 @@ define('utils/ready',[],
  *
  * @type {Function}
  */
+
+
+
 define('ui/initDOM',[
     'ui/Directives',
     'ui/Element',
@@ -4205,6 +4297,9 @@ define('ui/initDOM',[
  *
  * @type {Function}
  */
+
+
+
 define('ui/removeClass',[
     'ui/toElementArray',
     'utils/assert',
@@ -4264,6 +4359,9 @@ define('ui/removeClass',[
  *
  * @type {Function}
  */
+
+
+
 define('ui/transform',[
     'ui/toElementArray',
     'ui/getRect',
@@ -4343,7 +4441,7 @@ define('ui/transform',[
             w = h * aspectRatio;
           }
         }
-        else if (type == 'cover') {
+        else if (type === 'cover') {
           w = (minW > minH) ? minH * aspectRatio : minW;
           h = (minW > minH) ? minH : minW / aspectRatio;
 
@@ -4401,6 +4499,9 @@ define('ui/transform',[
  *
  * @type {Function}
  */
+
+
+
 define('ui/translate',[
     'ui/toElementArray',
     'utils/assert',
@@ -4504,6 +4605,9 @@ define('ui/translate',[
  *
  * @type {Function}
  */
+
+
+
 define('ui/translate3d',[
     'ui/toElementArray',
     'utils/assert',
@@ -4606,6 +4710,9 @@ define('ui/translate3d',[
  *
  * @type {Module}
  */
+
+
+
 define('ui',[
     'ui/addClass',
     'ui/changeElementState',
@@ -4691,6 +4798,9 @@ define('ui',[
  *
  * @type {Function}
  */
+
+
+
 define('utils/isNull',[],
   function() {
     /**
@@ -4722,6 +4832,9 @@ define('utils/isNull',[],
  *
  * @type {Function}
  */
+
+
+
 define('utils/module',[
     'utils/ready'
   ],
@@ -4757,6 +4870,9 @@ define('utils/module',[
  *
  * @type {Class}
  */
+
+
+
 define('utils/AssetLoader',[
     'utils/assert',
     'utils/log',
@@ -5389,6 +5505,9 @@ define('utils/AssetLoader',[
  *
  * @type {Module}
  */
+
+
+
 define('utils',[
     'utils/debounce',
     'utils/inherit',
@@ -5439,6 +5558,9 @@ define('utils',[
  *
  * Construction of the VARS API.
  */
+
+
+
 define(
   'vars',[
     'enums',
@@ -5464,7 +5586,7 @@ define(
      * @type {String}
      */
     Object.defineProperty(vars, 'version', {
-      value: '0.25.5',
+      value: '0.27.0',
       writable: false
     });
 

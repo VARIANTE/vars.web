@@ -7,8 +7,10 @@
  *
  * @type {Function}
  */
-define([
-  ],
+
+'use strict';
+
+define([],
   function() {
     /**
      * Clamps a value to a min and max value.

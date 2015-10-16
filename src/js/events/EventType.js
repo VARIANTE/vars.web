@@ -9,6 +9,9 @@
  *
  * @type {Object}
  */
+
+'use strict';
+
 define({
   /**
    * DOM native events.

@@ -7,6 +7,9 @@
  *
  * @type {Function}
  */
+
+'use strict';
+
 define([],
   function() {
 
@@ -27,12 +30,12 @@ define([],
         }
       }
 
-      function c() {
+      function C() {
         this.constructor = child;
       }
 
-      c.prototype = Object.create(parent.prototype);
-      child.prototype = new c();
+      C.prototype = Object.create(parent.prototype);
+      child.prototype = new C();
       child.__super__ = parent.prototype;
       return child;
     }

@@ -9,6 +9,9 @@
  *
  * @type {Class}
  */
+
+'use strict';
+
 define(
   [
     'utils/assert',

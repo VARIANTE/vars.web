@@ -7,6 +7,9 @@
  *
  * @type {Function}
  */
+
+'use strict';
+
 define([
     'ui/Directives',
     'ui/Element',

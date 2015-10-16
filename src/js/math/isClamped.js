@@ -7,8 +7,10 @@
  *
  * @type {Function}
  */
-define([
-  ],
+
+'use strict';
+
+define([],
   function() {
     /**
      * Determines if value is bounded by the specified min and max values, defaults to inclusive.

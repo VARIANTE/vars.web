@@ -7,6 +7,9 @@
  *
  * @type {Function}
  */
+
+'use strict';
+
 define([
     'ui/toElementArray',
     'ui/getRect',
@@ -86,7 +89,7 @@ define([
             w = h * aspectRatio;
           }
         }
-        else if (type == 'cover') {
+        else if (type === 'cover') {
           w = (minW > minH) ? minH * aspectRatio : minW;
           h = (minW > minH) ? minH : minW / aspectRatio;
 

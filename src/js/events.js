@@ -9,6 +9,9 @@
  *
  * @type {Module}
  */
+
+'use strict';
+
 define([
     'events/EventDispatcher',
     'events/EventType'

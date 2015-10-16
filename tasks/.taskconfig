@@ -1,0 +1,165 @@
+/**
+ *  vars
+ *  (c) VARIANTE (http://variante.io)
+ *
+ *  Configuration for Gulp tasks.
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+
+var path = require('path');
+var $util = require('gulp-util');
+
+var env = {
+  clean: $util.env['clean'] || $util.env['c'],
+  port: $util.env['port'] || $util.env['p'],
+  serve: $util.env['serve'] || $util.env['s'],
+  watch: $util.env['watch'] || $util.env['w']
+};
+
+var paths = {
+  src: path.join(__dirname, '../', 'src'),
+  dist: path.join(__dirname, '../', 'dist'),
+  play: path.join(__dirname, '../', 'playground'),
+  modules: path.join(__dirname, '../', 'node_modules')
+};
+
+var tasks = {
+  clean: {
+    input: paths.dist
+  },
+  wiredeps: {
+    normalize: {
+      input: path.join(paths.modules, 'normalize.css', 'normalize.css'),
+      outputFile: 'normalize.scss',
+      output: path.join(paths.src, 'sass')
+    }
+  },
+  styles: {
+    css: {
+      input: path.join(paths.src, 'sass', 'vars.scss'),
+      outputFile: 'vars.min.css',
+      output: path.join(paths.dist, 'css'),
+      sass: {
+        outputStyle: 'nested',
+        precision: 10
+      }
+    },
+    sass: {
+      input: path.join(paths.src, 'sass', '**', '*.scss'),
+      output: path.join(paths.dist, 'sass')
+    },
+    autoprefixer: {
+      browsers: ['last 2 version', 'ie 9']
+    }
+  },
+  scripts: {
+    input: path.join(paths.dist, 'js', 'vars.js'),
+    outputFile: 'vars.min.js',
+    output: path.join(paths.dist, 'js'),
+    r: {
+      baseUrl: path.join(paths.src, 'js'),
+      out: path.join(paths.dist, 'js', 'vars.js'),
+      paths: {
+        almond: path.join(paths.modules, 'almond', 'almond')
+      },
+      include: ['almond', 'vars'],
+      wrap: {
+        startFile: path.join(paths.src, 'js', '_start.js'),
+        endFile: path.join(paths.src, 'js', '_end.js')
+      },
+      optimize: 'none',
+      preserveLicenseComments: false,
+      generateSourceMaps: true
+    }
+  },
+  play: {
+    clean: {
+      input: path.join(paths.play, 'dist')
+    },
+    styles: {
+      input: path.join(paths.play, 'src', 'stylesheets', '*.scss'),
+      output: path.join(paths.play, 'dist', 'stylesheets'),
+      sass: {
+        outputStyle: 'nested',
+        includePaths: [path.join(paths.dist, 'sass')]
+      }
+    },
+    scripts: {
+      webpack: {
+        cache: true,
+        context: path.join(paths.play, 'src', 'javascripts'),
+        debug: true,
+        devtool: 'sourcemap',
+        entry: {
+          main: './main.js'
+        },
+        output: {
+          path: path.join(paths.play, 'dist', 'javascripts'),
+          publicPath: 'javascripts/',
+          filename: '[name].js',
+          chunkFilename: '[chunkhash].js',
+          sourceMapFilename: '[file].map'
+        },
+        module: {
+          loaders: [{
+            test: path.join(paths.play, 'src', 'javascripts'),
+            loader: 'babel-loader'
+          }]
+        },
+        resolve: {
+          extensions: ['', '.js', '.json']
+        }
+      }
+    },
+    templates: {
+      input: path.join(paths.play, 'src', 'templates', 'views', '**', '*.jade'),
+      output: path.join(paths.play, 'dist'),
+      jade: {
+        pretty: true
+      }
+    },
+    serve: {
+      browserSync: {
+        server: {
+          baseDir: path.join(paths.play, 'dist')
+        },
+        files: [path.join(paths.play, 'dist')],
+        browser: 'google chrome',
+        notify: false,
+        port: (typeof port === 'number') ? env.port : 9000
+      }
+    }
+  },
+  watch: {
+    build: [{
+        files: path.join(paths.src, '**', '*.scss'),
+        tasks: [
+          'styles'
+        ]
+      }, {
+        files: path.join(paths.src, '**', '*.js'),
+        tasks: [
+          'scripts'
+        ]
+      }
+    ],
+    play: [{
+      files: [
+        path.join(paths.play, 'src', '**', '*.scss'),
+        path.join(paths.dist, '**', '*.scss')
+      ],
+      tasks: ['styles:play']
+    }, {
+      files: path.join(paths.play, 'src', '**', '*.jade'),
+      tasks: ['templates:play']
+    }]
+  }
+};
+
+module.exports = {
+  env: env,
+  paths: paths,
+  tasks: tasks
+};

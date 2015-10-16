@@ -7,8 +7,10 @@
  *
  * @type {Function}
  */
-define([
-  ],
+
+'use strict';
+
+define([],
   function() {
     /**
      * Determines if a number is an even number. Zero is considered even by default.

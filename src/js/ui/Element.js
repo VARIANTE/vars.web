@@ -9,6 +9,9 @@
  *
  * @type {Class}
  */
+
+'use strict';
+
 define([
     'enums/DirtyType',
     'enums/NodeState',
@@ -488,7 +491,7 @@ define([
         var s = -1;
 
         if (listener) {
-          for (i = 0; i < n; i++) {
+          for (var i = 0; i < n; i++) {
             var e = m[i];
 
             if (e.listener === listener) {

@@ -10,6 +10,9 @@
  *
  * @type {Module}
  */
+
+'use strict';
+
 define([
     'ui/addClass',
     'ui/changeElementState',

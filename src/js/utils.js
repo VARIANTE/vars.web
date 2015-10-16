@@ -9,6 +9,9 @@
  *
  * @type {Module}
  */
+
+'use strict';
+
 define([
     'utils/debounce',
     'utils/inherit',

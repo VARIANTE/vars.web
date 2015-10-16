@@ -9,6 +9,9 @@
  *
  * @type {Class}
  */
+
+'use strict';
+
 define([
     'enums/DirtyType',
     'events/EventType',
@@ -133,14 +136,10 @@ define([
         switch (dirtyType) {
           case DirtyType.NONE:
           case DirtyType.ALL:
-            {
-              return (mDirtyTable == dirtyType);
-            }
+            return (mDirtyTable === dirtyType);
 
           default:
-            {
-              return ((dirtyType & mDirtyTable) !== 0);
-            }
+            return ((dirtyType & mDirtyTable) !== 0);
         }
       };
 

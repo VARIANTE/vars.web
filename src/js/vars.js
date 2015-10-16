@@ -7,6 +7,9 @@
  *
  * Construction of the VARS API.
  */
+
+'use strict';
+
 define(
   [
     'enums',
@@ -32,7 +35,7 @@ define(
      * @type {String}
      */
     Object.defineProperty(vars, 'version', {
-      value: '0.26.0',
+      value: '0.27.0',
       writable: false
     });
 
