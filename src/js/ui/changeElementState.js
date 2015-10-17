@@ -30,8 +30,8 @@ define([
      * Changes the state of DOM element(s), assumes that state classes are prefixed
      * with 'state-'.
      *
-     * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
-     * @param  {String}       state
+     * @param {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
+     * @param {String}       state
      */
     function changeElementState(element, state) {
       var elements = toElementArray(element, true);

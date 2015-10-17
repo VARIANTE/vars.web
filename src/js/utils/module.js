@@ -21,8 +21,8 @@ define([
      * to pass an init object to initialize the module. A typical use-case will be to
      * create a new Element module.
      *
-     * @param  {Function}   impl Module implementation.
-     * @param  {Object}     init Optional object passed into the impl.
+     * @param {Function}   impl Module implementation.
+     * @param {Object}     init Optional object passed into the impl.
      */
     function module(impl, init) {
       ready(function() {

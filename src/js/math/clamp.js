@@ -15,9 +15,9 @@ define([],
     /**
      * Clamps a value to a min and max value.
      *
-     * @param  {Number} value
-     * @param  {Number} min
-     * @param  {Number} max
+     * @param {Number} value
+     * @param {Number} min
+     * @param {Number} max
      *
      * @return {Number} The clamped value.
      */

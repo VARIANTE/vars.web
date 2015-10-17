@@ -15,7 +15,7 @@ define([],
     /**
      * Invokes a function when the DOM is ready.
      *
-     * @param  {Function}   callback    Function invoked when the DOM is ready.
+     * @param {Function}   callback    Function invoked when the DOM is ready.
      */
     function ready(callback) {
       if (!document) return null;

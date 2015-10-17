@@ -1,4 +1,9 @@
 
-let vars = require('../../../dist/js/vars');
+'use strict';
 
-console.log('hello world');
+let vars = require('vars');
+
+vars.initDOM({
+  Playground: require('./components/Playground'),
+  Bar: require('./components/Bar')
+});

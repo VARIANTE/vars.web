@@ -680,14 +680,14 @@ define('utils/assert',[],
      * Asserts the specified condition and throws a warning if assertion fails. Internal use
      * only.
      *
-     * @param  {Boolean}    condition   Condition to validate against.
-     * @param  {String}     message     (Optional) Message to be displayed when assertion fails.
+     * @param {Boolean}    condition   Condition to validate against.
+     * @param {String}     message     (Optional) Message to be displayed when assertion fails.
      *
      * @return {Boolean} True if assert passed, false otherwise.
      */
     function assert(condition, message) {
-      if (!condition && (window && window.vars && window.VARS_DEBUG)) {
-        throw new Error((message || 'Assertion failed'));
+      if (!condition) {
+        throw new Error((message || 'Assert failed'));
       }
 
       return condition;
@@ -759,8 +759,8 @@ define(
     /**
      * Adds an event listener to this EventDispatcher instance.
      *
-     * @param  {String} type
-     * @param  {Function} listener
+     * @param {String} type
+     * @param {Function} listener
      */
     EventDispatcher.prototype.addEventListener = function(type, listener) {
       assert(type, 'Event type must be specified.');
@@ -789,8 +789,8 @@ define(
      * Removes an event listener from this EventDispatcher instance. If no listener method is
      * specified, all the listeners of the specified type will be removed.
      *
-     * @param  {String} type
-     * @param  {Function} listener (Optional)
+     * @param {String} type
+     * @param {Function} listener (Optional)
      */
     EventDispatcher.prototype.removeEventListener = function(type, listener) {
       assert(type, 'Event type must be specified.');
@@ -819,8 +819,8 @@ define(
      * If no listener is specified, it will check if any listener of the specified event type
      * is registered.
      *
-     * @param  {String} type
-     * @param  {Function} listener (Optional)
+     * @param {String} type
+     * @param {Function} listener (Optional)
      *
      * @return {Boolean}
      */
@@ -845,7 +845,7 @@ define(
     /**
      * Dispatches the specified event.
      *
-     * @param  {String} event
+     * @param {String} event
      */
     EventDispatcher.prototype.dispatchEvent = function(event) {
       assert(event, 'Event must be specified.');
@@ -1076,9 +1076,9 @@ define('math/clamp',[],
     /**
      * Clamps a value to a min and max value.
      *
-     * @param  {Number} value
-     * @param  {Number} min
-     * @param  {Number} max
+     * @param {Number} value
+     * @param {Number} min
+     * @param {Number} max
      *
      * @return {Number} The clamped value.
      */
@@ -1114,10 +1114,10 @@ define('math/isClamped',[],
     /**
      * Determines if value is bounded by the specified min and max values, defaults to inclusive.
      *
-     * @param  {Number} value
-     * @param  {Number} min
-     * @param  {Number} max
-     * @param  {Boolean} exclusive
+     * @param {Number} value
+     * @param {Number} min
+     * @param {Number} max
+     * @param {Boolean} exclusive
      *
      * @return {Boolean} True if bounded, false otherwise.
      */
@@ -1151,8 +1151,8 @@ define('math/isEven',[],
     /**
      * Determines if a number is an even number. Zero is considered even by default.
      *
-     * @param  {Number}  value
-     * @param  {Boolean} excludeZero
+     * @param {Number}  value
+     * @param {Boolean} excludeZero
      *
      * @return {Boolean} True if number is even, false otherwise.
      */
@@ -1183,7 +1183,7 @@ define('math/isOdd',[],
     /**
      * Determines if a number is an odd number.
      *
-     * @param  {Number} value
+     * @param {Number} value
      *
      * @return {Boolean} True if number is odd, false otherwise.
      */
@@ -1276,9 +1276,9 @@ define('utils/debounce',[],
      * N milliseconds. If 'immediate' is passed, trigger the function on the
      * leading edge, instead of the trailing.
      *
-     * @param  {Function}   method      Method to be debounced.
-     * @param  {Number}     delay       Debounce rate in milliseconds.
-     * @param  {Boolean}    immediate   (Optional) Indicates whether the method is triggered
+     * @param {Function}   method      Method to be debounced.
+     * @param {Number}     delay       Debounce rate in milliseconds.
+     * @param {Boolean}    immediate   (Optional) Indicates whether the method is triggered
      *                                  on the leading edge instead of the trailing.
      *
      * @return {Function} The debounced method.
@@ -1329,7 +1329,7 @@ define('utils/sizeOf',[],
     /**
      * Gets the number of keys in a given object.
      *
-     * @param  {*} object   Any object type.
+     * @param {*} object   Any object type.
      *
      * @return {Number} Size of specified object (depending on the object type,
      *                  it can be the number of keys in a plain object, number
@@ -1436,7 +1436,7 @@ define('ui/ElementUpdateDelegate',[
        *
        * Sets a dirty type as dirty.
        *
-       * @param  {Number} dirtyType
+       * @param {Number} dirtyType
        */
       this.setDirty = function(dirtyType, validateNow) {
         log('[ElementUpdateDelegate]::setDirty(', dirtyType, validateNow, ')');
@@ -1500,7 +1500,7 @@ define('ui/ElementUpdateDelegate',[
        *
        * Checks dirty status of a given dirty type.
        *
-       * @param  {Number}  dirtyType [description]
+       * @param {Number}  dirtyType [description]
        *
        * @return {Boolean}
        */
@@ -1700,7 +1700,7 @@ define('ui/ElementUpdateDelegate',[
        *
        * Custom requestAnimationFrame implementation.
        *
-       * @param  {Function} callback
+       * @param {Function} callback
        */
       var _requestAnimationFrame = function(callback) {
         var raf = window && (window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame) || null;
@@ -1746,7 +1746,7 @@ define('ui/ElementUpdateDelegate',[
        *
        * Handler invoked when the window resizes.
        *
-       * @param  {Object} event
+       * @param {Object} event
        */
       var _onWindowResize = function(event) {
         this.setDirty(DirtyType.SIZE);
@@ -1757,7 +1757,7 @@ define('ui/ElementUpdateDelegate',[
        *
        * Handler invoked when the window scrolls.
        *
-       * @param  {Object} event
+       * @param {Object} event
        */
       var _onWindowScroll = function(event) {
         this.setDirty(DirtyType.POSITION);
@@ -1768,7 +1768,7 @@ define('ui/ElementUpdateDelegate',[
        *
        * Handler invoked when mouse moves in the window.
        *
-       * @param  {Object} event
+       * @param {Object} event
        */
       var _onWindowMouseMove = function(event) {
         this.mouse.pointerX = event.clientX;
@@ -1782,7 +1782,7 @@ define('ui/ElementUpdateDelegate',[
        *
        * Handler invoked when mouse wheel moves in the window.
        *
-       * @param  {Object} event
+       * @param {Object} event
        */
       var _onWindowMouseWheel = function(event) {
         this.mouse.wheelX = event.deltaX;
@@ -1796,7 +1796,7 @@ define('ui/ElementUpdateDelegate',[
        *
        * Handler invoked when device orientation changes.
        *
-       * @param  {Object} event
+       * @param {Object} event
        */
       var _onWindowOrientationChange = function(event) {
         if (!window) return;
@@ -1831,7 +1831,7 @@ define('ui/ElementUpdateDelegate',[
        *
        * Handler invoked when a key is pressed down.
        *
-       * @param  {Object} event
+       * @param {Object} event
        */
       var _onWindowKeyDown = function(event) {
         if (!window) return;
@@ -1850,7 +1850,7 @@ define('ui/ElementUpdateDelegate',[
        *
        * Handler invoked when a key is pressed.
        *
-       * @param  {Object} event
+       * @param {Object} event
        */
       var _onWindowKeyPress = function(event) {
         if (!window) return;
@@ -1869,7 +1869,7 @@ define('ui/ElementUpdateDelegate',[
        *
        * Handler invoked when a key is pressed up.
        *
-       * @param  {Object} event
+       * @param {Object} event
        */
       var _onWindowKeyUp = function(event) {
         if (!window) return;
@@ -2022,13 +2022,173 @@ define('ui/ElementUpdateDelegate',[
 
 
 
+define('utils/assertType',[
+    'utils/assert'
+  ],
+  function(assert) {
+    /**
+     * Asserts the specified condition and throws a warning if assertion fails.
+     * Internal use only.
+     *
+     * @param {*}            value                Value used for the assertion.
+     * @param {String/Class} type                 Type(s) to evaluate against. If
+     *                                            this is a string, this method
+     *                                            will use 'typeof' operator.
+     *                                            Otherwise 'instanceof' operator
+     *                                            will be used. If this parameter
+     *                                            is an array, all elements in
+     *                                            the array will be evaluated
+     *                                            against.
+     * @param {Boolean}      allowUndefined:false Specifies whether assertion
+     *                                            should pass if the supplied
+     *                                            value is undefined.
+     * @param {String}       message:undefined    Message to be displayed when
+     *                                            assertion fails.
+     *
+     * @return {Boolean} True if assert passed, false otherwise.
+     */
+    function assertType(value, type, allowUndefined, message) {
+      if (!assert(type !== undefined, 'Paremeter \'type\' must be a string or a class')) return;
+      if (!assert((allowUndefined === undefined) || (typeof allowUndefined === 'boolean'), 'Paremeter \'allowUndefined\', if specified, must be a boolean')) return;
+      if (!assert((message === undefined) || (typeof message === 'string'), 'Parameter \'message\', if specified, must be a string')) return;
+
+      allowUndefined = (allowUndefined === undefined) ? false : allowUndefined;
+
+      var ok = false;
+
+      if (allowUndefined && (value === undefined)) {
+        ok = true;
+      }
+      else if (type instanceof Array) {
+        var n = type.length;
+
+        for (var i = 0; i < n; i++) {
+          if (checkType(value, type[i])) {
+            ok = true;
+            break;
+          }
+        }
+      }
+      else {
+        ok = checkType(value, type);
+      }
+
+      if (!ok) {
+        throw new Error(message || 'AssertType failed');
+      }
+
+      return ok;
+    }
+
+    /**
+     * Verifies that a given is of the given type.
+     *
+     * @param {*} value Any value.
+     * @param {*} type  Any class or string that describes a type.
+     *
+     * @return {Boolean} True if validation passes, false otherwise.
+     */
+    function checkType(value, type) {
+      if (typeof type === 'string') {
+        switch (type) {
+          case 'string':
+          case 'object':
+          case 'number':
+          case 'boolean':
+            return typeof value === type;
+
+          case 'array':
+            return value instanceof Array;
+
+          default:
+            return false;
+        }
+      }
+      else {
+        return value instanceof type;
+      }
+    }
+
+    return assertType;
+  }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
+ */
+
+
+
+define('utils/isNull',[],
+  function() {
+    /**
+     * Checks if a given value is equal to null. Option to specify recursion,
+     * which would further evaluate inner elements, such as when an Array or
+     * Object is specified.
+     *
+     * @param {*}       value           Value to evaluate.
+     * @param {Boolean} recursive:false Specifies whether to recursively
+     *                                  evaluate the supplied value's inner
+     *                                  values (i.e. an Array or Object).
+     *
+     * @return {Boolean} True if null, false otherwise.
+     */
+    function isNull(value, recursive) {
+      recursive = (recursive === undefined) ? false : recursive;
+
+      if (value === undefined || value === null) {
+        return true;
+      }
+      else if (recursive && (value instanceof Array)) {
+        var n = value.length;
+
+        for (var i = 0; i < n; i++) {
+          if (!isNull(value[i], true)) return false;
+        }
+
+        return true;
+      }
+      else if (recursive && (typeof value === 'object')) {
+        for (var p in value) {
+          if (!isNull(value[p], true)) return false;
+        }
+
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+
+    return isNull;
+  }
+);
+
+/**
+ * vars
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @type {Function}
+ */
+
+
+
 define('utils/keyOfValue',[],
   function() {
     /**
      * Gets the key of a given value in a given object.
      *
-     * @param  {Object} object  Target object.
-     * @param  {Value}  value   Target value.
+     * @param {Object} object  Target object.
+     * @param {Value}  value   Target value.
      */
     function keyOfValue(object, value) {
       if (!object || !value) return null;
@@ -2070,6 +2230,8 @@ define('ui/Element',[
     'ui/Directives',
     'ui/ElementUpdateDelegate',
     'utils/assert',
+    'utils/assertType',
+    'utils/isNull',
     'utils/keyOfValue',
     'utils/log',
     'utils/sizeOf'
@@ -2081,6 +2243,8 @@ define('ui/Element',[
     Directives,
     ElementUpdateDelegate,
     assert,
+    assertType,
+    isNull,
     keyOfValue,
     log,
     sizeOf
@@ -2090,7 +2254,8 @@ define('ui/Element',[
      *
      * Creates a new Element instance.
      *
-     * @param  {Object} init Optional initial properties/element of this Element instance.
+     * @param {*} init  Optional initial properties/element of this Element
+     *                  instance.
      */
     function Element(init) {
       this._nodeState = NodeState.IDLE;
@@ -2099,19 +2264,19 @@ define('ui/Element',[
       this.__define_properties();
 
       // Set instance properties per init object.
-      if (init) {
-        // If init object is an HTMLELement, simply assign it to the internal
+      if (init !== undefined) {
+        // If init value is an HTMLELement, simply assign it to the internal
         // element.
         if (init instanceof HTMLElement) {
           this.element = init;
         }
-        // If init object is a VARS Element, assign its internal element to this
-        // internal element.
-        else if (init instanceof Element) {
-          this.element = init.element;
+        // If init value is a string, assign it to the name of this instance.
+        else if (typeof init === 'string') {
+          this.name = init;
         }
-        // If init object is a regular hash object, assign each key/value pair
-        // to the corresponding property of this Element instance.
+        // If init value is a hash object, assign each value in the hash to the
+        // corresponding property of this Element instance with te same name
+        // as the key of the value.
         else if (typeof init === 'object') {
           for (var property in init) {
             if (this.hasOwnProperty(property)) {
@@ -2188,8 +2353,24 @@ define('ui/Element',[
       log(this.toString() + '::init()');
 
       this._nodeState = NodeState.INITIALIZED;
-
       this.updateDelegate.init();
+
+      for (var key in this.children) {
+        var child = this.children[key];
+
+        if (child instanceof Array) {
+          child.forEach(function(c) {
+            if (c.nodeState === NodeState.IDLE || c.nodeState === NodeState.DESTROYED) {
+              c.init();
+            }
+          });
+        }
+        else {
+          if (child.nodeState === NodeState.IDLE || child.nodeState === NodeState.DESTROYED) {
+            child.init();
+          }
+        }
+      }
     };
 
     /**
@@ -2198,12 +2379,26 @@ define('ui/Element',[
     Element.prototype.destroy = function() {
       log(this.toString() + '::destroy()');
 
+      // Destroy all children first.
+      for (var key in this.children) {
+        var child = this.children[key];
+
+        if (child instanceof Array) {
+          child.forEach(function(c) {
+            if (c.nodeState !== NodeState.DESTROYED) {
+              c.destroy();
+            }
+          });
+        }
+        else {
+          if (child.nodeState !== NodeState.DESTROYED) {
+            child.destroy();
+          }
+        }
+      }
+
       this.removeAllEventListeners();
       this.updateDelegate.destroy();
-
-      if (this.element.parentNode) {
-        this.element.parentNode.removeChild(this.element);
-      }
 
       this._nodeState = NodeState.DESTROYED;
     };
@@ -2218,11 +2413,13 @@ define('ui/Element',[
     };
 
     /**
-     * Sets up the responsiveness of the internal ElementUpdateDelegate instance.
+     * Sets up the responsiveness of the internal ElementUpdateDelegate
+     * instance.
      *
-     * @param  {Object/Number}  Either the conductor or the refresh rate (if 1 argument supplied).
-     * @param  {Number}         Refresh rate.
-     * @param  {...args}        EventType(s) which this element will respond to.
+     * @param {Object/Number}  Either the conductor or the refresh rate (if 1
+     *                         argument supplied).
+     * @param {Number}         Refresh rate.
+     * @param {...args}        EventType(s) which this element will respond to.
      */
     Element.prototype.respondsTo = function() {
       var args = Array.prototype.slice.call(arguments);
@@ -2248,12 +2445,29 @@ define('ui/Element',[
     };
 
     /**
-     * Adds a child/children to this Element instance.
+     * Adds a child or multiple children to this Element instance. Any added
+     * must be a VARS Element. If an HTMLElement is provided, it will be
+     * transformed into a VARS Element. A child is automatically appended
+     * to the DOM tree of this instance.
      *
-     * @param  {Object/Array} child/children
-     * @param  {String}       The name of the child/children.
+     * @param {*}      child           Single child or an array of children.
+     *                                 Child elements can be instance(s) of
+     *                                 VARS Elements, jQuery Elements or
+     *                                 HTMLElements.
+     * @param {String} name:undefined  The name of the child/children to be
+     *                                 added. Typically a name is required.
+     *                                 If it is not specified, this method
+     *                                 will attempt to deduct the name from
+     *                                 the provided child/children. This
+     *                                 method fails if no name is specified
+     *                                 or deducted. If there exists another
+     *                                 child with the same name, the added
+     *                                 child will be grouped together with
+     *                                 the existing child.
      */
     Element.prototype.addChild = function(child, name) {
+      if (!assert(child !== undefined, 'Parameter \'child\' must be specified')) return;
+
       if (child.jquery) {
         this.addChild(child.get(), name);
       }
@@ -2267,7 +2481,7 @@ define('ui/Element',[
         }
       }
       else {
-        if (!assert((child instanceof HTMLElement) || (child instanceof Element), 'Invalid child specified. Child must be an instance of HTMLElement or VARS Element.')) return;
+        if (!assertType(child, [HTMLElement, Element], false, 'Invalid child specified. Child must be an instance of HTMLElement or VARS Element.')) return;
 
         if (child instanceof HTMLElement) {
           child = new Element({
@@ -2278,7 +2492,7 @@ define('ui/Element',[
 
         name = name || child.name;
 
-        if (!assert(name || child.name, 'Child name must be provided.')) return null;
+        if (!assert(name || child.name, 'Either child name was unprovided or it cannot be deducted from the specified child')) return null;
 
         if (this.children[name]) {
           if (this.children[name] instanceof Array) {
@@ -2324,49 +2538,117 @@ define('ui/Element',[
     /**
      * Determines if this Element instance contains the specified child.
      *
-     * @param  {Object} child
+     * @param {*} child  A child is a VARS Element, jQuery element or
+     *                   HTMLElement. It can also be a string of child name(s)
+     *                   separated by '.'.
      *
-     * @return {Boolean} True if it does, false otherwise.
+     * @return {Boolean} True if this Element instance has the specified child,
+     *                    false otherwise.
      */
     Element.prototype.hasChild = function(child) {
-      if (!assert(child, 'Child is null.')) return false;
-      if (!assert((child instanceof Element) || (child instanceof HTMLElement), 'Child must be a VARS or DOM Element instance.')) return false;
+      if (!assert(child !== undefined, 'Child is undefined')) return false;
 
-      var e = (child instanceof Element) ? child.element : child;
-
-      while (e !== null && e !== undefined && e !== document) {
-        e = e.parentNode;
-
-        if (e === this.element) {
-          return true;
-        }
+      if (typeof child === 'string') {
+        return !isNull(this.getChild(child));
       }
+      else {
+        var e;
 
-      return false;
+        if (child.jquery && child.length === 1) {
+          e = child.get(0);
+        }
+        else if (child instanceof Element) {
+          e = child.element;
+        }
+        else if (child instanceof HTMLElement) {
+          e = child;
+        }
+
+        while (!isNull(e) && e !== document) {
+          e = e.parentNode;
+
+          if (e === this.element) {
+            return true;
+          }
+        }
+
+        return false;
+      }
     };
 
     /**
-     * Removes a child from this Element instance.
+     * Removes a child or multiple children from this Element instance.
      *
-     * @param  {Object} child
+     * @param {*} child  A single child is a VARS Element, jQuery element or
+     *                   HTMLElement. It can also be a string of child name(s)
+     *                   separated by '.', or an array of child elements.
      */
     Element.prototype.removeChild = function(child) {
-      if (!assert(child, 'Child is null.')) return;
-      if (!assert(child instanceof Element, 'Child must conform to VARS Element.')) return;
+      if (!assert(!isNull(child, true), 'No valid child specified')) return;
 
-      var key = keyOfValue(this.children, child);
+      // If child is a string, treat each entry separated by '.' as a child
+      // name.
+      if (typeof child === 'string') {
+        this.removeChild(this.getChild(child));
+      }
+      // If child is an array, remove each element inside recursively.
+      else if ((child instanceof Array) || (child.jquery && child.length > 1)) {
+        while (child.length > 0) {
+          this.removeChild(child[0]);
+        }
+      }
+      // If child is not an array, assume that it is an object that equates or
+      // contains a valid DOM element. Remove it accordingly if this Element
+      // instance is indeed its parent/ancestor.
+      else if (this.hasChild(child)) {
+        // First extract the DOM element.
+        var e;
 
-      child.destroy();
+        if (child.jquery && child.length === 1) {
+          e = child.get(0);
+        }
+        else if (child instanceof Element) {
+          e = child.element;
+        }
+        else if (child instanceof HTMLElement) {
+          e = child;
+        }
 
-      if (key) {
-        delete this.children[key];
-      } else {
-        for (var c in this.children) {
-          if (this.children[c] instanceof Array) {
-            var i = this.children[c].indexOf(child);
+        // No valid DOM element found? Terminate.
+        if (isNull(e)) return;
 
-            if (i > -1) {
-              this.children[c].splice(i, 1);
+        for (var key in this.children) {
+          var c = this.children[key];
+
+          if (c instanceof Array) {
+            var n = c.length;
+            var t = 0;
+
+            for (var i = 0; i < n; i++) {
+              var element = c[i];
+              t = i;
+
+              if (element.element === e) {
+                element.destroy();
+                e.parentNode.removeChild(e);
+                break;
+              }
+            }
+
+            c.splice(t, 1);
+
+            if (c.length === 0) {
+              delete this.children[key];
+            }
+          }
+          else if (c instanceof Element) {
+            if (c.element === e) {
+              c.destroy();
+              e.parentNode.removeChild(e);
+              delete this.children[key];
+            }
+            else {
+              c.removeChild(child);
             }
           }
         }
@@ -2374,36 +2656,27 @@ define('ui/Element',[
     };
 
     /**
-     * Removes a child by its name.
+     * Gets a child by its name. If child is an array, it will be returned
+     * immediately.
      *
-     * @param  {String} name
+     * @param {String}  name            Name of the child, depth separated by
+     *                                  '.' (i.e. 'foo.bar').
+     * @param {Boolean} recursive:true  Speciifies whether to search for the
+     *                                  child recursively down the tree.
+     *
+     * @return {Object/Array} The fetched child.
      */
-    Element.prototype.removeChildByName = function(name) {
-      if (!assert(name, 'Name is null.')) return null;
+    Element.prototype.getChild = function(name, recursive) {
+      if (!assertType(name, 'string', false, 'Child name must be specified')) return null;
+      if (!assertType(recursive, 'boolean', true, 'Parameter \'recursive\', if specified, must be a boolean')) return null;
 
-      var child = this.children[name];
-
-      if (child) {
-        delete this.children[name];
-      }
-    };
-
-    /**
-     * Gets a child by its name (depth separated by .). If child is
-     * an array, it will be returned immediately.
-     *
-     * @param  {string} name
-     *
-     * @return {Object} The fetched child.
-     */
-    Element.prototype.getChild = function(name) {
-      if (!assert(name, 'Name is null.')) return null;
+      recursive = (recursive === undefined) ? true : recursive;
 
       var targets = name.split('.');
       var currentTarget = targets.shift();
       var child = this.children[currentTarget];
 
-      if (targets.length > 0) {
+      if (recursive && (targets.length > 0)) {
         if (child instanceof Array) {
           var children = [];
           var n = sizeOf(child);
@@ -2419,7 +2692,12 @@ define('ui/Element',[
             }
           }
 
-          return children;
+          if (!isNull(children, true)) {
+            return children;
+          }
+          else {
+            return null;
+          }
         }
         else if (child instanceof Element) {
           return child.getChild(targets.join('.'));
@@ -2428,13 +2706,11 @@ define('ui/Element',[
           return null;
         }
       }
+      else if (!isNull(child, true)) {
+        return child;
+      }
       else {
-        if (child) {
-          return child;
-        }
-        else {
-          return null;
-        }
+        return null;
       }
     };
 
@@ -2502,8 +2778,8 @@ define('ui/Element',[
      * must be configured to have 'cachesListeners' property enabled when event
      * listeners were being added.
      *
-     * @param  {String}   event    Event name.
-     * @param  {Function} listener Listener function.
+     * @param {String}   event    Event name.
+     * @param {Function} listener Listener function.
      *
      * @return {Boolean}
      */
@@ -2591,7 +2867,7 @@ define('ui/Element',[
     /**
      * Adds class(es) to this Element instance.
      *
-     * @param  {Stirng/Array} className
+     * @param {Stirng/Array} className
      */
     Element.prototype.addClass = function(className) {
       var classes = [];
@@ -2620,7 +2896,7 @@ define('ui/Element',[
     /**
      * Removes class(es) from this Element instance.
      *
-     * @param  {Stirng/Array} className
+     * @param {Stirng/Array} className
      */
     Element.prototype.removeClass = function(className) {
       var classes = [];
@@ -2649,7 +2925,7 @@ define('ui/Element',[
      * Determines whether this Element instance has the specified
      * class.
      *
-     * @param  {String} className
+     * @param {String} className
      *
      * @return {Boolean}
      */
@@ -2935,7 +3211,7 @@ define('ui/Element',[
      *
      * Stubbed out setter for element property (for overriding purposes).
      *
-     * @param  {Object} value The DOM element.
+     * @param {Object} value The DOM element.
      */
     Element.prototype.__set_element = function(value) {
       // Ensure that this is not overwritable.
@@ -2983,8 +3259,8 @@ define('ui/getClassIndex',[
     /**
      * Gets the index of a specified class in a DOM element,
      *
-     * @param  {Object} element     HTMLElement, VARS Element, or jQuery object.
-     * @param  {String} className
+     * @param {Object} element     HTMLElement, VARS Element, or jQuery object.
+     * @param {String} className
      *
      * @return {Number} Index of given class name. -1 if not found.
      */
@@ -3029,8 +3305,8 @@ define('ui/toElementArray',[
     /**
      * Transforms given element(s) to an element array.
      *
-     * @param  {Object/Array} element
-     * @param  {Boolean}      keepElement
+     * @param {Object/Array} element
+     * @param {Boolean}      keepElement
      */
     function toElementArray(element, keepElement) {
       if (!assert(element, 'Element is undefined or null.')) return null;
@@ -3105,8 +3381,8 @@ define('ui/hasClass',[
     /**
      * Verifies that the specified element(s) has the specified class.
      *
-     * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
-     * @param  {String}       className
+     * @param {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
+     * @param {String}       className
      *
      * @return {Boolean} True if element(s) has given class, false otherwise.
      */
@@ -3155,8 +3431,8 @@ define('ui/addClass',[
     /**
      * Adds a class(es) to DOM element(s).
      *
-     * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
-     * @param  {String/Array} className
+     * @param {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
+     * @param {String/Array} className
      */
     function addClass(element, className) {
       var elements = toElementArray(element);
@@ -3219,7 +3495,7 @@ define('ui/getElementState',[
     /**
      * Gets the state of a DOM element, assumes that state classes are prefixed with 'state-'.
      *
-     * @param  {Object} element HTMLElement, VARS Element, or jQuery object.
+     * @param {Object} element HTMLElement, VARS Element, or jQuery object.
      *
      * @return {String} State of the given element ('state-' prefix is omitted).
      */
@@ -3281,8 +3557,8 @@ define('ui/changeElementState',[
      * Changes the state of DOM element(s), assumes that state classes are prefixed
      * with 'state-'.
      *
-     * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
-     * @param  {String}       state
+     * @param {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
+     * @param {String}       state
      */
     function changeElementState(element, state) {
       var elements = toElementArray(element, true);
@@ -3377,8 +3653,8 @@ define('ui/getRect',[
     /**
      * Gets the rect of a given element or the overall rect of an array of elements.
      *
-     * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
-     * @param  {Object}       reference The reference FOV, defaults to window.
+     * @param {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
+     * @param {Object}       reference The reference FOV, defaults to window.
      *
      * @return {Object} Object containing top, left, bottom, right, width, height.
      */
@@ -3480,7 +3756,7 @@ define('ui/getIntersectRect',[
      * Computes the intersecting rect of 2 given elements. If only 1 element is specified, the other
      * element will default to the current viewport.
      *
-     * @param  {Object/Array} arguments HTMLElement, VARS Element, or jQuery object.
+     * @param {Object/Array} arguments HTMLElement, VARS Element, or jQuery object.
      *
      * @return {Object} Object containing width, height.
      */
@@ -3562,8 +3838,8 @@ define('ui/hasChild',[
     /**
      * Checks if specified parent contains specified child.
      *
-     * @param  {Object} parent  HTMLElement, VARS Element, or jQuery object.
-     * @param  {Object} child   HTMLElement, VARS Element, or jQuery object.
+     * @param {Object} parent  HTMLElement, VARS Element, or jQuery object.
+     * @param {Object} child   HTMLElement, VARS Element, or jQuery object.
      *
      * @return {Boolean} True if parent has given child, false otherwise.
      */
@@ -3624,8 +3900,8 @@ define('ui/hitTestElement',[
     /**
      * Hit tests a vector or element against other elements.
      *
-     * @param  {Object/Array} Vector ({ x, y }), HTMLElement, VARS Element, or jQuery object.
-     * @param  {Object/Array} HTMLElement, VARS Element, or jQuery object.
+     * @param {Object/Array} Vector ({ x, y }), HTMLElement, VARS Element, or jQuery object.
+     * @param {Object/Array} HTMLElement, VARS Element, or jQuery object.
      *
      * @return {Boolean} True if test passes, false otherwise.
      */
@@ -3694,8 +3970,8 @@ define('ui/hitTestRect',[
     /**
      * Hit tests a vector or element against other elements.
      *
-     * @param  {Object/Array} Vector ({ x, y }), HTMLElement, VARS Element, or jQuery object.
-     * @param  {Object/Array} HTMLElement, VARS Element, or jQuery object.
+     * @param {Object/Array} Vector ({ x, y }), HTMLElement, VARS Element, or jQuery object.
+     * @param {Object/Array} HTMLElement, VARS Element, or jQuery object.
      *
      * @return {Boolean} True if test passes, false otherwise.
      */
@@ -3754,8 +4030,8 @@ define('utils/inherit',[],
      * also creates a new prototype method hasProperty() for the child class which allows
      * verifying inherited properties (as opposed to the native hasOwnProperty() method).
      *
-     * @param  {Object} child   Child class (function)
-     * @param  {Object} parent  Parent class (function)
+     * @param {Object} child   Child class (function)
+     * @param {Object} parent  Parent class (function)
      *
      * @return {Object} Parent class (function).
      */
@@ -4067,8 +4343,8 @@ define('utils/namespace',[
     /**
      * Creates the specified namespace in the specified scope.
      *
-     * @param  {String} identifiers Namespace identifiers with parts separated by dots.
-     * @param  {Object} scope       (Optional) Object to create namespace in (defaults to window).
+     * @param {String} identifiers Namespace identifiers with parts separated by dots.
+     * @param {Object} scope       (Optional) Object to create namespace in (defaults to window).
      *
      * @return {Object} Reference tothe created namespace.
      */
@@ -4107,7 +4383,7 @@ define('utils/ready',[],
     /**
      * Invokes a function when the DOM is ready.
      *
-     * @param  {Function}   callback    Function invoked when the DOM is ready.
+     * @param {Function}   callback    Function invoked when the DOM is ready.
      */
     function ready(callback) {
       if (!document) return null;
@@ -4161,6 +4437,7 @@ define('ui/initDOM',[
     'ui/Directives',
     'ui/Element',
     'ui/Video',
+    'ui/hasChild',
     'utils/assert',
     'utils/namespace',
     'utils/ready',
@@ -4170,6 +4447,7 @@ define('ui/initDOM',[
     Directives,
     Element,
     Video,
+    hasChild,
     assert,
     namespace,
     ready,
@@ -4180,7 +4458,7 @@ define('ui/initDOM',[
      * into instances of its corresponding controller class (or VARS Element by
      * by default).
      *
-     * @param  {Object} controllerScope
+     * @param {Object} controllerScope
      */
     function initDOM(controllerScope) {
       ready(function() {
@@ -4195,8 +4473,8 @@ define('ui/initDOM',[
      * be passed into the parent element's children tree as its specified controller
      * class instance or a generic VARS Element.
      *
-     * @param  {Object} element         HTMLElement, VARS Element, or jQuery object.
-     * @param  {Object} controllerScope
+     * @param {Object} element         HTMLElement, VARS Element, or jQuery object.
+     * @param {Object} controllerScope
      */
     function getChildElements(element, controllerScope) {
       var children = null;
@@ -4206,7 +4484,8 @@ define('ui/initDOM',[
       if (!assert((element instanceof HTMLElement) || (element instanceof Element) || (document && element === document), 'Element must be an instance of an HTMLElement or the DOM itself.')) return null;
       if (element instanceof Element) element = element.element;
 
-      var qualifiedChildren = element.querySelectorAll('[' + Directives.Controller + '], [data-' + Directives.Controller + '], [' + Directives.Instance + '], [data-' + Directives.Instance + ']');
+      var nodeList = element.querySelectorAll('[' + Directives.Controller + '], [data-' + Directives.Controller + '], [' + Directives.Instance + '], [data-' + Directives.Instance + ']');
+      var qualifiedChildren = filterParentElements(nodeList);
       var n = sizeOf(qualifiedChildren);
 
       for (var i = 0; i < n; i++) {
@@ -4215,7 +4494,7 @@ define('ui/initDOM',[
         var childName = child.getAttribute(Directives.Instance) || child.getAttribute('data-' + Directives.Instance);
         var controller = (className) ? namespace(className, controllerScope) : null;
 
-        // If no controller class is specified but element is marked as an  instance, default the controller class to
+        // If no controller class is specified but element is marked as an instance, default the controller class to
         // Element.
         if (!controller && sizeOf(childName) > 0) {
           controller = Element;
@@ -4236,23 +4515,6 @@ define('ui/initDOM',[
             }
           }
         }
-
-        // Check if discovered child is also an immediate child of another discovered
-        // child.
-        var ignore = false;
-
-        for (var j = 0; j < n; j++) {
-          if (j === i) continue;
-
-          var parent = qualifiedChildren[j];
-
-          if (parent.contains && parent.contains(child)) {
-            ignore = true;
-            break;
-          }
-        }
-
-        if (ignore) continue;
 
         if (!assert(typeof controller === 'function', 'Class "' + className + '" is not found in specified controllerScope ' + (controllerScope || window) + '.')) continue;
 
@@ -4284,6 +4546,33 @@ define('ui/initDOM',[
       return children;
     }
 
+    function filterParentElements(nodeList) {
+      var n = nodeList.length;
+      var o = [];
+
+      for (var i = 0; i < n; i++) {
+        var isParent = true;
+        var child = nodeList[i];
+
+        for (var j = 0; j < n; j++) {
+          if (i === j) continue;
+
+          var parent = nodeList[j];
+
+          if (hasChild(parent, child)) {
+            isParent = false;
+            break;
+          }
+        }
+
+        if (isParent) {
+          o.push(child);
+        }
+      }
+
+      return o;
+    }
+
     return initDOM;
   }
 );
@@ -4313,8 +4602,8 @@ define('ui/removeClass',[
     /**
      * Removes a class(es) from DOM element(s).
      *
-     * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
-     * @param  {String/Array} className
+     * @param {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
+     * @param {String/Array} className
      */
     function removeClass(element, className) {
       var elements = toElementArray(element);
@@ -4377,8 +4666,8 @@ define('ui/transform',[
     /**
      * Transforms a DOM element.
      *
-     * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
-     * @param  {Object} properties      Transformation properties:
+     * @param {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
+     * @param {Object} properties      Transformation properties:
      *                                  {
      *                                  	{Number} width:  Target width of the element
      *                                   	{Number} height: Target height of the element
@@ -4386,7 +4675,7 @@ define('ui/transform',[
      *                                    {String} type:   Resizing constraint: 'default', 'contain', 'cover' (default: 'default')
      *                                  }
      *                                  (if unspecified, all transformation styles will be reset to 'initial')
-     * @param  {Object} constraints     Transformation constraints:
+     * @param {Object} constraints     Transformation constraints:
      *                                  {
      *                                  	{Number} width:  Bounded width of the element.
      *                                   	{Number} height: Bounded height of the element.
@@ -4515,8 +4804,8 @@ define('ui/translate',[
     /**
      * Translates a DOM element.
      *
-     * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
-     * @param  {Object} properties      Translation properties:
+     * @param {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
+     * @param {Object} properties      Translation properties:
      *                                  {
      *                                      {Number} top:    Top translation value
      *                                      {Number} right:  Right translation value
@@ -4525,7 +4814,7 @@ define('ui/translate',[
      *                                      {String} units:  Unit of translation values
      *                                  }
      *                                  (if unspecified, all translation values will be reset to 'initial')
-     * @param  {Object} constraints     Translation constraints:
+     * @param {Object} constraints     Translation constraints:
      *                                  {
      *                                      {Number} top:    Bounded top translation value
      *                                      {Number} right:  Bounded right translation value
@@ -4621,8 +4910,8 @@ define('ui/translate3d',[
     /**
      * Translates a DOM element.
      *
-     * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
-     * @param  {Object} properties      Translation properties: x/y/z/units
+     * @param {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
+     * @param {Object} properties      Translation properties: x/y/z/units
      *                                  {
      *                                  	{Number} x:     X-coordinate
      *                                   	{Number} y:     Y-coordinate
@@ -4630,7 +4919,7 @@ define('ui/translate3d',[
      *                                     	{String} units: Unit of translation values
      *                                  }
      *                                  (if unspecified, all translation coordinates will be reset to 0)
-     * @param  {Object} constraints     Translation constraints:
+     * @param {Object} constraints     Translation constraints:
      *                                  {
      *                                  	{Number} x:     Bounded x-coordinate
      *                                   	{Number} y:     Bounded y-coordinate
@@ -4801,40 +5090,6 @@ define('ui',[
 
 
 
-define('utils/isNull',[],
-  function() {
-    /**
-     * Checks if a given object is equal to null (type-insensitive).
-     *
-     * @param  {Object} object
-     *
-     * @return {Boolean}
-     */
-    function isNull(object) {
-      if (object === undefined || object === null) {
-        return true;
-      }
-      else {
-        return false;
-      }
-    }
-
-    return isNull;
-  }
-);
-
-/**
- * vars
- * (c) VARIANTE (http://variante.io)
- *
- * This software is released under the MIT License:
- * http://www.opensource.org/licenses/mit-license.php
- *
- * @type {Function}
- */
-
-
-
 define('utils/module',[
     'utils/ready'
   ],
@@ -4846,8 +5101,8 @@ define('utils/module',[
      * to pass an init object to initialize the module. A typical use-case will be to
      * create a new Element module.
      *
-     * @param  {Function}   impl Module implementation.
-     * @param  {Object}     init Optional object passed into the impl.
+     * @param {Function}   impl Module implementation.
+     * @param {Object}     init Optional object passed into the impl.
      */
     function module(impl, init) {
       ready(function() {
@@ -5133,7 +5388,7 @@ define('utils/AssetLoader',[
     /**
      * Creates and returns a new XHR instance with prepopulated configurations.
      *
-     * @param  {Object} data
+     * @param {Object} data
      *
      * @return {Object} XHR instance.
      */
@@ -5163,7 +5418,7 @@ define('utils/AssetLoader',[
      *
      * Handler invoked when an XHR instance is in progress.
      *
-     * @param  {Object} event
+     * @param {Object} event
      */
     AssetLoader.prototype._onXHRProgress = function(event) {
       if (!event.lengthComputable) return;
@@ -5204,7 +5459,7 @@ define('utils/AssetLoader',[
      *
      * Handler invoked when an XHR instance completes its operation.
      *
-     * @param  {Object} event
+     * @param {Object} event
      */
     AssetLoader.prototype._onXHRLoadComplete = function(event) {
       var xhr = event.currentTarget;
@@ -5234,7 +5489,7 @@ define('utils/AssetLoader',[
      *
      * Handler invoked when an XHR instance fails its operation.
      *
-     * @param  {Object} event
+     * @param {Object} event
      */
     AssetLoader.prototype._onXHRLoadError = function(event) {
       var xhr = event.currentTarget;
@@ -5278,7 +5533,7 @@ define('utils/AssetLoader',[
      *
      * Handler invoked when an XHR aborts its operation.
      *
-     * @param  {Object} event
+     * @param {Object} event
      */
     AssetLoader.prototype._onXHRAbort = function(event) {
       var xhr = event.currentTarget;
@@ -5586,7 +5841,7 @@ define(
      * @type {String}
      */
     Object.defineProperty(vars, 'version', {
-      value: '0.27.0',
+      value: '1.0.0',
       writable: false
     });
 
@@ -5620,8 +5875,8 @@ define(
      *
      * Injects a module and all of its sub-modules into the main vars module.
      *
-     * @param  {String} name   Name of the module (used as the key for the key-value pair in vars).
-     * @param  {Object} module Module object (used as value for the key-value pair in VARS).
+     * @param {String} name   Name of the module (used as the key for the key-value pair in vars).
+     * @param {Object} module Module object (used as value for the key-value pair in VARS).
      */
     function inject(name, module) {
       Object.defineProperty(vars, name, {

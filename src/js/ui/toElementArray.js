@@ -23,8 +23,8 @@ define([
     /**
      * Transforms given element(s) to an element array.
      *
-     * @param  {Object/Array} element
-     * @param  {Boolean}      keepElement
+     * @param {Object/Array} element
+     * @param {Boolean}      keepElement
      */
     function toElementArray(element, keepElement) {
       if (!assert(element, 'Element is undefined or null.')) return null;

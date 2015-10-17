@@ -19,6 +19,8 @@ define([
     'ui/Directives',
     'ui/ElementUpdateDelegate',
     'utils/assert',
+    'utils/assertType',
+    'utils/isNull',
     'utils/keyOfValue',
     'utils/log',
     'utils/sizeOf'
@@ -30,6 +32,8 @@ define([
     Directives,
     ElementUpdateDelegate,
     assert,
+    assertType,
+    isNull,
     keyOfValue,
     log,
     sizeOf
@@ -39,7 +43,8 @@ define([
      *
      * Creates a new Element instance.
      *
-     * @param  {Object} init Optional initial properties/element of this Element instance.
+     * @param {*} init  Optional initial properties/element of this Element
+     *                  instance.
      */
     function Element(init) {
       this._nodeState = NodeState.IDLE;
@@ -48,19 +53,19 @@ define([
       this.__define_properties();
 
       // Set instance properties per init object.
-      if (init) {
-        // If init object is an HTMLELement, simply assign it to the internal
+      if (init !== undefined) {
+        // If init value is an HTMLELement, simply assign it to the internal
         // element.
         if (init instanceof HTMLElement) {
           this.element = init;
         }
-        // If init object is a VARS Element, assign its internal element to this
-        // internal element.
-        else if (init instanceof Element) {
-          this.element = init.element;
+        // If init value is a string, assign it to the name of this instance.
+        else if (typeof init === 'string') {
+          this.name = init;
         }
-        // If init object is a regular hash object, assign each key/value pair
-        // to the corresponding property of this Element instance.
+        // If init value is a hash object, assign each value in the hash to the
+        // corresponding property of this Element instance with te same name
+        // as the key of the value.
         else if (typeof init === 'object') {
           for (var property in init) {
             if (this.hasOwnProperty(property)) {
@@ -137,8 +142,24 @@ define([
       log(this.toString() + '::init()');
 
       this._nodeState = NodeState.INITIALIZED;
-
       this.updateDelegate.init();
+
+      for (var key in this.children) {
+        var child = this.children[key];
+
+        if (child instanceof Array) {
+          child.forEach(function(c) {
+            if (c.nodeState === NodeState.IDLE || c.nodeState === NodeState.DESTROYED) {
+              c.init();
+            }
+          });
+        }
+        else {
+          if (child.nodeState === NodeState.IDLE || child.nodeState === NodeState.DESTROYED) {
+            child.init();
+          }
+        }
+      }
     };
 
     /**
@@ -147,12 +168,26 @@ define([
     Element.prototype.destroy = function() {
       log(this.toString() + '::destroy()');
 
+      // Destroy all children first.
+      for (var key in this.children) {
+        var child = this.children[key];
+
+        if (child instanceof Array) {
+          child.forEach(function(c) {
+            if (c.nodeState !== NodeState.DESTROYED) {
+              c.destroy();
+            }
+          });
+        }
+        else {
+          if (child.nodeState !== NodeState.DESTROYED) {
+            child.destroy();
+          }
+        }
+      }
+
       this.removeAllEventListeners();
       this.updateDelegate.destroy();
-
-      if (this.element.parentNode) {
-        this.element.parentNode.removeChild(this.element);
-      }
 
       this._nodeState = NodeState.DESTROYED;
     };
@@ -167,11 +202,13 @@ define([
     };
 
     /**
-     * Sets up the responsiveness of the internal ElementUpdateDelegate instance.
+     * Sets up the responsiveness of the internal ElementUpdateDelegate
+     * instance.
      *
-     * @param  {Object/Number}  Either the conductor or the refresh rate (if 1 argument supplied).
-     * @param  {Number}         Refresh rate.
-     * @param  {...args}        EventType(s) which this element will respond to.
+     * @param {Object/Number}  Either the conductor or the refresh rate (if 1
+     *                         argument supplied).
+     * @param {Number}         Refresh rate.
+     * @param {...args}        EventType(s) which this element will respond to.
      */
     Element.prototype.respondsTo = function() {
       var args = Array.prototype.slice.call(arguments);
@@ -197,12 +234,29 @@ define([
     };
 
     /**
-     * Adds a child/children to this Element instance.
+     * Adds a child or multiple children to this Element instance. Any added
+     * must be a VARS Element. If an HTMLElement is provided, it will be
+     * transformed into a VARS Element. A child is automatically appended
+     * to the DOM tree of this instance.
      *
-     * @param  {Object/Array} child/children
-     * @param  {String}       The name of the child/children.
+     * @param {*}      child           Single child or an array of children.
+     *                                 Child elements can be instance(s) of
+     *                                 VARS Elements, jQuery Elements or
+     *                                 HTMLElements.
+     * @param {String} name:undefined  The name of the child/children to be
+     *                                 added. Typically a name is required.
+     *                                 If it is not specified, this method
+     *                                 will attempt to deduct the name from
+     *                                 the provided child/children. This
+     *                                 method fails if no name is specified
+     *                                 or deducted. If there exists another
+     *                                 child with the same name, the added
+     *                                 child will be grouped together with
+     *                                 the existing child.
      */
     Element.prototype.addChild = function(child, name) {
+      if (!assert(child !== undefined, 'Parameter \'child\' must be specified')) return;
+
       if (child.jquery) {
         this.addChild(child.get(), name);
       }
@@ -216,7 +270,7 @@ define([
         }
       }
       else {
-        if (!assert((child instanceof HTMLElement) || (child instanceof Element), 'Invalid child specified. Child must be an instance of HTMLElement or VARS Element.')) return;
+        if (!assertType(child, [HTMLElement, Element], false, 'Invalid child specified. Child must be an instance of HTMLElement or VARS Element.')) return;
 
         if (child instanceof HTMLElement) {
           child = new Element({
@@ -227,7 +281,7 @@ define([
 
         name = name || child.name;
 
-        if (!assert(name || child.name, 'Child name must be provided.')) return null;
+        if (!assert(name || child.name, 'Either child name was unprovided or it cannot be deducted from the specified child')) return null;
 
         if (this.children[name]) {
           if (this.children[name] instanceof Array) {
@@ -273,49 +327,117 @@ define([
     /**
      * Determines if this Element instance contains the specified child.
      *
-     * @param  {Object} child
+     * @param {*} child  A child is a VARS Element, jQuery element or
+     *                   HTMLElement. It can also be a string of child name(s)
+     *                   separated by '.'.
      *
-     * @return {Boolean} True if it does, false otherwise.
+     * @return {Boolean} True if this Element instance has the specified child,
+     *                    false otherwise.
      */
     Element.prototype.hasChild = function(child) {
-      if (!assert(child, 'Child is null.')) return false;
-      if (!assert((child instanceof Element) || (child instanceof HTMLElement), 'Child must be a VARS or DOM Element instance.')) return false;
+      if (!assert(child !== undefined, 'Child is undefined')) return false;
 
-      var e = (child instanceof Element) ? child.element : child;
-
-      while (e !== null && e !== undefined && e !== document) {
-        e = e.parentNode;
-
-        if (e === this.element) {
-          return true;
-        }
+      if (typeof child === 'string') {
+        return !isNull(this.getChild(child));
       }
+      else {
+        var e;
 
-      return false;
+        if (child.jquery && child.length === 1) {
+          e = child.get(0);
+        }
+        else if (child instanceof Element) {
+          e = child.element;
+        }
+        else if (child instanceof HTMLElement) {
+          e = child;
+        }
+
+        while (!isNull(e) && e !== document) {
+          e = e.parentNode;
+
+          if (e === this.element) {
+            return true;
+          }
+        }
+
+        return false;
+      }
     };
 
     /**
-     * Removes a child from this Element instance.
+     * Removes a child or multiple children from this Element instance.
      *
-     * @param  {Object} child
+     * @param {*} child  A single child is a VARS Element, jQuery element or
+     *                   HTMLElement. It can also be a string of child name(s)
+     *                   separated by '.', or an array of child elements.
      */
     Element.prototype.removeChild = function(child) {
-      if (!assert(child, 'Child is null.')) return;
-      if (!assert(child instanceof Element, 'Child must conform to VARS Element.')) return;
+      if (!assert(!isNull(child, true), 'No valid child specified')) return;
 
-      var key = keyOfValue(this.children, child);
+      // If child is a string, treat each entry separated by '.' as a child
+      // name.
+      if (typeof child === 'string') {
+        this.removeChild(this.getChild(child));
+      }
+      // If child is an array, remove each element inside recursively.
+      else if ((child instanceof Array) || (child.jquery && child.length > 1)) {
+        while (child.length > 0) {
+          this.removeChild(child[0]);
+        }
+      }
+      // If child is not an array, assume that it is an object that equates or
+      // contains a valid DOM element. Remove it accordingly if this Element
+      // instance is indeed its parent/ancestor.
+      else if (this.hasChild(child)) {
+        // First extract the DOM element.
+        var e;
 
-      child.destroy();
+        if (child.jquery && child.length === 1) {
+          e = child.get(0);
+        }
+        else if (child instanceof Element) {
+          e = child.element;
+        }
+        else if (child instanceof HTMLElement) {
+          e = child;
+        }
 
-      if (key) {
-        delete this.children[key];
-      } else {
-        for (var c in this.children) {
-          if (this.children[c] instanceof Array) {
-            var i = this.children[c].indexOf(child);
+        // No valid DOM element found? Terminate.
+        if (isNull(e)) return;
 
-            if (i > -1) {
-              this.children[c].splice(i, 1);
+        for (var key in this.children) {
+          var c = this.children[key];
+
+          if (c instanceof Array) {
+            var n = c.length;
+            var t = 0;
+
+            for (var i = 0; i < n; i++) {
+              var element = c[i];
+              t = i;
+
+              if (element.element === e) {
+                element.destroy();
+                e.parentNode.removeChild(e);
+                break;
+              }
+            }
+
+            c.splice(t, 1);
+
+            if (c.length === 0) {
+              delete this.children[key];
+            }
+          }
+          else if (c instanceof Element) {
+            if (c.element === e) {
+              c.destroy();
+              e.parentNode.removeChild(e);
+              delete this.children[key];
+            }
+            else {
+              c.removeChild(child);
             }
           }
         }
@@ -323,36 +445,27 @@ define([
     };
 
     /**
-     * Removes a child by its name.
+     * Gets a child by its name. If child is an array, it will be returned
+     * immediately.
      *
-     * @param  {String} name
+     * @param {String}  name            Name of the child, depth separated by
+     *                                  '.' (i.e. 'foo.bar').
+     * @param {Boolean} recursive:true  Speciifies whether to search for the
+     *                                  child recursively down the tree.
+     *
+     * @return {Object/Array} The fetched child.
      */
-    Element.prototype.removeChildByName = function(name) {
-      if (!assert(name, 'Name is null.')) return null;
+    Element.prototype.getChild = function(name, recursive) {
+      if (!assertType(name, 'string', false, 'Child name must be specified')) return null;
+      if (!assertType(recursive, 'boolean', true, 'Parameter \'recursive\', if specified, must be a boolean')) return null;
 
-      var child = this.children[name];
-
-      if (child) {
-        delete this.children[name];
-      }
-    };
-
-    /**
-     * Gets a child by its name (depth separated by .). If child is
-     * an array, it will be returned immediately.
-     *
-     * @param  {string} name
-     *
-     * @return {Object} The fetched child.
-     */
-    Element.prototype.getChild = function(name) {
-      if (!assert(name, 'Name is null.')) return null;
+      recursive = (recursive === undefined) ? true : recursive;
 
       var targets = name.split('.');
       var currentTarget = targets.shift();
       var child = this.children[currentTarget];
 
-      if (targets.length > 0) {
+      if (recursive && (targets.length > 0)) {
         if (child instanceof Array) {
           var children = [];
           var n = sizeOf(child);
@@ -368,7 +481,12 @@ define([
             }
           }
 
-          return children;
+          if (!isNull(children, true)) {
+            return children;
+          }
+          else {
+            return null;
+          }
         }
         else if (child instanceof Element) {
           return child.getChild(targets.join('.'));
@@ -377,13 +495,11 @@ define([
           return null;
         }
       }
+      else if (!isNull(child, true)) {
+        return child;
+      }
       else {
-        if (child) {
-          return child;
-        }
-        else {
-          return null;
-        }
+        return null;
       }
     };
 
@@ -451,8 +567,8 @@ define([
      * must be configured to have 'cachesListeners' property enabled when event
      * listeners were being added.
      *
-     * @param  {String}   event    Event name.
-     * @param  {Function} listener Listener function.
+     * @param {String}   event    Event name.
+     * @param {Function} listener Listener function.
      *
      * @return {Boolean}
      */
@@ -540,7 +656,7 @@ define([
     /**
      * Adds class(es) to this Element instance.
      *
-     * @param  {Stirng/Array} className
+     * @param {Stirng/Array} className
      */
     Element.prototype.addClass = function(className) {
       var classes = [];
@@ -569,7 +685,7 @@ define([
     /**
      * Removes class(es) from this Element instance.
      *
-     * @param  {Stirng/Array} className
+     * @param {Stirng/Array} className
      */
     Element.prototype.removeClass = function(className) {
       var classes = [];
@@ -598,7 +714,7 @@ define([
      * Determines whether this Element instance has the specified
      * class.
      *
-     * @param  {String} className
+     * @param {String} className
      *
      * @return {Boolean}
      */
@@ -884,7 +1000,7 @@ define([
      *
      * Stubbed out setter for element property (for overriding purposes).
      *
-     * @param  {Object} value The DOM element.
+     * @param {Object} value The DOM element.
      */
     Element.prototype.__set_element = function(value) {
       // Ensure that this is not overwritable.

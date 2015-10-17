@@ -15,8 +15,8 @@ define([],
     /**
      * Gets the key of a given value in a given object.
      *
-     * @param  {Object} object  Target object.
-     * @param  {Value}  value   Target value.
+     * @param {Object} object  Target object.
+     * @param {Value}  value   Target value.
      */
     function keyOfValue(object, value) {
       if (!object || !value) return null;

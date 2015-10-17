@@ -27,8 +27,8 @@ define([
     /**
      * Gets the rect of a given element or the overall rect of an array of elements.
      *
-     * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
-     * @param  {Object}       reference The reference FOV, defaults to window.
+     * @param {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
+     * @param {Object}       reference The reference FOV, defaults to window.
      *
      * @return {Object} Object containing top, left, bottom, right, width, height.
      */

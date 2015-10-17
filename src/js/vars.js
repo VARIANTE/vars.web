@@ -35,7 +35,7 @@ define(
      * @type {String}
      */
     Object.defineProperty(vars, 'version', {
-      value: '0.27.0',
+      value: '1.0.0',
       writable: false
     });
 
@@ -69,8 +69,8 @@ define(
      *
      * Injects a module and all of its sub-modules into the main vars module.
      *
-     * @param  {String} name   Name of the module (used as the key for the key-value pair in vars).
-     * @param  {Object} module Module object (used as value for the key-value pair in VARS).
+     * @param {String} name   Name of the module (used as the key for the key-value pair in vars).
+     * @param {Object} module Module object (used as value for the key-value pair in VARS).
      */
     function inject(name, module) {
       Object.defineProperty(vars, name, {

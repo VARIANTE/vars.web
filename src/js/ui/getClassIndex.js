@@ -21,8 +21,8 @@ define([
     /**
      * Gets the index of a specified class in a DOM element,
      *
-     * @param  {Object} element     HTMLElement, VARS Element, or jQuery object.
-     * @param  {String} className
+     * @param {Object} element     HTMLElement, VARS Element, or jQuery object.
+     * @param {String} className
      *
      * @return {Number} Index of given class name. -1 if not found.
      */

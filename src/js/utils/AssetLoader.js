@@ -272,7 +272,7 @@ define([
     /**
      * Creates and returns a new XHR instance with prepopulated configurations.
      *
-     * @param  {Object} data
+     * @param {Object} data
      *
      * @return {Object} XHR instance.
      */
@@ -302,7 +302,7 @@ define([
      *
      * Handler invoked when an XHR instance is in progress.
      *
-     * @param  {Object} event
+     * @param {Object} event
      */
     AssetLoader.prototype._onXHRProgress = function(event) {
       if (!event.lengthComputable) return;
@@ -343,7 +343,7 @@ define([
      *
      * Handler invoked when an XHR instance completes its operation.
      *
-     * @param  {Object} event
+     * @param {Object} event
      */
     AssetLoader.prototype._onXHRLoadComplete = function(event) {
       var xhr = event.currentTarget;
@@ -373,7 +373,7 @@ define([
      *
      * Handler invoked when an XHR instance fails its operation.
      *
-     * @param  {Object} event
+     * @param {Object} event
      */
     AssetLoader.prototype._onXHRLoadError = function(event) {
       var xhr = event.currentTarget;
@@ -417,7 +417,7 @@ define([
      *
      * Handler invoked when an XHR aborts its operation.
      *
-     * @param  {Object} event
+     * @param {Object} event
      */
     AssetLoader.prototype._onXHRAbort = function(event) {
       var xhr = event.currentTarget;

@@ -23,8 +23,8 @@ define([
     /**
      * Translates a DOM element.
      *
-     * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
-     * @param  {Object} properties      Translation properties: x/y/z/units
+     * @param {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
+     * @param {Object} properties      Translation properties: x/y/z/units
      *                                  {
      *                                  	{Number} x:     X-coordinate
      *                                   	{Number} y:     Y-coordinate
@@ -32,7 +32,7 @@ define([
      *                                     	{String} units: Unit of translation values
      *                                  }
      *                                  (if unspecified, all translation coordinates will be reset to 0)
-     * @param  {Object} constraints     Translation constraints:
+     * @param {Object} constraints     Translation constraints:
      *                                  {
      *                                  	{Number} x:     Bounded x-coordinate
      *                                   	{Number} y:     Bounded y-coordinate

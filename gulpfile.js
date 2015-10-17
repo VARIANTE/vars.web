@@ -18,7 +18,7 @@ var sequence = require('run-sequence');
 /**
  * Default task.
  *
- * @param  {Boolean} --watch
+ * @param {Boolean} --watch
  */
 gulp.task('default', function(done) {
   config.env.clean = true;

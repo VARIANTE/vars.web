@@ -116,8 +116,8 @@ gulp.task('scripts', function(done) {
  * Builds stylesheets and JavaScripts. Option to clean built files and
  * enable file watching.
  *
- * @param  {Boolean} --clean
- * @param  {Boolean} --watch
+ * @param {Boolean} --clean
+ * @param {Boolean} --watch
  */
 gulp.task('build', function(done) {
   var seq = [['styles', 'scripts']];

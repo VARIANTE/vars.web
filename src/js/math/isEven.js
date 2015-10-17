@@ -15,8 +15,8 @@ define([],
     /**
      * Determines if a number is an even number. Zero is considered even by default.
      *
-     * @param  {Number}  value
-     * @param  {Boolean} excludeZero
+     * @param {Number}  value
+     * @param {Boolean} excludeZero
      *
      * @return {Boolean} True if number is even, false otherwise.
      */

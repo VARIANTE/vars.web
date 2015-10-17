@@ -19,8 +19,8 @@ define([
     /**
      * Creates the specified namespace in the specified scope.
      *
-     * @param  {String} identifiers Namespace identifiers with parts separated by dots.
-     * @param  {Object} scope       (Optional) Object to create namespace in (defaults to window).
+     * @param {String} identifiers Namespace identifiers with parts separated by dots.
+     * @param {Object} scope       (Optional) Object to create namespace in (defaults to window).
      *
      * @return {Object} Reference tothe created namespace.
      */

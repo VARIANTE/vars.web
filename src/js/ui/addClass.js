@@ -25,8 +25,8 @@ define([
     /**
      * Adds a class(es) to DOM element(s).
      *
-     * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
-     * @param  {String/Array} className
+     * @param {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
+     * @param {String/Array} className
      */
     function addClass(element, className) {
       var elements = toElementArray(element);

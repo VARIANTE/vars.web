@@ -18,9 +18,9 @@ define([],
      * N milliseconds. If 'immediate' is passed, trigger the function on the
      * leading edge, instead of the trailing.
      *
-     * @param  {Function}   method      Method to be debounced.
-     * @param  {Number}     delay       Debounce rate in milliseconds.
-     * @param  {Boolean}    immediate   (Optional) Indicates whether the method is triggered
+     * @param {Function}   method      Method to be debounced.
+     * @param {Number}     delay       Debounce rate in milliseconds.
+     * @param {Boolean}    immediate   (Optional) Indicates whether the method is triggered
      *                                  on the leading edge instead of the trailing.
      *
      * @return {Function} The debounced method.

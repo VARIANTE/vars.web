@@ -13,14 +13,37 @@
 define([],
   function() {
     /**
-     * Checks if a given object is equal to null (type-insensitive).
+     * Checks if a given value is equal to null. Option to specify recursion,
+     * which would further evaluate inner elements, such as when an Array or
+     * Object is specified.
      *
-     * @param  {Object} object
+     * @param {*}       value           Value to evaluate.
+     * @param {Boolean} recursive:false Specifies whether to recursively
+     *                                  evaluate the supplied value's inner
+     *                                  values (i.e. an Array or Object).
      *
-     * @return {Boolean}
+     * @return {Boolean} True if null, false otherwise.
      */
-    function isNull(object) {
-      if (object === undefined || object === null) {
+    function isNull(value, recursive) {
+      recursive = (recursive === undefined) ? false : recursive;
+
+      if (value === undefined || value === null) {
+        return true;
+      }
+      else if (recursive && (value instanceof Array)) {
+        var n = value.length;
+
+        for (var i = 0; i < n; i++) {
+          if (!isNull(value[i], true)) return false;
+        }
+
+        return true;
+      }
+      else if (recursive && (typeof value === 'object')) {
+        for (var p in value) {
+          if (!isNull(value[p], true)) return false;
+        }
+
         return true;
       }
       else {

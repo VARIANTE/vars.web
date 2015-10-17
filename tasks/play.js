@@ -53,7 +53,7 @@ gulp.task('styles:play', function() {
  * Compiles JavaScripts for the playground, option to watch for
  * changes.
  *
- * @param  {Boolean} --watch
+ * @param {Boolean} --watch
  */
 gulp.task('scripts:play', function(done) {
   var watchGuard = false;
@@ -94,8 +94,8 @@ gulp.task('templates:play', function() {
 /**
  * Serves the playground to the browser.
  *
- * @param  {Number}  --port
- * @param  {Boolean} --watch
+ * @param {Number}  --port
+ * @param {Boolean} --watch
  */
 gulp.task('serve:play', function() {
   browserSync(config.tasks.play.serve.browserSync);
@@ -115,9 +115,9 @@ gulp.task('serve:play', function() {
  * Builds the library and playground, option to watch for
  * file changes and serve.
  *
- * @param  {Number}  --port
- * @param  {Boolean} --watch
- * @param  {Boolean} --serve
+ * @param {Number}  --port
+ * @param {Boolean} --watch
+ * @param {Boolean} --serve
  */
 gulp.task('play', function(done) {
   config.env.clean = true;

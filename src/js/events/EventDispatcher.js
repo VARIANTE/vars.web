@@ -33,8 +33,8 @@ define(
     /**
      * Adds an event listener to this EventDispatcher instance.
      *
-     * @param  {String} type
-     * @param  {Function} listener
+     * @param {String} type
+     * @param {Function} listener
      */
     EventDispatcher.prototype.addEventListener = function(type, listener) {
       assert(type, 'Event type must be specified.');
@@ -63,8 +63,8 @@ define(
      * Removes an event listener from this EventDispatcher instance. If no listener method is
      * specified, all the listeners of the specified type will be removed.
      *
-     * @param  {String} type
-     * @param  {Function} listener (Optional)
+     * @param {String} type
+     * @param {Function} listener (Optional)
      */
     EventDispatcher.prototype.removeEventListener = function(type, listener) {
       assert(type, 'Event type must be specified.');
@@ -93,8 +93,8 @@ define(
      * If no listener is specified, it will check if any listener of the specified event type
      * is registered.
      *
-     * @param  {String} type
-     * @param  {Function} listener (Optional)
+     * @param {String} type
+     * @param {Function} listener (Optional)
      *
      * @return {Boolean}
      */
@@ -119,7 +119,7 @@ define(
     /**
      * Dispatches the specified event.
      *
-     * @param  {String} event
+     * @param {String} event
      */
     EventDispatcher.prototype.dispatchEvent = function(event) {
       assert(event, 'Event must be specified.');

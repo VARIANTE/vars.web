@@ -76,11 +76,11 @@ var tasks = {
   },
   play: {
     clean: {
-      input: path.join(paths.play, 'dist')
+      input: path.join(paths.play, 'build')
     },
     styles: {
       input: path.join(paths.play, 'src', 'stylesheets', '*.scss'),
-      output: path.join(paths.play, 'dist', 'stylesheets'),
+      output: path.join(paths.play, 'build', 'stylesheets'),
       sass: {
         outputStyle: 'nested',
         includePaths: [path.join(paths.dist, 'sass')]
@@ -96,7 +96,7 @@ var tasks = {
           main: './main.js'
         },
         output: {
-          path: path.join(paths.play, 'dist', 'javascripts'),
+          path: path.join(paths.play, 'build', 'javascripts'),
           publicPath: 'javascripts/',
           filename: '[name].js',
           chunkFilename: '[chunkhash].js',
@@ -109,13 +109,14 @@ var tasks = {
           }]
         },
         resolve: {
+          root: [path.join(paths.dist, 'js')],
           extensions: ['', '.js', '.json']
         }
       }
     },
     templates: {
       input: path.join(paths.play, 'src', 'templates', 'views', '**', '*.jade'),
-      output: path.join(paths.play, 'dist'),
+      output: path.join(paths.play, 'build'),
       jade: {
         pretty: true
       }
@@ -123,9 +124,9 @@ var tasks = {
     serve: {
       browserSync: {
         server: {
-          baseDir: path.join(paths.play, 'dist')
+          baseDir: path.join(paths.play, 'build')
         },
-        files: [path.join(paths.play, 'dist')],
+        files: [path.join(paths.play, 'build')],
         browser: 'google chrome',
         notify: false,
         port: (typeof port === 'number') ? env.port : 9000

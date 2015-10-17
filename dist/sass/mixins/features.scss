@@ -10,7 +10,7 @@
  * Binds the content to the target selector based on the 'csstransitions' feature
  * (requires Modernizr).
  *
- * @param  {Boolean} $enabled   Specifies whether 'csstransitions' class is required.
+ * @param {Boolean} $enabled   Specifies whether 'csstransitions' class is required.
  */
 @mixin transition($enabled:true) {
   @if $enabled == true and $modernizr-enabled == true {
@@ -27,7 +27,7 @@
  * Binds the content to the target selector based on the 'cssanimations' feature
  * (requires Modernizr).
  *
- * @param  {Boolean} $enabled   Specifies whether 'cssanimations' class is required.
+ * @param {Boolean} $enabled   Specifies whether 'cssanimations' class is required.
  */
 @mixin animation($enabled:true) {
   @if $enabled == true and $modernizr-enabled == true {
@@ -44,8 +44,8 @@
  * Binds the content to the target selector based on the 'touch' and 'no-touch' feature
  * (requires Modernizr).
  *
- * @param  {Boolean} $enabled   Specifies whether 'touch' class is required.
- * @param  {Boolean} $exclusive Specifies whether 'no-touch' class is required if
+ * @param {Boolean} $enabled   Specifies whether 'touch' class is required.
+ * @param {Boolean} $exclusive Specifies whether 'no-touch' class is required if
  *                              $enabled is false.
  */
 @mixin touch($enabled:true, $exclusive:false) {

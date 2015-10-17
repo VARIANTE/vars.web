@@ -25,7 +25,7 @@ define([
     /**
      * Gets the state of a DOM element, assumes that state classes are prefixed with 'state-'.
      *
-     * @param  {Object} element HTMLElement, VARS Element, or jQuery object.
+     * @param {Object} element HTMLElement, VARS Element, or jQuery object.
      *
      * @return {String} State of the given element ('state-' prefix is omitted).
      */

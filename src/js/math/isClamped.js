@@ -15,10 +15,10 @@ define([],
     /**
      * Determines if value is bounded by the specified min and max values, defaults to inclusive.
      *
-     * @param  {Number} value
-     * @param  {Number} min
-     * @param  {Number} max
-     * @param  {Boolean} exclusive
+     * @param {Number} value
+     * @param {Number} min
+     * @param {Number} max
+     * @param {Boolean} exclusive
      *
      * @return {Boolean} True if bounded, false otherwise.
      */

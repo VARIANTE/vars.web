@@ -26,7 +26,7 @@ define([
      * Computes the intersecting rect of 2 given elements. If only 1 element is specified, the other
      * element will default to the current viewport.
      *
-     * @param  {Object/Array} arguments HTMLElement, VARS Element, or jQuery object.
+     * @param {Object/Array} arguments HTMLElement, VARS Element, or jQuery object.
      *
      * @return {Object} Object containing width, height.
      */

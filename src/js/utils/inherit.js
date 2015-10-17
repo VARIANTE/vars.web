@@ -18,8 +18,8 @@ define([],
      * also creates a new prototype method hasProperty() for the child class which allows
      * verifying inherited properties (as opposed to the native hasOwnProperty() method).
      *
-     * @param  {Object} child   Child class (function)
-     * @param  {Object} parent  Parent class (function)
+     * @param {Object} child   Child class (function)
+     * @param {Object} parent  Parent class (function)
      *
      * @return {Object} Parent class (function).
      */

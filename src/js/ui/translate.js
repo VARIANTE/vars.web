@@ -23,8 +23,8 @@ define([
     /**
      * Translates a DOM element.
      *
-     * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
-     * @param  {Object} properties      Translation properties:
+     * @param {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
+     * @param {Object} properties      Translation properties:
      *                                  {
      *                                      {Number} top:    Top translation value
      *                                      {Number} right:  Right translation value
@@ -33,7 +33,7 @@ define([
      *                                      {String} units:  Unit of translation values
      *                                  }
      *                                  (if unspecified, all translation values will be reset to 'initial')
-     * @param  {Object} constraints     Translation constraints:
+     * @param {Object} constraints     Translation constraints:
      *                                  {
      *                                      {Number} top:    Bounded top translation value
      *                                      {Number} right:  Bounded right translation value

@@ -62,7 +62,7 @@ define([
        *
        * Sets a dirty type as dirty.
        *
-       * @param  {Number} dirtyType
+       * @param {Number} dirtyType
        */
       this.setDirty = function(dirtyType, validateNow) {
         log('[ElementUpdateDelegate]::setDirty(', dirtyType, validateNow, ')');
@@ -126,7 +126,7 @@ define([
        *
        * Checks dirty status of a given dirty type.
        *
-       * @param  {Number}  dirtyType [description]
+       * @param {Number}  dirtyType [description]
        *
        * @return {Boolean}
        */
@@ -326,7 +326,7 @@ define([
        *
        * Custom requestAnimationFrame implementation.
        *
-       * @param  {Function} callback
+       * @param {Function} callback
        */
       var _requestAnimationFrame = function(callback) {
         var raf = window && (window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame) || null;
@@ -372,7 +372,7 @@ define([
        *
        * Handler invoked when the window resizes.
        *
-       * @param  {Object} event
+       * @param {Object} event
        */
       var _onWindowResize = function(event) {
         this.setDirty(DirtyType.SIZE);
@@ -383,7 +383,7 @@ define([
        *
        * Handler invoked when the window scrolls.
        *
-       * @param  {Object} event
+       * @param {Object} event
        */
       var _onWindowScroll = function(event) {
         this.setDirty(DirtyType.POSITION);
@@ -394,7 +394,7 @@ define([
        *
        * Handler invoked when mouse moves in the window.
        *
-       * @param  {Object} event
+       * @param {Object} event
        */
       var _onWindowMouseMove = function(event) {
         this.mouse.pointerX = event.clientX;
@@ -408,7 +408,7 @@ define([
        *
        * Handler invoked when mouse wheel moves in the window.
        *
-       * @param  {Object} event
+       * @param {Object} event
        */
       var _onWindowMouseWheel = function(event) {
         this.mouse.wheelX = event.deltaX;
@@ -422,7 +422,7 @@ define([
        *
        * Handler invoked when device orientation changes.
        *
-       * @param  {Object} event
+       * @param {Object} event
        */
       var _onWindowOrientationChange = function(event) {
         if (!window) return;
@@ -457,7 +457,7 @@ define([
        *
        * Handler invoked when a key is pressed down.
        *
-       * @param  {Object} event
+       * @param {Object} event
        */
       var _onWindowKeyDown = function(event) {
         if (!window) return;
@@ -476,7 +476,7 @@ define([
        *
        * Handler invoked when a key is pressed.
        *
-       * @param  {Object} event
+       * @param {Object} event
        */
       var _onWindowKeyPress = function(event) {
         if (!window) return;
@@ -495,7 +495,7 @@ define([
        *
        * Handler invoked when a key is pressed up.
        *
-       * @param  {Object} event
+       * @param {Object} event
        */
       var _onWindowKeyUp = function(event) {
         if (!window) return;

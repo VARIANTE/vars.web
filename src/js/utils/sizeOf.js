@@ -15,7 +15,7 @@ define([],
     /**
      * Gets the number of keys in a given object.
      *
-     * @param  {*} object   Any object type.
+     * @param {*} object   Any object type.
      *
      * @return {Number} Size of specified object (depending on the object type,
      *                  it can be the number of keys in a plain object, number

@@ -25,8 +25,8 @@ define([
     /**
      * Transforms a DOM element.
      *
-     * @param  {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
-     * @param  {Object} properties      Transformation properties:
+     * @param {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
+     * @param {Object} properties      Transformation properties:
      *                                  {
      *                                  	{Number} width:  Target width of the element
      *                                   	{Number} height: Target height of the element
@@ -34,7 +34,7 @@ define([
      *                                    {String} type:   Resizing constraint: 'default', 'contain', 'cover' (default: 'default')
      *                                  }
      *                                  (if unspecified, all transformation styles will be reset to 'initial')
-     * @param  {Object} constraints     Transformation constraints:
+     * @param {Object} constraints     Transformation constraints:
      *                                  {
      *                                  	{Number} width:  Bounded width of the element.
      *                                   	{Number} height: Bounded height of the element.

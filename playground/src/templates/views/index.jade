@@ -1,4 +1,8 @@
 extends ../layouts/base
 
 block content
-  h1= 'Hello'
+  main(data-vs-controller='Playground')
+    div(data-vs-instance='a')
+      div(data-vs-controller='Bar', data-vs-instance='b')
+    div(data-vs-instance='a')
+    div(data-vs-instance='a')

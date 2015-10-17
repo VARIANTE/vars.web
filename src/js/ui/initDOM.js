@@ -14,6 +14,7 @@ define([
     'ui/Directives',
     'ui/Element',
     'ui/Video',
+    'ui/hasChild',
     'utils/assert',
     'utils/namespace',
     'utils/ready',
@@ -23,6 +24,7 @@ define([
     Directives,
     Element,
     Video,
+    hasChild,
     assert,
     namespace,
     ready,
@@ -33,7 +35,7 @@ define([
      * into instances of its corresponding controller class (or VARS Element by
      * by default).
      *
-     * @param  {Object} controllerScope
+     * @param {Object} controllerScope
      */
     function initDOM(controllerScope) {
       ready(function() {
@@ -48,8 +50,8 @@ define([
      * be passed into the parent element's children tree as its specified controller
      * class instance or a generic VARS Element.
      *
-     * @param  {Object} element         HTMLElement, VARS Element, or jQuery object.
-     * @param  {Object} controllerScope
+     * @param {Object} element         HTMLElement, VARS Element, or jQuery object.
+     * @param {Object} controllerScope
      */
     function getChildElements(element, controllerScope) {
       var children = null;
@@ -59,7 +61,8 @@ define([
       if (!assert((element instanceof HTMLElement) || (element instanceof Element) || (document && element === document), 'Element must be an instance of an HTMLElement or the DOM itself.')) return null;
       if (element instanceof Element) element = element.element;
 
-      var qualifiedChildren = element.querySelectorAll('[' + Directives.Controller + '], [data-' + Directives.Controller + '], [' + Directives.Instance + '], [data-' + Directives.Instance + ']');
+      var nodeList = element.querySelectorAll('[' + Directives.Controller + '], [data-' + Directives.Controller + '], [' + Directives.Instance + '], [data-' + Directives.Instance + ']');
+      var qualifiedChildren = filterParentElements(nodeList);
       var n = sizeOf(qualifiedChildren);
 
       for (var i = 0; i < n; i++) {
@@ -68,7 +71,7 @@ define([
         var childName = child.getAttribute(Directives.Instance) || child.getAttribute('data-' + Directives.Instance);
         var controller = (className) ? namespace(className, controllerScope) : null;
 
-        // If no controller class is specified but element is marked as an  instance, default the controller class to
+        // If no controller class is specified but element is marked as an instance, default the controller class to
         // Element.
         if (!controller && sizeOf(childName) > 0) {
           controller = Element;
@@ -89,23 +92,6 @@ define([
             }
           }
         }
-
-        // Check if discovered child is also an immediate child of another discovered
-        // child.
-        var ignore = false;
-
-        for (var j = 0; j < n; j++) {
-          if (j === i) continue;
-
-          var parent = qualifiedChildren[j];
-
-          if (parent.contains && parent.contains(child)) {
-            ignore = true;
-            break;
-          }
-        }
-
-        if (ignore) continue;
 
         if (!assert(typeof controller === 'function', 'Class "' + className + '" is not found in specified controllerScope ' + (controllerScope || window) + '.')) continue;
 
@@ -135,6 +121,33 @@ define([
       }
 
       return children;
+    }
+
+    function filterParentElements(nodeList) {
+      var n = nodeList.length;
+      var o = [];
+
+      for (var i = 0; i < n; i++) {
+        var isParent = true;
+        var child = nodeList[i];
+
+        for (var j = 0; j < n; j++) {
+          if (i === j) continue;
+
+          var parent = nodeList[j];
+
+          if (hasChild(parent, child)) {
+            isParent = false;
+            break;
+          }
+        }
+
+        if (isParent) {
+          o.push(child);
+        }
+      }
+
+      return o;
     }
 
     return initDOM;

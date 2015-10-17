@@ -15,7 +15,7 @@ define([],
     /**
      * Determines if a number is an odd number.
      *
-     * @param  {Number} value
+     * @param {Number} value
      *
      * @return {Boolean} True if number is odd, false otherwise.
      */

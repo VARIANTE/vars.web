@@ -23,8 +23,8 @@ define([
     /**
      * Checks if specified parent contains specified child.
      *
-     * @param  {Object} parent  HTMLElement, VARS Element, or jQuery object.
-     * @param  {Object} child   HTMLElement, VARS Element, or jQuery object.
+     * @param {Object} parent  HTMLElement, VARS Element, or jQuery object.
+     * @param {Object} child   HTMLElement, VARS Element, or jQuery object.
      *
      * @return {Boolean} True if parent has given child, false otherwise.
      */
