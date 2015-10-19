@@ -34,7 +34,8 @@
  * @param {String} $key    vs-property key.
  * @param {String} $value  vs-property value, if applicable.
  * @param {String} $scope  Specifies the scope relative to the target selector
- *                          in which this property applies to (any, this, parent, or child).
+ *                         in which this property applies to (any, this, parent,
+ *                         or child).
  */
 @mixin property($key, $value:null, $scope:'this') {
   @if $value == null {
@@ -76,11 +77,11 @@
 }
 
 /**
- * Binds the content to one/multiple vs-states of the target selector.
- * Option to specify whether the state(s) are default.
+ * Binds the content to one/multiple vs-states of the target selector. Option to
+ * specify whether the state(s) are default.
  *
- * @param {List}    $states    List of state names.
- * @param {Boolean} $default   Specifies whether the class(es) are default.
+ * @param {List}    $states   List of state names.
+ * @param {Boolean} $default  Specifies whether the class(es) are default.
  */
 @mixin state($states, $default:false) {
   @each $state in $states {
@@ -108,13 +109,14 @@
 }
 
 /**
- * Binds the content to a vs-style of the target selector.
- * Option to specify whether the style is default.
+ * Binds the content to a vs-style of the target selector. Option to specify
+ * whether the style is default.
  *
- * @param {String}  $style     Style name.
- * @param {Boolean} $default   Specifies whether the class(es) are default.
- * @param {String}  $scope     Specifies the scope relative to the target selector
- *                              in which this property applies to (any, this, parent, or child).
+ * @param {String}  $style    Style name.
+ * @param {Boolean} $default  Specifies whether the class(es) are default.
+ * @param {String}  $scope    Specifies the scope relative to the target
+ *                            selector in which this property applies to (any,
+ *                            this, parent, or child).
  */
 @mixin style($style, $default:false, $scope:'this') {
   @if $scope == 'any' {

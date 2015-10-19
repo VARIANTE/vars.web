@@ -1,5 +1,5 @@
 /**
- * vars
+ * VARS
  * (c) VARIANTE (http://variante.io)
  *
  * This software is released under the MIT License:
@@ -10,36 +10,39 @@
 
 'use strict';
 
-define([],
-  function() {
+define([
+  'helpers/assertType'
+],
+function(
+  assertType
+) {
+  /**
+   * Sets up prototypal inheritance between a child class and a parent class.
+   *
+   * @param {Class} childClass   Child class
+   * @param {Class} parentClass  Parent class
+   *
+   * @return {Class} Extended child class.
+   */
+  function inherit(childClass, parentClass) {
+    assertType(childClass, 'class', false, 'Invalid parameter: childClass');
+    assertType(parentClass, 'class', false, 'Invalid parameter: parentClass');
 
-    /**
-     * Sets up prototypal inheritance between a child class and a parent class. This process
-     * also creates a new prototype method hasProperty() for the child class which allows
-     * verifying inherited properties (as opposed to the native hasOwnProperty() method).
-     *
-     * @param {Object} child   Child class (function)
-     * @param {Object} parent  Parent class (function)
-     *
-     * @return {Object} Parent class (function).
-     */
-    function inherit(child, parent) {
-      for (var key in parent) {
-        if (parent.hasOwnProperty(key)) {
-          child[key] = parent[key];
-        }
+    for (var key in parentClass) {
+      if (parentClass.hasOwnProperty(key)) {
+        childClass[key] = parentClass[key];
       }
-
-      function C() {
-        this.constructor = child;
-      }
-
-      C.prototype = Object.create(parent.prototype);
-      child.prototype = new C();
-      child.__super__ = parent.prototype;
-      return child;
     }
 
-    return inherit;
+    function C() {
+      this.constructor = childClass;
+    }
+
+    C.prototype = Object.create(parentClass.prototype);
+    childClass.prototype = new C();
+    childClass.__super__ = parentClass.prototype;
+    return childClass;
   }
-);
+
+  return inherit;
+});

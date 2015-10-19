@@ -1,5 +1,5 @@
 /**
- * vars
+ * VARS
  * (c) VARIANTE (http://variante.io)
  *
  * This software is released under the MIT License:
@@ -9,6 +9,9 @@
  *
  * @type {Object}
  */
+
+'use strict';
+
 define({
   Controller: 'vs-controller',
   Instance: 'vs-instance',

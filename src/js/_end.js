@@ -1,5 +1,5 @@
 /**
- * vars
+ * VARS
  * (c) VARIANTE (http://variante.io)
  *
  * This software is released under the MIT License:

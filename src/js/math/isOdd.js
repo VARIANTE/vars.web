@@ -1,5 +1,5 @@
 /**
- * vars
+ * VARS
  * (c) VARIANTE (http://variante.io)
  *
  * This software is released under the MIT License:
@@ -10,21 +10,25 @@
 
 'use strict';
 
-define([],
-  function() {
-    /**
-     * Determines if a number is an odd number.
-     *
-     * @param {Number} value
-     *
-     * @return {Boolean} True if number is odd, false otherwise.
-     */
-    function isOdd(value) {
-      if (value === 0) return false;
+define([
+  'helpers/assertType'
+],function(
+  assertType
+) {
+  /**
+   * Determines if a number is an odd number.
+   *
+   * @param {Number} value
+   *
+   * @return {Boolean} True if number is odd, false otherwise.
+   */
+  function isOdd(value) {
+    assertType(value, 'number', false, 'Invalid value specified');
 
-      return (value % 2) !== 0;
-    }
+    if (value === 0) return false;
 
-    return isOdd;
+    return (value % 2) !== 0;
   }
-);
+
+  return isOdd;
+});

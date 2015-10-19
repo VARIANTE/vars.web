@@ -1,5 +1,5 @@
 /**
- * vars
+ * VARS
  * (c) VARIANTE (http://variante.io)
  *
  * This software is released under the MIT License:
@@ -9,10 +9,13 @@
  *
  * @type {Object}
  */
+
+'use strict';
+
 define({
   /**
-   * Element is instantiated but not initialized yet. This state
-   * almost never persists.
+   * Element is instantiated but not initialized yet. This state almost never
+   * persists.
    */
   IDLE: 0,
 

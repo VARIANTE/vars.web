@@ -1,5 +1,5 @@
 /**
- * vars
+ * VARS
  * (c) VARIANTE (http://variante.io)
  *
  * This software is released under the MIT License:
@@ -10,84 +10,58 @@
 
 'use strict';
 
-define(
-  [
-    'enums',
-    'events',
-    'math',
-    'ui',
-    'utils'
-  ],
-  function(
-    enums,
-    events,
-    math,
-    ui,
-    utils
-  ) {
-    var vars = function(obj) {
-      return obj;
-    };
+define('vars', [
+  'events',
+  'math',
+  'net',
+  'types',
+  'ui',
+  'utils'
+], function(
+  events,
+  math,
+  net,
+  types,
+  ui,
+  utils
+) {
+  var vars = {};
 
-    /**
-     * Version.
-     *
-     * @type {String}
-     */
-    Object.defineProperty(vars, 'version', {
-      value: '1.0.0',
+  Object.defineProperty(vars, 'name', { value: 'VARS', writable: false });
+  Object.defineProperty(vars, 'version', { value: '1.1.0', writable: false });
+
+  injectModule('events', events);
+  injectModule('math', math);
+  injectModule('net', net);
+  injectModule('types', types);
+  injectModule('ui', ui);
+  injectModule('utils', utils);
+
+  /**
+   * @private
+   *
+   * Injects a module and all of its sub-modules into the core VARS module.
+   *
+   * @param {String} name    Name of the module (used as the key for the
+   *                         key-value pair in VARS).
+   * @param {Object} module  Module object (used as value for the key-value
+   *                         pair in VARS).
+   */
+  function injectModule(name, module) {
+    Object.defineProperty(vars, name, {
+      value: module,
       writable: false
     });
 
-    /**
-     * Inject the 'enums' module and all of its sub-modules into the main vars module.
-     */
-    inject('enums', enums);
-
-    /**
-     * Inject the 'events' module and all of its sub-modules into the main vars module.
-     */
-    inject('events', events);
-
-    /**
-     * Inject the 'math' module and all of its sub-modules into the main vars module.
-     */
-    inject('math', math);
-
-    /**
-     * Inject the 'ui' module and all of its sub-modules into the main vars module.
-     */
-    inject('ui', ui);
-
-    /**
-     * Inject the 'utils' module and all of its sub-modules into the main vars module.
-     */
-    inject('utils', utils);
-
-    /**
-     * @private
-     *
-     * Injects a module and all of its sub-modules into the main vars module.
-     *
-     * @param {String} name   Name of the module (used as the key for the key-value pair in vars).
-     * @param {Object} module Module object (used as value for the key-value pair in VARS).
-     */
-    function inject(name, module) {
-      Object.defineProperty(vars, name, {
-        value: module,
-        writable: false
-      });
-
-      for (var key in module) {
-        if (module.hasOwnProperty(key)) {
-          Object.defineProperty(vars, key, {
-            value: module[key],
-            writable: false
-          });
-        }
+    for (var key in module) {
+      if (module.hasOwnProperty(key)) {
+        Object.defineProperty(vars, key, {
+          value: module[key],
+          writable: false
+        });
       }
     }
-
-    return vars;
   }
-);
+
+  return vars;
+});

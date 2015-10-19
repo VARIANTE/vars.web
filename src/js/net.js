@@ -5,21 +5,21 @@
  * This software is released under the MIT License:
  * http://www.opensource.org/licenses/mit-license.php
  *
- * Module of methods/classes related to the event system.
+ * Module of methods/classes related to networking.
  *
  * @type {Module}
  */
 
 'use strict';
 
-define('events', [
-  'events/EventDispatcher'
+define('net', [
+  'net/AssetLoader'
 ], function(
-  EventDispatcher
+  AssetLoader
 ) {
   var api = {};
 
-  Object.defineProperty(api, 'EventDispatcher', { value: EventDispatcher, writable: false, enumerable: true });
+  Object.defineProperty(api, 'AssetLoader', { value: AssetLoader, writable: false, enumerable: true });
 
   return api;
 });

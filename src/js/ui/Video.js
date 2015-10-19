@@ -1,5 +1,5 @@
 /**
- * vars
+ * VARS
  * (c) VARIANTE (http://variante.io)
  *
  * This software is released under the MIT License:
@@ -13,17 +13,17 @@
 'use strict';
 
 define([
-    'utils/assert',
-    'utils/log',
+    'helpers/assert',
+    'helpers/log',
+    'types/DirtyType',
     'utils/inherit',
-    'enums/DirtyType',
     'ui/Element'
   ],
   function(
     assert,
     log,
-    inherit,
     DirtyType,
+    inherit,
     Element
   ) {
     inherit(Video, Element);
@@ -142,7 +142,8 @@ define([
       /**
        * @property
        *
-       * Specifies that video controls should be displayed (such as a play/pause button etc).
+       * Specifies that video controls should be displayed (such as a play/pause
+       * button etc).
        *
        * @type {Boolean}
        */
@@ -159,7 +160,8 @@ define([
       /**
        * @property
        *
-       * Specifies that the video will start over again, every time it is finished.
+       * Specifies that the video will start over again, every time it is
+       * finished.
        *
        * @type {Boolean}
        */
@@ -193,7 +195,8 @@ define([
       /**
        * @property
        *
-       * Specifies an image to be shown while the video is downloading, or until the user hits the play button.
+       * Specifies an image to be shown while the video is downloading, or until
+       * the user hits the play button.
        *
        * @type {String}   URL of image
        */
@@ -210,7 +213,8 @@ define([
       /**
        * @property
        *
-       * Specifies if and how the author thinks the video should be loaded when the page loads
+       * Specifies if and how the author thinks the video should be loaded when
+       * the page loads
        *
        * @type {String}   See Video.AUTOPLAY
        */
@@ -228,11 +232,10 @@ define([
        * @property
        *
        * Array of sources containing elements in the form of:
-       *     Object
-       *     {
-       *         src: {PATH_OF_SOURCE} (String)
-       *         type: {TYPE_OF_SOURCE} (String)
-       *     }
+       *   Object {
+       *     {String} src  Path of source.
+       *     {String} type Type of source.
+       *   }
        *
        * @type {Array}
        */

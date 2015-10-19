@@ -40,8 +40,9 @@
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -50,16 +51,17 @@
 	var vars = __webpack_require__(1);
 	
 	vars.initDOM({
-	  Playground: __webpack_require__(2),
-	  Bar: __webpack_require__(3)
+	  Playground: __webpack_require__(161),
+	  Bar: __webpack_require__(162)
 	});
 
 /***/ },
-/* 1 */
+
+/***/ 1:
 /***/ function(module, exports, __webpack_require__) {
 
 	var require;/**
-	 * vars
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -68,6 +70,8 @@
 	 * Start file for r.js.
 	 */
 	(function(root, factory, undefined) {
+	  'use strict';
+	
 	  var vars = factory;
 	
 	  // Check if using AMD.
@@ -513,217 +517,7 @@
 	define("almond", function(){});
 	
 	/**
-	 * vars
-	 * (c) VARIANTE (http://variante.io)
-	 *
-	 * This software is released under the MIT License:
-	 * http://www.opensource.org/licenses/mit-license.php
-	 *
-	 * UI dirty types.
-	 *
-	 * @type {Object}
-	 */
-	define('enums/DirtyType',{
-	  NONE:        0x00000000,
-	  POSITION:    1 << 0,
-	  SIZE:        1 << 1,
-	  LAYOUT:      1 << 2,
-	  STATE:       1 << 3,
-	  DATA:        1 << 4,
-	  LOCALE:      1 << 5,
-	  DEPTH:       1 << 6,
-	  CONFIG:      1 << 7,
-	  STYLE:       1 << 8,
-	  INPUT:       1 << 9,
-	  ORIENTATION: 1 << 10,
-	  CUSTOM:      1 << 11,
-	  ALL:         0xFFFFFFFF
-	});
-	
-	/**
-	 * vars
-	 * (c) VARIANTE (http://variante.io)
-	 *
-	 * This software is released under the MIT License:
-	 * http://www.opensource.org/licenses/mit-license.php
-	 *
-	 * Universal keyboard key codes.
-	 *
-	 * @type {Object}
-	 */
-	define('enums/KeyCode',{
-	  BACKSPACE:     8,
-	  TAB:           9,
-	  ENTER:         13,
-	  SHIFT:         16,
-	  CTRL:          17,
-	  ALT:           18,
-	  PAUSE_BREAK:   19,
-	  CAPS_LOCK:     20,
-	  ESCAPE:        27,
-	  PAGE_UP:       33,
-	  PAGE_DOWN:     34,
-	  END:           35,
-	  HOME:          36,
-	  LEFT_ARROW:    37,
-	  UP_ARROW:      38,
-	  RIGHT_ARROW:   39,
-	  DOWN_ARROW:    40,
-	  INSERT:        45,
-	  DELETE:        46,
-	  ZERO:          48,
-	  ONE:           49,
-	  TWO:           50,
-	  THREE:         51,
-	  FOUR:          52,
-	  FIVE:          53,
-	  SIX:           54,
-	  SEVEN:         55,
-	  EIGHT:         56,
-	  NINE:          57,
-	  A:             65,
-	  B:             66,
-	  C:             67,
-	  D:             68,
-	  E:             69,
-	  F:             70,
-	  G:             71,
-	  H:             72,
-	  I:             73,
-	  J:             74,
-	  K:             75,
-	  L:             76,
-	  M:             77,
-	  N:             78,
-	  O:             79,
-	  P:             80,
-	  Q:             81,
-	  R:             82,
-	  S:             83,
-	  T:             84,
-	  U:             85,
-	  V:             86,
-	  W:             87,
-	  X:             88,
-	  Y:             89,
-	  Z:             90,
-	  LEFT_CMD:      91,
-	  RIGHT_CMD:     92,
-	  SELECT:        93,
-	  NUMPAD_ZERO:   96,
-	  NUMPAD_ONE:    97,
-	  NUMPAD_TWO:    98,
-	  NUMPAD_THREE:  99,
-	  NUMPAD_FOUR:   100,
-	  NUMPAD_FIVE:   101,
-	  NUMPAD_SIX:    102,
-	  NUMPAD_SEVEN:  103,
-	  NUMPAD_EIGHT:  104,
-	  NUMPAD_NINE:   105,
-	  MULTIPLY:      106,
-	  ADD:           107,
-	  SUBTRACT:      109,
-	  DECIMAL:       110,
-	  DIVIDE:        111,
-	  F1:            112,
-	  F2:            113,
-	  F3:            114,
-	  F4:            115,
-	  F5:            116,
-	  F6:            117,
-	  F7:            118,
-	  F8:            119,
-	  F9:            120,
-	  F10:           121,
-	  F11:           122,
-	  F12:           123,
-	  NUM_LOCK:      144,
-	  SCROLL_LOCK:   145,
-	  SEMI_COLON:    186,
-	  EQUAL:         187,
-	  COMMA:         188,
-	  DASH:          189,
-	  PERIOD:        190,
-	  FORWARD_SLASH: 191,
-	  GRAVE_ACCENT:  192,
-	  OPEN_BRACKET:  219,
-	  BACK_SLASH:    220,
-	  CLOSE_BRACKET: 221,
-	  SINGLE_QUOTE:  222
-	});
-	
-	/**
-	 * vars
-	 * (c) VARIANTE (http://variante.io)
-	 *
-	 * This software is released under the MIT License:
-	 * http://www.opensource.org/licenses/mit-license.php
-	 *
-	 * Element node states.
-	 *
-	 * @type {Object}
-	 */
-	define('enums/NodeState',{
-	  /**
-	   * Element is instantiated but not initialized yet. This state
-	   * almost never persists.
-	   */
-	  IDLE: 0,
-	
-	  /**
-	   * Element is initialized, but not updated yet.
-	   */
-	  INITIALIZED: 1,
-	
-	  /**
-	   * Element is updated at least once.
-	   */
-	  UPDATED: 2,
-	
-	  /**
-	   * Element is destroyed.
-	   */
-	  DESTROYED: 3
-	});
-	
-	/**
-	 * vars
-	 * (c) VARIANTE (http://variante.io)
-	 *
-	 * This software is released under the MIT License:
-	 * http://www.opensource.org/licenses/mit-license.php
-	 *
-	 * Module of global VARS enums.
-	 *
-	 * @type {Module}
-	 */
-	
-	
-	
-	define('enums',[
-	    'enums/DirtyType',
-	    'enums/KeyCode',
-	    'enums/NodeState'
-	  ],
-	  function(
-	    DirtyType,
-	    KeyCode,
-	    NodeState
-	  ) {
-	    var api = function(obj) {
-	      return obj;
-	    };
-	
-	    Object.defineProperty(api, 'DirtyType', { value: DirtyType, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'KeyCode', { value: KeyCode, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'NodeState', { value: NodeState, writable: false, enumerable: true });
-	
-	    return api;
-	  }
-	);
-	
-	/**
-	 * vars
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -734,31 +528,29 @@
 	
 	
 	
-	define('utils/assert',[],
-	  function() {
-	    /**
-	     * Asserts the specified condition and throws a warning if assertion fails. Internal use
-	     * only.
-	     *
-	     * @param {Boolean}    condition   Condition to validate against.
-	     * @param {String}     message     (Optional) Message to be displayed when assertion fails.
-	     *
-	     * @return {Boolean} True if assert passed, false otherwise.
-	     */
-	    function assert(condition, message) {
-	      if (!condition) {
-	        throw new Error((message || 'Assert failed'));
-	      }
-	
-	      return condition;
+	define('helpers/assert',[],function() {
+	  /**
+	   * Asserts the specified condition and throws a warning if assertion fails.
+	   *
+	   * @param {Boolean} condition          Condition to validate against.
+	   * @param {String}  message:undefined  Message to be displayed when assertion
+	   *                                     fails.
+	   *
+	   * @return {Boolean} True if assert passed, false otherwise.
+	   */
+	  function assert(condition, message) {
+	    if (!condition) {
+	      throw new Error((message || 'Assert failed'));
 	    }
 	
-	    return assert;
+	    return condition;
 	  }
-	);
+	
+	  return assert;
+	});
 	
 	/**
-	 * vars
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -769,23 +561,131 @@
 	
 	
 	
-	define('utils/log',[],
-	  function() {
-	    /**
-	     * Internal logger to console if debug mode is on.
-	     */
-	    function log() {
-	      if (window && window.VARS_DEBUG && window.console && console.log) {
-	        Function.apply.call(console.log, console, arguments);
+	define('helpers/assertType',[
+	  'helpers/assert'
+	],
+	function(
+	  assert
+	) {
+	  /**
+	   * Asserts the specified condition and throws a warning if assertion fails.
+	   * Internal use only.
+	   *
+	   * @param {*}            value                 Value used for the assertion.
+	   * @param {String/Class} type                  Type(s) to evaluate against.
+	   *                                             If this is a string, this
+	   *                                             method will use 'typeof'
+	   *                                             operator. Otherwise
+	   *                                             'instanceof' operator will be
+	   *                                             used. If this parameter is an
+	   *                                             array, all elements in the
+	   *                                             array will be evaluated
+	   *                                             against.
+	   * @param {Boolean}      allowUndefined:false  Specifies whether assertion
+	   *                                             should pass if the supplied
+	   *                                             value is undefined.
+	   * @param {String}       message:undefined     Message to be displayed when
+	   *                                             assertion fails.
+	   *
+	   * @return {Boolean} True if assert passed, false otherwise.
+	   */
+	  function assertType(value, type, allowUndefined, message) {
+	    if (!assert(type !== undefined, 'Paremeter \'type\' must be a string or a class')) return;
+	    if (!assert((allowUndefined === undefined) || (typeof allowUndefined === 'boolean'), 'Paremeter \'allowUndefined\', if specified, must be a boolean')) return;
+	    if (!assert((message === undefined) || (typeof message === 'string'), 'Parameter \'message\', if specified, must be a string')) return;
+	
+	    allowUndefined = (allowUndefined === undefined) ? false : allowUndefined;
+	
+	    var ok = false;
+	
+	    if (allowUndefined && (value === undefined)) {
+	      ok = true;
+	    }
+	    else if (type instanceof Array) {
+	      var n = type.length;
+	
+	      for (var i = 0; i < n; i++) {
+	        if (checkType(value, type[i])) {
+	          ok = true;
+	          break;
+	        }
 	      }
 	    }
+	    else {
+	      ok = checkType(value, type);
+	    }
 	
-	    return log;
+	    if (!ok) {
+	      throw new Error(message || 'AssertType failed');
+	    }
+	
+	    return ok;
 	  }
-	);
+	
+	  /**
+	   * Verifies that a given is of the given type.
+	   *
+	   * @param {*} value  Any value.
+	   * @param {*} type   Any class or string that describes a type.
+	   *
+	   * @return {Boolean} True if validation passes, false otherwise.
+	   */
+	  function checkType(value, type) {
+	    if (typeof type === 'string') {
+	      switch (type) {
+	        case 'string':
+	        case 'object':
+	        case 'number':
+	        case 'boolean':
+	        case 'function':
+	          return typeof value === type;
+	
+	        case 'class':
+	          return typeof value === 'function';
+	
+	        case 'array':
+	          return value instanceof Array;
+	
+	        default:
+	          return false;
+	      }
+	    }
+	    else {
+	      return value instanceof type;
+	    }
+	  }
+	
+	  return assertType;
+	});
 	
 	/**
-	 * vars
+	 * VARS
+	 * (c) VARIANTE (http://variante.io)
+	 *
+	 * This software is released under the MIT License:
+	 * http://www.opensource.org/licenses/mit-license.php
+	 *
+	 * @type {Function}
+	 */
+	
+	
+	
+	define('helpers/log',[],function() {
+	  /**
+	   * Internal console logger that activates only when VARS_DEBUG flag is
+	   * present in the window.
+	   */
+	  function log() {
+	    if (window && window.VARS_DEBUG && window.console && console.log) {
+	      Function.apply.call(console.log, console, arguments);
+	    }
+	  }
+	
+	  return log;
+	});
+	
+	/**
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -798,153 +698,367 @@
 	
 	
 	
-	define(
-	  'events/EventDispatcher',[
-	    'utils/assert',
-	    'utils/log'
-	  ],
-	  function(
-	    assert,
-	    log
-	  ) {
-	    /**
-	     * @constructor
-	     *
-	     * Creates a new EventDispatcher instance.
-	     */
-	    function EventDispatcher(element) {
-	      this.__define_properties();
+	define('events/EventDispatcher',[
+	  'helpers/assert',
+	  'helpers/assertType',
+	  'helpers/log'
+	], function(
+	  assert,
+	  assertType,
+	  log
+	) {
+	  /**
+	   * @constructor
+	   *
+	   * Creates a new EventDispatcher instance.
+	   */
+	  function EventDispatcher(element) {
+	    this.__define_properties();
+	  }
+	
+	  /**
+	   * Adds an event listener to this EventDispatcher instance.
+	   *
+	   * @param {String}   type
+	   * @param {Function} listener
+	   */
+	  EventDispatcher.prototype.addEventListener = function(type, listener) {
+	    if (!assertType(type, 'string', false, 'Invalid parameter: type')) return;
+	    if (!assertType(listener, 'function', false, 'Invalid parameter: listener')) return;
+	
+	    log('[EventDispatcher]::addEventListener(' + type + ')');
+	
+	    if (!this._listenerMap) {
+	      Object.defineProperty(this, '_listenerMap', {
+	        value: {},
+	        writable: true
+	      });
 	    }
 	
-	    /**
-	     * Adds an event listener to this EventDispatcher instance.
-	     *
-	     * @param {String} type
-	     * @param {Function} listener
-	     */
-	    EventDispatcher.prototype.addEventListener = function(type, listener) {
-	      assert(type, 'Event type must be specified.');
-	      assert(listener, 'Listener must be specified.');
+	    if (!this._listenerMap[type]) {
+	      this._listenerMap[type] = [];
+	    }
 	
-	      if (!type) return;
-	      if (!listener) return;
+	    this._listenerMap[type].push(listener);
+	  };
 	
-	      log('[EventDispatcher]::addEventListener(' + type + ')');
+	  /**
+	   * Removes an event listener from this EventDispatcher instance. If no
+	   * listener method is specified, all the listeners of the specified type
+	   * will be removed.
+	   *
+	   * @param {String}   type
+	   * @param {Function} listener:undefined
+	   */
+	  EventDispatcher.prototype.removeEventListener = function(type, listener) {
+	    if (!assertType(type, 'string', false, 'Invalid parameter: type')) return;
+	    if (!assertType(listener, 'function', true, 'Invalid parameter: listener')) return;
+	    if (!assert(this._listenerMap, 'Listener map is null.')) return;
+	    if (!assert(this._listenerMap[type], 'There are no listeners registered for event type: ' + type)) return;
 	
-	      if (!this._listenerMap) {
-	        Object.defineProperty(this, '_listenerMap', {
-	          value: {},
-	          writable: true
-	        });
+	    log('[EventDispatcher]::removeEventListener(' + type + ')');
+	
+	    if (listener) {
+	      var index = this._listenerMap[type].indexOf(listener);
+	
+	      if (index > -1) {
+	        this._listenerMap[type].splice(index, 1);
 	      }
+	    } else {
+	      delete this._listenerMap[type];
+	    }
+	  };
 	
-	      if (!this._listenerMap[type]) {
-	        this._listenerMap[type] = [];
-	      }
+	  /**
+	   * Determines whether this EventDispatcher instance has a specific event
+	   * listener registered. If no listener is specified, it will check if any
+	   * listener of the specified event type is registered.
+	   *
+	   * @param {String}   type
+	   * @param {Function} listener:undefined
+	   *
+	   * @return {Boolean}
+	   */
+	  EventDispatcher.prototype.hasEventListener = function(type, listener) {
+	    if (!assertType(type, 'string', false, 'Invalid parameter: type')) return;
+	    if (!assertType(listener, 'function', true, 'Invalid parameter: listener')) return;
+	    if (!assert(this._listenerMap, 'Listener map is null.')) return;
+	    if (!assert(this._listenerMap[type], 'There are no listeners registered for event type: ' + type)) return;
 	
-	      this._listenerMap[type].push(listener);
-	    };
+	    if (listener) {
+	      var index = this._listenerMap[type].indexOf(listener);
 	
-	    /**
-	     * Removes an event listener from this EventDispatcher instance. If no listener method is
-	     * specified, all the listeners of the specified type will be removed.
-	     *
-	     * @param {String} type
-	     * @param {Function} listener (Optional)
-	     */
-	    EventDispatcher.prototype.removeEventListener = function(type, listener) {
-	      assert(type, 'Event type must be specified.');
-	      assert(this._listenerMap, 'Listener map is null.');
-	      assert(this._listenerMap[type], 'There are no listeners registered for event type: ' + type);
+	      return (index > -1);
+	    } else {
+	      return true;
+	    }
+	  };
 	
-	      if (!type) return;
-	      if (!this._listenerMap) return;
-	      if (!this._listenerMap[type]) return;
+	  /**
+	   * Dispatches the specified event.
+	   *
+	   * @param {Event} event
+	   */
+	  EventDispatcher.prototype.dispatchEvent = function(event) {
+	    if (!assertType(event, Event, false, 'Event must be specified.')) return;
+	    if (!assert(this._listenerMap, 'Listener map is null.')) return;
 	
-	      log('[EventDispatcher]::removeEventListener(' + type + ')');
+	    if (!this._listenerMap[event.type]) return;
 	
-	      if (listener) {
-	        var index = this._listenerMap[type].indexOf(listener);
+	    log('[EventDispatcher]::dispatchEvent(' + event.type + ')');
 	
-	        if (index > -1) {
-	          this._listenerMap[type].splice(index, 1);
-	        }
-	      } else {
-	        delete this._listenerMap[type];
-	      }
-	    };
+	    event.target = this;
+	    event.currentTarget = this;
+	    event.customTarget = this;
 	
-	    /**
-	     * Determines whether this EventDispatcher instance has a specific event listener registered.
-	     * If no listener is specified, it will check if any listener of the specified event type
-	     * is registered.
-	     *
-	     * @param {String} type
-	     * @param {Function} listener (Optional)
-	     *
-	     * @return {Boolean}
-	     */
-	    EventDispatcher.prototype.hasEventListener = function(type, listener) {
-	      assert(type, 'Event type must be specified.');
-	      assert(this._listenerMap, 'Listener map is null.');
-	      assert(this._listenerMap[type], 'There are no listeners registered for event type: ' + type);
+	    var arrlen = this._listenerMap[event.type].length;
 	
-	      if (!type) return false;
-	      if (!this._listenerMap) return false;
-	      if (!this._listenerMap[type]) return false;
+	    for (var i = 0; i < arrlen; i++) {
+	      var listener = this._listenerMap[event.type][i];
 	
-	      if (listener) {
-	        var index = this._listenerMap[type].indexOf(listener);
+	      listener.call(this, event);
+	    }
+	  };
 	
-	        return (index > -1);
-	      } else {
-	        return true;
-	      }
-	    };
+	  /**
+	   * @private
+	   *
+	   * Defines all properties.
+	   */
+	  EventDispatcher.prototype.__define_properties = function() {
 	
-	    /**
-	     * Dispatches the specified event.
-	     *
-	     * @param {String} event
-	     */
-	    EventDispatcher.prototype.dispatchEvent = function(event) {
-	      assert(event, 'Event must be specified.');
-	      assert(this._listenerMap, 'Listener map is null.');
+	  };
 	
-	      if (!event) return;
-	      if (!this._listenerMap) return false;
-	      if (!this._listenerMap[event.type]) return false;
-	
-	      log('[EventDispatcher]::dispatchEvent(' + event.type + ')');
-	
-	      event.target = this;
-	      event.currentTarget = this;
-	      event.customTarget = this;
-	
-	      var arrlen = this._listenerMap[event.type].length;
-	
-	      for (var i = 0; i < arrlen; i++) {
-	        var listener = this._listenerMap[event.type][i];
-	
-	        listener.call(this, event);
-	      }
-	    };
-	
-	    /**
-	     * @private
-	     *
-	     * Defines all properties.
-	     */
-	    EventDispatcher.prototype.__define_properties = function() {
-	
-	    };
-	
-	    return EventDispatcher;
-	  }
-	);
+	  return EventDispatcher;
+	});
 	
 	/**
-	 * vars
+	 * VARS
+	 * (c) VARIANTE (http://variante.io)
+	 *
+	 * This software is released under the MIT License:
+	 * http://www.opensource.org/licenses/mit-license.php
+	 *
+	 * Module of methods/classes related to the event system.
+	 *
+	 * @type {Module}
+	 */
+	
+	
+	
+	define('events', [
+	  'events/EventDispatcher'
+	], function(
+	  EventDispatcher
+	) {
+	  var api = {};
+	
+	  Object.defineProperty(api, 'EventDispatcher', { value: EventDispatcher, writable: false, enumerable: true });
+	
+	  return api;
+	});
+	
+	/**
+	 * VARS
+	 * (c) VARIANTE (http://variante.io)
+	 *
+	 * This software is released under the MIT License:
+	 * http://www.opensource.org/licenses/mit-license.php
+	 *
+	 * @type {Function}
+	 */
+	
+	
+	
+	define('math/clamp',[
+	  'helpers/assertType'
+	], function(
+	  assertType
+	) {
+	  /**
+	   * Clamps a value to a min and max value.
+	   *
+	   * @param {Number} value
+	   * @param {Number} min
+	   * @param {Number} max
+	   *
+	   * @return {Number} The clamped value.
+	   */
+	  function clamp(value, min, max) {
+	    assertType(value, 'number', false, 'Invalid value specified');
+	    assertType(min, 'number', false, 'Invalid min value specified');
+	    assertType(max, 'number', false, 'Invalid max value specified');
+	
+	    var output = value;
+	
+	    output = Math.min(output, max);
+	    output = Math.max(output, min);
+	
+	    return output;
+	  }
+	
+	  return clamp;
+	});
+	
+	/**
+	 * VARS
+	 * (c) VARIANTE (http://variante.io)
+	 *
+	 * This software is released under the MIT License:
+	 * http://www.opensource.org/licenses/mit-license.php
+	 *
+	 * @type {Function}
+	 */
+	
+	
+	
+	define('math/isClamped',[
+	  'helpers/assertType'
+	],function(
+	  assertType
+	) {
+	  /**
+	   * Determines if value is bounded by the specified min and max values,
+	   * defaults to inclusive.
+	   *
+	   * @param {Number}  value
+	   * @param {Number}  min
+	   * @param {Number}  max
+	   * @param {Boolean} exclusive:false
+	   *
+	   * @return {Boolean} True if bounded, false otherwise.
+	   */
+	  function isClamped(value, min, max, exclusive) {
+	    assertType(value, 'number', false, 'Invalid value specified');
+	    assertType(min, 'number', false, 'Invalid min value specified');
+	    assertType(max, 'number', false, 'Invalid max value specified');
+	    assertType(exclusive, 'boolean', true, 'Invalid parameter: exclusive');
+	
+	    if (exclusive === undefined) exclusive = false;
+	
+	    if (exclusive) {
+	      return ((value > min) && (value < max));
+	    }
+	    else {
+	      return ((value >= min) && (value <= max));
+	    }
+	  }
+	
+	  return isClamped;
+	});
+	
+	/**
+	 * VARS
+	 * (c) VARIANTE (http://variante.io)
+	 *
+	 * This software is released under the MIT License:
+	 * http://www.opensource.org/licenses/mit-license.php
+	 *
+	 * @type {Function}
+	 */
+	
+	
+	
+	define('math/isEven',[
+	  'helpers/assertType'
+	],function(
+	  assertType
+	) {
+	  /**
+	   * Determines if a number is an even number. Zero is considered even by
+	   * default.
+	   *
+	   * @param {Number}  value
+	   * @param {Boolean} excludeZero:false
+	   *
+	   * @return {Boolean} True if number is even, false otherwise.
+	   */
+	  function isEven(value, excludeZero) {
+	    assertType(value, 'number', false, 'Invalid value specified');
+	    assertType(excludeZero, 'boolean', true, 'Invalid parameter: excludeZero');
+	
+	    if (excludeZero === undefined) excludeZero = false;
+	
+	    if (value === 0) return (excludeZero !== false);
+	
+	    return (value % 2) === 0;
+	  }
+	
+	  return isEven;
+	});
+	
+	/**
+	 * VARS
+	 * (c) VARIANTE (http://variante.io)
+	 *
+	 * This software is released under the MIT License:
+	 * http://www.opensource.org/licenses/mit-license.php
+	 *
+	 * @type {Function}
+	 */
+	
+	
+	
+	define('math/isOdd',[
+	  'helpers/assertType'
+	],function(
+	  assertType
+	) {
+	  /**
+	   * Determines if a number is an odd number.
+	   *
+	   * @param {Number} value
+	   *
+	   * @return {Boolean} True if number is odd, false otherwise.
+	   */
+	  function isOdd(value) {
+	    assertType(value, 'number', false, 'Invalid value specified');
+	
+	    if (value === 0) return false;
+	
+	    return (value % 2) !== 0;
+	  }
+	
+	  return isOdd;
+	});
+	
+	/**
+	 * VARS
+	 * (c) VARIANTE (http://variante.io)
+	 *
+	 * This software is released under the MIT License:
+	 * http://www.opensource.org/licenses/mit-license.php
+	 *
+	 * Module of methods/classes related to math.
+	 *
+	 * @type {Module}
+	 */
+	
+	
+	
+	define('math', [
+	  'math/clamp',
+	  'math/isClamped',
+	  'math/isEven',
+	  'math/isOdd'
+	], function(
+	  clamp,
+	  isClamped,
+	  isEven,
+	  isOdd
+	) {
+	  var api = {};
+	
+	  Object.defineProperty(api, 'clamp', { value: clamp, writable: false, enumerable: true });
+	  Object.defineProperty(api, 'isClamped', { value: isClamped, writable: false, enumerable: true });
+	  Object.defineProperty(api, 'isEven', { value: isEven, writable: false, enumerable: true });
+	  Object.defineProperty(api, 'isOdd', { value: isOdd, writable: false, enumerable: true });
+	
+	  return api;
+	});
+	
+	/**
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -957,7 +1071,7 @@
 	
 	
 	
-	define('events/EventType',{
+	define('types/EventType',{
 	  /**
 	   * DOM native events.
 	   *
@@ -1087,217 +1201,720 @@
 	});
 	
 	/**
-	 * vars
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
 	 * http://www.opensource.org/licenses/mit-license.php
 	 *
-	 * Module of methods/classes related to the native event system.
+	 * @type {Function}
+	 */
+	
+	
+	
+	define('utils/inherit',[
+	  'helpers/assertType'
+	],
+	function(
+	  assertType
+	) {
+	  /**
+	   * Sets up prototypal inheritance between a child class and a parent class.
+	   *
+	   * @param {Class} childClass   Child class
+	   * @param {Class} parentClass  Parent class
+	   *
+	   * @return {Class} Extended child class.
+	   */
+	  function inherit(childClass, parentClass) {
+	    assertType(childClass, 'class', false, 'Invalid parameter: childClass');
+	    assertType(parentClass, 'class', false, 'Invalid parameter: parentClass');
+	
+	    for (var key in parentClass) {
+	      if (parentClass.hasOwnProperty(key)) {
+	        childClass[key] = parentClass[key];
+	      }
+	    }
+	
+	    function C() {
+	      this.constructor = childClass;
+	    }
+	
+	    C.prototype = Object.create(parentClass.prototype);
+	    childClass.prototype = new C();
+	    childClass.__super__ = parentClass.prototype;
+	    return childClass;
+	  }
+	
+	  return inherit;
+	});
+	
+	/**
+	 * VARS
+	 * (c) VARIANTE (http://variante.io)
+	 *
+	 * This software is released under the MIT License:
+	 * http://www.opensource.org/licenses/mit-license.php
+	 *
+	 * Asset loader for images, videos, and audios.
+	 *
+	 * @type {Class}
+	 */
+	
+	
+	
+	define('net/AssetLoader',[
+	  'events/EventDispatcher',
+	  'helpers/assert',
+	  'helpers/log',
+	  'types/EventType',
+	  'utils/inherit'
+	], function(
+	  EventDispatcher,
+	  assert,
+	  log,
+	  EventType,
+	  inherit
+	) {
+	  /**
+	   * @constant
+	   *
+	   * Common image file extensions.
+	   *
+	   * @type {Array}
+	   */
+	  var IMAGE_EXTENSIONS = ['jpg', 'png', 'svg', 'jpeg', 'gif'];
+	
+	  /**
+	   * @constant
+	   *
+	   * Common video file extensions.
+	   *
+	   * @type {Array}
+	   */
+	  var VIDEO_EXTENSIONS = ['mp4', 'mpeg', 'ogg', 'ogv', 'mov', 'avi', 'flv'];
+	
+	  /**
+	   * @constant
+	   *
+	   * Common audio file extensions.
+	   *
+	   * @type {Array}
+	   */
+	  var AUDIO_EXTENSIONS = ['mp3', 'mp4', 'mpeg', 'flac', 'wav', 'ogg'];
+	
+	  /**
+	   * @constant
+	   *
+	   * Mime type lookup.
+	   *
+	   * @type {Object}
+	   */
+	  var MIME_TYPES = {
+	    IMAGE: {
+	      jpg: 'image/jpeg',
+	      jpeg: 'image/jpeg',
+	      gif: 'image/gif',
+	      png: 'image/png',
+	      svg: 'image/svg'
+	    },
+	    VIDEO: {
+	      mp4: 'video/mp4',
+	      mov: 'video/quicktime',
+	      mpeg: 'video/mpeg',
+	      ogg: 'video/ogg',
+	      ogv: 'video/ogg',
+	      avi: 'video/avi',
+	      flv: 'video/x-flv'
+	    },
+	    AUDIO: {
+	      mp3: 'audio/mpeg',
+	      mpeg: 'audio/mpeg',
+	      mp4: 'audio/mp4',
+	      flac: 'audio/flac',
+	      ogg: 'audio/ogg',
+	      wav: 'audio/vnd.wave'
+	    }
+	  };
+	
+	  /**
+	   * @constructor
+	   *
+	   * Creates a new AssetLoader instance.
+	   */
+	  function AssetLoader() {
+	    AssetLoader.__super__.constructor.apply(this, arguments);
+	  }
+	  inherit(AssetLoader, EventDispatcher);
+	
+	  /**
+	   * @static
+	   *
+	   * Different states of AssetLoader.
+	   *
+	   * @type {Enum}
+	   */
+	  AssetLoader.STATE = {
+	    IDLE: 0,
+	    IN_PROGRESS: 1,
+	    COMPLETED: 2,
+	    FAILED: 3,
+	    ABORTED: 4
+	  };
+	
+	  /**
+	   * @static
+	   *
+	   * Different supported asset types of AssetLoader.
+	   *
+	   * @type {Object}
+	   */
+	  AssetLoader.TYPE = {
+	    IMAGE: 'image',
+	    VIDEO: 'video',
+	    AUDIO: 'audio'
+	  };
+	
+	  /**
+	   * Initializes this AssetLoader instance and begins loading assets in the
+	   * queue.
+	   */
+	  AssetLoader.prototype.init = function() {
+	    if (this.queue.length < 1) return;
+	
+	    log('[AssetLoader]::init()');
+	
+	    var arrlen = this.queue.length;
+	
+	    this._xhrs = [];
+	    this._pending = arrlen;
+	
+	    for (var i = 0; i < arrlen; i++) {
+	      var target = this.queue[i];
+	
+	      log('[AssetLoader]::Started loading: ' + target.path);
+	
+	      var xhr = this.getXHR({
+	        id: i,
+	        path: target.path,
+	        type: target.type
+	      });
+	      xhr.send();
+	
+	      this._xhrs.push(xhr);
+	    }
+	
+	
+	  };
+	
+	  /**
+	   * Destroys this AssetLoader instance and resets its state to idle for
+	   * recyclable use.
+	   */
+	  AssetLoader.prototype.destroy = function() {
+	    if (this._xhrs) {
+	      var arrlen = this._xhrs.length;
+	
+	      for (var i = 0; i < arrlen; i++) {
+	        var xhr = this._xhrs[i];
+	        xhr.abort();
+	        this._xhrs[i] = null;
+	      }
+	
+	      this._queue = null;
+	      this._assets = null;
+	      this._bytesLoaded = null;
+	      this._bytesTotal = null;
+	    }
+	
+	    this._state = AssetLoader.STATE.IDLE;
+	  };
+	
+	  /**
+	   * Adds target loading assets to the queue. Assumes each parameter is as
+	   * follows:
+	   * Object {
+	   *   {String} path  Path of asset.
+	   *   {String} type  Type of asset (can only be 'image', 'video', or
+	   *                  'audio').
+	   * }
+	   */
+	  AssetLoader.prototype.enqueue = function() {
+	    assert(arguments && arguments.length > 0, 'There are no arguments specified.');
+	    assert(this.state !== AssetLoader.STATE.IN_PROGRESS, 'Enqueueing is prohibited when the state is in progress.');
+	
+	    if (!arguments) return;
+	    if (arguments.length <= 0) return;
+	    if (this.state === AssetLoader.STATE.IN_PROGRESS) return;
+	
+	    log('[AssetLoader]::enqueue(' + arguments + ')');
+	
+	    var arrlen = arguments.length;
+	
+	    for (var i = 0; i < arrlen; i++) {
+	      var arg = arguments[i];
+	
+	      assert(typeof arg === 'string' || typeof arg === 'object', 'Each item to be enqueued must be a string of the target path or an object containing a "path" key and/or a "type" key');
+	      assert(typeof arg === 'string' || typeof arg.path === 'string', 'Invalid path specified: ' + arg.path + '.');
+	
+	      var path = (typeof arg === 'string') ? arg : arg.path;
+	      var type = arg.type;
+	
+	      if (!type) {
+	        var ext = path.split('.').pop().toLowerCase();
+	
+	        if (IMAGE_EXTENSIONS.indexOf(ext) > -1) {
+	          type = AssetLoader.TYPE.IMAGE;
+	        } else if (VIDEO_EXTENSIONS.indexOf(ext) > -1) {
+	          type = AssetLoader.TYPE.VIDEO;
+	        } else if (AUDIO_EXTENSIONS.indexOf(ext) > -1) {
+	          type = AssetLoader.TYPE.AUDIO;
+	        } else {
+	          throw '[AssetLoader]::Unsupported asset format: ' + path;
+	        }
+	      }
+	
+	      if (type) {
+	        this.queue.push({
+	          path: path,
+	          type: type
+	        });
+	
+	        if (!this._bytesLoaded) this._bytesLoaded = [];
+	        if (!this._bytesTotal) this._bytesTotal = [];
+	
+	        this._bytesLoaded.push(0.0);
+	        this._bytesTotal.push(0.0);
+	      }
+	    }
+	  };
+	
+	  /**
+	   * Removes loading targets from the queue. Each parameter is a path that
+	   * must match one that is already in the queue.
+	   */
+	  AssetLoader.prototype.dequeue = function() {
+	    assert(arguments && arguments.length > 0, 'There are no arguments specified.');
+	    assert(this.state !== AssetLoader.STATE.IN_PROGRESS, 'Dequeueing is prohibited when the state is in progress.');
+	
+	    if (!arguments) return;
+	    if (arguments.length <= 0) return;
+	    if (this.state === AssetLoader.STATE.IN_PROGRESS) return;
+	
+	    var arrlen = arguments.length;
+	
+	    for (var i = 0; i < arrlen; i++) {
+	      var arg = arguments[i];
+	
+	      assert(typeof arg === 'string', 'Expecting path to be a string.');
+	
+	      var n = this.queue.length;
+	
+	      for (var j = 0; j < n; j++) {
+	        var target = this.queue[j];
+	
+	        if (target.path === arg) {
+	          this.queue.splice(j, 1);
+	          this.bytesLoaded.splice(j, 1);
+	          this.bytesTotal.splice(j, 1);
+	
+	          break;
+	        }
+	      }
+	    }
+	  };
+	
+	  /**
+	   * Creates and returns a new XHR instance with prepopulated configurations.
+	   *
+	   * @param {Object} data
+	   *
+	   * @return {Object} XHR instance.
+	   */
+	  AssetLoader.prototype.getXHR = function(data) {
+	    var ext = data.path.split('.').pop().toLowerCase();
+	    var mimeType = MIME_TYPES[data.type.toUpperCase()][ext];
+	
+	    if (!mimeType) {
+	      throw '[AssetLoader]:: Unsupported asset format: ' + data.path;
+	    }
+	
+	    var xhr = new XMLHttpRequest();
+	    xhr.addEventListener('progress', this._onXHRProgress.bind(this), false);
+	    xhr.addEventListener('load', this._onXHRLoadComplete.bind(this), false);
+	    xhr.addEventListener('error', this._onXHRLoadError.bind(this), false);
+	    xhr.addEventListener('abort', this._onXHRAbort.bind(this), false);
+	
+	    xhr.open('GET', data.path, this.async);
+	    if (xhr.overrideMimeType) xhr.overrideMimeType(mimeType);
+	    xhr.data = data;
+	
+	    return xhr;
+	  };
+	
+	  /**
+	   * @private
+	   *
+	   * Handler invoked when an XHR instance is in progress.
+	   *
+	   * @param {Object} event
+	   */
+	  AssetLoader.prototype._onXHRProgress = function(event) {
+	    if (!event.lengthComputable) return;
+	
+	    var xhr = event.currentTarget;
+	    var id = xhr.data.id;
+	    var path = xhr.data.path;
+	    var type = xhr.data.type;
+	    var bytesLoaded = event.loaded;
+	    var bytesTotal = event.total;
+	
+	    // Hash progress into XHR data.
+	    xhr.data.bytesLoaded = bytesLoaded;
+	    xhr.data.bytesTotal = bytesTotal;
+	
+	    this._bytesLoaded[id] = bytesLoaded;
+	    this._bytesTotal[id] = bytesTotal;
+	
+	    if (!this._bytesLoaded) this._bytesLoaded = [];
+	
+	    log('[AssetLoader]::_onXHRProgress("' + path + '":' + bytesLoaded + '/' + bytesTotal + ')');
+	
+	    var progressEvent = document.createEvent('CustomEvent');
+	    progressEvent.initCustomEvent(EventType.OBJECT.PROGRESS, true, true, {
+	      id: id,
+	      path: path,
+	      type: type,
+	      pending: this._pending,
+	      loaded: this.bytesLoaded,
+	      total: this.bytesTotal
+	    });
+	
+	    this.dispatchEvent(progressEvent);
+	  };
+	
+	  /**
+	   * @private
+	   *
+	   * Handler invoked when an XHR instance completes its operation.
+	   *
+	   * @param {Object} event
+	   */
+	  AssetLoader.prototype._onXHRLoadComplete = function(event) {
+	    var xhr = event.currentTarget;
+	    var id = xhr.data.id;
+	    var path = xhr.data.path;
+	    var type = xhr.data.type;
+	
+	    log('[AssetLoader]::_onXHRLoadComplete("' + path + '"")');
+	
+	    this._pending--;
+	
+	    var loadEvent = document.createEvent('CustomEvent');
+	    loadEvent.initCustomEvent(EventType.OBJECT.LOAD, true, true, {
+	      id: id,
+	      path: path,
+	      type: type,
+	      pending: this._pending,
+	      loaded: this.bytesLoaded,
+	      total: this.bytesTotal
+	    });
+	
+	    this.dispatchEvent(loadEvent);
+	  };
+	
+	  /**
+	   * @private
+	   *
+	   * Handler invoked when an XHR instance fails its operation.
+	   *
+	   * @param {Object} event
+	   */
+	  AssetLoader.prototype._onXHRLoadError = function(event) {
+	    var xhr = event.currentTarget;
+	    var id = xhr.data.id;
+	    var path = xhr.data.path;
+	    var type = xhr.data.type;
+	
+	    log('[AssetLoader]::_onXHRLoadError("' + path + '"")');
+	
+	    this._pending--;
+	
+	    var errorEvent = document.createEvent('CustomEvent');
+	    errorEvent.initCustomEvent(EventType.OBJECT.ERROR, true, true, {
+	      id: id,
+	      path: path,
+	      type: type,
+	      pending: this._pending,
+	      loaded: this.bytesLoaded,
+	      total: this.bytesTotal
+	    });
+	
+	    this.dispatchEvent(errorEvent);
+	
+	    if (this._pending === 0) {
+	      var loadEvent = document.createEvent('CustomEvent');
+	      loadEvent.initCustomEvent(EventType.OBJECT.LOAD, true, true, {
+	        id: id,
+	        path: path,
+	        type: type,
+	        pending: this._pending,
+	        loaded: this.bytesLoaded,
+	        total: this.bytesTotal
+	      });
+	
+	      this.dispatchEvent(loadEvent);
+	    }
+	  };
+	
+	  /**
+	   * @private
+	   *
+	   * Handler invoked when an XHR aborts its operation.
+	   *
+	   * @param {Object} event
+	   */
+	  AssetLoader.prototype._onXHRAbort = function(event) {
+	    var xhr = event.currentTarget;
+	    var id = xhr.data.id;
+	    var path = xhr.data.path;
+	    var type = xhr.data.type;
+	
+	    log('[AssetLoader]::_onXHRLoadError("' + path + '"")');
+	
+	    this._pending--;
+	
+	    var abortEvent = document.createEvent('CustomEvent');
+	    abortEvent.initCustomEvent(EventType.OBJECT.ABORT, true, true, {
+	      id: id,
+	      path: path,
+	      type: type,
+	      pending: this._pending,
+	      loaded: this.bytesLoaded,
+	      total: this.bytesTotal
+	    });
+	
+	    this.dispatchEvent(abortEvent);
+	
+	    if (this._pending === 0) {
+	      var loadEvent = document.createEvent('CustomEvent');
+	      loadEvent.initCustomEvent(EventType.OBJECT.LOAD, true, true, {
+	        id: id,
+	        path: path,
+	        type: type,
+	        pending: this._pending,
+	        loaded: this.bytesLoaded,
+	        total: this.bytesTotal
+	      });
+	
+	      this.dispatchEvent(loadEvent);
+	    }
+	  };
+	
+	  /**
+	   * @inheritDoc
+	   */
+	  AssetLoader.prototype.__define_properties = function() {
+	    /**
+	     * @property
+	     *
+	     * Specifies the current state of this AssetLoader instance.
+	     *
+	     * @type {Number}
+	     */
+	    Object.defineProperty(this, 'state', {
+	      get: function() {
+	        if (!this._state) {
+	          Object.defineProperty(this, '_state', {
+	            value: AssetLoader.STATE.IDLE,
+	            writable: true
+	          });
+	        }
+	
+	        return this._state;
+	      }
+	    });
+	
+	    /**
+	     * @property
+	     *
+	     * View of this AssetLoader instance.
+	     *
+	     * @type {Object}
+	     */
+	    Object.defineProperty(this, 'queue', {
+	      get: function() {
+	        if (!this._queue) {
+	          Object.defineProperty(this, '_queue', {
+	            value: [],
+	            writable: true
+	          });
+	        }
+	
+	        return this._queue;
+	      }
+	    });
+	
+	    /**
+	     * @property
+	     *
+	     * Loaded assets.
+	     *
+	     * @type {Object}
+	     */
+	    Object.defineProperty(this, 'assets', {
+	      get: function() {
+	        if (!this._assets) {
+	          Object.defineProperty(this, '_assets', {
+	            value: {},
+	            writable: true
+	          });
+	        }
+	
+	        return this._assets;
+	      }
+	    });
+	
+	    /**
+	     * @property
+	     *
+	     * Specifies whether the XHR operations run in async.
+	     *
+	     * @type {Boolean}
+	     */
+	    Object.defineProperty(this, 'async', {
+	      get: function() {
+	        if (this._async === undefined) {
+	          return true;
+	        }
+	        else {
+	          return this._async;
+	        }
+	      },
+	      set: function(value) {
+	        assert(this.state !== AssetLoader.STATE.IN_PROGRESS, 'Cannot change the async mode while it is in progress.');
+	
+	        if (this.state !== AssetLoader.STATE.IN_PROGRESS) {
+	          Object.defineProperty(this, '_async', {
+	            value: value,
+	            writable: true
+	          });
+	        }
+	      }
+	    });
+	
+	    /**
+	     * @property
+	     *
+	     * Specifies the total bytes loaded for all assets in the queue.
+	     *
+	     * @type {Number}
+	     */
+	    Object.defineProperty(this, 'bytesLoaded', {
+	      get: function() {
+	        if (!this._bytesLoaded) {
+	          return 0.0;
+	        }
+	        else {
+	          var total = 0;
+	          var arrlen = this._bytesLoaded.length;
+	
+	          for (var i = 0; i < arrlen; i++) {
+	            total += this._bytesLoaded[i];
+	          }
+	
+	          return total;
+	        }
+	      }
+	    });
+	
+	    /**
+	     * @property
+	     *
+	     * Specifies the total bytes for all assets in the queue.
+	     *
+	     * @type {Number}
+	     */
+	    Object.defineProperty(this, 'bytesTotal', {
+	      get: function() {
+	        if (!this._bytesTotal) {
+	          return 0.0;
+	        }
+	        else {
+	          var total = 0;
+	          var arrlen = this._bytesTotal.length;
+	
+	          for (var i = 0; i < arrlen; i++) {
+	            total += this._bytesTotal[i];
+	          }
+	
+	          return total;
+	        }
+	      }
+	    });
+	
+	    /**
+	     * @property
+	     *
+	     * Specifies the current progress (in decimals) of the entire operation.
+	     *
+	     * @return {Number}
+	     */
+	    Object.defineProperty(this, 'progress', {
+	      get: function() {
+	        if (!this._bytesTotal || !this._bytesLoaded) return 0.0;
+	        if (this._bytesTotal.length !== this._bytesLoaded.length) return 0.0;
+	
+	        var arrlen = this._bytesTotal.length;
+	        var sum = 0.0;
+	
+	        for (var i = 0; i < arrlen; i++) {
+	          var loaded = this._bytesLoaded[i];
+	          var total = this._bytesTotal[i];
+	
+	          if (total > 0.0) {
+	            sum += loaded / total;
+	          }
+	        }
+	
+	        return sum / arrlen;
+	      }
+	    });
+	
+	    AssetLoader.__super__.__define_properties.call(this);
+	  };
+	
+	  return AssetLoader;
+	});
+	
+	/**
+	 * VARS
+	 * (c) VARIANTE (http://variante.io)
+	 *
+	 * This software is released under the MIT License:
+	 * http://www.opensource.org/licenses/mit-license.php
+	 *
+	 * Module of methods/classes related to networking.
 	 *
 	 * @type {Module}
 	 */
 	
 	
 	
-	define('events',[
-	    'events/EventDispatcher',
-	    'events/EventType'
-	  ],
-	  function(
-	    EventDispatcher,
-	    EventType
-	  ) {
-	    var api = function(obj) {
-	      return obj;
-	    };
+	define('net', [
+	  'net/AssetLoader'
+	], function(
+	  AssetLoader
+	) {
+	  var api = {};
 	
-	    Object.defineProperty(api, 'EventDispatcher', { value: EventDispatcher, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'EventType', { value: EventType, writable: false, enumerable: true });
+	  Object.defineProperty(api, 'AssetLoader', { value: AssetLoader, writable: false, enumerable: true });
 	
-	    return api;
-	  }
-	);
+	  return api;
+	});
 	
 	/**
-	 * vars
-	 * (c) VARIANTE (http://variante.io)
-	 *
-	 * This software is released under the MIT License:
-	 * http://www.opensource.org/licenses/mit-license.php
-	 *
-	 * @type {Function}
-	 */
-	
-	
-	
-	define('math/clamp',[],
-	  function() {
-	    /**
-	     * Clamps a value to a min and max value.
-	     *
-	     * @param {Number} value
-	     * @param {Number} min
-	     * @param {Number} max
-	     *
-	     * @return {Number} The clamped value.
-	     */
-	    function clamp(value, min, max) {
-	      if ((typeof value !== 'number') || (typeof min !== 'number') || (typeof max !== 'number')) return NaN;
-	
-	      var output = value;
-	
-	      output = Math.min(output, max);
-	      output = Math.max(output, min);
-	
-	      return output;
-	    }
-	
-	    return clamp;
-	  }
-	);
-	
-	/**
-	 * vars
-	 * (c) VARIANTE (http://variante.io)
-	 *
-	 * This software is released under the MIT License:
-	 * http://www.opensource.org/licenses/mit-license.php
-	 *
-	 * @type {Function}
-	 */
-	
-	
-	
-	define('math/isClamped',[],
-	  function() {
-	    /**
-	     * Determines if value is bounded by the specified min and max values, defaults to inclusive.
-	     *
-	     * @param {Number} value
-	     * @param {Number} min
-	     * @param {Number} max
-	     * @param {Boolean} exclusive
-	     *
-	     * @return {Boolean} True if bounded, false otherwise.
-	     */
-	    function isClamped(value, min, max, exclusive) {
-	      if (exclusive) {
-	        return ((value > min) && (value < max));
-	      }
-	      else {
-	        return ((value >= min) && (value <= max));
-	      }
-	    }
-	
-	    return isClamped;
-	  }
-	);
-	
-	/**
-	 * vars
-	 * (c) VARIANTE (http://variante.io)
-	 *
-	 * This software is released under the MIT License:
-	 * http://www.opensource.org/licenses/mit-license.php
-	 *
-	 * @type {Function}
-	 */
-	
-	
-	
-	define('math/isEven',[],
-	  function() {
-	    /**
-	     * Determines if a number is an even number. Zero is considered even by default.
-	     *
-	     * @param {Number}  value
-	     * @param {Boolean} excludeZero
-	     *
-	     * @return {Boolean} True if number is even, false otherwise.
-	     */
-	    function isEven(value, excludeZero) {
-	      if (value === 0) return (excludeZero !== false);
-	
-	      return (value % 2) === 0;
-	    }
-	
-	    return isEven;
-	  }
-	);
-	
-	/**
-	 * vars
-	 * (c) VARIANTE (http://variante.io)
-	 *
-	 * This software is released under the MIT License:
-	 * http://www.opensource.org/licenses/mit-license.php
-	 *
-	 * @type {Function}
-	 */
-	
-	
-	
-	define('math/isOdd',[],
-	  function() {
-	    /**
-	     * Determines if a number is an odd number.
-	     *
-	     * @param {Number} value
-	     *
-	     * @return {Boolean} True if number is odd, false otherwise.
-	     */
-	    function isOdd(value) {
-	      if (value === 0) return false;
-	
-	      return (value % 2) !== 0;
-	    }
-	
-	    return isOdd;
-	  }
-	);
-	
-	/**
-	 * vars
-	 * (c) VARIANTE (http://variante.io)
-	 *
-	 * This software is released under the MIT License:
-	 * http://www.opensource.org/licenses/mit-license.php
-	 *
-	 * Module of methods/classes related to math.
-	 *
-	 * @type {Module}
-	 */
-	
-	
-	
-	define('math',[
-	    'math/clamp',
-	    'math/isClamped',
-	    'math/isEven',
-	    'math/isOdd'
-	  ],
-	  function(
-	    clamp,
-	    isClamped,
-	    isEven,
-	    isOdd
-	  ) {
-	    var api = function(obj) {
-	      return obj;
-	    };
-	
-	    Object.defineProperty(api, 'clamp', { value: clamp, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'isClamped', { value: isClamped, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'isEven', { value: isEven, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'isOdd', { value: isOdd, writable: false, enumerable: true });
-	
-	    return api;
-	  }
-	);
-	
-	/**
-	 * vars
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -1307,7 +1924,10 @@
 	 *
 	 * @type {Object}
 	 */
-	define('ui/Directives',{
+	
+	
+	
+	define('types/Directives',{
 	  Controller: 'vs-controller',
 	  Instance: 'vs-instance',
 	  Property: 'vs-property',
@@ -1317,7 +1937,228 @@
 	});
 	
 	/**
-	 * vars
+	 * VARS
+	 * (c) VARIANTE (http://variante.io)
+	 *
+	 * This software is released under the MIT License:
+	 * http://www.opensource.org/licenses/mit-license.php
+	 *
+	 * UI dirty types.
+	 *
+	 * @type {Object}
+	 */
+	
+	
+	
+	define('types/DirtyType',{
+	  NONE:        0x00000000,
+	  POSITION:    1 << 0,
+	  SIZE:        1 << 1,
+	  LAYOUT:      1 << 2,
+	  STATE:       1 << 3,
+	  DATA:        1 << 4,
+	  LOCALE:      1 << 5,
+	  DEPTH:       1 << 6,
+	  CONFIG:      1 << 7,
+	  STYLE:       1 << 8,
+	  INPUT:       1 << 9,
+	  ORIENTATION: 1 << 10,
+	  CUSTOM:      1 << 11,
+	  ALL:         0xFFFFFFFF
+	});
+	
+	/**
+	 * VARS
+	 * (c) VARIANTE (http://variante.io)
+	 *
+	 * This software is released under the MIT License:
+	 * http://www.opensource.org/licenses/mit-license.php
+	 *
+	 * Universal keyboard key codes.
+	 *
+	 * @type {Object}
+	 */
+	
+	
+	
+	define('types/KeyCode',{
+	  BACKSPACE:     8,
+	  TAB:           9,
+	  ENTER:         13,
+	  SHIFT:         16,
+	  CTRL:          17,
+	  ALT:           18,
+	  PAUSE_BREAK:   19,
+	  CAPS_LOCK:     20,
+	  ESCAPE:        27,
+	  PAGE_UP:       33,
+	  PAGE_DOWN:     34,
+	  END:           35,
+	  HOME:          36,
+	  LEFT_ARROW:    37,
+	  UP_ARROW:      38,
+	  RIGHT_ARROW:   39,
+	  DOWN_ARROW:    40,
+	  INSERT:        45,
+	  DELETE:        46,
+	  ZERO:          48,
+	  ONE:           49,
+	  TWO:           50,
+	  THREE:         51,
+	  FOUR:          52,
+	  FIVE:          53,
+	  SIX:           54,
+	  SEVEN:         55,
+	  EIGHT:         56,
+	  NINE:          57,
+	  A:             65,
+	  B:             66,
+	  C:             67,
+	  D:             68,
+	  E:             69,
+	  F:             70,
+	  G:             71,
+	  H:             72,
+	  I:             73,
+	  J:             74,
+	  K:             75,
+	  L:             76,
+	  M:             77,
+	  N:             78,
+	  O:             79,
+	  P:             80,
+	  Q:             81,
+	  R:             82,
+	  S:             83,
+	  T:             84,
+	  U:             85,
+	  V:             86,
+	  W:             87,
+	  X:             88,
+	  Y:             89,
+	  Z:             90,
+	  LEFT_CMD:      91,
+	  RIGHT_CMD:     92,
+	  SELECT:        93,
+	  NUMPAD_ZERO:   96,
+	  NUMPAD_ONE:    97,
+	  NUMPAD_TWO:    98,
+	  NUMPAD_THREE:  99,
+	  NUMPAD_FOUR:   100,
+	  NUMPAD_FIVE:   101,
+	  NUMPAD_SIX:    102,
+	  NUMPAD_SEVEN:  103,
+	  NUMPAD_EIGHT:  104,
+	  NUMPAD_NINE:   105,
+	  MULTIPLY:      106,
+	  ADD:           107,
+	  SUBTRACT:      109,
+	  DECIMAL:       110,
+	  DIVIDE:        111,
+	  F1:            112,
+	  F2:            113,
+	  F3:            114,
+	  F4:            115,
+	  F5:            116,
+	  F6:            117,
+	  F7:            118,
+	  F8:            119,
+	  F9:            120,
+	  F10:           121,
+	  F11:           122,
+	  F12:           123,
+	  NUM_LOCK:      144,
+	  SCROLL_LOCK:   145,
+	  SEMI_COLON:    186,
+	  EQUAL:         187,
+	  COMMA:         188,
+	  DASH:          189,
+	  PERIOD:        190,
+	  FORWARD_SLASH: 191,
+	  GRAVE_ACCENT:  192,
+	  OPEN_BRACKET:  219,
+	  BACK_SLASH:    220,
+	  CLOSE_BRACKET: 221,
+	  SINGLE_QUOTE:  222
+	});
+	
+	/**
+	 * VARS
+	 * (c) VARIANTE (http://variante.io)
+	 *
+	 * This software is released under the MIT License:
+	 * http://www.opensource.org/licenses/mit-license.php
+	 *
+	 * Element node states.
+	 *
+	 * @type {Object}
+	 */
+	
+	
+	
+	define('types/NodeState',{
+	  /**
+	   * Element is instantiated but not initialized yet. This state almost never
+	   * persists.
+	   */
+	  IDLE: 0,
+	
+	  /**
+	   * Element is initialized, but not updated yet.
+	   */
+	  INITIALIZED: 1,
+	
+	  /**
+	   * Element is updated at least once.
+	   */
+	  UPDATED: 2,
+	
+	  /**
+	   * Element is destroyed.
+	   */
+	  DESTROYED: 3
+	});
+	
+	/**
+	 * VARS
+	 * (c) VARIANTE (http://variante.io)
+	 *
+	 * This software is released under the MIT License:
+	 * http://www.opensource.org/licenses/mit-license.php
+	 *
+	 * Module of global VARS data types/definitions.
+	 *
+	 * @type {Module}
+	 */
+	
+	
+	
+	define('types', [
+	  'types/Directives',
+	  'types/DirtyType',
+	  'types/EventType',
+	  'types/KeyCode',
+	  'types/NodeState'
+	], function(
+	  Directives,
+	  DirtyType,
+	  EventType,
+	  KeyCode,
+	  NodeState
+	) {
+	  var api = {};
+	
+	  Object.defineProperty(api, 'Directives', { value: Directives, writable: false, enumerable: true });
+	  Object.defineProperty(api, 'DirtyType', { value: DirtyType, writable: false, enumerable: true });
+	  Object.defineProperty(api, 'EventType', { value: EventType, writable: false, enumerable: true });
+	  Object.defineProperty(api, 'KeyCode', { value: KeyCode, writable: false, enumerable: true });
+	  Object.defineProperty(api, 'NodeState', { value: NodeState, writable: false, enumerable: true });
+	
+	  return api;
+	});
+	
+	/**
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -1328,112 +2169,63 @@
 	
 	
 	
-	define('utils/debounce',[],
-	  function() {
-	    /**
-	     * Returns a function, that, as long as it continues to be invoked, will not
-	     * be triggered. The function will be called after it stops being called for
-	     * N milliseconds. If 'immediate' is passed, trigger the function on the
-	     * leading edge, instead of the trailing.
-	     *
-	     * @param {Function}   method      Method to be debounced.
-	     * @param {Number}     delay       Debounce rate in milliseconds.
-	     * @param {Boolean}    immediate   (Optional) Indicates whether the method is triggered
-	     *                                  on the leading edge instead of the trailing.
-	     *
-	     * @return {Function} The debounced method.
-	     */
-	    function debounce(method, delay, immediate) {
-	      var timeout;
+	define('utils/debounce',[
+	  'helpers/assertType'
+	],
+	function(
+	  assertType
+	) {
+	  /**
+	   * Returns a function that, as long as it continues to be invoked, will not
+	   * be triggered. The function will be called after it stops being called for
+	   * N milliseconds. If 'leading' is passed, the function will be triggered on
+	   * the leading edge instead of the trailing.
+	   *
+	   * @param {Function} method         Method to be debounced.
+	   * @param {Number}   delay:0        Debounce rate in milliseconds.
+	   * @param {Boolean}  leading:false  Indicates whether the method is triggered
+	   *                                  on the leading edge instead of the
+	   *                                  trailing.
+	   *
+	   * @return {Function} The debounced method.
+	   */
+	  function debounce(method, delay, leading) {
+	    assertType(method, 'function', false, 'Invalid parameter: method');
+	    assertType(delay, 'number', true, 'Invalid optional parameter: delay');
+	    assertType(leading, 'boolean', true, 'Invalid optional parameter: leading');
 	
-	      return function() {
-	        var context = this;
-	        var args = arguments;
+	    if (delay === undefined) delay = 0;
+	    if (leading === undefined) leading = false;
 	
-	        var later = function() {
-	          timeout = null;
+	    var timeout;
 	
-	          if (!immediate) {
-	            method.apply(context, args);
-	          }
-	        };
+	    return function() {
+	      var context = this;
+	      var args = arguments;
 	
-	        var callNow = immediate && !timeout;
-	        clearTimeout(timeout);
-	        timeout = setTimeout(later, delay);
+	      var later = function() {
+	        timeout = null;
 	
-	        if (callNow) {
+	        if (!leading) {
 	          method.apply(context, args);
 	        }
 	      };
-	    }
 	
-	    return debounce;
-	  }
-	);
+	      var callNow = leading && !timeout;
+	      clearTimeout(timeout);
+	      timeout = setTimeout(later, delay);
 	
-	/**
-	 * vars
-	 * (c) VARIANTE (http://variante.io)
-	 *
-	 * This software is released under the MIT License:
-	 * http://www.opensource.org/licenses/mit-license.php
-	 *
-	 * @type {Function}
-	 */
-	
-	
-	
-	define('utils/sizeOf',[],
-	  function() {
-	    /**
-	     * Gets the number of keys in a given object.
-	     *
-	     * @param {*} object   Any object type.
-	     *
-	     * @return {Number} Size of specified object (depending on the object type,
-	     *                  it can be the number of keys in a plain object, number
-	     *                  of elements in an array, number of characters in a
-	     *                  string, number of digits in a number, and 0 for all
-	     *                  other types.
-	     */
-	    function sizeOf(object) {
-	      if (object === undefined || object === null) return 0;
-	
-	      // If object internally has length property, use it.
-	      if (object.length !== undefined) return object.length;
-	
-	      var size = 0;
-	
-	      switch (typeof object) {
-	        case 'object': {
-	          if (object !== null && object !== undefined) {
-	            for (var k in object) size++;
-	          }
-	
-	          break;
-	        }
-	
-	        case 'number': {
-	          size = ('' + object).length;
-	          break;
-	        }
-	
-	        default: {
-	          size = 0;
-	          break;
-	        }
+	      if (callNow) {
+	        method.apply(context, args);
 	      }
-	
-	      return size;
-	    }
-	
-	    return sizeOf;
+	    };
 	  }
-	);
+	
+	  return debounce;
+	});
 	
 	/**
-	 * vars
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -1447,830 +2239,696 @@
 	
 	
 	define('ui/ElementUpdateDelegate',[
-	    'enums/DirtyType',
-	    'events/EventType',
-	    'utils/assert',
-	    'utils/debounce',
-	    'utils/log',
-	    'utils/sizeOf'
-	  ],
-	  function(
-	    DirtyType,
-	    EventType,
-	    assert,
-	    debounce,
-	    log,
-	    sizeOf
-	  ) {
-	    /**
-	     * @static
-	     *
-	     * Default refresh (debounce) rate in milliseconds.
-	     *
-	     * @type {Number}
-	     */
-	    var DEFAULT_REFRESH_RATE = 0.0;
+	  'types/DirtyType',
+	  'types/EventType',
+	  'utils/debounce',
+	  'helpers/assert',
+	  'helpers/log'
+	], function(
+	  DirtyType,
+	  EventType,
+	  debounce,
+	  assert,
+	  log
+	) {
+	  /**
+	   * @static
+	   *
+	   * Default refresh (debounce) rate in milliseconds.
+	   *
+	   * @type {Number}
+	   */
+	  var DEFAULT_REFRESH_RATE = 0.0;
+	
+	  /**
+	   * @constructor
+	   *
+	   * Creates a new ElementUpdateDelegate instance.
+	   */
+	  function ElementUpdateDelegate(delegate) {
+	    log('[ElementUpdateDelegate]::new(', delegate, ')');
+	
+	    var mDirtyTable = 0;
+	    var mResizeHandler = null;
+	    var mScrollHandler = null;
+	    var mMouseMoveHandler = null;
+	    var mOrientationChangeHandler = null;
+	    var mMouseWheelHandler = null;
+	    var mKeyUpHandler = null;
+	    var mKeyPressHandler = null;
+	    var mKeyDownHandler = null;
+	
+	    this.delegate = delegate;
 	
 	    /**
-	     * @constructor
+	     * @privileged
 	     *
-	     * Creates a new ElementUpdateDelegate instance.
+	     * Sets a dirty type as dirty.
+	     *
+	     * @param {Number} dirtyType
 	     */
-	    function ElementUpdateDelegate(delegate) {
-	      log('[ElementUpdateDelegate]::new(', delegate, ')');
+	    this.setDirty = function(dirtyType, validateNow) {
+	      log('[ElementUpdateDelegate]::setDirty(', dirtyType, validateNow, ')');
 	
-	      var mDirtyTable = 0;
-	      var mResizeHandler = null;
-	      var mScrollHandler = null;
-	      var mMouseMoveHandler = null;
-	      var mOrientationChangeHandler = null;
-	      var mMouseWheelHandler = null;
-	      var mKeyUpHandler = null;
-	      var mKeyPressHandler = null;
-	      var mKeyDownHandler = null;
+	      if (this.transmissive !== DirtyType.NONE) {
+	        if (this.delegate.children) {
+	          for (var name in this.delegate.children) {
+	            var children;
 	
-	      this.delegate = delegate;
+	            if (this.delegate.children[name] instanceof Array) {
+	              children = this.delegate.children[name];
+	            } else {
+	              children = [this.delegate.children[name]];
+	            }
 	
-	      /**
-	       * @privileged
-	       *
-	       * Sets a dirty type as dirty.
-	       *
-	       * @param {Number} dirtyType
-	       */
-	      this.setDirty = function(dirtyType, validateNow) {
-	        log('[ElementUpdateDelegate]::setDirty(', dirtyType, validateNow, ')');
+	            var n = children.length;
 	
-	        if (this.transmissive !== DirtyType.NONE) {
-	          if (this.delegate.children) {
-	            for (var name in this.delegate.children) {
-	              var children;
+	            for (var i = 0; i < n; i++) {
+	              var child = children[i];
 	
-	              if (this.delegate.children[name] instanceof Array) {
-	                children = this.delegate.children[name];
-	              } else {
-	                children = [this.delegate.children[name]];
-	              }
+	              if (child.updateDelegate && child.updateDelegate.setDirty) {
+	                var transmitted = dirtyType & child.updateDelegate.receptive;
 	
-	              var n = sizeOf(children);
-	
-	              for (var i = 0; i < n; i++) {
-	                var child = children[i];
-	
-	                if (child.updateDelegate && child.updateDelegate.setDirty) {
-	                  var transmitted = dirtyType & child.updateDelegate.receptive;
-	
-	                  if (transmitted !== DirtyType.NONE) {
-	                    child.updateDelegate.setDirty(transmitted, validateNow);
-	                  }
+	                if (transmitted !== DirtyType.NONE) {
+	                  child.updateDelegate.setDirty(transmitted, validateNow);
 	                }
 	              }
 	            }
 	          }
 	        }
-	
-	        if (this.isDirty(dirtyType) && !validateNow) {
-	          return;
-	        }
-	
-	        switch (dirtyType) {
-	          case DirtyType.NONE:
-	          case DirtyType.ALL:
-	            {
-	              mDirtyTable = dirtyType;
-	              break;
-	            }
-	
-	          default:
-	            {
-	              mDirtyTable |= dirtyType;
-	              break;
-	            }
-	        }
-	
-	        if (validateNow) {
-	          this.update();
-	        } else if (!this._pendingAnimationFrame) {
-	          this._pendingAnimationFrame = _requestAnimationFrame(this.update.bind(this));
-	        }
-	      };
-	
-	      /**
-	       * @privileged
-	       *
-	       * Checks dirty status of a given dirty type.
-	       *
-	       * @param {Number}  dirtyType [description]
-	       *
-	       * @return {Boolean}
-	       */
-	      this.isDirty = function(dirtyType) {
-	        log('[ElementUpdateDelegate]::isDirty(', dirtyType, mDirtyTable, ')');
-	
-	        switch (dirtyType) {
-	          case DirtyType.NONE:
-	          case DirtyType.ALL:
-	            return (mDirtyTable === dirtyType);
-	
-	          default:
-	            return ((dirtyType & mDirtyTable) !== 0);
-	        }
-	      };
-	
-	      /**
-	       * @privileged
-	       *
-	       * Initializes this ElementUpdateDelegate instance. Must manually invoke.
-	       */
-	      this.init = function() {
-	        log('[ElementUpdateDelegate]::init()');
-	
-	        var r = this.conductor || window;
-	
-	        if (window && r && r.addEventListener && (this.responsive === true || this.responsive instanceof Array)) {
-	          if (this.responsive === true || this.responsive.indexOf(EventType.OBJECT.RESIZE) > -1 || this.responsive.indexOf(EventType.DEVICE.ORIENTATION_CHANGE) > -1) {
-	            mResizeHandler = (this.refreshRate === 0.0) ? _onWindowResize.bind(this) : debounce(_onWindowResize.bind(this), this.refreshRate);
-	          }
-	
-	          if (this.responsive === true || this.responsive.indexOf(EventType.OBJECT.SCROLL) > -1) {
-	            mScrollHandler = (this.refreshRate === 0.0) ? _onWindowScroll.bind(this) : debounce(_onWindowScroll.bind(this), this.refreshRate);
-	          }
-	
-	          if (this.responsive === true || this.responsive.indexOf(EventType.MISC.WHEEL) > -1) {
-	            mMouseWheelHandler = (this.refreshRate === 0.0) ? _onWindowMouseWheel.bind(this) : debounce(_onWindowMouseWheel.bind(this), this.refreshRate);
-	          }
-	
-	          if (this.responsive === true || this.responsive.indexOf(EventType.MOUSE.MOUSE_MOVE) > -1) {
-	            mMouseMoveHandler = (this.refreshRate === 0.0) ? _onWindowMouseMove.bind(this) : debounce(_onWindowMouseMove.bind(this), this.refreshRate);
-	          }
-	
-	          if (this.responsive === true || this.responsive.indexOf(EventType.DEVICE.DEVICE_ORIENTATION) > -1 || this.responsive.indexOf(EventType.DEVICE.DEVICE_MOTION) > -1 || this.responsive.indexOf(EventType.DEVICE.ORIENTATION) > -1) {
-	            mOrientationChangeHandler = (this.refreshRate === 0.0) ? _onWindowOrientationChange.bind(this) : debounce(_onWindowOrientationChange.bind(this), this.refreshRate);
-	          }
-	
-	          if (this.responsive === true || this.responsive.indexOf(EventType.KEYBOARD.KEY_DOWN) > -1) {
-	            mKeyDownHandler = _onWindowKeyDown.bind(this);
-	          }
-	
-	          if (this.responsive === true || this.responsive.indexOf(EventType.KEYBOARD.KEY_PRESS) > -1) {
-	            mKeyPressHandler = _onWindowKeyPress.bind(this);
-	          }
-	
-	          if (this.responsive === true || this.responsive.indexOf(EventType.KEYBOARD.KEY_UP) > -1) {
-	            mKeyUpHandler = _onWindowKeyUp.bind(this);
-	          }
-	
-	          if (mResizeHandler) {
-	            window.addEventListener(EventType.OBJECT.RESIZE, mResizeHandler);
-	            window.addEventListener(EventType.DEVICE.ORIENTATION_CHANGE, mResizeHandler);
-	          }
-	
-	          if (mScrollHandler) {
-	            r.addEventListener(EventType.OBJECT.SCROLL, mScrollHandler);
-	          }
-	
-	          if (mMouseWheelHandler) {
-	            this.delegate.addEventListener(EventType.MISC.WHEEL, mMouseWheelHandler);
-	          }
-	
-	          if (mMouseMoveHandler) {
-	            this.delegate.addEventListener(EventType.MOUSE.MOUSE_MOVE, mMouseMoveHandler);
-	          }
-	
-	          if (mOrientationChangeHandler) {
-	            if (window.DeviceOrientationEvent) {
-	              window.addEventListener(EventType.DEVICE.DEVICE_ORIENTATION, mOrientationChangeHandler);
-	            }
-	            else if (window.DeviceMotionEvent) {
-	              window.addEventListener(EventType.DEVICE.DEVICE_MOTION, mOrientationChangeHandler);
-	            }
-	          }
-	
-	          if (mKeyDownHandler) {
-	            window.addEventListener(EventType.KEYBOARD.KEY_DOWN, mKeyDownHandler);
-	          }
-	
-	          if (mKeyPressHandler) {
-	            window.addEventListener(EventType.KEYBOARD.KEY_PRESS, mKeyPressHandler);
-	          }
-	
-	          if (mKeyUpHandler) {
-	            window.addEventListener(EventType.KEYBOARD.KEY_UP, mKeyUpHandler);
-	          }
-	        }
-	
-	        this.setDirty(DirtyType.ALL);
-	      };
-	
-	      /**
-	       * @privileged
-	       *
-	       * Destroys this ElementUpdateDelegate instance.
-	       */
-	      this.destroy = function() {
-	        log('[ElementUpdateDelegate]::destroy()');
-	
-	        _cancelAnimationFrame();
-	
-	        var r = this.conductor || window;
-	
-	        if (window && r && r.removeEventListener) {
-	          if (mResizeHandler) {
-	            window.removeEventListener(EventType.OBJECT.RESIZE, mResizeHandler);
-	            window.removeEventListener(EventType.DEVICE.ORIENTATION_CHANGE, mResizeHandler);
-	          }
-	
-	          if (mScrollHandler) {
-	            r.removeEventListener(EventType.OBJECT.SCROLL, mScrollHandler);
-	          }
-	
-	          if (mMouseWheelHandler) {
-	            this.delegate.removeEventListener(EventType.MISC.WHEEL, mMouseWheelHandler);
-	          }
-	
-	          if (mMouseMoveHandler) {
-	            this.delegate.removeEventListener(EventType.MOUSE.MOUSE_MOVE, mMouseMoveHandler);
-	          }
-	
-	          if (mOrientationChangeHandler) {
-	            if (window.DeviceOrientationEvent) {
-	              window.removeEventListener(EventType.DEVICE.DEVICE_ORIENTATION, mOrientationChangeHandler);
-	            }
-	            else if (window.DeviceMotionEvent) {
-	              window.removeEventListener(EventType.DEVICE.DEVICE_MOTION, mOrientationChangeHandler);
-	            }
-	          }
-	
-	          if (mKeyDownHandler) {
-	            window.removeEventListener(EventType.KEYBOARD.KEY_DOWN, mKeyDownHandler);
-	          }
-	
-	          if (mKeyPressHandler) {
-	            window.removeEventListener(EventType.KEYBOARD.KEY_PRESS, mKeyPressHandler);
-	          }
-	
-	          if (mKeyUpHandler) {
-	            window.removeEventListener(EventType.KEYBOARD.KEY_UP, mKeyUpHandler);
-	          }
-	        }
-	
-	        mResizeHandler = null;
-	        mScrollHandler = null;
-	        mMouseWheelHandler = null;
-	        mMouseMoveHandler = null;
-	        mOrientationChangeHandler = null;
-	        mKeyDownHandler = null;
-	        mKeyPressHandler = null;
-	        mKeyUpHandler = null;
-	      };
-	
-	      /**
-	       * @privileged
-	       *
-	       * Handler invoked whenever a visual update is required.
-	       */
-	      this.update = function() {
-	        log('[ElementUpdateDelegate]::update()');
-	
-	        _cancelAnimationFrame(this._pendingAnimationFrame);
-	
-	        if (this.delegate && this.delegate.update) {
-	          this.delegate.update.call(this.delegate);
-	        }
-	
-	        // Reset the dirty status of all types.
-	        this.setDirty(DirtyType.NONE);
-	
-	        delete this.mouse.pointerX;
-	        delete this.mouse.pointerY;
-	        delete this.mouse.wheelX;
-	        delete this.mouse.wheelY;
-	        delete this.orientation.x;
-	        delete this.orientation.y;
-	        delete this.orientation.z;
-	        delete this.keyCode.up;
-	        delete this.keyCode.press;
-	        delete this.keyCode.down;
-	
-	        this._pendingAnimationFrame = null;
-	      };
-	
-	      /**
-	       * @private
-	       *
-	       * Custom requestAnimationFrame implementation.
-	       *
-	       * @param {Function} callback
-	       */
-	      var _requestAnimationFrame = function(callback) {
-	        var raf = window && (window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame) || null;
-	
-	        if (!raf) {
-	          raf = function(callback) {
-	            if (window) {
-	              return window.setTimeout(callback, 10.0);
-	            } else {
-	              return null;
-	            }
-	          };
-	        }
-	
-	        return raf(callback);
-	      };
-	
-	      /**
-	       * @private
-	       *
-	       * Custom cancelAnimationFrame implementation.
-	       *
-	       * @return {Function} callback
-	       */
-	      var _cancelAnimationFrame = function(callback) {
-	        var caf = window && (window.requestAnimationFrame || window.webkitCancelAnimationFrame || window.mozCancelAnimationFrame || window.oCancelAnimationFrame || window.msCancelAnimationFrame) || null;
-	
-	        if (!caf) {
-	          caf = function(callback) {
-	            if (window) {
-	              return window.clearTimeout(callback);
-	            } else {
-	              return null;
-	            }
-	          };
-	        }
-	
-	        return caf;
-	      };
-	
-	      /**
-	       * @private
-	       *
-	       * Handler invoked when the window resizes.
-	       *
-	       * @param {Object} event
-	       */
-	      var _onWindowResize = function(event) {
-	        this.setDirty(DirtyType.SIZE);
-	      };
-	
-	      /**
-	       * @private
-	       *
-	       * Handler invoked when the window scrolls.
-	       *
-	       * @param {Object} event
-	       */
-	      var _onWindowScroll = function(event) {
-	        this.setDirty(DirtyType.POSITION);
-	      };
-	
-	      /**
-	       * @private
-	       *
-	       * Handler invoked when mouse moves in the window.
-	       *
-	       * @param {Object} event
-	       */
-	      var _onWindowMouseMove = function(event) {
-	        this.mouse.pointerX = event.clientX;
-	        this.mouse.pointerY = event.clientY;
-	
-	        this.setDirty(DirtyType.INPUT);
-	      };
-	
-	      /**
-	       * @private
-	       *
-	       * Handler invoked when mouse wheel moves in the window.
-	       *
-	       * @param {Object} event
-	       */
-	      var _onWindowMouseWheel = function(event) {
-	        this.mouse.wheelX = event.deltaX;
-	        this.mouse.wheelY = event.deltaY;
-	
-	        this.setDirty(DirtyType.INPUT);
-	      };
-	
-	      /**
-	       * @private
-	       *
-	       * Handler invoked when device orientation changes.
-	       *
-	       * @param {Object} event
-	       */
-	      var _onWindowOrientationChange = function(event) {
-	        if (!window) return;
-	
-	        var x, y, z;
-	
-	        if (event instanceof window.DeviceOrientationEvent) {
-	          x = event.beta;
-	          y = event.gamma;
-	          z = event.alpha;
-	        }
-	        else if (event instanceof window.DeviceMotionEvent) {
-	          x = event.acceleration.x * 2;
-	          y = event.acceleration.y * 2;
-	          z = event.acceleration.z * 2;
-	        }
-	        else {
-	          x = event.orientation.x * 50;
-	          y = event.orientation.y * 50;
-	          z = event.orientation.z * 50;
-	        }
-	
-	        this.orientation.x = x;
-	        this.orientation.y = y;
-	        this.orientation.z = z;
-	
-	        this.setDirty(DirtyType.ORIENTATION);
-	      };
-	
-	      /**
-	       * @private
-	       *
-	       * Handler invoked when a key is pressed down.
-	       *
-	       * @param {Object} event
-	       */
-	      var _onWindowKeyDown = function(event) {
-	        if (!window) return;
-	
-	        if (this.keyCode.down === undefined) {
-	          this.keyCode.down = [];
-	        }
-	
-	        this.keyCode.down.push(event.keyCode);
-	
-	        this.setDirty(DirtyType.INPUT);
-	      };
-	
-	      /**
-	       * @private
-	       *
-	       * Handler invoked when a key is pressed.
-	       *
-	       * @param {Object} event
-	       */
-	      var _onWindowKeyPress = function(event) {
-	        if (!window) return;
-	
-	        if (this.keyCode.press === undefined) {
-	          this.keyCode.press = [];
-	        }
-	
-	        this.keyCode.press.push(event.keyCode);
-	
-	        this.setDirty(DirtyType.INPUT);
-	      };
-	
-	      /**
-	       * @private
-	       *
-	       * Handler invoked when a key is pressed up.
-	       *
-	       * @param {Object} event
-	       */
-	      var _onWindowKeyUp = function(event) {
-	        if (!window) return;
-	
-	        if (this.keyCode.up === undefined) {
-	          this.keyCode.up = [];
-	        }
-	
-	        this.keyCode.up.push(event.keyCode);
-	
-	        this.setDirty(DirtyType.INPUT);
-	      };
-	    }
-	
-	    /**
-	     * @property
-	     *
-	     * Delegate of this ElementUpdateDelegate instance.
-	     *
-	     * @type {Object}
-	     */
-	    Object.defineProperty(ElementUpdateDelegate.prototype, 'delegate', {
-	      value: null,
-	      writable: true
-	    });
-	
-	    /**
-	     * @property
-	     *
-	     * Indicates whether this ElementUpdateDelegate auto responds to window behaviors
-	     * (i.e. resizing, scrolling).
-	     *
-	     * @type {Boolean}
-	     */
-	    Object.defineProperty(ElementUpdateDelegate.prototype, 'responsive', {
-	      value: false,
-	      writable: true
-	    });
-	
-	    /**
-	     * @property
-	     *
-	     * Indicates the debounce rate of this ElementUpdateDelegate instance.
-	     *
-	     * @type {Number}
-	     */
-	    Object.defineProperty(ElementUpdateDelegate.prototype, 'refreshRate', {
-	      value: DEFAULT_REFRESH_RATE,
-	      writable: true
-	    });
-	
-	    /**
-	     * @property
-	     *
-	     * Indicates the dirty flags in which ElementUpdateDelgate instance will transmit to its child Elements.
-	     *
-	     * @type {Number}
-	     */
-	    Object.defineProperty(ElementUpdateDelegate.prototype, 'transmissive', {
-	      value: DirtyType.NONE,
-	      writable: true
-	    });
-	
-	    /**
-	     * @property
-	     *
-	     * Indicates the dirty flags in which this ElementUpdateDelegate is capable of receiving from parent Elements.
-	     *
-	     * @type {Number}
-	     */
-	    Object.defineProperty(ElementUpdateDelegate.prototype, 'receptive', {
-	      value: DirtyType.NONE,
-	      writable: true
-	    });
-	
-	    /**
-	     * @property
-	     *
-	     * Indicates the conductor in which this ElementUpdateDelegate responds to (defaults to window).
-	     *
-	     * @type {Object}
-	     */
-	    Object.defineProperty(ElementUpdateDelegate.prototype, 'conductor', {
-	      value: window,
-	      writable: true
-	    });
-	
-	    /**
-	     * @property
-	     *
-	     * Stores mouse properties if this ElementUpdateDelegate responds to mouse events.
-	     *
-	     * @type {Object}
-	     */
-	    Object.defineProperty(ElementUpdateDelegate.prototype, 'mouse', {
-	      value: {},
-	      writable: false
-	    });
-	
-	    /**
-	     * @property
-	     *
-	     * Stores orientation properties if this ElementUpdateDelgate responds to device
-	     * orientations (i.e. device accelerometer).
-	     *
-	     * @type {Object}
-	     */
-	    Object.defineProperty(ElementUpdateDelegate.prototype, 'orientation', {
-	      value: {},
-	      writable: false
-	    });
-	
-	    /**
-	     * @property
-	     *
-	     * Stores pressed keycodes if this ElementUpdateDelegate responds to keyboard
-	     * events.
-	     *
-	     * @type {Object}
-	     */
-	    Object.defineProperty(ElementUpdateDelegate.prototype, 'keyCode', {
-	      value: {},
-	      writable: false
-	    });
-	
-	    /**
-	     * @protected
-	     *
-	     * Gets the string representation of this ElementUpdateDelegate instance.
-	     *
-	     * @return {String}
-	     */
-	    ElementUpdateDelegate.prototype.toString = function() {
-	      return '[ElementUpdateDelegate{' + ((this.delegate && this.delegate.name) || 'undefined') + '}]';
-	    };
-	
-	    return ElementUpdateDelegate;
-	  }
-	);
-	
-	/**
-	 * vars
-	 * (c) VARIANTE (http://variante.io)
-	 *
-	 * This software is released under the MIT License:
-	 * http://www.opensource.org/licenses/mit-license.php
-	 *
-	 * @type {Function}
-	 */
-	
-	
-	
-	define('utils/assertType',[
-	    'utils/assert'
-	  ],
-	  function(assert) {
-	    /**
-	     * Asserts the specified condition and throws a warning if assertion fails.
-	     * Internal use only.
-	     *
-	     * @param {*}            value                Value used for the assertion.
-	     * @param {String/Class} type                 Type(s) to evaluate against. If
-	     *                                            this is a string, this method
-	     *                                            will use 'typeof' operator.
-	     *                                            Otherwise 'instanceof' operator
-	     *                                            will be used. If this parameter
-	     *                                            is an array, all elements in
-	     *                                            the array will be evaluated
-	     *                                            against.
-	     * @param {Boolean}      allowUndefined:false Specifies whether assertion
-	     *                                            should pass if the supplied
-	     *                                            value is undefined.
-	     * @param {String}       message:undefined    Message to be displayed when
-	     *                                            assertion fails.
-	     *
-	     * @return {Boolean} True if assert passed, false otherwise.
-	     */
-	    function assertType(value, type, allowUndefined, message) {
-	      if (!assert(type !== undefined, 'Paremeter \'type\' must be a string or a class')) return;
-	      if (!assert((allowUndefined === undefined) || (typeof allowUndefined === 'boolean'), 'Paremeter \'allowUndefined\', if specified, must be a boolean')) return;
-	      if (!assert((message === undefined) || (typeof message === 'string'), 'Parameter \'message\', if specified, must be a string')) return;
-	
-	      allowUndefined = (allowUndefined === undefined) ? false : allowUndefined;
-	
-	      var ok = false;
-	
-	      if (allowUndefined && (value === undefined)) {
-	        ok = true;
 	      }
-	      else if (type instanceof Array) {
-	        var n = type.length;
 	
-	        for (var i = 0; i < n; i++) {
-	          if (checkType(value, type[i])) {
-	            ok = true;
+	      if (this.isDirty(dirtyType) && !validateNow) {
+	        return;
+	      }
+	
+	      switch (dirtyType) {
+	        case DirtyType.NONE:
+	        case DirtyType.ALL:
+	          {
+	            mDirtyTable = dirtyType;
 	            break;
 	          }
-	        }
-	      }
-	      else {
-	        ok = checkType(value, type);
+	
+	        default:
+	          {
+	            mDirtyTable |= dirtyType;
+	            break;
+	          }
 	      }
 	
-	      if (!ok) {
-	        throw new Error(message || 'AssertType failed');
+	      if (validateNow) {
+	        this.update();
+	      } else if (!this._pendingAnimationFrame) {
+	        this._pendingAnimationFrame = _requestAnimationFrame(this.update.bind(this));
 	      }
-	
-	      return ok;
-	    }
+	    };
 	
 	    /**
-	     * Verifies that a given is of the given type.
+	     * @privileged
 	     *
-	     * @param {*} value Any value.
-	     * @param {*} type  Any class or string that describes a type.
+	     * Checks dirty status of a given dirty type.
 	     *
-	     * @return {Boolean} True if validation passes, false otherwise.
+	     * @param {Number}  dirtyType [description]
+	     *
+	     * @return {Boolean}
 	     */
-	    function checkType(value, type) {
-	      if (typeof type === 'string') {
-	        switch (type) {
-	          case 'string':
-	          case 'object':
-	          case 'number':
-	          case 'boolean':
-	            return typeof value === type;
+	    this.isDirty = function(dirtyType) {
+	      log('[ElementUpdateDelegate]::isDirty(', dirtyType, mDirtyTable, ')');
 	
-	          case 'array':
-	            return value instanceof Array;
+	      switch (dirtyType) {
+	        case DirtyType.NONE:
+	        case DirtyType.ALL:
+	          return (mDirtyTable === dirtyType);
 	
-	          default:
-	            return false;
-	        }
+	        default:
+	          return ((dirtyType & mDirtyTable) !== 0);
 	      }
-	      else {
-	        return value instanceof type;
-	      }
-	    }
+	    };
 	
-	    return assertType;
-	  }
-	);
-	
-	/**
-	 * vars
-	 * (c) VARIANTE (http://variante.io)
-	 *
-	 * This software is released under the MIT License:
-	 * http://www.opensource.org/licenses/mit-license.php
-	 *
-	 * @type {Function}
-	 */
-	
-	
-	
-	define('utils/isNull',[],
-	  function() {
 	    /**
-	     * Checks if a given value is equal to null. Option to specify recursion,
-	     * which would further evaluate inner elements, such as when an Array or
-	     * Object is specified.
+	     * @privileged
 	     *
-	     * @param {*}       value           Value to evaluate.
-	     * @param {Boolean} recursive:false Specifies whether to recursively
-	     *                                  evaluate the supplied value's inner
-	     *                                  values (i.e. an Array or Object).
-	     *
-	     * @return {Boolean} True if null, false otherwise.
+	     * Initializes this ElementUpdateDelegate instance. Must manually invoke.
 	     */
-	    function isNull(value, recursive) {
-	      recursive = (recursive === undefined) ? false : recursive;
+	    this.init = function() {
+	      log('[ElementUpdateDelegate]::init()');
 	
-	      if (value === undefined || value === null) {
-	        return true;
-	      }
-	      else if (recursive && (value instanceof Array)) {
-	        var n = value.length;
+	      var r = this.conductor || window;
 	
-	        for (var i = 0; i < n; i++) {
-	          if (!isNull(value[i], true)) return false;
+	      if (window && r && r.addEventListener && (this.responsive === true || this.responsive instanceof Array)) {
+	        if (this.responsive === true || this.responsive.indexOf(EventType.OBJECT.RESIZE) > -1 || this.responsive.indexOf(EventType.DEVICE.ORIENTATION_CHANGE) > -1) {
+	          mResizeHandler = (this.refreshRate === 0.0) ? _onWindowResize.bind(this) : debounce(_onWindowResize.bind(this), this.refreshRate);
 	        }
 	
-	        return true;
-	      }
-	      else if (recursive && (typeof value === 'object')) {
-	        for (var p in value) {
-	          if (!isNull(value[p], true)) return false;
+	        if (this.responsive === true || this.responsive.indexOf(EventType.OBJECT.SCROLL) > -1) {
+	          mScrollHandler = (this.refreshRate === 0.0) ? _onWindowScroll.bind(this) : debounce(_onWindowScroll.bind(this), this.refreshRate);
 	        }
 	
-	        return true;
-	      }
-	      else {
-	        return false;
-	      }
-	    }
+	        if (this.responsive === true || this.responsive.indexOf(EventType.MISC.WHEEL) > -1) {
+	          mMouseWheelHandler = (this.refreshRate === 0.0) ? _onWindowMouseWheel.bind(this) : debounce(_onWindowMouseWheel.bind(this), this.refreshRate);
+	        }
 	
-	    return isNull;
-	  }
-	);
+	        if (this.responsive === true || this.responsive.indexOf(EventType.MOUSE.MOUSE_MOVE) > -1) {
+	          mMouseMoveHandler = (this.refreshRate === 0.0) ? _onWindowMouseMove.bind(this) : debounce(_onWindowMouseMove.bind(this), this.refreshRate);
+	        }
 	
-	/**
-	 * vars
-	 * (c) VARIANTE (http://variante.io)
-	 *
-	 * This software is released under the MIT License:
-	 * http://www.opensource.org/licenses/mit-license.php
-	 *
-	 * @type {Function}
-	 */
+	        if (this.responsive === true || this.responsive.indexOf(EventType.DEVICE.DEVICE_ORIENTATION) > -1 || this.responsive.indexOf(EventType.DEVICE.DEVICE_MOTION) > -1 || this.responsive.indexOf(EventType.DEVICE.ORIENTATION) > -1) {
+	          mOrientationChangeHandler = (this.refreshRate === 0.0) ? _onWindowOrientationChange.bind(this) : debounce(_onWindowOrientationChange.bind(this), this.refreshRate);
+	        }
 	
+	        if (this.responsive === true || this.responsive.indexOf(EventType.KEYBOARD.KEY_DOWN) > -1) {
+	          mKeyDownHandler = _onWindowKeyDown.bind(this);
+	        }
 	
+	        if (this.responsive === true || this.responsive.indexOf(EventType.KEYBOARD.KEY_PRESS) > -1) {
+	          mKeyPressHandler = _onWindowKeyPress.bind(this);
+	        }
 	
-	define('utils/keyOfValue',[],
-	  function() {
-	    /**
-	     * Gets the key of a given value in a given object.
-	     *
-	     * @param {Object} object  Target object.
-	     * @param {Value}  value   Target value.
-	     */
-	    function keyOfValue(object, value) {
-	      if (!object || !value) return null;
-	      if (typeof object !== 'object') return null;
+	        if (this.responsive === true || this.responsive.indexOf(EventType.KEYBOARD.KEY_UP) > -1) {
+	          mKeyUpHandler = _onWindowKeyUp.bind(this);
+	        }
 	
-	      for (var property in object) {
-	        if (object.hasOwnProperty(property)) {
-	          if (object[property] === value) {
-	            return property;
+	        if (mResizeHandler) {
+	          window.addEventListener(EventType.OBJECT.RESIZE, mResizeHandler);
+	          window.addEventListener(EventType.DEVICE.ORIENTATION_CHANGE, mResizeHandler);
+	        }
+	
+	        if (mScrollHandler) {
+	          r.addEventListener(EventType.OBJECT.SCROLL, mScrollHandler);
+	        }
+	
+	        if (mMouseWheelHandler) {
+	          this.delegate.addEventListener(EventType.MISC.WHEEL, mMouseWheelHandler);
+	        }
+	
+	        if (mMouseMoveHandler) {
+	          this.delegate.addEventListener(EventType.MOUSE.MOUSE_MOVE, mMouseMoveHandler);
+	        }
+	
+	        if (mOrientationChangeHandler) {
+	          if (window.DeviceOrientationEvent) {
+	            window.addEventListener(EventType.DEVICE.DEVICE_ORIENTATION, mOrientationChangeHandler);
+	          }
+	          else if (window.DeviceMotionEvent) {
+	            window.addEventListener(EventType.DEVICE.DEVICE_MOTION, mOrientationChangeHandler);
 	          }
 	        }
+	
+	        if (mKeyDownHandler) {
+	          window.addEventListener(EventType.KEYBOARD.KEY_DOWN, mKeyDownHandler);
+	        }
+	
+	        if (mKeyPressHandler) {
+	          window.addEventListener(EventType.KEYBOARD.KEY_PRESS, mKeyPressHandler);
+	        }
+	
+	        if (mKeyUpHandler) {
+	          window.addEventListener(EventType.KEYBOARD.KEY_UP, mKeyUpHandler);
+	        }
 	      }
 	
-	      return null;
-	    }
+	      this.setDirty(DirtyType.ALL);
+	    };
 	
-	    return keyOfValue;
+	    /**
+	     * @privileged
+	     *
+	     * Destroys this ElementUpdateDelegate instance.
+	     */
+	    this.destroy = function() {
+	      log('[ElementUpdateDelegate]::destroy()');
+	
+	      _cancelAnimationFrame();
+	
+	      var r = this.conductor || window;
+	
+	      if (window && r && r.removeEventListener) {
+	        if (mResizeHandler) {
+	          window.removeEventListener(EventType.OBJECT.RESIZE, mResizeHandler);
+	          window.removeEventListener(EventType.DEVICE.ORIENTATION_CHANGE, mResizeHandler);
+	        }
+	
+	        if (mScrollHandler) {
+	          r.removeEventListener(EventType.OBJECT.SCROLL, mScrollHandler);
+	        }
+	
+	        if (mMouseWheelHandler) {
+	          this.delegate.removeEventListener(EventType.MISC.WHEEL, mMouseWheelHandler);
+	        }
+	
+	        if (mMouseMoveHandler) {
+	          this.delegate.removeEventListener(EventType.MOUSE.MOUSE_MOVE, mMouseMoveHandler);
+	        }
+	
+	        if (mOrientationChangeHandler) {
+	          if (window.DeviceOrientationEvent) {
+	            window.removeEventListener(EventType.DEVICE.DEVICE_ORIENTATION, mOrientationChangeHandler);
+	          }
+	          else if (window.DeviceMotionEvent) {
+	            window.removeEventListener(EventType.DEVICE.DEVICE_MOTION, mOrientationChangeHandler);
+	          }
+	        }
+	
+	        if (mKeyDownHandler) {
+	          window.removeEventListener(EventType.KEYBOARD.KEY_DOWN, mKeyDownHandler);
+	        }
+	
+	        if (mKeyPressHandler) {
+	          window.removeEventListener(EventType.KEYBOARD.KEY_PRESS, mKeyPressHandler);
+	        }
+	
+	        if (mKeyUpHandler) {
+	          window.removeEventListener(EventType.KEYBOARD.KEY_UP, mKeyUpHandler);
+	        }
+	      }
+	
+	      mResizeHandler = null;
+	      mScrollHandler = null;
+	      mMouseWheelHandler = null;
+	      mMouseMoveHandler = null;
+	      mOrientationChangeHandler = null;
+	      mKeyDownHandler = null;
+	      mKeyPressHandler = null;
+	      mKeyUpHandler = null;
+	    };
+	
+	    /**
+	     * @privileged
+	     *
+	     * Handler invoked whenever a visual update is required.
+	     */
+	    this.update = function() {
+	      log('[ElementUpdateDelegate]::update()');
+	
+	      _cancelAnimationFrame(this._pendingAnimationFrame);
+	
+	      if (this.delegate && this.delegate.update) {
+	        this.delegate.update.call(this.delegate);
+	      }
+	
+	      // Reset the dirty status of all types.
+	      this.setDirty(DirtyType.NONE);
+	
+	      delete this.mouse.pointerX;
+	      delete this.mouse.pointerY;
+	      delete this.mouse.wheelX;
+	      delete this.mouse.wheelY;
+	      delete this.orientation.x;
+	      delete this.orientation.y;
+	      delete this.orientation.z;
+	      delete this.keyCode.up;
+	      delete this.keyCode.press;
+	      delete this.keyCode.down;
+	
+	      this._pendingAnimationFrame = null;
+	    };
+	
+	    /**
+	     * @private
+	     *
+	     * Custom requestAnimationFrame implementation.
+	     *
+	     * @param {Function} callback
+	     */
+	    var _requestAnimationFrame = function(callback) {
+	      var raf = window && (window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame) || null;
+	
+	      if (!raf) {
+	        raf = function(callback) {
+	          if (window) {
+	            return window.setTimeout(callback, 10.0);
+	          } else {
+	            return null;
+	          }
+	        };
+	      }
+	
+	      return raf(callback);
+	    };
+	
+	    /**
+	     * @private
+	     *
+	     * Custom cancelAnimationFrame implementation.
+	     *
+	     * @return {Function} callback
+	     */
+	    var _cancelAnimationFrame = function(callback) {
+	      var caf = window && (window.requestAnimationFrame || window.webkitCancelAnimationFrame || window.mozCancelAnimationFrame || window.oCancelAnimationFrame || window.msCancelAnimationFrame) || null;
+	
+	      if (!caf) {
+	        caf = function(callback) {
+	          if (window) {
+	            return window.clearTimeout(callback);
+	          } else {
+	            return null;
+	          }
+	        };
+	      }
+	
+	      return caf;
+	    };
+	
+	    /**
+	     * @private
+	     *
+	     * Handler invoked when the window resizes.
+	     *
+	     * @param {Object} event
+	     */
+	    var _onWindowResize = function(event) {
+	      this.setDirty(DirtyType.SIZE);
+	    };
+	
+	    /**
+	     * @private
+	     *
+	     * Handler invoked when the window scrolls.
+	     *
+	     * @param {Object} event
+	     */
+	    var _onWindowScroll = function(event) {
+	      this.setDirty(DirtyType.POSITION);
+	    };
+	
+	    /**
+	     * @private
+	     *
+	     * Handler invoked when mouse moves in the window.
+	     *
+	     * @param {Object} event
+	     */
+	    var _onWindowMouseMove = function(event) {
+	      this.mouse.pointerX = event.clientX;
+	      this.mouse.pointerY = event.clientY;
+	
+	      this.setDirty(DirtyType.INPUT);
+	    };
+	
+	    /**
+	     * @private
+	     *
+	     * Handler invoked when mouse wheel moves in the window.
+	     *
+	     * @param {Object} event
+	     */
+	    var _onWindowMouseWheel = function(event) {
+	      this.mouse.wheelX = event.deltaX;
+	      this.mouse.wheelY = event.deltaY;
+	
+	      this.setDirty(DirtyType.INPUT);
+	    };
+	
+	    /**
+	     * @private
+	     *
+	     * Handler invoked when device orientation changes.
+	     *
+	     * @param {Object} event
+	     */
+	    var _onWindowOrientationChange = function(event) {
+	      if (!window) return;
+	
+	      var x, y, z;
+	
+	      if (event instanceof window.DeviceOrientationEvent) {
+	        x = event.beta;
+	        y = event.gamma;
+	        z = event.alpha;
+	      }
+	      else if (event instanceof window.DeviceMotionEvent) {
+	        x = event.acceleration.x * 2;
+	        y = event.acceleration.y * 2;
+	        z = event.acceleration.z * 2;
+	      }
+	      else {
+	        x = event.orientation.x * 50;
+	        y = event.orientation.y * 50;
+	        z = event.orientation.z * 50;
+	      }
+	
+	      this.orientation.x = x;
+	      this.orientation.y = y;
+	      this.orientation.z = z;
+	
+	      this.setDirty(DirtyType.ORIENTATION);
+	    };
+	
+	    /**
+	     * @private
+	     *
+	     * Handler invoked when a key is pressed down.
+	     *
+	     * @param {Object} event
+	     */
+	    var _onWindowKeyDown = function(event) {
+	      if (!window) return;
+	
+	      if (this.keyCode.down === undefined) {
+	        this.keyCode.down = [];
+	      }
+	
+	      this.keyCode.down.push(event.keyCode);
+	
+	      this.setDirty(DirtyType.INPUT);
+	    };
+	
+	    /**
+	     * @private
+	     *
+	     * Handler invoked when a key is pressed.
+	     *
+	     * @param {Object} event
+	     */
+	    var _onWindowKeyPress = function(event) {
+	      if (!window) return;
+	
+	      if (this.keyCode.press === undefined) {
+	        this.keyCode.press = [];
+	      }
+	
+	      this.keyCode.press.push(event.keyCode);
+	
+	      this.setDirty(DirtyType.INPUT);
+	    };
+	
+	    /**
+	     * @private
+	     *
+	     * Handler invoked when a key is pressed up.
+	     *
+	     * @param {Object} event
+	     */
+	    var _onWindowKeyUp = function(event) {
+	      if (!window) return;
+	
+	      if (this.keyCode.up === undefined) {
+	        this.keyCode.up = [];
+	      }
+	
+	      this.keyCode.up.push(event.keyCode);
+	
+	      this.setDirty(DirtyType.INPUT);
+	    };
 	  }
-	);
+	
+	  /**
+	   * @property
+	   *
+	   * Delegate of this ElementUpdateDelegate instance.
+	   *
+	   * @type {Object}
+	   */
+	  Object.defineProperty(ElementUpdateDelegate.prototype, 'delegate', {
+	    value: null,
+	    writable: true
+	  });
+	
+	  /**
+	   * @property
+	   *
+	   * Indicates whether this ElementUpdateDelegate auto responds to window
+	   * behaviors (i.e. resizing, scrolling).
+	   *
+	   * @type {Boolean}
+	   */
+	  Object.defineProperty(ElementUpdateDelegate.prototype, 'responsive', {
+	    value: false,
+	    writable: true
+	  });
+	
+	  /**
+	   * @property
+	   *
+	   * Indicates the debounce rate of this ElementUpdateDelegate instance.
+	   *
+	   * @type {Number}
+	   */
+	  Object.defineProperty(ElementUpdateDelegate.prototype, 'refreshRate', {
+	    value: DEFAULT_REFRESH_RATE,
+	    writable: true
+	  });
+	
+	  /**
+	   * @property
+	   *
+	   * Indicates the dirty flags in which ElementUpdateDelgate instance will
+	   * transmit to its child Elements.
+	   *
+	   * @type {Number}
+	   */
+	  Object.defineProperty(ElementUpdateDelegate.prototype, 'transmissive', {
+	    value: DirtyType.NONE,
+	    writable: true
+	  });
+	
+	  /**
+	   * @property
+	   *
+	   * Indicates the dirty flags in which this ElementUpdateDelegate is capable
+	   * of receiving from parent Elements.
+	   *
+	   * @type {Number}
+	   */
+	  Object.defineProperty(ElementUpdateDelegate.prototype, 'receptive', {
+	    value: DirtyType.NONE,
+	    writable: true
+	  });
+	
+	  /**
+	   * @property
+	   *
+	   * Indicates the conductor in which this ElementUpdateDelegate responds to
+	   * (defaults to window).
+	   *
+	   * @type {Object}
+	   */
+	  Object.defineProperty(ElementUpdateDelegate.prototype, 'conductor', {
+	    value: window,
+	    writable: true
+	  });
+	
+	  /**
+	   * @property
+	   *
+	   * Stores mouse properties if this ElementUpdateDelegate responds to mouse
+	   * events.
+	   *
+	   * @type {Object}
+	   */
+	  Object.defineProperty(ElementUpdateDelegate.prototype, 'mouse', {
+	    value: {},
+	    writable: false
+	  });
+	
+	  /**
+	   * @property
+	   *
+	   * Stores orientation properties if this ElementUpdateDelgate responds to
+	   * device orientations (i.e. device accelerometer).
+	   *
+	   * @type {Object}
+	   */
+	  Object.defineProperty(ElementUpdateDelegate.prototype, 'orientation', {
+	    value: {},
+	    writable: false
+	  });
+	
+	  /**
+	   * @property
+	   *
+	   * Stores pressed keycodes if this ElementUpdateDelegate responds to
+	   * keyboard events.
+	   *
+	   * @type {Object}
+	   */
+	  Object.defineProperty(ElementUpdateDelegate.prototype, 'keyCode', {
+	    value: {},
+	    writable: false
+	  });
+	
+	  /**
+	   * @protected
+	   *
+	   * Gets the string representation of this ElementUpdateDelegate instance.
+	   *
+	   * @return {String}
+	   */
+	  ElementUpdateDelegate.prototype.toString = function() {
+	    return '[ElementUpdateDelegate{' + ((this.delegate && this.delegate.name) || 'undefined') + '}]';
+	  };
+	
+	  return ElementUpdateDelegate;
+	});
 	
 	/**
-	 * vars
+	 * VARS
+	 * (c) VARIANTE (http://variante.io)
+	 *
+	 * This software is released under the MIT License:
+	 * http://www.opensource.org/licenses/mit-license.php
+	 *
+	 * @type {Function}
+	 */
+	
+	
+	
+	define('helpers/isNull',[
+	  'helpers/assert',
+	  'helpers/assertType'
+	],
+	function(
+	  assert,
+	  assertType
+	) {
+	  /**
+	   * Checks if a given value is equal to null. Option to specify recursion,
+	   * which would further evaluate inner elements, such as when an Array or
+	   * Object is specified.
+	   *
+	   * @param {*}       value            Value to evaluate.
+	   * @param {Boolean} recursive:false  Specifies whether to recursively
+	   *                                   evaluate the supplied value's inner
+	   *                                   values (i.e. an Array or Object).
+	   *
+	   * @return {Boolean} True if null, false otherwise.
+	   */
+	  function isNull(value, recursive) {
+	    assert(value !== undefined, 'Invalid value specified');
+	    assertType(recursive, 'boolean', true, 'Invalid parameter: recursive');
+	
+	    if (recursive === undefined) recursive = false;
+	
+	    if (value === undefined || value === null) {
+	      return true;
+	    }
+	    else if (recursive && (value instanceof Array)) {
+	      var n = value.length;
+	
+	      for (var i = 0; i < n; i++) {
+	        if (!isNull(value[i], true)) return false;
+	      }
+	
+	      return true;
+	    }
+	    else if (recursive && (typeof value === 'object')) {
+	      for (var p in value) {
+	        if (!isNull(value[p], true)) return false;
+	      }
+	
+	      return true;
+	    }
+	    else {
+	      return false;
+	    }
+	  }
+	
+	  return isNull;
+	});
+	
+	/**
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -2284,1020 +2942,1015 @@
 	
 	
 	define('ui/Element',[
-	    'enums/DirtyType',
-	    'enums/NodeState',
-	    'events/EventType',
-	    'ui/Directives',
-	    'ui/ElementUpdateDelegate',
-	    'utils/assert',
-	    'utils/assertType',
-	    'utils/isNull',
-	    'utils/keyOfValue',
-	    'utils/log',
-	    'utils/sizeOf'
-	  ],
-	  function(
-	    DirtyType,
-	    NodeState,
-	    EventType,
-	    Directives,
-	    ElementUpdateDelegate,
-	    assert,
-	    assertType,
-	    isNull,
-	    keyOfValue,
-	    log,
-	    sizeOf
-	  ) {
-	    /**
-	     * @constructor
-	     *
-	     * Creates a new Element instance.
-	     *
-	     * @param {*} init  Optional initial properties/element of this Element
-	     *                  instance.
-	     */
-	    function Element(init) {
-	      this._nodeState = NodeState.IDLE;
+	  'types/DirtyType',
+	  'types/NodeState',
+	  'types/EventType',
+	  'types/Directives',
+	  'ui/ElementUpdateDelegate',
+	  'helpers/assert',
+	  'helpers/assertType',
+	  'helpers/isNull',
+	  'helpers/log'
+	], function(
+	  DirtyType,
+	  NodeState,
+	  EventType,
+	  Directives,
+	  ElementUpdateDelegate,
+	  assert,
+	  assertType,
+	  isNull,
+	  log
+	) {
+	  /**
+	   * @constructor
+	   *
+	   * Creates a new Element instance.
+	   *
+	   * @param {*} init  Optional initial properties/element of this Element
+	   *                  instance.
+	   */
+	  function Element(init) {
+	    this._nodeState = NodeState.IDLE;
 	
-	      // Define instance properties.
-	      this.__define_properties();
+	    // Define instance properties.
+	    this.__define_properties();
 	
-	      // Set instance properties per init object.
-	      if (init !== undefined) {
-	        // If init value is an HTMLELement, simply assign it to the internal
-	        // element.
-	        if (init instanceof HTMLElement) {
-	          this.element = init;
-	        }
-	        // If init value is a string, assign it to the name of this instance.
-	        else if (typeof init === 'string') {
-	          this.name = init;
-	        }
-	        // If init value is a hash object, assign each value in the hash to the
-	        // corresponding property of this Element instance with te same name
-	        // as the key of the value.
-	        else if (typeof init === 'object') {
-	          for (var property in init) {
-	            if (this.hasOwnProperty(property)) {
-	              if (property === 'children') {
-	                var children = init.children;
+	    // Set instance properties per init object.
+	    if (init !== undefined) {
+	      // If init value is an HTMLELement, simply assign it to the internal
+	      // element.
+	      if (init instanceof HTMLElement) {
+	        this.element = init;
+	      }
+	      // If init value is a string, assign it to the name of this instance.
+	      else if (typeof init === 'string') {
+	        this.name = init;
+	      }
+	      // If init value is a hash object, assign each value in the hash to the
+	      // corresponding property of this Element instance with te same name
+	      // as the key of the value.
+	      else if (typeof init === 'object') {
+	        for (var property in init) {
+	          if (this.hasOwnProperty(property)) {
+	            if (property === 'children') {
+	              var children = init.children;
 	
-	                for (var childName in children) {
-	                  this.addChild(children[childName], childName);
-	                }
+	              for (var childName in children) {
+	                this.addChild(children[childName], childName);
 	              }
-	              else {
-	                this[property] = init[property];
-	              }
+	            }
+	            else {
+	              this[property] = init[property];
 	            }
 	          }
 	        }
 	      }
-	
-	      // Further extend data/properties per custom attribute.
-	      var attributes = this.element.attributes;
-	      var nAtributes = sizeOf(attributes);
-	      var regProperty = new RegExp('^' + Directives.Property + '-' + '|^data-' + Directives.Property + '-', 'i');
-	      var regData = new RegExp('^' + Directives.Data + '-' + '|^data-' + Directives.Data + '-', 'i');
-	
-	      for (var i = 0; i < nAtributes; i++) {
-	        var a = attributes[i];
-	
-	        if (regProperty.test(a.name)) {
-	          var pProperty = a.name.replace(regProperty, '').replace(/-([a-z])/g, function(g) {
-	            return g[1].toUpperCase();
-	          });
-	
-	          Object.defineProperty(this.properties, pProperty, {
-	            value: (a.value === '') ? true : a.value,
-	            writable: true
-	          });
-	        }
-	        else if (regData.test(a.name)) {
-	          var pData = a.name.replace(regData, '').replace(/-([a-z])/g, function(g) {
-	            return g[1].toUpperCase();
-	          });
-	
-	          Object.defineProperty(this.data, pData, {
-	            get: (function(key, val) {
-	              return function() {
-	                if (this.data[key] === undefined) {
-	                  return val;
-	                }
-	                else {
-	                  return this.data[key];
-	                }
-	              }.bind(this);
-	            }.bind(this)('_'+pData, (a.value === '') ? true : a.value)),
-	            set: (function(attr, key) {
-	              return function(value) {
-	                this.data[key] = value;
-	                this.element.setAttribute(attr, value);
-	                this.updateDelegate.setDirty(DirtyType.DATA);
-	              }.bind(this);
-	            }.bind(this)(a.name, '_'+pData))
-	          });
-	        }
-	      }
-	
-	      log(this.toString() + ':new(', init, ')');
-	
-	      this.init();
 	    }
 	
-	    /**
-	     * Initializes this Element instance. Must manually invoke.
-	     */
-	    Element.prototype.init = function() {
-	      log(this.toString() + '::init()');
+	    // Further extend data/properties per custom attribute.
+	    var attributes = this.element.attributes;
+	    var nAtributes = attributes.length;
+	    var regProperty = new RegExp('^' + Directives.Property + '-' + '|^data-' + Directives.Property + '-', 'i');
+	    var regData = new RegExp('^' + Directives.Data + '-' + '|^data-' + Directives.Data + '-', 'i');
 	
-	      this._nodeState = NodeState.INITIALIZED;
-	      this.updateDelegate.init();
+	    for (var i = 0; i < nAtributes; i++) {
+	      var a = attributes[i];
 	
-	      for (var key in this.children) {
-	        var child = this.children[key];
+	      if (regProperty.test(a.name)) {
+	        var pProperty = a.name.replace(regProperty, '').replace(/-([a-z])/g, function(g) {
+	          return g[1].toUpperCase();
+	        });
 	
-	        if (child instanceof Array) {
-	          child.forEach(function(c) {
-	            if (c.nodeState === NodeState.IDLE || c.nodeState === NodeState.DESTROYED) {
-	              c.init();
-	            }
-	          });
+	        Object.defineProperty(this.properties, pProperty, {
+	          value: (a.value === '') ? true : a.value,
+	          writable: true
+	        });
+	      }
+	      else if (regData.test(a.name)) {
+	        var pData = a.name.replace(regData, '').replace(/-([a-z])/g, function(g) {
+	          return g[1].toUpperCase();
+	        });
+	
+	        Object.defineProperty(this.data, pData, {
+	          get: (function(key, val) {
+	            return function() {
+	              if (this.data[key] === undefined) {
+	                return val;
+	              }
+	              else {
+	                return this.data[key];
+	              }
+	            }.bind(this);
+	          }.bind(this)('_'+pData, (a.value === '') ? true : a.value)),
+	          set: (function(attr, key) {
+	            return function(value) {
+	              this.data[key] = value;
+	              this.element.setAttribute(attr, value);
+	              this.updateDelegate.setDirty(DirtyType.DATA);
+	            }.bind(this);
+	          }.bind(this)(a.name, '_'+pData))
+	        });
+	      }
+	    }
+	
+	    log(this.toString() + ':new(', init, ')');
+	
+	    this.init();
+	  }
+	
+	  /**
+	   * Initializes this Element instance. Must manually invoke.
+	   */
+	  Element.prototype.init = function() {
+	    log(this.toString() + '::init()');
+	
+	    this._nodeState = NodeState.INITIALIZED;
+	    this.updateDelegate.init();
+	
+	    for (var key in this.children) {
+	      var child = this.children[key];
+	
+	      if (child instanceof Array) {
+	        child.forEach(function(c) {
+	          if (c.nodeState === NodeState.IDLE || c.nodeState === NodeState.DESTROYED) {
+	            c.init();
+	          }
+	        });
+	      }
+	      else {
+	        if (child.nodeState === NodeState.IDLE || child.nodeState === NodeState.DESTROYED) {
+	          child.init();
+	        }
+	      }
+	    }
+	  };
+	
+	  /**
+	   * Destroys this Element instance.
+	   */
+	  Element.prototype.destroy = function() {
+	    log(this.toString() + '::destroy()');
+	
+	    // Destroy all children first.
+	    for (var key in this.children) {
+	      var child = this.children[key];
+	
+	      if (child instanceof Array) {
+	        child.forEach(function(c) {
+	          if (c.nodeState !== NodeState.DESTROYED) {
+	            c.destroy();
+	          }
+	        });
+	      }
+	      else {
+	        if (child.nodeState !== NodeState.DESTROYED) {
+	          child.destroy();
+	        }
+	      }
+	    }
+	
+	    this.removeAllEventListeners();
+	    this.updateDelegate.destroy();
+	
+	    this._nodeState = NodeState.DESTROYED;
+	  };
+	
+	  /**
+	   * Handler invoked whenever a visual update is required.
+	   */
+	  Element.prototype.update = function() {
+	    log(this.toString() + '::update()');
+	
+	    this._nodeState = NodeState.UPDATED;
+	  };
+	
+	  /**
+	   * Sets up the responsiveness of the internal ElementUpdateDelegate
+	   * instance.
+	   *
+	   * @param {Object/Number}  Either the conductor or the refresh rate (if 1
+	   *                         argument supplied).
+	   * @param {Number}         Refresh rate.
+	   * @param {...args}        EventType(s) which this element will respond to.
+	   */
+	  Element.prototype.respondsTo = function() {
+	    var args = Array.prototype.slice.call(arguments);
+	    var n = args.length;
+	
+	    if (!assert(n > 0, 'Too few arguments')) return;
+	    if (!assert(this.nodeState === NodeState.IDLE, 'Responsiveness must be defined when the node state of this element is IDLE')) return;
+	
+	    if (isNaN(args[0])) {
+	      this.updateDelegate.conductor = args.shift();
+	      this.updateDelegate.refreshRate = args.shift();
+	    }
+	    else {
+	      this.updateDelegate.refreshRate = args.shift();
+	    }
+	
+	    if (args.length === 0) {
+	      this.updateDelegate.responsive = true;
+	    }
+	    else {
+	      this.updateDelegate.responsive = args;
+	    }
+	  };
+	
+	  /**
+	   * Adds a child or multiple children to this Element instance. Any added
+	   * must be a VARS Element. If an HTMLElement is provided, it will be
+	   * transformed into a VARS Element. A child is automatically appended
+	   * to the DOM tree of this instance.
+	   *
+	   * @param {*}      child           Single child or an array of children.
+	   *                                 Child elements can be instance(s) of
+	   *                                 VARS Elements, jQuery Elements or
+	   *                                 HTMLElements.
+	   * @param {String} name:undefined  The name of the child/children to be
+	   *                                 added. Typically a name is required.
+	   *                                 If it is not specified, this method
+	   *                                 will attempt to deduct the name from
+	   *                                 the provided child/children. This
+	   *                                 method fails if no name is specified
+	   *                                 or deducted. If there exists another
+	   *                                 child with the same name, the added
+	   *                                 child will be grouped together with
+	   *                                 the existing child.
+	   */
+	  Element.prototype.addChild = function(child, name) {
+	    if (!assert(child !== undefined, 'Parameter \'child\' must be specified')) return;
+	
+	    if (child.jquery) {
+	      this.addChild(child.get(), name);
+	    }
+	    else if (child instanceof Array) {
+	      var n = child.length;
+	
+	      for (var i = 0; i < n; i++) {
+	        var c = child[i];
+	
+	        this.addChild(c, name);
+	      }
+	    }
+	    else {
+	      if (!assertType(child, [HTMLElement, Element], false, 'Invalid child specified. Child must be an instance of HTMLElement or VARS Element.')) return;
+	
+	      if (child instanceof HTMLElement) {
+	        child = new Element({
+	          element: child,
+	          name: name
+	        });
+	      }
+	
+	      name = name || child.name;
+	
+	      if (!assert(name || child.name, 'Either child name was unprovided or it cannot be deducted from the specified child')) return null;
+	
+	      if (this.children[name]) {
+	        if (this.children[name] instanceof Array) {
+	          this.children[name].push(child);
 	        }
 	        else {
-	          if (child.nodeState === NodeState.IDLE || child.nodeState === NodeState.DESTROYED) {
-	            child.init();
+	          var a = [this.children[name]];
+	          a.push(child);
+	          this.children[name] = a;
+	        }
+	      }
+	      else {
+	        this.children[name] = child;
+	      }
+	
+	      child.name = name;
+	
+	      if (child.nodeState === NodeState.IDLE || child.nodeState === NodeState.DESTROYED) {
+	        child.init();
+	      }
+	
+	      var shouldAddChild = true;
+	
+	      if (child.element.parentNode && document) {
+	        var e = child.element;
+	
+	        while (e !== null && e !== undefined && e !== document) {
+	          e = e.parentNode;
+	
+	          if (e === this.element) {
+	            shouldAddChild = false;
+	            break;
 	          }
 	        }
 	      }
-	    };
 	
-	    /**
-	     * Destroys this Element instance.
-	     */
-	    Element.prototype.destroy = function() {
-	      log(this.toString() + '::destroy()');
+	      if (shouldAddChild) {
+	        this.element.appendChild(child.element);
+	      }
+	    }
+	  };
 	
-	      // Destroy all children first.
-	      for (var key in this.children) {
-	        var child = this.children[key];
+	  /**
+	   * Determines if this Element instance contains the specified child.
+	   *
+	   * @param {*} child  A child is a VARS Element, jQuery element or
+	   *                   HTMLElement. It can also be a string of child name(s)
+	   *                   separated by '.'.
+	   *
+	   * @return {Boolean} True if this Element instance has the specified child,
+	   *                    false otherwise.
+	   */
+	  Element.prototype.hasChild = function(child) {
+	    if (!assert(child !== undefined, 'Child is undefined')) return false;
 	
-	        if (child instanceof Array) {
-	          child.forEach(function(c) {
-	            if (c.nodeState !== NodeState.DESTROYED) {
-	              c.destroy();
-	            }
-	          });
+	    if (typeof child === 'string') {
+	      return !isNull(this.getChild(child));
+	    }
+	    else {
+	      var e;
+	
+	      if (child.jquery && child.length === 1) {
+	        e = child.get(0);
+	      }
+	      else if (child instanceof Element) {
+	        e = child.element;
+	      }
+	      else if (child instanceof HTMLElement) {
+	        e = child;
+	      }
+	
+	      while (!isNull(e) && e !== document) {
+	        e = e.parentNode;
+	
+	        if (e === this.element) {
+	          return true;
 	        }
-	        else {
-	          if (child.nodeState !== NodeState.DESTROYED) {
-	            child.destroy();
+	      }
+	
+	      return false;
+	    }
+	  };
+	
+	  /**
+	   * Removes a child or multiple children from this Element instance.
+	   *
+	   * @param {*} child  A single child is a VARS Element, jQuery element or
+	   *                   HTMLElement. It can also be a string of child name(s)
+	   *                   separated by '.', or an array of child elements.
+	   */
+	  Element.prototype.removeChild = function(child) {
+	    if (!assert(!isNull(child, true), 'No valid child specified')) return;
+	
+	    // If child is a string, treat each entry separated by '.' as a child
+	    // name.
+	    if (typeof child === 'string') {
+	      this.removeChild(this.getChild(child));
+	    }
+	    // If child is an array, remove each element inside recursively.
+	    else if ((child instanceof Array) || (child.jquery && child.length > 1)) {
+	      while (child.length > 0) {
+	        this.removeChild(child[0]);
+	      }
+	    }
+	    // If child is not an array, assume that it is an object that equates or
+	    // contains a valid DOM element. Remove it accordingly if this Element
+	    // instance is indeed its parent/ancestor.
+	    else if (this.hasChild(child)) {
+	      // First extract the DOM element.
+	      var e;
+	
+	      if (child.jquery && child.length === 1) {
+	        e = child.get(0);
+	      }
+	      else if (child instanceof Element) {
+	        e = child.element;
+	      }
+	      else if (child instanceof HTMLElement) {
+	        e = child;
+	      }
+	
+	      // No valid DOM element found? Terminate.
+	      if (isNull(e)) return;
+	
+	      for (var key in this.children) {
+	        var c = this.children[key];
+	
+	        if (c instanceof Array) {
+	          var n = c.length;
+	          var t = 0;
+	
+	          for (var i = 0; i < n; i++) {
+	            var element = c[i];
+	            t = i;
+	
+	            if (element.element === e) {
+	              element.destroy();
+	              e.parentNode.removeChild(e);
+	              break;
+	            }
+	          }
+	
+	          c.splice(t, 1);
+	
+	          if (c.length === 0) {
+	            delete this.children[key];
+	          }
+	        }
+	        else if (c instanceof Element) {
+	          if (c.element === e) {
+	            c.destroy();
+	            e.parentNode.removeChild(e);
+	            delete this.children[key];
+	          }
+	          else {
+	            c.removeChild(child);
 	          }
 	        }
 	      }
+	    }
+	  };
 	
-	      this.removeAllEventListeners();
-	      this.updateDelegate.destroy();
+	  /**
+	   * Gets a child by its name. If child is an array, it will be returned
+	   * immediately.
+	   *
+	   * @param {String}  name            Name of the child, depth separated by
+	   *                                  '.' (i.e. 'foo.bar').
+	   * @param {Boolean} recursive:true  Speciifies whether to search for the
+	   *                                  child recursively down the tree.
+	   *
+	   * @return {Object/Array} The fetched child.
+	   */
+	  Element.prototype.getChild = function(name, recursive) {
+	    if (!assertType(name, 'string', false, 'Child name must be specified')) return null;
+	    if (!assertType(recursive, 'boolean', true, 'Parameter \'recursive\', if specified, must be a boolean')) return null;
 	
-	      this._nodeState = NodeState.DESTROYED;
-	    };
+	    recursive = (recursive === undefined) ? true : recursive;
 	
-	    /**
-	     * Handler invoked whenever a visual update is required.
-	     */
-	    Element.prototype.update = function() {
-	      log(this.toString() + '::update()');
+	    var targets = name.split('.');
+	    var currentTarget = targets.shift();
+	    var child = this.children[currentTarget];
 	
-	      this._nodeState = NodeState.UPDATED;
-	    };
-	
-	    /**
-	     * Sets up the responsiveness of the internal ElementUpdateDelegate
-	     * instance.
-	     *
-	     * @param {Object/Number}  Either the conductor or the refresh rate (if 1
-	     *                         argument supplied).
-	     * @param {Number}         Refresh rate.
-	     * @param {...args}        EventType(s) which this element will respond to.
-	     */
-	    Element.prototype.respondsTo = function() {
-	      var args = Array.prototype.slice.call(arguments);
-	      var n = sizeOf(args);
-	
-	      if (!assert(n > 0, 'Too few arguments')) return;
-	      if (!assert(this.nodeState === NodeState.IDLE, 'Responsiveness must be defined when the node state of this element is IDLE')) return;
-	
-	      if (isNaN(args[0])) {
-	        this.updateDelegate.conductor = args.shift();
-	        this.updateDelegate.refreshRate = args.shift();
-	      }
-	      else {
-	        this.updateDelegate.refreshRate = args.shift();
-	      }
-	
-	      if (sizeOf(args) === 0) {
-	        this.updateDelegate.responsive = true;
-	      }
-	      else {
-	        this.updateDelegate.responsive = args;
-	      }
-	    };
-	
-	    /**
-	     * Adds a child or multiple children to this Element instance. Any added
-	     * must be a VARS Element. If an HTMLElement is provided, it will be
-	     * transformed into a VARS Element. A child is automatically appended
-	     * to the DOM tree of this instance.
-	     *
-	     * @param {*}      child           Single child or an array of children.
-	     *                                 Child elements can be instance(s) of
-	     *                                 VARS Elements, jQuery Elements or
-	     *                                 HTMLElements.
-	     * @param {String} name:undefined  The name of the child/children to be
-	     *                                 added. Typically a name is required.
-	     *                                 If it is not specified, this method
-	     *                                 will attempt to deduct the name from
-	     *                                 the provided child/children. This
-	     *                                 method fails if no name is specified
-	     *                                 or deducted. If there exists another
-	     *                                 child with the same name, the added
-	     *                                 child will be grouped together with
-	     *                                 the existing child.
-	     */
-	    Element.prototype.addChild = function(child, name) {
-	      if (!assert(child !== undefined, 'Parameter \'child\' must be specified')) return;
-	
-	      if (child.jquery) {
-	        this.addChild(child.get(), name);
-	      }
-	      else if (child instanceof Array) {
-	        var n = sizeOf(child);
+	    if (recursive && (targets.length > 0)) {
+	      if (child instanceof Array) {
+	        var children = [];
+	        var n = child.length;
 	
 	        for (var i = 0; i < n; i++) {
 	          var c = child[i];
 	
-	          this.addChild(c, name);
-	        }
-	      }
-	      else {
-	        if (!assertType(child, [HTMLElement, Element], false, 'Invalid child specified. Child must be an instance of HTMLElement or VARS Element.')) return;
-	
-	        if (child instanceof HTMLElement) {
-	          child = new Element({
-	            element: child,
-	            name: name
-	          });
-	        }
-	
-	        name = name || child.name;
-	
-	        if (!assert(name || child.name, 'Either child name was unprovided or it cannot be deducted from the specified child')) return null;
-	
-	        if (this.children[name]) {
-	          if (this.children[name] instanceof Array) {
-	            this.children[name].push(child);
+	          if (c instanceof Element) {
+	            children.push(c.getChild(targets.join('.')));
 	          }
 	          else {
-	            var a = [this.children[name]];
-	            a.push(child);
-	            this.children[name] = a;
-	          }
-	        }
-	        else {
-	          this.children[name] = child;
-	        }
-	
-	        child.name = name;
-	
-	        if (child.nodeState === NodeState.IDLE || child.nodeState === NodeState.DESTROYED) {
-	          child.init();
-	        }
-	
-	        var shouldAddChild = true;
-	
-	        if (child.element.parentNode && document) {
-	          var e = child.element;
-	
-	          while (e !== null && e !== undefined && e !== document) {
-	            e = e.parentNode;
-	
-	            if (e === this.element) {
-	              shouldAddChild = false;
-	              break;
-	            }
+	            children.push(null);
 	          }
 	        }
 	
-	        if (shouldAddChild) {
-	          this.element.appendChild(child.element);
-	        }
-	      }
-	    };
-	
-	    /**
-	     * Determines if this Element instance contains the specified child.
-	     *
-	     * @param {*} child  A child is a VARS Element, jQuery element or
-	     *                   HTMLElement. It can also be a string of child name(s)
-	     *                   separated by '.'.
-	     *
-	     * @return {Boolean} True if this Element instance has the specified child,
-	     *                    false otherwise.
-	     */
-	    Element.prototype.hasChild = function(child) {
-	      if (!assert(child !== undefined, 'Child is undefined')) return false;
-	
-	      if (typeof child === 'string') {
-	        return !isNull(this.getChild(child));
-	      }
-	      else {
-	        var e;
-	
-	        if (child.jquery && child.length === 1) {
-	          e = child.get(0);
-	        }
-	        else if (child instanceof Element) {
-	          e = child.element;
-	        }
-	        else if (child instanceof HTMLElement) {
-	          e = child;
-	        }
-	
-	        while (!isNull(e) && e !== document) {
-	          e = e.parentNode;
-	
-	          if (e === this.element) {
-	            return true;
-	          }
-	        }
-	
-	        return false;
-	      }
-	    };
-	
-	    /**
-	     * Removes a child or multiple children from this Element instance.
-	     *
-	     * @param {*} child  A single child is a VARS Element, jQuery element or
-	     *                   HTMLElement. It can also be a string of child name(s)
-	     *                   separated by '.', or an array of child elements.
-	     */
-	    Element.prototype.removeChild = function(child) {
-	      if (!assert(!isNull(child, true), 'No valid child specified')) return;
-	
-	      // If child is a string, treat each entry separated by '.' as a child
-	      // name.
-	      if (typeof child === 'string') {
-	        this.removeChild(this.getChild(child));
-	      }
-	      // If child is an array, remove each element inside recursively.
-	      else if ((child instanceof Array) || (child.jquery && child.length > 1)) {
-	        while (child.length > 0) {
-	          this.removeChild(child[0]);
-	        }
-	      }
-	      // If child is not an array, assume that it is an object that equates or
-	      // contains a valid DOM element. Remove it accordingly if this Element
-	      // instance is indeed its parent/ancestor.
-	      else if (this.hasChild(child)) {
-	        // First extract the DOM element.
-	        var e;
-	
-	        if (child.jquery && child.length === 1) {
-	          e = child.get(0);
-	        }
-	        else if (child instanceof Element) {
-	          e = child.element;
-	        }
-	        else if (child instanceof HTMLElement) {
-	          e = child;
-	        }
-	
-	        // No valid DOM element found? Terminate.
-	        if (isNull(e)) return;
-	
-	        for (var key in this.children) {
-	          var c = this.children[key];
-	
-	          if (c instanceof Array) {
-	            var n = c.length;
-	            var t = 0;
-	
-	            for (var i = 0; i < n; i++) {
-	              var element = c[i];
-	              t = i;
-	
-	              if (element.element === e) {
-	                element.destroy();
-	                e.parentNode.removeChild(e);
-	                break;
-	              }
-	            }
-	
-	            c.splice(t, 1);
-	
-	            if (c.length === 0) {
-	              delete this.children[key];
-	            }
-	          }
-	          else if (c instanceof Element) {
-	            if (c.element === e) {
-	              c.destroy();
-	              e.parentNode.removeChild(e);
-	              delete this.children[key];
-	            }
-	            else {
-	              c.removeChild(child);
-	            }
-	          }
-	        }
-	      }
-	    };
-	
-	    /**
-	     * Gets a child by its name. If child is an array, it will be returned
-	     * immediately.
-	     *
-	     * @param {String}  name            Name of the child, depth separated by
-	     *                                  '.' (i.e. 'foo.bar').
-	     * @param {Boolean} recursive:true  Speciifies whether to search for the
-	     *                                  child recursively down the tree.
-	     *
-	     * @return {Object/Array} The fetched child.
-	     */
-	    Element.prototype.getChild = function(name, recursive) {
-	      if (!assertType(name, 'string', false, 'Child name must be specified')) return null;
-	      if (!assertType(recursive, 'boolean', true, 'Parameter \'recursive\', if specified, must be a boolean')) return null;
-	
-	      recursive = (recursive === undefined) ? true : recursive;
-	
-	      var targets = name.split('.');
-	      var currentTarget = targets.shift();
-	      var child = this.children[currentTarget];
-	
-	      if (recursive && (targets.length > 0)) {
-	        if (child instanceof Array) {
-	          var children = [];
-	          var n = sizeOf(child);
-	
-	          for (var i = 0; i < n; i++) {
-	            var c = child[i];
-	
-	            if (c instanceof Element) {
-	              children.push(c.getChild(targets.join('.')));
-	            }
-	            else {
-	              children.push(null);
-	            }
-	          }
-	
-	          if (!isNull(children, true)) {
-	            return children;
-	          }
-	          else {
-	            return null;
-	          }
-	        }
-	        else if (child instanceof Element) {
-	          return child.getChild(targets.join('.'));
+	        if (!isNull(children, true)) {
+	          return children;
 	        }
 	        else {
 	          return null;
 	        }
 	      }
-	      else if (!isNull(child, true)) {
-	        return child;
+	      else if (child instanceof Element) {
+	        return child.getChild(targets.join('.'));
 	      }
 	      else {
 	        return null;
 	      }
-	    };
+	    }
+	    else if (!isNull(child, true)) {
+	      return child;
+	    }
+	    else {
+	      return null;
+	    }
+	  };
 	
-	    /**
-	     * @see HTMLElement#addEventListener
-	     */
-	    Element.prototype.addEventListener = function() {
-	      var event = arguments[0];
-	      var listener = arguments[1];
-	      var useCapture = arguments[2] || false;
+	  /**
+	   * @see HTMLElement#addEventListener
+	   */
+	  Element.prototype.addEventListener = function() {
+	    var event = arguments[0];
+	    var listener = arguments[1];
+	    var useCapture = arguments[2] || false;
 	
-	      if (this.cachesListeners) {
-	        if (!this._listenerMap) {
-	          Object.defineProperty(this, '_listenerMap', {
-	            value: {},
-	            writable: false
-	          });
+	    if (this.cachesListeners) {
+	      if (!this._listenerMap) {
+	        Object.defineProperty(this, '_listenerMap', {
+	          value: {},
+	          writable: false
+	        });
+	      }
+	
+	      if (!this._listenerMap[event]) {
+	        this._listenerMap[event] = [];
+	      }
+	
+	      var m = this._listenerMap[event];
+	      var n = m.length;
+	      var b = true;
+	
+	      if (event === EventType.MOUSE.CLICK_OUTSIDE) {
+	        var _listener = listener;
+	        listener = function(event) {
+	          if ((event.target !== this.element) && !this.hasChild(event.target)) {
+	            _listener(event);
+	          }
+	        }.bind(this);
+	      }
+	
+	      for (var i = 0; i < n; i++) {
+	        var e = m[i];
+	
+	        if (e.listener === listener) {
+	          b = false;
+	          break;
 	        }
+	      }
 	
-	        if (!this._listenerMap[event]) {
-	          this._listenerMap[event] = [];
-	        }
+	      if (b) {
+	        m.push({
+	          listener: listener,
+	          useCapture: useCapture
+	        });
+	      }
+	    }
 	
-	        var m = this._listenerMap[event];
-	        var n = sizeOf(m);
-	        var b = true;
+	    if (window && event === EventType.MOUSE.CLICK_OUTSIDE) {
+	      window.addEventListener(EventType.MOUSE.CLICK, listener, useCapture);
+	    }
+	    else {
+	      this.element.addEventListener.apply(this.element, arguments);
+	    }
+	  };
 	
-	        if (event === EventType.MOUSE.CLICK_OUTSIDE) {
-	          var _listener = listener;
-	          listener = function(event) {
-	            if ((event.target !== this.element) && !this.hasChild(event.target)) {
-	              _listener(event);
-	            }
-	          }.bind(this);
-	        }
+	  /**
+	   * Determines if a particular listener (or any listener in the specified
+	   * event) exist in this Element instance. For this to work this Element
+	   * must be configured to have 'cachesListeners' property enabled when event
+	   * listeners were being added.
+	   *
+	   * @param {String}   event    Event name.
+	   * @param {Function} listener Listener function.
+	   *
+	   * @return {Boolean}
+	   */
+	  Element.prototype.hasEventListener = function(event, listener) {
+	    if (!this._listenerMap) return false;
+	    if (!this._listenerMap[event]) return false;
 	
+	    if (listener) {
+	      var m = this._listenerMap[event];
+	      var n = m.length;
+	
+	      for (var i = 0; i < n; i++) {
+	        var e = m[i];
+	
+	        if (e.listener === listener) return true;
+	      }
+	
+	      return false;
+	    }
+	    else {
+	      return true;
+	    }
+	  };
+	
+	  /**
+	   * @see HTMLElement#removeEventListener
+	   */
+	  Element.prototype.removeEventListener = function() {
+	    var event = arguments[0];
+	    var listener = arguments[1];
+	    var useCapture = arguments[2] || false;
+	
+	    if (this._listenerMap) {
+	      var m = this._listenerMap[event];
+	      var n = m.length;
+	      var s = -1;
+	
+	      if (listener) {
 	        for (var i = 0; i < n; i++) {
 	          var e = m[i];
 	
 	          if (e.listener === listener) {
-	            b = false;
+	            s = i;
 	            break;
 	          }
 	        }
 	
-	        if (b) {
-	          m.push({
-	            listener: listener,
-	            useCapture: useCapture
+	        if (s > -1) {
+	          m.splice(s, 1);
+	
+	          if (m.length === 0) {
+	            this._listenerMap[event] = null;
+	            delete this._listenerMap[event];
+	          }
+	        }
+	      }
+	      else {
+	        while (this._listenerMap[event] !== undefined) {
+	          this.removeEventListener(event, this._listenerMap[event][0].listener, this._listenerMap[event][0].useCapture);
+	        }
+	      }
+	    }
+	
+	    if (listener) {
+	      if (window && event === EventType.MOUSE.CLICK_OUTSIDE) {
+	        window.removeEventListener(EventType.MOUSE.CLICK, listener, useCapture);
+	      }
+	      else {
+	        this.element.removeEventListener.apply(this.element, arguments);
+	      }
+	    }
+	  };
+	
+	  /**
+	   * Removes all cached event listeners from this Element instance.
+	   */
+	  Element.prototype.removeAllEventListeners = function() {
+	    if (this._listenerMap) {
+	      for (var event in this._listenerMap) {
+	        this.removeEventListener(event);
+	      }
+	    }
+	  };
+	
+	  /**
+	   * Adds class(es) to this Element instance.
+	   *
+	   * @param {Stirng/Array} className
+	   */
+	  Element.prototype.addClass = function(className) {
+	    var classes = [];
+	
+	    if (!assert((typeof className === 'string') || (className instanceof Array), 'Invalid class name specified. Must be either a string or an array of strings.')) return;
+	
+	    if (typeof className === 'string') {
+	      classes.push(className);
+	    }
+	    else {
+	      classes = className;
+	    }
+	
+	    var n = classes.length;
+	
+	    for (var i = 0; i < n; i++) {
+	      var c = classes[i];
+	
+	      if (!assert(typeof c === 'string', 'Invalid class detected: ' + c)) continue;
+	      if (this.hasClass(c)) continue;
+	
+	      this.element.className = this.element.className + ((this.element.className === '') ? '' : ' ') + c;
+	    }
+	  };
+	
+	  /**
+	   * Removes class(es) from this Element instance.
+	   *
+	   * @param {Stirng/Array} className
+	   */
+	  Element.prototype.removeClass = function(className) {
+	    var classes = [];
+	
+	    if (!assert((typeof className === 'string') || (className instanceof Array), 'Invalid class name specified. Must be either a string or an array of strings.')) return;
+	
+	    if (typeof className === 'string') {
+	      classes.push(className);
+	    }
+	    else {
+	      classes = className;
+	    }
+	
+	    var n = classes.length;
+	
+	    for (var i = 0; i < n; i++) {
+	      var c = classes[i];
+	
+	      if (!assert(typeof c === 'string', 'Invalid class detected: ' + c)) continue;
+	      var regex = new RegExp('^' + c + '\\s+|\\s+' + c + '|^' + c + '$', 'g');
+	      this.element.className = this.element.className.replace(regex, '');
+	    }
+	  };
+	
+	  /**
+	   * Determines whether this Element instance has the specified class.
+	   *
+	   * @param {String} className
+	   *
+	   * @return {Boolean}
+	   */
+	  Element.prototype.hasClass = function(className) {
+	    if (!assert(typeof className === 'string', 'Invalid class detected: ' + className)) return false;
+	
+	    return (this.class.indexOf(className) > -1);
+	  };
+	
+	  /**
+	   * Creates the associated DOM element from scratch.
+	   *
+	   * @return {Element}
+	   */
+	  Element.prototype.factory = function() {
+	    return document.createElement('div');
+	  };
+	
+	  /**
+	   * @see ElementUpdateDelegate#isDirty
+	   */
+	  Element.prototype.isDirty = function() {
+	    return this.updateDelegate.isDirty.apply(this.updateDelegate, arguments);
+	  };
+	
+	  /**
+	   * @see ElementUpdateDelegate#setDirty
+	   */
+	  Element.prototype.setDirty = function() {
+	    return this.updateDelegate.setDirty.apply(this.updateDelegate, arguments);
+	  };
+	
+	  /**
+	   * Gets the string representation of this Element instance.
+	   *
+	   * @return {String}
+	   */
+	  Element.prototype.toString = function() {
+	    return '[Element{' + this.name + '}]';
+	  };
+	
+	  /**
+	   * @protected
+	   *
+	   * Define all properties.
+	   */
+	  Element.prototype.__define_properties = function() {
+	    /**
+	     * @property
+	     *
+	     * View of this Element instance.
+	     *
+	     * @type {Object}
+	     */
+	    Object.defineProperty(this, 'element', {
+	      get: function() {
+	        if (!this._element) {
+	          Object.defineProperty(this, '_element', {
+	            value: this.factory(),
+	            writable: true
 	          });
 	        }
-	      }
 	
-	      if (window && event === EventType.MOUSE.CLICK_OUTSIDE) {
-	        window.addEventListener(EventType.MOUSE.CLICK, listener, useCapture);
+	        return this._element;
+	      },
+	      set: function(value) {
+	        this.__set_element(value);
 	      }
-	      else {
-	        this.element.addEventListener.apply(this.element, arguments);
-	      }
-	    };
+	    });
 	
 	    /**
-	     * Determines if a particular listener (or any listener in the specified
-	     * event) exist in this Element instance. For this to work this Element
-	     * must be configured to have 'cachesListeners' property enabled when event
-	     * listeners were being added.
+	     * @property
 	     *
-	     * @param {String}   event    Event name.
-	     * @param {Function} listener Listener function.
+	     * ID of this Element instance.
 	     *
-	     * @return {Boolean}
+	     * @type {String}
 	     */
-	    Element.prototype.hasEventListener = function(event, listener) {
-	      if (!this._listenerMap) return false;
-	      if (!this._listenerMap[event]) return false;
-	
-	      if (listener) {
-	        var m = this._listenerMap[event];
-	        var n = sizeOf(m);
-	
-	        for (var i = 0; i < n; i++) {
-	          var e = m[i];
-	
-	          if (e.listener === listener) return true;
-	        }
-	
-	        return false;
+	    Object.defineProperty(this, 'id', {
+	      get: function() {
+	        return this.element.id;
+	      },
+	      set: function(value) {
+	        this.element.setAttribute('id', value);
 	      }
-	      else {
-	        return true;
-	      }
-	    };
+	    });
 	
 	    /**
-	     * @see HTMLElement#removeEventListener
+	     * @property
+	     *
+	     * Instance name of this Element instance. Once set, it cannot be changed.
+	     *
+	     * @type {String}
 	     */
-	    Element.prototype.removeEventListener = function() {
-	      var event = arguments[0];
-	      var listener = arguments[1];
-	      var useCapture = arguments[2] || false;
+	    Object.defineProperty(this, 'name', {
+	      get: function() {
+	        var s = this.element.getAttribute(Directives.Instance) || this.element.getAttribute('data-' + Directives.Instance);
 	
-	      if (this._listenerMap) {
-	        var m = this._listenerMap[event];
-	        var n = sizeOf(m);
-	        var s = -1;
-	
-	        if (listener) {
-	          for (var i = 0; i < n; i++) {
-	            var e = m[i];
-	
-	            if (e.listener === listener) {
-	              s = i;
-	              break;
-	            }
-	          }
-	
-	          if (s > -1) {
-	            m.splice(s, 1);
-	
-	            if (sizeOf(m) === 0) {
-	              this._listenerMap[event] = null;
-	              delete this._listenerMap[event];
-	            }
-	          }
+	        if (!s || s === '') {
+	          return null;
 	        }
 	        else {
-	          while (this._listenerMap[event] !== undefined) {
-	            this.removeEventListener(event, this._listenerMap[event][0].listener, this._listenerMap[event][0].useCapture);
-	          }
+	          return s;
+	        }
+	      },
+	      set: function(value) {
+	        if (!value || value === '') return;
+	
+	        if (!this.name) {
+	          this.element.setAttribute('data-' + Directives.Instance, value);
 	        }
 	      }
+	    });
 	
-	      if (listener) {
-	        if (window && event === EventType.MOUSE.CLICK_OUTSIDE) {
-	          window.removeEventListener(EventType.MOUSE.CLICK, listener, useCapture);
+	    /**
+	     * @property
+	     *
+	     * Class list of this Element instance.
+	     *
+	     * @type {Array}
+	     */
+	    Object.defineProperty(this, 'class', {
+	      get: function() {
+	        return this.element.className.split(' ');
+	      },
+	      set: function(value) {
+	        this.element.className = value.join(' ');
+	      }
+	    });
+	
+	    /**
+	     * @property
+	     *
+	     * Current node state of this Element instance.
+	     *
+	     * @type {Enum}
+	     */
+	    Object.defineProperty(this, 'nodeState', {
+	      get: function() {
+	        return this._nodeState || NodeState.IDLE;
+	      }
+	    });
+	
+	    /**
+	     * @property
+	     *
+	     * State of this Element instance (depicted by Directives.State).
+	     *
+	     * @type {String}
+	     */
+	    Object.defineProperty(this, 'state', {
+	      get: function() {
+	        var s = this.element.getAttribute(Directives.State) || this.element.getAttribute('data-' + Directives.State);
+	
+	        if (!s || s === '') {
+	          return null;
 	        }
 	        else {
-	          this.element.removeEventListener.apply(this.element, arguments);
+	          return s;
 	        }
+	      },
+	      set: function(value) {
+	        if (this.state === value) return;
+	
+	        if (value === null || value === undefined) {
+	          this.element.removeAttribute(Directives.State);
+	          this.element.removeAttribute('data-' + Directives.State);
+	        }
+	        else {
+	          this.element.setAttribute('data-' + Directives.State, value);
+	        }
+	
+	        this.updateDelegate.setDirty(DirtyType.STATE);
 	      }
-	    };
+	    });
 	
 	    /**
-	     * Removes all cached event listeners from this Element instance.
-	     */
-	    Element.prototype.removeAllEventListeners = function() {
-	      if (this._listenerMap) {
-	        for (var event in this._listenerMap) {
-	          this.removeEventListener(event);
-	        }
-	      }
-	    };
-	
-	    /**
-	     * Adds class(es) to this Element instance.
+	     * @property
 	     *
-	     * @param {Stirng/Array} className
-	     */
-	    Element.prototype.addClass = function(className) {
-	      var classes = [];
-	
-	      if (!assert((typeof className === 'string') || (className instanceof Array), 'Invalid class name specified. Must be either a string or an array of strings.')) return;
-	
-	      if (typeof className === 'string') {
-	        classes.push(className);
-	      }
-	      else {
-	        classes = className;
-	      }
-	
-	      var n = sizeOf(classes);
-	
-	      for (var i = 0; i < n; i++) {
-	        var c = classes[i];
-	
-	        if (!assert(typeof c === 'string', 'Invalid class detected: ' + c)) continue;
-	        if (this.hasClass(c)) continue;
-	
-	        this.element.className = this.element.className + ((this.element.className === '') ? '' : ' ') + c;
-	      }
-	    };
-	
-	    /**
-	     * Removes class(es) from this Element instance.
+	     * Style of this Element instance (depicted by Directives.Style).
 	     *
-	     * @param {Stirng/Array} className
+	     * @type {String}
 	     */
-	    Element.prototype.removeClass = function(className) {
-	      var classes = [];
+	    Object.defineProperty(this, 'style', {
+	      get: function() {
+	        var s = this.element.getAttribute(Directives.Style) || this.element.getAttribute('data-' + Directives.Style);
 	
-	      if (!assert((typeof className === 'string') || (className instanceof Array), 'Invalid class name specified. Must be either a string or an array of strings.')) return;
+	        if (!s || s === '') {
+	          return null;
+	        }
+	        else {
+	          return s;
+	        }
+	      },
+	      set: function(value) {
+	        if (this.style === value) return;
 	
-	      if (typeof className === 'string') {
-	        classes.push(className);
+	        if (value === null || value === undefined) {
+	          this.element.removeAttribute(Directives.Style);
+	          this.element.removeAttribute('data-' + Directives.Style);
+	        }
+	        else {
+	          this.element.setAttribute('data-' + Directives.Style, value);
+	        }
+	
+	        this.updateDelegate.setDirty(DirtyType.STYLE);
 	      }
-	      else {
-	        classes = className;
+	    });
+	
+	    /**
+	     * @property (read-only)
+	     *
+	     * Child elements.
+	     *
+	     * @type {Object}
+	     */
+	    Object.defineProperty(this, 'children', {
+	      value: {},
+	      writable: false
+	    });
+	
+	    /**
+	     * @property (read-only)
+	     *
+	     * Data attributes.
+	     *
+	     * @type {Object}
+	     * @see ui.Directives.Data
+	     */
+	    Object.defineProperty(this, 'data', {
+	      value: {},
+	      writable: false
+	    });
+	
+	    /**
+	     * @property (read-only)
+	     *
+	     * Property attributes.
+	     *
+	     * @type {Object}
+	     * @see ui.Directives.Property
+	     */
+	    Object.defineProperty(this, 'properties', {
+	      value: {},
+	      writable: false
+	    });
+	
+	    /**
+	     * @property
+	     *
+	     * ViewUpdateDelegate instance.
+	     *
+	     * @type {ViewUpdateDelegate}
+	     */
+	    Object.defineProperty(this, 'updateDelegate', {
+	      get: function() {
+	        if (!this._updateDelegate) {
+	          Object.defineProperty(this, '_updateDelegate', {
+	            value: new ElementUpdateDelegate(this),
+	            writable: false
+	          });
+	        }
+	
+	        return this._updateDelegate;
 	      }
-	
-	      var n = sizeOf(classes);
-	
-	      for (var i = 0; i < n; i++) {
-	        var c = classes[i];
-	
-	        if (!assert(typeof c === 'string', 'Invalid class detected: ' + c)) continue;
-	        var regex = new RegExp('^' + c + '\\s+|\\s+' + c + '|^' + c + '$', 'g');
-	        this.element.className = this.element.className.replace(regex, '');
-	      }
-	    };
+	    });
 	
 	    /**
-	     * Determines whether this Element instance has the specified
-	     * class.
+	     * @property
 	     *
-	     * @param {String} className
+	     * Specifies whether this Element instance remembers caches every listener
+	     * that is added to it (via the addEventListener/removeEventListener
+	     * method).
 	     *
-	     * @return {Boolean}
+	     * @type {Boolean}
 	     */
-	    Element.prototype.hasClass = function(className) {
-	      if (!assert(typeof className === 'string', 'Invalid class detected: ' + className)) return false;
+	    Object.defineProperty(this, 'cachesListeners', {
+	      value: true,
+	      writable: true
+	    });
+	  };
 	
-	      return (this.class.indexOf(className) > -1);
-	    };
+	  /**
+	   * @protected
+	   *
+	   * Stubbed out setter for element property (for overriding purposes).
+	   *
+	   * @param {Object} value The DOM element.
+	   */
+	  Element.prototype.__set_element = function(value) {
+	    // Ensure that this is not overwritable.
+	    assert(!this._element, 'Element cannot be overwritten.');
+	    assert((value instanceof HTMLElement) || (value instanceof Element), 'Invalid element type specified. Must be an instance of HTMLElement or Element.');
 	
-	    /**
-	     * Creates the associated DOM element from scratch.
-	     *
-	     * @return {Element}
-	     */
-	    Element.prototype.factory = function() {
-	      return document.createElement('div');
-	    };
-	
-	    /**
-	     * @see ElementUpdateDelegate#isDirty
-	     */
-	    Element.prototype.isDirty = function() {
-	      return this.updateDelegate.isDirty.apply(this.updateDelegate, arguments);
-	    };
-	
-	    /**
-	     * @see ElementUpdateDelegate#setDirty
-	     */
-	    Element.prototype.setDirty = function() {
-	      return this.updateDelegate.setDirty.apply(this.updateDelegate, arguments);
-	    };
-	
-	    /**
-	     * Gets the string representation of this Element instance.
-	     *
-	     * @return {String}
-	     */
-	    Element.prototype.toString = function() {
-	      return '[Element{' + this.name + '}]';
-	    };
-	
-	    /**
-	     * @protected
-	     *
-	     * Define all properties.
-	     */
-	    Element.prototype.__define_properties = function() {
-	      /**
-	       * @property
-	       *
-	       * View of this Element instance.
-	       *
-	       * @type {Object}
-	       */
-	      Object.defineProperty(this, 'element', {
-	        get: function() {
-	          if (!this._element) {
-	            Object.defineProperty(this, '_element', {
-	              value: this.factory(),
-	              writable: true
-	            });
-	          }
-	
-	          return this._element;
-	        },
-	        set: function(value) {
-	          this.__set_element(value);
-	        }
-	      });
-	
-	      /**
-	       * @property
-	       *
-	       * ID of this Element instance.
-	       *
-	       * @type {String}
-	       */
-	      Object.defineProperty(this, 'id', {
-	        get: function() {
-	          return this.element.id;
-	        },
-	        set: function(value) {
-	          this.element.setAttribute('id', value);
-	        }
-	      });
-	
-	      /**
-	       * @property
-	       *
-	       * Instance name of this Element instance. Once set, it cannot be changed.
-	       *
-	       * @type {String}
-	       */
-	      Object.defineProperty(this, 'name', {
-	        get: function() {
-	          var s = this.element.getAttribute(Directives.Instance) || this.element.getAttribute('data-' + Directives.Instance);
-	
-	          if (!s || s === '') {
-	            return null;
-	          }
-	          else {
-	            return s;
-	          }
-	        },
-	        set: function(value) {
-	          if (!value || value === '') return;
-	
-	          if (!this.name) {
-	            this.element.setAttribute('data-' + Directives.Instance, value);
-	          }
-	        }
-	      });
-	
-	      /**
-	       * @property
-	       *
-	       * Class list of this Element instance.
-	       *
-	       * @type {Array}
-	       */
-	      Object.defineProperty(this, 'class', {
-	        get: function() {
-	          return this.element.className.split(' ');
-	        },
-	        set: function(value) {
-	          this.element.className = value.join(' ');
-	        }
-	      });
-	
-	      /**
-	       * @property
-	       *
-	       * Current node state of this Element instance.
-	       *
-	       * @type {Enum}
-	       */
-	      Object.defineProperty(this, 'nodeState', {
-	        get: function() {
-	          return this._nodeState || NodeState.IDLE;
-	        }
-	      });
-	
-	      /**
-	       * @property
-	       *
-	       * State of this Element instance (depicted by Directives.State).
-	       *
-	       * @type {String}
-	       */
-	      Object.defineProperty(this, 'state', {
-	        get: function() {
-	          var s = this.element.getAttribute(Directives.State) || this.element.getAttribute('data-' + Directives.State);
-	
-	          if (!s || s === '') {
-	            return null;
-	          }
-	          else {
-	            return s;
-	          }
-	        },
-	        set: function(value) {
-	          if (this.state === value) return;
-	
-	          if (value === null || value === undefined) {
-	            this.element.removeAttribute(Directives.State);
-	            this.element.removeAttribute('data-' + Directives.State);
-	          }
-	          else {
-	            this.element.setAttribute('data-' + Directives.State, value);
-	          }
-	
-	          this.updateDelegate.setDirty(DirtyType.STATE);
-	        }
-	      });
-	
-	      /**
-	       * @property
-	       *
-	       * Style of this Element instance (depicted by Directives.Style).
-	       *
-	       * @type {String}
-	       */
-	      Object.defineProperty(this, 'style', {
-	        get: function() {
-	          var s = this.element.getAttribute(Directives.Style) || this.element.getAttribute('data-' + Directives.Style);
-	
-	          if (!s || s === '') {
-	            return null;
-	          }
-	          else {
-	            return s;
-	          }
-	        },
-	        set: function(value) {
-	          if (this.style === value) return;
-	
-	          if (value === null || value === undefined) {
-	            this.element.removeAttribute(Directives.Style);
-	            this.element.removeAttribute('data-' + Directives.Style);
-	          }
-	          else {
-	            this.element.setAttribute('data-' + Directives.Style, value);
-	          }
-	
-	          this.updateDelegate.setDirty(DirtyType.STYLE);
-	        }
-	      });
-	
-	      /**
-	       * @property (read-only)
-	       *
-	       * Child elements.
-	       *
-	       * @type {Object}
-	       */
-	      Object.defineProperty(this, 'children', {
-	        value: {},
-	        writable: false
-	      });
-	
-	      /**
-	       * @property (read-only)
-	       *
-	       * Data attributes.
-	       *
-	       * @type {Object}
-	       * @see ui.Directives.Data
-	       */
-	      Object.defineProperty(this, 'data', {
-	        value: {},
-	        writable: false
-	      });
-	
-	      /**
-	       * @property (read-only)
-	       *
-	       * Property attributes.
-	       *
-	       * @type {Object}
-	       * @see ui.Directives.Property
-	       */
-	      Object.defineProperty(this, 'properties', {
-	        value: {},
-	        writable: false
-	      });
-	
-	      /**
-	       * @property
-	       *
-	       * ViewUpdateDelegate instance.
-	       *
-	       * @type {ViewUpdateDelegate}
-	       */
-	      Object.defineProperty(this, 'updateDelegate', {
-	        get: function() {
-	          if (!this._updateDelegate) {
-	            Object.defineProperty(this, '_updateDelegate', {
-	              value: new ElementUpdateDelegate(this),
-	              writable: false
-	            });
-	          }
-	
-	          return this._updateDelegate;
-	        }
-	      });
-	
-	      /**
-	       * @property
-	       *
-	       * Specifies whether this Element instance remembers caches every listener that
-	       * is added to it (via the addEventListener/removeEventListener method).
-	       *
-	       * @type {Boolean}
-	       */
-	      Object.defineProperty(this, 'cachesListeners', {
-	        value: true,
+	    if (value instanceof Element) {
+	      Object.defineProperty(this, '_element', {
+	        value: value.element,
 	        writable: true
 	      });
-	    };
+	    }
+	    else {
+	      Object.defineProperty(this, '_element', {
+	        value: value,
+	        writable: true
+	      });
+	    }
+	  };
 	
-	    /**
-	     * @protected
-	     *
-	     * Stubbed out setter for element property (for overriding purposes).
-	     *
-	     * @param {Object} value The DOM element.
-	     */
-	    Element.prototype.__set_element = function(value) {
-	      // Ensure that this is not overwritable.
-	      assert(!this._element, 'Element cannot be overwritten.');
-	      assert((value instanceof HTMLElement) || (value instanceof Element), 'Invalid element type specified. Must be an instance of HTMLElement or Element.');
-	
-	      if (value instanceof Element) {
-	        Object.defineProperty(this, '_element', {
-	          value: value.element,
-	          writable: true
-	        });
-	      }
-	      else {
-	        Object.defineProperty(this, '_element', {
-	          value: value,
-	          writable: true
-	        });
-	      }
-	    };
-	
-	    return Element;
-	  }
+	  return Element;
+	}
 	);
 	
 	/**
-	 * vars
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -3309,39 +3962,37 @@
 	
 	
 	define('ui/getClassIndex',[
-	    'ui/Element',
-	    'utils/assert'
-	  ],
-	  function(
-	    Element,
-	    assert
-	  ) {
-	    /**
-	     * Gets the index of a specified class in a DOM element,
-	     *
-	     * @param {Object} element     HTMLElement, VARS Element, or jQuery object.
-	     * @param {String} className
-	     *
-	     * @return {Number} Index of given class name. -1 if not found.
-	     */
-	    function getClassIndex(element, className) {
-	      if (!assert((element) && ((element instanceof HTMLElement) || (element instanceof Element) || (element.jquery)), 'Invalid element specified. Element must be an instance of HTMLElement or Element.')) return null;
-	      if (element instanceof Element) element = element.element;
-	      if (element.jquery) element = element.get(0);
+	  'ui/Element',
+	  'helpers/assert'
+	], function(
+	  Element,
+	  assert
+	) {
+	  /**
+	   * Gets the index of a specified class in a DOM element,
+	   *
+	   * @param {Object} element    HTMLElement, VARS Element, or jQuery object.
+	   * @param {String} className
+	   *
+	   * @return {Number} Index of given class name. -1 if not found.
+	   */
+	  function getClassIndex(element, className) {
+	    if (!assert((element) && ((element instanceof HTMLElement) || (element instanceof Element) || (element.jquery)), 'Invalid element specified. Element must be an instance of HTMLElement or Element.')) return null;
+	    if (element instanceof Element) element = element.element;
+	    if (element.jquery) element = element.get(0);
 	
-	      if (!assert(className && (typeof className === 'string'), 'Invalid class name: ' + className)) return -1;
+	    if (!assert(className && (typeof className === 'string'), 'Invalid class name: ' + className)) return -1;
 	
-	      var classList = element.className.split(' ');
+	    var classList = element.className.split(' ');
 	
-	      return classList.indexOf(className);
-	    }
-	
-	    return getClassIndex;
+	    return classList.indexOf(className);
 	  }
-	);
+	
+	  return getClassIndex;
+	});
 	
 	/**
-	 * vars
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -3353,67 +4004,63 @@
 	
 	
 	define('ui/toElementArray',[
-	    'ui/Element',
-	    'utils/assert',
-	    'utils/sizeOf'
-	  ],
-	  function(
-	    Element,
-	    assert,
-	    sizeOf
-	  ) {
-	    /**
-	     * Transforms given element(s) to an element array.
-	     *
-	     * @param {Object/Array} element
-	     * @param {Boolean}      keepElement
-	     */
-	    function toElementArray(element, keepElement) {
-	      if (!assert(element, 'Element is undefined or null.')) return null;
+	  'ui/Element',
+	  'helpers/assert'
+	], function(
+	  Element,
+	  assert
+	) {
+	  /**
+	   * Transforms given element(s) to an element array.
+	   *
+	   * @param {Object/Array} element
+	   * @param {Boolean}      keepElement
+	   */
+	  function toElementArray(element, keepElement) {
+	    if (!assert(element, 'Element is undefined or null.')) return null;
 	
-	      var elements;
+	    var elements;
 	
-	      if (element instanceof Array) {
-	        elements = element;
+	    if (element instanceof Array) {
+	      elements = element;
+	    }
+	    else if (element instanceof NodeList) {
+	      elements = Array.prototype.slice.call(element);
+	    }
+	    else if (element.jquery) {
+	      elements = element.get();
+	    }
+	    else {
+	      if (!assert((element instanceof HTMLElement) || (element instanceof Element), 'Invalid element specified. Element must be an instance of HTMLElement or VARS Element.')) return null;
+	
+	      if (element instanceof HTMLElement) {
+	        elements = [element];
 	      }
-	      else if (element instanceof NodeList) {
-	        elements = Array.prototype.slice.call(element);
+	      else if (element instanceof Element) {
+	        elements = [element.element];
 	      }
-	      else if (element.jquery) {
-	        elements = element.get();
-	      }
-	      else {
-	        if (!assert((element instanceof HTMLElement) || (element instanceof Element), 'Invalid element specified. Element must be an instance of HTMLElement or VARS Element.')) return null;
-	
-	        if (element instanceof HTMLElement) {
-	          elements = [element];
-	        }
-	        else if (element instanceof Element) {
-	          elements = [element.element];
-	        }
-	      }
-	
-	      var n = sizeOf(elements);
-	
-	      for (var i = 0; i < n; i++) {
-	        var e = elements[i];
-	
-	        if (!assert((e instanceof HTMLElement) || (e instanceof Element), 'Element array contains invalid element(s). Each element must be an instance of HTMLElement or VARS Element.')) return null;
-	
-	        if (!keepElement && (e instanceof Element)) {
-	          elements[i] = e.element;
-	        }
-	      }
-	
-	      return elements;
 	    }
 	
-	    return toElementArray;
+	    var n = elements.length;
+	
+	    for (var i = 0; i < n; i++) {
+	      var e = elements[i];
+	
+	      if (!assert((e instanceof HTMLElement) || (e instanceof Element), 'Element array contains invalid element(s). Each element must be an instance of HTMLElement or VARS Element.')) return null;
+	
+	      if (!keepElement && (e instanceof Element)) {
+	        elements[i] = e.element;
+	      }
+	    }
+	
+	    return elements;
 	  }
-	);
+	
+	  return toElementArray;
+	});
 	
 	/**
-	 * vars
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -3425,47 +4072,43 @@
 	
 	
 	define('ui/hasClass',[
-	    'ui/getClassIndex',
-	    'ui/toElementArray',
-	    'ui/Element',
-	    'utils/assert',
-	    'utils/sizeOf'
-	  ],
-	  function(
-	    getClassIndex,
-	    toElementArray,
-	    Element,
-	    assert,
-	    sizeOf
-	  ) {
-	    /**
-	     * Verifies that the specified element(s) has the specified class.
-	     *
-	     * @param {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
-	     * @param {String}       className
-	     *
-	     * @return {Boolean} True if element(s) has given class, false otherwise.
-	     */
-	    function hasClass(element, className) {
-	      if (!assert(className && (typeof className === 'string'), 'Invalid class name: ' + className)) return false;
+	  'ui/getClassIndex',
+	  'ui/toElementArray',
+	  'ui/Element',
+	  'helpers/assert'
+	], function(
+	  getClassIndex,
+	  toElementArray,
+	  Element,
+	  assert
+	) {
+	  /**
+	   * Verifies that the specified element(s) has the specified class.
+	   *
+	   * @param {*}      element    HTMLElement, VARS Element, or jQuery object.
+	   * @param {String} className
+	   *
+	   * @return {Boolean} True if element(s) has given class, false otherwise.
+	   */
+	  function hasClass(element, className) {
+	    if (!assert(className && (typeof className === 'string'), 'Invalid class name: ' + className)) return false;
 	
-	      var elements = toElementArray(element);
-	      var n = sizeOf(elements);
+	    var elements = toElementArray(element);
+	    var n = elements.length;
 	
-	      for (var i = 0; i < n; i++) {
-	        var e = elements[i];
-	        if (getClassIndex(e, className) < 0) return false;
-	      }
-	
-	      return true;
+	    for (var i = 0; i < n; i++) {
+	      var e = elements[i];
+	      if (getClassIndex(e, className) < 0) return false;
 	    }
 	
-	    return hasClass;
+	    return true;
 	  }
-	);
+	
+	  return hasClass;
+	});
 	
 	/**
-	 * vars
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -3477,59 +4120,56 @@
 	
 	
 	define('ui/addClass',[
-	    'ui/hasClass',
-	    'ui/toElementArray',
-	    'utils/assert',
-	    'utils/sizeOf'
-	  ],
-	  function(
-	    hasClass,
-	    toElementArray,
-	    assert,
-	    sizeOf
-	  ) {
-	    /**
-	     * Adds a class(es) to DOM element(s).
-	     *
-	     * @param {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
-	     * @param {String/Array} className
-	     */
-	    function addClass(element, className) {
-	      var elements = toElementArray(element);
-	      var classes = [];
-	      var n = sizeOf(elements);
+	  'ui/hasClass',
+	  'ui/toElementArray',
+	  'helpers/assert'
+	], function(
+	  hasClass,
+	  toElementArray,
+	  assert
+	) {
+	  /**
+	   * Adds a class(es) to DOM element(s).
+	   *
+	   * @param {Object/Array} element    HTMLElement, VARS Element, or jQuery
+	   *                                  object.
+	   * @param {String/Array} className
+	   */
+	  function addClass(element, className) {
+	    var elements = toElementArray(element);
+	    var classes = [];
+	    var n = elements.length;
 	
-	      if (!assert((typeof className === 'string') || (className instanceof Array), 'Invalid class name specified. Must be either a string or an array of strings.')) return;
+	    if (!assert((typeof className === 'string') || (className instanceof Array), 'Invalid class name specified. Must be either a string or an array of strings.')) return;
 	
-	      if (typeof className === 'string') {
-	        classes.push(className);
-	      }
-	      else {
-	        classes = className;
-	      }
-	
-	      var nClasses = sizeOf(classes);
-	
-	      for (var i = 0; i < n; i++) {
-	        var e = elements[i];
-	
-	        for (var j = 0; j < nClasses; j++) {
-	          var c = classes[j];
-	
-	          if (!assert(typeof c === 'string', 'Invalid class detected: ' + c)) continue;
-	          if (hasClass(e, c)) continue;
-	
-	          e.className = e.className + ((e.className === '') ? '' : ' ') + c;
-	        }
-	      }
+	    if (typeof className === 'string') {
+	      classes.push(className);
+	    }
+	    else {
+	      classes = className;
 	    }
 	
-	    return addClass;
+	    var nClasses = classes.length;
+	
+	    for (var i = 0; i < n; i++) {
+	      var e = elements[i];
+	
+	      for (var j = 0; j < nClasses; j++) {
+	        var c = classes[j];
+	
+	        if (!assert(typeof c === 'string', 'Invalid class detected: ' + c)) continue;
+	        if (hasClass(e, c)) continue;
+	
+	        e.className = e.className + ((e.className === '') ? '' : ' ') + c;
+	      }
+	    }
 	  }
-	);
+	
+	  return addClass;
+	});
 	
 	/**
-	 * vars
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -3541,52 +4181,50 @@
 	
 	
 	define('ui/getElementState',[
-	    'ui/Directives',
-	    'ui/Element',
-	    'utils/assert',
-	    'utils/sizeOf'
-	  ],
-	  function(
-	    Directives,
-	    Element,
-	    assert,
-	    sizeOf
-	  ) {
-	    /**
-	     * Gets the state of a DOM element, assumes that state classes are prefixed with 'state-'.
-	     *
-	     * @param {Object} element HTMLElement, VARS Element, or jQuery object.
-	     *
-	     * @return {String} State of the given element ('state-' prefix is omitted).
-	     */
-	    function getElementState(element) {
-	      if (!assert((element) && ((element instanceof HTMLElement) || (element instanceof Element) || (element.jquery)), 'Invalid element specified.')) return null;
+	  'types/Directives',
+	  'ui/Element',
+	  'helpers/assert'
+	], function(
+	  Directives,
+	  Element,
+	  assert
+	) {
+	  /**
+	   * Gets the state of a DOM element, assumes that state classes are prefixed
+	   * with 'state-'.
+	   *
+	   * @param {Object} element  HTMLElement, VARS Element, or jQuery object.
+	   *
+	   * @return {String} State of the given element ('state-' prefix is omitted).
+	   */
+	  function getElementState(element) {
+	    if (!assert((element) && ((element instanceof HTMLElement) || (element instanceof Element) || (element.jquery)), 'Invalid element specified.')) return null;
 	
-	      if (element.jquery) element = element.get(0);
+	    if (element.jquery) element = element.get(0);
 	
-	      var s;
+	    var s;
 	
-	      if (element instanceof Element) {
-	        s = element.state;
-	      }
-	      else {
-	        s = element.getAttribute(Directives.State) || element.getAttribute('data-' + Directives.State);
-	      }
-	
-	      if (!s || s === '') {
-	        return null;
-	      }
-	      else {
-	        return s;
-	      }
+	    if (element instanceof Element) {
+	      s = element.state;
+	    }
+	    else {
+	      s = element.getAttribute(Directives.State) || element.getAttribute('data-' + Directives.State);
 	    }
 	
-	    return getElementState;
+	    if (!s || s === '') {
+	      return null;
+	    }
+	    else {
+	      return s;
+	    }
 	  }
+	
+	  return getElementState;
+	}
 	);
 	
 	/**
-	 * vars
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -3598,52 +4236,48 @@
 	
 	
 	define('ui/changeElementState',[
-	    'ui/Directives',
-	    'ui/getElementState',
-	    'ui/toElementArray',
-	    'ui/Element',
-	    'utils/assert',
-	    'utils/sizeOf'
-	  ],
-	  function(
-	    Directives,
-	    getElementState,
-	    toElementArray,
-	    Element,
-	    assert,
-	    sizeOf
-	  ) {
-	    /**
-	     * Changes the state of DOM element(s), assumes that state classes are prefixed
-	     * with 'state-'.
-	     *
-	     * @param {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
-	     * @param {String}       state
-	     */
-	    function changeElementState(element, state) {
-	      var elements = toElementArray(element, true);
-	      var n = sizeOf(elements);
+	  'types/Directives',
+	  'ui/getElementState',
+	  'ui/toElementArray',
+	  'ui/Element',
+	  'helpers/assert'
+	], function(
+	  Directives,
+	  getElementState,
+	  toElementArray,
+	  Element,
+	  assert
+	) {
+	  /**
+	   * Changes the state of DOM element(s), assumes that state classes are
+	   * prefixed with 'state-'.
+	   *
+	   * @param {*}      element  HTMLElement, VARS Element, or jQuery object.
+	   * @param {String} state
+	   */
+	  function changeElementState(element, state) {
+	    var elements = toElementArray(element, true);
+	    var n = elements.length;
 	
-	      for (var i = 0; i < n; i++) {
-	        var e = elements[i];
+	    for (var i = 0; i < n; i++) {
+	      var e = elements[i];
 	
-	        if (getElementState(e) === state) continue;
+	      if (getElementState(e) === state) continue;
 	
-	        if (e instanceof Element) {
-	          e.state = state;
-	        }
-	        else {
-	          e.setAttribute('data-' + Directives.State, state);
-	        }
+	      if (e instanceof Element) {
+	        e.state = state;
+	      }
+	      else {
+	        e.setAttribute('data-' + Directives.State, state);
 	      }
 	    }
-	
-	    return changeElementState;
 	  }
-	);
+	
+	  return changeElementState;
+	});
 	
 	/**
-	 * vars
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -3655,37 +4289,36 @@
 	
 	
 	define('ui/getViewportRect',[
-	    'utils/assert'
-	  ],
-	  function(
-	    assert
-	  ) {
-	    /**
-	     * Gets the rect of the viewport (FOV).
-	     *
-	     * @return {Object} Object containing top, left, bottom, right, width, height.
-	     */
-	    function getViewportRect() {
-	      if (!assert(window && document, 'Window or document undefined.')) return null;
+	  'helpers/assert'
+	], function(
+	  assert
+	) {
+	  /**
+	   * Gets the rect of the viewport (FOV).
+	   *
+	   * @return {Object} Object containing top, left, bottom, right, width,
+	   *                  height.
+	   */
+	  function getViewportRect() {
+	    if (!assert(window && document, 'Window or document undefined.')) return null;
 	
-	      var rect = {};
+	    var rect = {};
 	
-	      rect.width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-	      rect.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-	      rect.top = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
-	      rect.left = (window.pageXOffset !== undefined) ? window.pageXOffset : (document.documentElement || document.body.parentNode || document.body).scrollLeft;
-	      rect.bottom = rect.top + rect.height;
-	      rect.right = rect.left + rect.width;
+	    rect.width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+	    rect.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+	    rect.top = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+	    rect.left = (window.pageXOffset !== undefined) ? window.pageXOffset : (document.documentElement || document.body.parentNode || document.body).scrollLeft;
+	    rect.bottom = rect.top + rect.height;
+	    rect.right = rect.left + rect.width;
 	
-	      return rect;
-	    }
-	
-	    return getViewportRect;
+	    return rect;
 	  }
-	);
+	
+	  return getViewportRect;
+	});
 	
 	/**
-	 * vars
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -3697,99 +4330,97 @@
 	
 	
 	define('ui/getRect',[
-	    'ui/getViewportRect',
-	    'ui/toElementArray',
-	    'ui/Element',
-	    'utils/assert',
-	    'utils/sizeOf'
-	  ],
-	  function(
-	    getViewportRect,
-	    toElementArray,
-	    Element,
-	    assert,
-	    sizeOf
-	  ) {
-	    /**
-	     * Gets the rect of a given element or the overall rect of an array of elements.
-	     *
-	     * @param {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
-	     * @param {Object}       reference The reference FOV, defaults to window.
-	     *
-	     * @return {Object} Object containing top, left, bottom, right, width, height.
-	     */
-	    function getRect(element, reference) {
-	      if (!assert(window, 'This method relies on the window object, which is undefined.')) return null;
-	      if (element === window) return getViewportRect();
+	  'ui/getViewportRect',
+	  'ui/toElementArray',
+	  'ui/Element',
+	  'helpers/assert'
+	], function(
+	  getViewportRect,
+	  toElementArray,
+	  Element,
+	  assert
+	) {
+	  /**
+	   * Gets the rect of a given element or the overall rect of an array of
+	   * elements.
+	   *
+	   * @param {*}      element    HTMLElement, VARS Element, or jQuery object.
+	   * @param {Object} reference  The reference FOV, defaults to window.
+	   *
+	   * @return {Object} Object containing top, left, bottom, right, width,
+	   *                  height.
+	   */
+	  function getRect(element, reference) {
+	    if (!assert(window, 'This method relies on the window object, which is undefined.')) return null;
+	    if (element === window) return getViewportRect();
 	
-	      if (!reference) reference = window;
+	    if (!reference) reference = window;
 	
-	      var elements = toElementArray(element);
-	      var n = sizeOf(elements);
+	    var elements = toElementArray(element);
+	    var n = elements.length;
 	
-	      if (n <= 0) return null;
+	    if (n <= 0) return null;
 	
-	      var refRect = getRect(reference);
+	    var refRect = getRect(reference);
 	
-	      if (!assert(refRect, 'Cannot determine reference FOV.')) return null;
+	    if (!assert(refRect, 'Cannot determine reference FOV.')) return null;
 	
-	      var winRect = getRect(window);
-	      var rect = {};
+	    var winRect = getRect(window);
+	    var rect = {};
 	
-	      for (var i = 0; i < n; i++) {
-	        var e = elements[i];
-	        var c = e.getBoundingClientRect();
+	    for (var i = 0; i < n; i++) {
+	      var e = elements[i];
+	      var c = e.getBoundingClientRect();
 	
-	        var w = c.width;
-	        var h = c.height;
-	        var t = c.top + winRect.top;
-	        if (reference !== window) t -= refRect.top;
-	        var l = c.left + winRect.left;
-	        if (reference !== window) l -= refRect.left;
-	        var b = t + h;
-	        var r = l + w;
+	      var w = c.width;
+	      var h = c.height;
+	      var t = c.top + winRect.top;
+	      if (reference !== window) t -= refRect.top;
+	      var l = c.left + winRect.left;
+	      if (reference !== window) l -= refRect.left;
+	      var b = t + h;
+	      var r = l + w;
 	
-	        if (rect.left === undefined) {
-	          rect.left = l;
-	        }
-	        else {
-	          rect.left = Math.min(rect.left, l);
-	        }
-	
-	        if (rect.right === undefined) {
-	          rect.right = r;
-	        }
-	        else {
-	          rect.right = Math.max(rect.right, r);
-	        }
-	
-	        if (rect.top === undefined) {
-	          rect.top = t;
-	        }
-	        else {
-	          rect.top = Math.min(rect.top, t);
-	        }
-	
-	        if (rect.bottom === undefined) {
-	          rect.bottom = b;
-	        }
-	        else {
-	          rect.bottom = Math.max(rect.bottom, b);
-	        }
+	      if (rect.left === undefined) {
+	        rect.left = l;
+	      }
+	      else {
+	        rect.left = Math.min(rect.left, l);
 	      }
 	
-	      rect.width = rect.right - rect.left;
-	      rect.height = rect.bottom - rect.top;
+	      if (rect.right === undefined) {
+	        rect.right = r;
+	      }
+	      else {
+	        rect.right = Math.max(rect.right, r);
+	      }
 	
-	      return rect;
+	      if (rect.top === undefined) {
+	        rect.top = t;
+	      }
+	      else {
+	        rect.top = Math.min(rect.top, t);
+	      }
+	
+	      if (rect.bottom === undefined) {
+	        rect.bottom = b;
+	      }
+	      else {
+	        rect.bottom = Math.max(rect.bottom, b);
+	      }
 	    }
 	
-	    return getRect;
+	    rect.width = rect.right - rect.left;
+	    rect.height = rect.bottom - rect.top;
+	
+	    return rect;
 	  }
-	);
+	
+	  return getRect;
+	});
 	
 	/**
-	 * vars
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -3801,80 +4432,76 @@
 	
 	
 	define('ui/getIntersectRect',[
-	    'ui/getRect',
-	    'ui/Element',
-	    'utils/assert',
-	    'utils/sizeOf'
-	  ],
-	  function(
-	    getRect,
-	    Element,
-	    assert,
-	    sizeOf
-	  ) {
-	    /**
-	     * Computes the intersecting rect of 2 given elements. If only 1 element is specified, the other
-	     * element will default to the current viewport.
-	     *
-	     * @param {Object/Array} arguments HTMLElement, VARS Element, or jQuery object.
-	     *
-	     * @return {Object} Object containing width, height.
-	     */
-	    function getIntersectRect() {
-	      if (!assert(window, 'This method relies on the window object, which is undefined.')) return null;
+	  'ui/getRect',
+	  'ui/Element',
+	  'helpers/assert'
+	], function(
+	  getRect,
+	  Element,
+	  assert
+	) {
+	  /**
+	   * Computes the intersecting rect of 2 given elements. If only 1 element is
+	   * specified, the other element will default to the current viewport.
+	   *
+	   * @param {*} ...args  HTMLElement, VARS Element, or jQuery object.
+	   *
+	   * @return {Object} Object containing width, height.
+	   */
+	  function getIntersectRect() {
+	    if (!assert(window, 'This method relies on the window object, which is undefined.')) return null;
 	
-	      var n = sizeOf(arguments);
+	    var n = arguments.length;
 	
-	      if (!assert(n > 0, 'This method requires at least 1 argument specified.')) return null;
+	    if (!assert(n > 0, 'This method requires at least 1 argument specified.')) return null;
 	
-	      var rect = {};
-	      var currRect, nextRect;
+	    var rect = {};
+	    var currRect, nextRect;
 	
-	      for (var i = 0; i < n; i++) {
-	        if (!currRect) currRect = getRect(arguments[i]);
+	    for (var i = 0; i < n; i++) {
+	      if (!currRect) currRect = getRect(arguments[i]);
 	
-	        if (!assert(currRect, 'Invalid computed rect.')) return null;
+	      if (!assert(currRect, 'Invalid computed rect.')) return null;
 	
-	        if (i === 0 && ((i + 1) === n)) {
-	          nextRect = getRect(window);
-	        }
-	        else if ((i + 1) < n) {
-	          nextRect = getRect(arguments[i + 1]);
-	        }
-	        else {
-	          break;
-	        }
-	
-	        if (!assert(nextRect, 'Invalid computed rect.')) return null;
-	
-	        rect.width = Math.max(0.0, Math.min(currRect.right, nextRect.right) - Math.max(currRect.left, nextRect.left));
-	        rect.height = Math.max(0.0, Math.min(currRect.bottom, nextRect.bottom) - Math.max(currRect.top, nextRect.top));
-	        rect.top = Math.max(currRect.top, nextRect.top);
-	        rect.left = Math.max(currRect.left, nextRect.left);
-	        rect.bottom = rect.top + rect.height;
-	        rect.right = rect.left + rect.width;
-	
-	        if (rect.width * rect.height === 0) {
-	          rect.width = 0;
-	          rect.height = 0;
-	          rect.top = 0;
-	          rect.left = 0;
-	          rect.bottom = 0;
-	          rect.right = 0;
-	        }
-	
-	        currRect = rect;
+	      if (i === 0 && ((i + 1) === n)) {
+	        nextRect = getRect(window);
+	      }
+	      else if ((i + 1) < n) {
+	        nextRect = getRect(arguments[i + 1]);
+	      }
+	      else {
+	        break;
 	      }
 	
-	      return rect;
+	      if (!assert(nextRect, 'Invalid computed rect.')) return null;
+	
+	      rect.width = Math.max(0.0, Math.min(currRect.right, nextRect.right) - Math.max(currRect.left, nextRect.left));
+	      rect.height = Math.max(0.0, Math.min(currRect.bottom, nextRect.bottom) - Math.max(currRect.top, nextRect.top));
+	      rect.top = Math.max(currRect.top, nextRect.top);
+	      rect.left = Math.max(currRect.left, nextRect.left);
+	      rect.bottom = rect.top + rect.height;
+	      rect.right = rect.left + rect.width;
+	
+	      if (rect.width * rect.height === 0) {
+	        rect.width = 0;
+	        rect.height = 0;
+	        rect.top = 0;
+	        rect.left = 0;
+	        rect.bottom = 0;
+	        rect.right = 0;
+	      }
+	
+	      currRect = rect;
 	    }
 	
-	    return getIntersectRect;
+	    return rect;
 	  }
-	);
+	
+	  return getIntersectRect;
+	});
 	
 	/**
-	 * vars
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -3886,51 +4513,48 @@
 	
 	
 	define('ui/hasChild',[
-	    'ui/toElementArray',
-	    'utils/assert',
-	    'utils/sizeOf'
-	  ],
-	  function(
-	    toElementArray,
-	    assert,
-	    sizeOf
-	  ) {
-	    /**
-	     * Checks if specified parent contains specified child.
-	     *
-	     * @param {Object} parent  HTMLElement, VARS Element, or jQuery object.
-	     * @param {Object} child   HTMLElement, VARS Element, or jQuery object.
-	     *
-	     * @return {Boolean} True if parent has given child, false otherwise.
-	     */
-	    function hasChild(parent, child) {
-	      var ps = toElementArray(parent);
-	      var cs = toElementArray(child);
+	  'ui/toElementArray',
+	  'helpers/assert'
+	], function(
+	  toElementArray,
+	  assert
+	) {
+	  /**
+	   * Checks if specified parent contains specified child.
+	   *
+	   * @param {Object} parent  HTMLElement, VARS Element, or jQuery object.
+	   * @param {Object} child   HTMLElement, VARS Element, or jQuery object.
+	   *
+	   * @return {Boolean} True if parent has given child, false otherwise.
+	   */
+	  function hasChild(parent, child) {
+	    var ps = toElementArray(parent);
+	    var cs = toElementArray(child);
 	
-	      if (!assert(sizeOf(ps) === 1, 'Invalid parent specified. Parent must be a single HTMLElement, VARS Element, or jQuery object.')) return false;
-	      if (!assert(sizeOf(cs) === 1, 'Invalid child specified. Child must be a single HTMLElement, VARS Element, or jQuery object.')) return false;
-	      if (!assert(document, 'Document not found. This method requires document to be valid.')) return false;
+	    if (!assert(ps.length === 1, 'Invalid parent specified. Parent must be a single HTMLElement, VARS Element, or jQuery object.')) return false;
+	    if (!assert(cs.length === 1, 'Invalid child specified. Child must be a single HTMLElement, VARS Element, or jQuery object.')) return false;
+	    if (!assert(document, 'Document not found. This method requires document to be valid.')) return false;
 	
-	      var p = ps[0];
-	      var c = cs[0];
+	    var p = ps[0];
+	    var c = cs[0];
 	
-	      if (!c.parentNode) return false;
+	    if (!c.parentNode) return false;
 	
-	      while (c !== null && c !== undefined && c !== document) {
-	        c = c.parentNode;
+	    while (c !== null && c !== undefined && c !== document) {
+	      c = c.parentNode;
 	
-	        if (c === p) return true;
-	      }
-	
-	      return false;
+	      if (c === p) return true;
 	    }
 	
-	    return hasChild;
+	    return false;
 	  }
+	
+	  return hasChild;
+	}
 	);
 	
 	/**
-	 * vars
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -3942,65 +4566,62 @@
 	
 	
 	define('ui/hitTestElement',[
-	    'math/isClamped',
-	    'ui/getIntersectRect',
-	    'ui/getRect',
-	    'ui/toElementArray',
-	    'utils/assert',
-	    'utils/sizeOf'
-	  ],
-	  function(
-	    isClamped,
-	    getIntersectRect,
-	    getRect,
-	    toElementArray,
-	    assert,
-	    sizeOf
-	  ) {
-	    /**
-	     * Hit tests a vector or element against other elements.
-	     *
-	     * @param {Object/Array} Vector ({ x, y }), HTMLElement, VARS Element, or jQuery object.
-	     * @param {Object/Array} HTMLElement, VARS Element, or jQuery object.
-	     *
-	     * @return {Boolean} True if test passes, false otherwise.
-	     */
-	    function hitTestElement() {
-	      if (!assert(sizeOf(arguments) > 1, 'Insufficient arguments. Expecting at least 2.')) return false;
+	  'math/isClamped',
+	  'ui/getIntersectRect',
+	  'ui/getRect',
+	  'ui/toElementArray',
+	  'helpers/assert'
+	], function(
+	  isClamped,
+	  getIntersectRect,
+	  getRect,
+	  toElementArray,
+	  helpers
+	) {
+	  /**
+	   * Hit tests a vector or element against other elements.
+	   *
+	   * @param {Object/Array}  Vector ({ x, y }), HTMLElement, VARS Element, or
+	   *                        jQuery object.
+	   * @param {Object/Array}  HTMLElement, VARS Element, or jQuery object.
+	   *
+	   * @return {Boolean} True if test passes, false otherwise.
+	   */
+	  function hitTestElement() {
+	    if (!assert(arguments.length > 1, 'Insufficient arguments. Expecting at least 2.')) return false;
 	
-	      var args = Array.prototype.slice.call(arguments);
-	      var isVector = (typeof args[0] === 'object') && args[0].hasOwnProperty('x') && args[0].hasOwnProperty('y');
+	    var args = Array.prototype.slice.call(arguments);
+	    var isVector = (typeof args[0] === 'object') && args[0].hasOwnProperty('x') && args[0].hasOwnProperty('y');
 	
-	      if (isVector) {
-	        var vector = args.shift();
-	        var n = sizeOf(args);
-	        var pass = false;
+	    if (isVector) {
+	      var vector = args.shift();
+	      var n = args.length;
+	      var pass = false;
 	
-	        for (var i = 0; i < n; i++) {
-	          var rect = getRect(args[i]);
+	      for (var i = 0; i < n; i++) {
+	        var rect = getRect(args[i]);
 	
-	          if (isClamped(vector.x, rect.left, rect.right) && isClamped(vector.y, rect.top, rect.bottom)) {
-	            pass = true;
-	          }
+	        if (isClamped(vector.x, rect.left, rect.right) && isClamped(vector.y, rect.top, rect.bottom)) {
+	          pass = true;
 	        }
-	
-	        return pass;
 	      }
-	      else {
-	        var intersectRect = getIntersectRect.apply(null, arguments);
 	
-	        if (!assert(intersectRect, 'Invalid elements specified.')) return false;
-	
-	        return (intersectRect.width * intersectRect.height !== 0);
-	      }
+	      return pass;
 	    }
+	    else {
+	      var intersectRect = getIntersectRect.apply(null, arguments);
 	
-	    return hitTestElement;
+	      if (!assert(intersectRect, 'Invalid elements specified.')) return false;
+	
+	      return (intersectRect.width * intersectRect.height !== 0);
+	    }
 	  }
-	);
+	
+	  return hitTestElement;
+	});
 	
 	/**
-	 * vars
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -4012,112 +4633,63 @@
 	
 	
 	define('ui/hitTestRect',[
-	    'math/isClamped',
-	    'ui/getIntersectRect',
-	    'ui/getRect',
-	    'ui/toElementArray',
-	    'utils/assert',
-	    'utils/sizeOf'
-	  ],
-	  function(
-	    isClamped,
-	    getIntersectRect,
-	    getRect,
-	    toElementArray,
-	    assert,
-	    sizeOf
-	  ) {
-	    /**
-	     * Hit tests a vector or element against other elements.
-	     *
-	     * @param {Object/Array} Vector ({ x, y }), HTMLElement, VARS Element, or jQuery object.
-	     * @param {Object/Array} HTMLElement, VARS Element, or jQuery object.
-	     *
-	     * @return {Boolean} True if test passes, false otherwise.
-	     */
-	    function hitTestRect() {
-	      if (!assert(sizeOf(arguments) > 1, 'Insufficient arguments. Expecting at least 2.')) return false;
+	  'math/isClamped',
+	  'ui/getIntersectRect',
+	  'ui/getRect',
+	  'ui/toElementArray',
+	  'helpers/assert'
+	], function(
+	  isClamped,
+	  getIntersectRect,
+	  getRect,
+	  toElementArray,
+	  assert
+	) {
+	  /**
+	   * Hit tests a vector or element against other elements.
+	   *
+	   * @param {Object/Array}  Vector ({ x, y }), HTMLElement, VARS Element, or
+	   *                        jQuery object.
+	   * @param {Object/Array}  HTMLElement, VARS Element, or jQuery object.
+	   *
+	   * @return {Boolean} True if test passes, false otherwise.
+	   */
+	  function hitTestRect() {
+	    if (!assert(arguments.length > 1, 'Insufficient arguments. Expecting at least 2.')) return false;
 	
-	      var args = Array.prototype.slice.call(arguments);
-	      var isVector = (typeof args[0] === 'object') && args[0].hasOwnProperty('x') && args[0].hasOwnProperty('y');
+	    var args = Array.prototype.slice.call(arguments);
+	    var isVector = (typeof args[0] === 'object') && args[0].hasOwnProperty('x') && args[0].hasOwnProperty('y');
 	
-	      if (isVector) {
-	        var vector = args.shift();
-	        var n = sizeOf(args);
-	        var pass = false;
+	    if (isVector) {
+	      var vector = args.shift();
+	      var n = args.length;
+	      var pass = false;
 	
-	        for (var i = 0; i < n; i++) {
-	          var rect = args[i];
-	          if (!assert(rect.top !== undefined && !isNaN(rect.top) && rect.right !== undefined && !isNaN(rect.right) && rect.bottom !== undefined && !isNaN(rect.bottom) && rect.left !== undefined && !isNaN(rect.left), 'Invalid rect supplied. Rect must be an object containing "top", "right", "bottom", and "left" key values.')) return false;
+	      for (var i = 0; i < n; i++) {
+	        var rect = args[i];
+	        if (!assert(rect.top !== undefined && !isNaN(rect.top) && rect.right !== undefined && !isNaN(rect.right) && rect.bottom !== undefined && !isNaN(rect.bottom) && rect.left !== undefined && !isNaN(rect.left), 'Invalid rect supplied. Rect must be an object containing "top", "right", "bottom", and "left" key values.')) return false;
 	
-	          if (isClamped(vector.x, rect.left, rect.right) && isClamped(vector.y, rect.top, rect.bottom)) {
-	            pass = true;
-	          }
-	        }
-	
-	        return pass;
-	      }
-	      else {
-	        var intersectRect = getIntersectRect.apply(null, arguments);
-	
-	        if (!assert(intersectRect, 'Invalid elements specified.')) return false;
-	
-	        return (intersectRect.width * intersectRect.height !== 0);
-	      }
-	    }
-	
-	    return hitTestRect;
-	  }
-	);
-	
-	/**
-	 * vars
-	 * (c) VARIANTE (http://variante.io)
-	 *
-	 * This software is released under the MIT License:
-	 * http://www.opensource.org/licenses/mit-license.php
-	 *
-	 * @type {Function}
-	 */
-	
-	
-	
-	define('utils/inherit',[],
-	  function() {
-	
-	    /**
-	     * Sets up prototypal inheritance between a child class and a parent class. This process
-	     * also creates a new prototype method hasProperty() for the child class which allows
-	     * verifying inherited properties (as opposed to the native hasOwnProperty() method).
-	     *
-	     * @param {Object} child   Child class (function)
-	     * @param {Object} parent  Parent class (function)
-	     *
-	     * @return {Object} Parent class (function).
-	     */
-	    function inherit(child, parent) {
-	      for (var key in parent) {
-	        if (parent.hasOwnProperty(key)) {
-	          child[key] = parent[key];
+	        if (isClamped(vector.x, rect.left, rect.right) && isClamped(vector.y, rect.top, rect.bottom)) {
+	          pass = true;
 	        }
 	      }
 	
-	      function C() {
-	        this.constructor = child;
-	      }
-	
-	      C.prototype = Object.create(parent.prototype);
-	      child.prototype = new C();
-	      child.__super__ = parent.prototype;
-	      return child;
+	      return pass;
 	    }
+	    else {
+	      var intersectRect = getIntersectRect.apply(null, arguments);
 	
-	    return inherit;
+	      if (!assert(intersectRect, 'Invalid elements specified.')) return false;
+	
+	      return (intersectRect.width * intersectRect.height !== 0);
+	    }
 	  }
-	);
+	
+	  return hitTestRect;
+	});
 	
 	/**
-	 * vars
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -4131,17 +4703,17 @@
 	
 	
 	define('ui/Video',[
-	    'utils/assert',
-	    'utils/log',
+	    'helpers/assert',
+	    'helpers/log',
+	    'types/DirtyType',
 	    'utils/inherit',
-	    'enums/DirtyType',
 	    'ui/Element'
 	  ],
 	  function(
 	    assert,
 	    log,
-	    inherit,
 	    DirtyType,
+	    inherit,
 	    Element
 	  ) {
 	    inherit(Video, Element);
@@ -4260,7 +4832,8 @@
 	      /**
 	       * @property
 	       *
-	       * Specifies that video controls should be displayed (such as a play/pause button etc).
+	       * Specifies that video controls should be displayed (such as a play/pause
+	       * button etc).
 	       *
 	       * @type {Boolean}
 	       */
@@ -4277,7 +4850,8 @@
 	      /**
 	       * @property
 	       *
-	       * Specifies that the video will start over again, every time it is finished.
+	       * Specifies that the video will start over again, every time it is
+	       * finished.
 	       *
 	       * @type {Boolean}
 	       */
@@ -4311,7 +4885,8 @@
 	      /**
 	       * @property
 	       *
-	       * Specifies an image to be shown while the video is downloading, or until the user hits the play button.
+	       * Specifies an image to be shown while the video is downloading, or until
+	       * the user hits the play button.
 	       *
 	       * @type {String}   URL of image
 	       */
@@ -4328,7 +4903,8 @@
 	      /**
 	       * @property
 	       *
-	       * Specifies if and how the author thinks the video should be loaded when the page loads
+	       * Specifies if and how the author thinks the video should be loaded when
+	       * the page loads
 	       *
 	       * @type {String}   See Video.AUTOPLAY
 	       */
@@ -4346,11 +4922,10 @@
 	       * @property
 	       *
 	       * Array of sources containing elements in the form of:
-	       *     Object
-	       *     {
-	       *         src: {PATH_OF_SOURCE} (String)
-	       *         type: {TYPE_OF_SOURCE} (String)
-	       *     }
+	       *   Object {
+	       *     {String} src  Path of source.
+	       *     {String} type Type of source.
+	       *   }
 	       *
 	       * @type {Array}
 	       */
@@ -4383,7 +4958,65 @@
 	);
 	
 	/**
-	 * vars
+	 * VARS
+	 * (c) VARIANTE (http://variante.io)
+	 *
+	 * This software is released under the MIT License:
+	 * http://www.opensource.org/licenses/mit-license.php
+	 *
+	 * @type {Function}
+	 */
+	
+	
+	
+	define('helpers/length',[],function() {
+	  /**
+	   * Gets the number of keys in a given object.
+	   *
+	   * @param {*} object  Any object type.
+	   *
+	   * @return {Number} Size of specified object (depending on the object type,
+	   *                  it can be the number of keys in a plain object, number
+	   *                  of elements in an array, number of characters in a
+	   *                  string, number of digits in a number, and 0 for all
+	   *                  other types.
+	   */
+	  function length(object) {
+	    if (object === undefined || object === null) return 0;
+	
+	    // If object internally has length property, use it.
+	    if (object.length !== undefined) return object.length;
+	
+	    var size = 0;
+	
+	    switch (typeof object) {
+	      case 'object': {
+	        if (object !== null && object !== undefined) {
+	          for (var k in object) size++;
+	        }
+	
+	        break;
+	      }
+	
+	      case 'number': {
+	        size = ('' + object).length;
+	        break;
+	      }
+	
+	      default: {
+	        size = 0;
+	        break;
+	      }
+	    }
+	
+	    return size;
+	  }
+	
+	  return length;
+	});
+	
+	/**
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -4395,39 +5028,42 @@
 	
 	
 	define('utils/namespace',[
-	    'utils/assert'
-	  ],
-	  function(
-	    assert
-	  ) {
-	    /**
-	     * Creates the specified namespace in the specified scope.
-	     *
-	     * @param {String} identifiers Namespace identifiers with parts separated by dots.
-	     * @param {Object} scope       (Optional) Object to create namespace in (defaults to window).
-	     *
-	     * @return {Object} Reference tothe created namespace.
-	     */
-	    function namespace(identifiers, scope) {
-	      if (!assert(typeof identifiers === 'string', 'Invalid identifiers specified.')) return null;
-	      if (!assert(typeof scope === 'undefined' || typeof scope === 'object', 'Invalid scope specified.')) return null;
+	  'helpers/assertType'
+	],
+	function(
+	  assertType
+	) {
+	  /**
+	   * Creates the specified namespace in the specified scope.
+	   *
+	   * @param {String} identifiers   Namespace identifiers with parts separated by
+	   *                               dots.
+	   * @param {Object} scope:*       Object to create namespace in, which defaults
+	   *                               to window if browser environment or a new
+	   *                               blank object.
+	   *
+	   * @return {Object} Reference to the created namespace.
+	   */
+	  function namespace(identifiers, scope) {
+	    assertType(identifiers, 'string', false, 'Invalid parameter: identifiers');
+	    assertType(scope, 'object', true, 'Invalid optional parameter: scope');
 	
-	      var groups = identifiers.split('.');
-	      var currentScope = (scope === undefined || scope === null) ? window : scope;
+	    var defaultScope = (window) ? window : {};
+	    var groups = identifiers.split('.');
+	    var currentScope = (scope === undefined || scope === null) ? defaultScope : scope;
 	
-	      for (var i = 0; i < groups.length; i++) {
-	        currentScope = currentScope[groups[i]] || (currentScope[groups[i]] = {});
-	      }
-	
-	      return currentScope;
+	    for (var i = 0; i < groups.length; i++) {
+	      currentScope = currentScope[groups[i]] || (currentScope[groups[i]] = {});
 	    }
 	
-	    return namespace;
+	    return currentScope;
 	  }
-	);
+	
+	  return namespace;
+	});
 	
 	/**
-	 * vars
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -4438,51 +5074,55 @@
 	
 	
 	
-	define('utils/ready',[],
-	  function() {
-	    /**
-	     * Invokes a function when the DOM is ready.
-	     *
-	     * @param {Function}   callback    Function invoked when the DOM is ready.
-	     */
-	    function ready(callback) {
-	      if (!document) return null;
+	define('utils/ready',[
+	  'helpers/assertType',
+	], function(
+	  assertType
+	) {
+	  /**
+	   * Invokes a function when the DOM is ready.
+	   *
+	   * @param {Function} callback  Function invoked when the DOM is ready.
+	   */
+	  function ready(callback) {
+	    assertType(callback, 'function', false, 'Invalid parameter: callback');
 	
-	      var onLoaded = function(event) {
-	        if (document.addEventListener) {
-	          document.removeEventListener('DOMContentLoaded', onLoaded, false);
-	          window.removeEventListener('load', onLoaded, false);
-	        }
-	        else if (document.attachEvent) {
-	          document.detachEvent('onreadystatechange', onLoaded);
-	          window.detachEvent('onload', onLoaded);
-	        }
+	    if (!document) return null;
 	
-	        setTimeout(callback, 1);
-	      };
-	
-	      if (document.readyState === 'complete') {
-	        return setTimeout(callback, 1);
-	      }
-	
+	    var onLoaded = function(event) {
 	      if (document.addEventListener) {
-	        document.addEventListener('DOMContentLoaded', onLoaded, false);
-	        window.addEventListener('load', onLoaded, false);
+	        document.removeEventListener('DOMContentLoaded', onLoaded, false);
+	        window.removeEventListener('load', onLoaded, false);
 	      }
 	      else if (document.attachEvent) {
-	        document.attachEvent('onreadystatechange', onLoaded);
-	        window.attachEvent('onload', onLoaded);
+	        document.detachEvent('onreadystatechange', onLoaded);
+	        window.detachEvent('onload', onLoaded);
 	      }
 	
-	      return null;
+	      setTimeout(callback, 1);
+	    };
+	
+	    if (document.readyState === 'complete') {
+	      return setTimeout(callback, 1);
 	    }
 	
-	    return ready;
+	    if (document.addEventListener) {
+	      document.addEventListener('DOMContentLoaded', onLoaded, false);
+	      window.addEventListener('load', onLoaded, false);
+	    }
+	    else if (document.attachEvent) {
+	      document.attachEvent('onreadystatechange', onLoaded);
+	      window.attachEvent('onload', onLoaded);
+	    }
+	
+	    return null;
 	  }
-	);
+	
+	  return ready;
+	});
 	
 	/**
-	 * vars
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -4494,151 +5134,149 @@
 	
 	
 	define('ui/initDOM',[
-	    'ui/Directives',
-	    'ui/Element',
-	    'ui/Video',
-	    'ui/hasChild',
-	    'utils/assert',
-	    'utils/namespace',
-	    'utils/ready',
-	    'utils/sizeOf'
-	  ],
-	  function(
-	    Directives,
-	    Element,
-	    Video,
-	    hasChild,
-	    assert,
-	    namespace,
-	    ready,
-	    sizeOf
-	  ) {
-	    /**
-	     * Parses the entire DOM and transforms elements marked with VARS attributes
-	     * into instances of its corresponding controller class (or VARS Element by
-	     * by default).
-	     *
-	     * @param {Object} controllerScope
-	     */
-	    function initDOM(controllerScope) {
-	      ready(function() {
-	        getChildElements(document, controllerScope);
-	      });
-	    }
+	  'types/Directives',
+	  'ui/Element',
+	  'ui/Video',
+	  'ui/hasChild',
+	  'helpers/assert',
+	  'helpers/length',
+	  'utils/namespace',
+	  'utils/ready'
+	], function(
+	  Directives,
+	  Element,
+	  Video,
+	  hasChild,
+	  assert,
+	  length,
+	  namespace,
+	  ready
+	) {
+	  /**
+	   * Parses the entire DOM and transforms elements marked with VARS attributes
+	   * into instances of its corresponding controller class (or VARS Element by
+	   * by default).
+	   *
+	   * @param {Object} controllerScope
+	   */
+	  function initDOM(controllerScope) {
+	    ready(function() {
+	      getChildElements(document, controllerScope);
+	    });
+	  }
 	
-	    /**
-	     * Transforms all the DOM elements inside the specified element marked with custom
-	     * VARS attributes into an instance of either its specified controller class or a generic
-	     * VARS Element. If a marked DOM element is a child of another marked DOM element, it will
-	     * be passed into the parent element's children tree as its specified controller
-	     * class instance or a generic VARS Element.
-	     *
-	     * @param {Object} element         HTMLElement, VARS Element, or jQuery object.
-	     * @param {Object} controllerScope
-	     */
-	    function getChildElements(element, controllerScope) {
-	      var children = null;
+	  /**
+	   * Transforms all the DOM elements inside the specified element marked with custom
+	   * VARS attributes into an instance of either its specified controller class or a generic
+	   * VARS Element. If a marked DOM element is a child of another marked DOM element, it will
+	   * be passed into the parent element's children tree as its specified controller
+	   * class instance or a generic VARS Element.
+	   *
+	   * @param {Object} element         HTMLElement, VARS Element, or jQuery object.
+	   * @param {Object} controllerScope
+	   */
+	  function getChildElements(element, controllerScope) {
+	    var children = null;
 	
-	      if (!element) element = document;
-	      if (element.jquery) element = element.get(0);
-	      if (!assert((element instanceof HTMLElement) || (element instanceof Element) || (document && element === document), 'Element must be an instance of an HTMLElement or the DOM itself.')) return null;
-	      if (element instanceof Element) element = element.element;
+	    if (!element) element = document;
+	    if (element.jquery) element = element.get(0);
+	    if (!assert((element instanceof HTMLElement) || (element instanceof Element) || (document && element === document), 'Element must be an instance of an HTMLElement or the DOM itself.')) return null;
+	    if (element instanceof Element) element = element.element;
 	
-	      var nodeList = element.querySelectorAll('[' + Directives.Controller + '], [data-' + Directives.Controller + '], [' + Directives.Instance + '], [data-' + Directives.Instance + ']');
-	      var qualifiedChildren = filterParentElements(nodeList);
-	      var n = sizeOf(qualifiedChildren);
+	    var nodeList = element.querySelectorAll('[' + Directives.Controller + '], [data-' + Directives.Controller + '], [' + Directives.Instance + '], [data-' + Directives.Instance + ']');
+	    var qualifiedChildren = filterParentElements(nodeList);
+	    var n = qualifiedChildren.length;
 	
-	      for (var i = 0; i < n; i++) {
-	        var child = qualifiedChildren[i];
-	        var className = child.getAttribute(Directives.Controller) || child.getAttribute('data-' + Directives.Controller);
-	        var childName = child.getAttribute(Directives.Instance) || child.getAttribute('data-' + Directives.Instance);
-	        var controller = (className) ? namespace(className, controllerScope) : null;
+	    for (var i = 0; i < n; i++) {
+	      var child = qualifiedChildren[i];
+	      var className = child.getAttribute(Directives.Controller) || child.getAttribute('data-' + Directives.Controller);
+	      var childName = child.getAttribute(Directives.Instance) || child.getAttribute('data-' + Directives.Instance);
+	      var controller = (className) ? namespace(className, controllerScope) : null;
 	
-	        // If no controller class is specified but element is marked as an instance, default the controller class to
-	        // Element.
-	        if (!controller && sizeOf(childName) > 0) {
-	          controller = Element;
-	        }
-	        else if (typeof controller !== 'function') {
-	          switch (className) {
-	            case 'Video': {
-	              controller = Video;
-	              break;
-	            }
-	            case 'Element': {
-	              controller = Element;
-	              break;
-	            }
-	            default: {
-	              controller = null;
-	              break;
-	            }
-	          }
-	        }
-	
-	        if (!assert(typeof controller === 'function', 'Class "' + className + '" is not found in specified controllerScope ' + (controllerScope || window) + '.')) continue;
-	
-	        var m = new controller({
-	          element: child,
-	          name: childName,
-	          children: getChildElements(child, controllerScope)
-	        });
-	
-	        if (sizeOf(childName) > 0) {
-	          if (!children) children = {};
-	
-	          if (!children[childName]) {
-	            children[childName] = m;
-	          }
-	          else {
-	            if (children[childName] instanceof Array) {
-	              children[childName].push(m);
-	            }
-	            else {
-	              var a = [children[childName]];
-	              a.push(m);
-	              children[childName] = a;
-	            }
-	          }
-	        }
+	      // If no controller class is specified but element is marked as an instance, default the controller class to
+	      // Element.
+	      if (!controller && length(childName) > 0) {
+	        controller = Element;
 	      }
-	
-	      return children;
-	    }
-	
-	    function filterParentElements(nodeList) {
-	      var n = nodeList.length;
-	      var o = [];
-	
-	      for (var i = 0; i < n; i++) {
-	        var isParent = true;
-	        var child = nodeList[i];
-	
-	        for (var j = 0; j < n; j++) {
-	          if (i === j) continue;
-	
-	          var parent = nodeList[j];
-	
-	          if (hasChild(parent, child)) {
-	            isParent = false;
+	      else if (typeof controller !== 'function') {
+	        switch (className) {
+	          case 'Video': {
+	            controller = Video;
+	            break;
+	          }
+	          case 'Element': {
+	            controller = Element;
+	            break;
+	          }
+	          default: {
+	            controller = null;
 	            break;
 	          }
 	        }
+	      }
 	
-	        if (isParent) {
-	          o.push(child);
+	      if (!assert(typeof controller === 'function', 'Class "' + className + '" is not found in specified controllerScope ' + (controllerScope || window) + '.')) continue;
+	
+	      var m = new controller({
+	        element: child,
+	        name: childName,
+	        children: getChildElements(child, controllerScope)
+	      });
+	
+	      if (length(childName) > 0) {
+	        if (!children) children = {};
+	
+	        if (!children[childName]) {
+	          children[childName] = m;
+	        }
+	        else {
+	          if (children[childName] instanceof Array) {
+	            children[childName].push(m);
+	          }
+	          else {
+	            var a = [children[childName]];
+	            a.push(m);
+	            children[childName] = a;
+	          }
+	        }
+	      }
+	    }
+	
+	    return children;
+	  }
+	
+	  function filterParentElements(nodeList) {
+	    var n = nodeList.length;
+	    var o = [];
+	
+	    for (var i = 0; i < n; i++) {
+	      var isParent = true;
+	      var child = nodeList[i];
+	
+	      for (var j = 0; j < n; j++) {
+	        if (i === j) continue;
+	
+	        var parent = nodeList[j];
+	
+	        if (hasChild(parent, child)) {
+	          isParent = false;
+	          break;
 	        }
 	      }
 	
-	      return o;
+	      if (isParent) {
+	        o.push(child);
+	      }
 	    }
 	
-	    return initDOM;
+	    return o;
 	  }
-	);
+	
+	  return initDOM;
+	});
 	
 	/**
-	 * vars
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -4650,57 +5288,54 @@
 	
 	
 	define('ui/removeClass',[
-	    'ui/toElementArray',
-	    'utils/assert',
-	    'utils/sizeOf'
-	  ],
-	  function(
-	    toElementArray,
-	    assert,
-	    sizeOf
-	  ) {
-	    /**
-	     * Removes a class(es) from DOM element(s).
-	     *
-	     * @param {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
-	     * @param {String/Array} className
-	     */
-	    function removeClass(element, className) {
-	      var elements = toElementArray(element);
-	      var classes = [];
-	      var n = sizeOf(elements);
+	  'ui/toElementArray',
+	  'helpers/assert'
+	], function(
+	  toElementArray,
+	  assert
+	) {
+	  /**
+	   * Removes a class(es) from DOM element(s).
+	   *
+	   * @param {Object/Array} element    HTMLElement, VARS Element, or jQuery
+	   *                                  object.
+	   * @param {String/Array} className
+	   */
+	  function removeClass(element, className) {
+	    var elements = toElementArray(element);
+	    var classes = [];
+	    var n = elements.length;
 	
-	      if (!assert((typeof className === 'string') || (className instanceof Array), 'Invalid class name specified. Must be either a string or an array of strings.')) return;
+	    if (!assert((typeof className === 'string') || (className instanceof Array), 'Invalid class name specified. Must be either a string or an array of strings.')) return;
 	
-	      if (typeof className === 'string') {
-	        classes.push(className);
-	      }
-	      else {
-	        classes = className;
-	      }
-	
-	      var nClasses = sizeOf(classes);
-	
-	      for (var i = 0; i < n; i++) {
-	        var e = elements[i];
-	
-	        for (var j = 0; j < nClasses; j++) {
-	          var c = classes[j];
-	
-	          if (!assert(typeof c === 'string', 'Invalid class detected: ' + c)) continue;
-	
-	          var regex = new RegExp('^' + c + '\\s+|\\s+' + c, 'g');
-	          e.className = e.className.replace(regex, '');
-	        }
-	      }
+	    if (typeof className === 'string') {
+	      classes.push(className);
+	    }
+	    else {
+	      classes = className;
 	    }
 	
-	    return removeClass;
+	    var nClasses = classes.length;
+	
+	    for (var i = 0; i < n; i++) {
+	      var e = elements[i];
+	
+	      for (var j = 0; j < nClasses; j++) {
+	        var c = classes[j];
+	
+	        if (!assert(typeof c === 'string', 'Invalid class detected: ' + c)) continue;
+	
+	        var regex = new RegExp('^' + c + '\\s+|\\s+' + c, 'g');
+	        e.className = e.className.replace(regex, '');
+	      }
+	    }
 	  }
-	);
+	
+	  return removeClass;
+	});
 	
 	/**
-	 * vars
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -4712,135 +5347,140 @@
 	
 	
 	define('ui/transform',[
-	    'ui/toElementArray',
-	    'ui/getRect',
-	    'utils/assert',
-	    'utils/sizeOf'
-	  ],
-	  function(
-	    toElementArray,
-	    getRect,
-	    assert,
-	    sizeOf
-	  ) {
-	    /**
-	     * Transforms a DOM element.
-	     *
-	     * @param {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
-	     * @param {Object} properties      Transformation properties:
-	     *                                  {
-	     *                                  	{Number} width:  Target width of the element
-	     *                                   	{Number} height: Target height of the element
-	     *                                    {String} unit:   Unit of width/height values (default: 'px')
-	     *                                    {String} type:   Resizing constraint: 'default', 'contain', 'cover' (default: 'default')
-	     *                                  }
-	     *                                  (if unspecified, all transformation styles will be reset to 'initial')
-	     * @param {Object} constraints     Transformation constraints:
-	     *                                  {
-	     *                                  	{Number} width:  Bounded width of the element.
-	     *                                   	{Number} height: Bounded height of the element.
-	     *                                  }
-	     *
-	     * @return {Object} Transformed properties.
-	     */
-	    function transform(element, properties, constraints) {
-	      var elements = toElementArray(element);
-	      var n = sizeOf(elements);
+	  'ui/toElementArray',
+	  'ui/getRect',
+	  'helpers/assert'
+	], function(
+	  toElementArray,
+	  getRect,
+	  assert
+	) {
+	  /**
+	   * Transforms a DOM element.
+	   *
+	   * @param {*}      element      HTMLElement, VARS Element, or jQuery object.
+	   *                              Array of the above is also accepted.
+	   * @param {Object} properties   Transformation properties: {
+	   *                                {Number} width           Target width of
+	   *                                                         the element
+	   *                              	{Number} height          Target height of
+	   *                                                         the element
+	   *                                {String} unit:px         Unit of width/
+	   *                                                         height values
+	   *                                {String} type:'default'  Resizing
+	   *                                                         constraint:
+	   *                                                         'default',
+	   *                                                         'contain',
+	   *                                                         'cover'
+	   *                              }
+	   *                              (if unspecified, all transformation styles
+	   *                              will be reset to 'initial')
+	   * @param {Object} constraints  Transformation constraints: {
+	   *                                {Number} width   Bounded width of the
+	   *                                                 element.
+	   *                                {Number} height  Bounded height of the
+	   *                                                 element.
+	   *                              }
+	   *
+	   * @return {Object} Transformed properties.
+	   */
+	  function transform(element, properties, constraints) {
+	    var elements = toElementArray(element);
+	    var n = elements.length;
 	
-	      if (properties) {
-	        if (!assert((properties.width === undefined) || !isNaN(properties.width), 'Width property must be a number.')) return null;
-	        if (!assert((properties.height === undefined) || !isNaN(properties.height), 'Height property must be a number.')) return null;
-	        if (!assert((properties.aspectRatio === undefined) || !isNaN(properties.aspectRatio), 'Aspect ratio property must be a number.')) return null;
+	    if (properties) {
+	      if (!assert((properties.width === undefined) || !isNaN(properties.width), 'Width property must be a number.')) return null;
+	      if (!assert((properties.height === undefined) || !isNaN(properties.height), 'Height property must be a number.')) return null;
+	      if (!assert((properties.aspectRatio === undefined) || !isNaN(properties.aspectRatio), 'Aspect ratio property must be a number.')) return null;
 	
-	        var rect = getRect(element);
-	        var units = properties.units || 'px';
-	        var aspectRatio = (properties.aspectRatio !== undefined) ? Number(properties.aspectRatio) : rect.width / rect.height;
-	        var maxW = properties.width;
-	        var maxH = properties.height;
-	        var minW = properties.width;
-	        var minH = properties.height;
-	        var type = properties.type || 'default';
+	      var rect = getRect(element);
+	      var units = properties.units || 'px';
+	      var aspectRatio = (properties.aspectRatio !== undefined) ? Number(properties.aspectRatio) : rect.width / rect.height;
+	      var maxW = properties.width;
+	      var maxH = properties.height;
+	      var minW = properties.width;
+	      var minH = properties.height;
+	      var type = properties.type || 'default';
 	
-	        if (constraints && type !== 'default') {
-	          assert((constraints.width === undefined) || !isNaN(constraints.width), 'Width constraint must be a number.');
-	          assert((constraints.height === undefined) || !isNaN(constraints.height), 'Height constraint must be a number.');
+	      if (constraints && type !== 'default') {
+	        assert((constraints.width === undefined) || !isNaN(constraints.width), 'Width constraint must be a number.');
+	        assert((constraints.height === undefined) || !isNaN(constraints.height), 'Height constraint must be a number.');
 	
-	          if (type && type === 'cover') {
-	            if (constraints.width !== undefined) minW = Math.min(constraints.width, minW);
-	            if (constraints.width !== undefined) minH = Math.min(constraints.height, minH);
-	          }
-	          else {
-	            if (constraints.width !== undefined) maxW = Math.min(constraints.width, maxW);
-	            if (constraints.height !== undefined) maxH = Math.min(constraints.height, maxH);
-	          }
-	        }
-	
-	        var w, h;
-	
-	        if (type === 'contain') {
-	          w = (maxW > maxH) ? maxH * aspectRatio : maxW;
-	          h = (maxW > maxH) ? maxH : maxW / aspectRatio;
-	
-	          if (w > maxW) {
-	            w = maxW;
-	            h = w / aspectRatio;
-	          }
-	          else if (h > maxH) {
-	            h = maxH;
-	            w = h * aspectRatio;
-	          }
-	        }
-	        else if (type === 'cover') {
-	          w = (minW > minH) ? minH * aspectRatio : minW;
-	          h = (minW > minH) ? minH : minW / aspectRatio;
-	
-	          if (w < minW) {
-	            w = minW;
-	            h = w / aspectRatio;
-	          }
-	          else if (h < minH) {
-	            h = minH;
-	            w = h * aspectRatio;
-	          }
+	        if (type && type === 'cover') {
+	          if (constraints.width !== undefined) minW = Math.min(constraints.width, minW);
+	          if (constraints.width !== undefined) minH = Math.min(constraints.height, minH);
 	        }
 	        else {
+	          if (constraints.width !== undefined) maxW = Math.min(constraints.width, maxW);
+	          if (constraints.height !== undefined) maxH = Math.min(constraints.height, maxH);
+	        }
+	      }
+	
+	      var w, h;
+	
+	      if (type === 'contain') {
+	        w = (maxW > maxH) ? maxH * aspectRatio : maxW;
+	        h = (maxW > maxH) ? maxH : maxW / aspectRatio;
+	
+	        if (w > maxW) {
 	          w = maxW;
+	          h = w / aspectRatio;
+	        }
+	        else if (h > maxH) {
 	          h = maxH;
+	          w = h * aspectRatio;
 	        }
+	      }
+	      else if (type === 'cover') {
+	        w = (minW > minH) ? minH * aspectRatio : minW;
+	        h = (minW > minH) ? minH : minW / aspectRatio;
 	
-	        for (var i = 0; i < n; i++) {
-	          var e = elements[i];
-	
-	          if (properties.width !== undefined) e.style.width = String(w) + units;
-	          if (properties.height !== undefined) e.style.height = String(h) + units;
+	        if (w < minW) {
+	          w = minW;
+	          h = w / aspectRatio;
 	        }
-	
-	        var t = {};
-	
-	        if (properties.width !== undefined) t.width = w;
-	        if (properties.height !== undefined) t.height = h;
-	
-	        return t;
+	        else if (h < minH) {
+	          h = minH;
+	          w = h * aspectRatio;
+	        }
 	      }
 	      else {
-	        for (var j = 0; j < n; j++) {
-	          elements[j].style.width = 'initial';
-	          elements[j].style.height = 'initial';
-	        }
-	
-	        return {
-	          width: 'initial',
-	          height: 'initial'
-	        };
+	        w = maxW;
+	        h = maxH;
 	      }
-	    }
 	
-	    return transform;
+	      for (var i = 0; i < n; i++) {
+	        var e = elements[i];
+	
+	        if (properties.width !== undefined) e.style.width = String(w) + units;
+	        if (properties.height !== undefined) e.style.height = String(h) + units;
+	      }
+	
+	      var t = {};
+	
+	      if (properties.width !== undefined) t.width = w;
+	      if (properties.height !== undefined) t.height = h;
+	
+	      return t;
+	    }
+	    else {
+	      for (var j = 0; j < n; j++) {
+	        elements[j].style.width = 'initial';
+	        elements[j].style.height = 'initial';
+	      }
+	
+	      return {
+	        width: 'initial',
+	        height: 'initial'
+	      };
+	    }
 	  }
-	);
+	
+	  return transform;
+	});
 	
 	/**
-	 * vars
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -4852,101 +5492,97 @@
 	
 	
 	define('ui/translate',[
-	    'ui/toElementArray',
-	    'utils/assert',
-	    'utils/sizeOf'
-	  ],
-	  function(
-	    toElementArray,
-	    assert,
-	    sizeOf
-	  ) {
-	    /**
-	     * Translates a DOM element.
-	     *
-	     * @param {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
-	     * @param {Object} properties      Translation properties:
-	     *                                  {
-	     *                                      {Number} top:    Top translation value
-	     *                                      {Number} right:  Right translation value
-	     *                                      {Number} bottom: Bottom translation value
-	     *                                      {Number} left:   Left translation value
-	     *                                      {String} units:  Unit of translation values
-	     *                                  }
-	     *                                  (if unspecified, all translation values will be reset to 'initial')
-	     * @param {Object} constraints     Translation constraints:
-	     *                                  {
-	     *                                      {Number} top:    Bounded top translation value
-	     *                                      {Number} right:  Bounded right translation value
-	     *                                      {Number} bottom: Bounded bottom translation value
-	     *                                      {Number} left:   Bounded left translation value
-	     *                                  }
-	     *
-	     * @return {Object} Translated properties.
-	     */
-	    function translate(element, properties, constraints) {
-	      var elements = toElementArray(element);
-	      var n = sizeOf(elements);
+	  'ui/toElementArray',
+	  'helpers/assert'
+	], function(
+	  toElementArray,
+	  assert
+	) {
+	  /**
+	   * Translates a DOM element.
+	   *
+	   * @param {*} element           HTMLElement, VARS Element, or jQuery object.
+	   *                              An array of the above is also accepted.
+	   * @param {Object} properties   Translation properties: {
+	   *                                {Number} top         Top translation value
+	   *                                {Number} right       Right translation value
+	   *                                {Number} bottom      Bottom translation value
+	   *                                {Number} left        Left translation value
+	   *                                {String} units:'px'  Unit of translation value
+	   *                              }
+	   *                              (if unspecified, all translation values will
+	   *                              be reset to 'initial')
+	   * @param {Object} constraints  Translation constraints: {
+	   *                                {Number} top     Bounded top translation value
+	   *                                {Number} right   Bounded right translation value
+	   *                                {Number} bottom  Bounded bottom translation value
+	   *                                {Number} left    Bounded left translation value
+	   *                              }
+	   *
+	   * @return {Object} Translated properties.
+	   */
+	  function translate(element, properties, constraints) {
+	    var elements = toElementArray(element);
+	    var n = elements.length;
 	
-	      if (properties) {
-	        if (!assert((properties.top === undefined) || !isNaN(properties.top), 'Top property must be a number.')) return null;
-	        if (!assert((properties.right === undefined) || !isNaN(properties.right), 'Right property must be a number.')) return null;
-	        if (!assert((properties.bottom === undefined) || !isNaN(properties.bottom), 'Bottom property must be a number.')) return null;
-	        if (!assert((properties.left === undefined) || !isNaN(properties.left), 'Left property must be a number.')) return null;
+	    if (properties) {
+	      if (!assert((properties.top === undefined) || !isNaN(properties.top), 'Top property must be a number.')) return null;
+	      if (!assert((properties.right === undefined) || !isNaN(properties.right), 'Right property must be a number.')) return null;
+	      if (!assert((properties.bottom === undefined) || !isNaN(properties.bottom), 'Bottom property must be a number.')) return null;
+	      if (!assert((properties.left === undefined) || !isNaN(properties.left), 'Left property must be a number.')) return null;
 	
-	        var units = properties.units || 'px';
+	      var units = properties.units || 'px';
 	
-	        if (constraints) {
-	          if (!assert((constraints.top === undefined) || !isNaN(constraints.top), 'Top constraint must be a number.')) return null;
-	          if (!assert((constraints.right === undefined) || !isNaN(constraints.right), 'Right constraint must be a number.')) return null;
-	          if (!assert((constraints.bottom === undefined) || !isNaN(constraints.bottom), 'Bottom constraint must be a number.')) return null;
-	          if (!assert((constraints.left === undefined) || !isNaN(constraints.left), 'Left constraint must be a number.')) return null;
-	        }
-	
-	        var top = (constraints && (constraints.top !== undefined)) ? Math.min(properties.top, constraints.top) : properties.top;
-	        var right = (constraints && (constraints.right !== undefined)) ? Math.min(properties.right, constraints.right) : properties.right;
-	        var bottom = (constraints && (constraints.bottom !== undefined)) ? Math.min(properties.bottom, constraints.bottom) : properties.bottom;
-	        var left = (constraints && (constraints.left !== undefined)) ? Math.min(properties.left, constraints.left) : properties.left;
-	
-	        for (var i = 0; i < n; i++) {
-	          if (properties.top !== undefined) elements[i].style.top = String(top) + units;
-	          if (properties.right !== undefined) elements[i].style.right = String(right) + units;
-	          if (properties.bottom !== undefined) elements[i].style.bottom = String(bottom) + units;
-	          if (properties.left !== undefined) elements[i].style.left = String(left) + units;
-	        }
-	
-	        var t = {};
-	
-	        if (properties.top !== undefined) t.top = top;
-	        if (properties.right !== undefined) t.right = right;
-	        if (properties.bottom !== undefined) t.bottom = bottom;
-	        if (properties.left !== undefined) t.left = left;
-	
-	        return t;
+	      if (constraints) {
+	        if (!assert((constraints.top === undefined) || !isNaN(constraints.top), 'Top constraint must be a number.')) return null;
+	        if (!assert((constraints.right === undefined) || !isNaN(constraints.right), 'Right constraint must be a number.')) return null;
+	        if (!assert((constraints.bottom === undefined) || !isNaN(constraints.bottom), 'Bottom constraint must be a number.')) return null;
+	        if (!assert((constraints.left === undefined) || !isNaN(constraints.left), 'Left constraint must be a number.')) return null;
 	      }
-	      else {
-	        for (var j = 0; j < n; j++) {
-	          elements[j].style.top = 'initial';
-	          elements[j].style.right = 'initial';
-	          elements[j].style.bottom = 'initial';
-	          elements[j].style.left = 'initial';
-	        }
 	
-	        return {
-	          top: 'initial',
-	          right: 'initial',
-	          bottom: 'initial',
-	          left: 'initial'
-	        };
+	      var top = (constraints && (constraints.top !== undefined)) ? Math.min(properties.top, constraints.top) : properties.top;
+	      var right = (constraints && (constraints.right !== undefined)) ? Math.min(properties.right, constraints.right) : properties.right;
+	      var bottom = (constraints && (constraints.bottom !== undefined)) ? Math.min(properties.bottom, constraints.bottom) : properties.bottom;
+	      var left = (constraints && (constraints.left !== undefined)) ? Math.min(properties.left, constraints.left) : properties.left;
+	
+	      for (var i = 0; i < n; i++) {
+	        if (properties.top !== undefined) elements[i].style.top = String(top) + units;
+	        if (properties.right !== undefined) elements[i].style.right = String(right) + units;
+	        if (properties.bottom !== undefined) elements[i].style.bottom = String(bottom) + units;
+	        if (properties.left !== undefined) elements[i].style.left = String(left) + units;
 	      }
+	
+	      var t = {};
+	
+	      if (properties.top !== undefined) t.top = top;
+	      if (properties.right !== undefined) t.right = right;
+	      if (properties.bottom !== undefined) t.bottom = bottom;
+	      if (properties.left !== undefined) t.left = left;
+	
+	      return t;
 	    }
+	    else {
+	      for (var j = 0; j < n; j++) {
+	        elements[j].style.top = 'initial';
+	        elements[j].style.right = 'initial';
+	        elements[j].style.bottom = 'initial';
+	        elements[j].style.left = 'initial';
+	      }
 	
-	    return translate;
+	      return {
+	        top: 'initial',
+	        right: 'initial',
+	        bottom: 'initial',
+	        left: 'initial'
+	      };
+	    }
 	  }
-	);
+	
+	  return translate;
+	});
 	
 	/**
-	 * vars
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -4958,97 +5594,93 @@
 	
 	
 	define('ui/translate3d',[
-	    'ui/toElementArray',
-	    'utils/assert',
-	    'utils/sizeOf'
-	  ],
-	  function(
-	    toElementArray,
-	    assert,
-	    sizeOf
-	  ) {
-	    /**
-	     * Translates a DOM element.
-	     *
-	     * @param {Object/Array} element   HTMLElement, VARS Element, or jQuery object.
-	     * @param {Object} properties      Translation properties: x/y/z/units
-	     *                                  {
-	     *                                  	{Number} x:     X-coordinate
-	     *                                   	{Number} y:     Y-coordinate
-	     *                                    	{Number} z:     Z-coordinate
-	     *                                     	{String} units: Unit of translation values
-	     *                                  }
-	     *                                  (if unspecified, all translation coordinates will be reset to 0)
-	     * @param {Object} constraints     Translation constraints:
-	     *                                  {
-	     *                                  	{Number} x:     Bounded x-coordinate
-	     *                                   	{Number} y:     Bounded y-coordinate
-	     *                                    	{Number} z:     Bounded z-coordinate
-	     *                                  }
-	     *
-	     * @return {Object} Translated properties.
-	     */
-	    function translate3d(element, properties, constraints) {
-	      var elements = toElementArray(element);
-	      var n = sizeOf(elements);
+	  'ui/toElementArray',
+	  'helpers/assert'
+	], function(
+	  toElementArray,
+	  assert
+	) {
+	  /**
+	   * Translates a DOM element.
+	   *
+	   * @param {*} element           HTMLElement, VARS Element, or jQuery object.
+	   *                              An array of the above is also accepted.
+	   * @param {Object} properties   Translation properties: {
+	   *                                {Number} x           X-coordinate
+	   *                                {Number} y           Y-coordinate
+	   *                                {Number} z           Z-coordinate
+	   *                                {String} units:'px'  Unit of translations
+	   *                              }
+	   *                              (if unspecified, all translation coordinates
+	   *                              will be reset to 0)
+	   * @param {Object} constraints  Translation constraints: {
+	   *                                {Number} x  Bounded x-coordinate
+	   *                                {Number} y  Bounded y-coordinate
+	   *                                {Number} z  Bounded z-coordinate
+	   *                              }
+	   *
+	   * @return {Object} Translated properties.
+	   */
+	  function translate3d(element, properties, constraints) {
+	    var elements = toElementArray(element);
+	    var n = elements.length;
 	
-	      if (properties) {
-	        if (!assert(properties.x === undefined || !isNaN(properties.x), 'X property must be a number.')) return null;
-	        if (!assert(properties.y === undefined || !isNaN(properties.y), 'Y property must be a number.')) return null;
-	        if (!assert(properties.z === undefined || !isNaN(properties.z), 'Z property must be a number.')) return null;
+	    if (properties) {
+	      if (!assert(properties.x === undefined || !isNaN(properties.x), 'X property must be a number.')) return null;
+	      if (!assert(properties.y === undefined || !isNaN(properties.y), 'Y property must be a number.')) return null;
+	      if (!assert(properties.z === undefined || !isNaN(properties.z), 'Z property must be a number.')) return null;
 	
-	        var units = properties.units || 'px';
+	      var units = properties.units || 'px';
 	
-	        if (constraints) {
-	          if (!assert(constraints.x === undefined || !isNaN(constraints.x), 'X constraint must be a number.')) return null;
-	          if (!assert(constraints.y === undefined || !isNaN(constraints.y), 'Y constraint must be a number.')) return null;
-	          if (!assert(constraints.z === undefined || !isNaN(constraints.z), 'Z constraint must be a number.')) return null;
-	        }
-	
-	        var x = (constraints && (constraints.x !== undefined)) ? Math.min(properties.x, constraints.x) : properties.x;
-	        var y = (constraints && (constraints.y !== undefined)) ? Math.min(properties.y, constraints.y) : properties.y;
-	        var z = (constraints && (constraints.z !== undefined)) ? Math.min(properties.z, constraints.z) : properties.z;
-	
-	        var translateX = (properties.x !== undefined) ? 'translateX(' + x + units + ')' : null;
-	        var translateY = (properties.y !== undefined) ? 'translateY(' + y + units + ')' : null;
-	        var translateZ = (properties.z !== undefined) ? 'translateZ(' + z + units + ')' : null;
-	        var transforms = '';
-	
-	        if (translateX) transforms += (transforms === '') ? translateX : ' ' + translateX;
-	        if (translateY) transforms += (transforms === '') ? translateY : ' ' + translateY;
-	        if (translateZ) transforms += (transforms === '') ? translateZ : ' ' + translateZ;
-	
-	        for (var i = 0; i < n; i++) {
-	          elements[i].style.transform = transforms;
-	        }
-	
-	        var t = {};
-	
-	        if (translateX) t.x = x;
-	        if (translateY) t.y = y;
-	        if (translateZ) t.z = z;
-	
-	        return t;
+	      if (constraints) {
+	        if (!assert(constraints.x === undefined || !isNaN(constraints.x), 'X constraint must be a number.')) return null;
+	        if (!assert(constraints.y === undefined || !isNaN(constraints.y), 'Y constraint must be a number.')) return null;
+	        if (!assert(constraints.z === undefined || !isNaN(constraints.z), 'Z constraint must be a number.')) return null;
 	      }
-	      else {
-	        for (var j = 0; j < n; j++) {
-	          elements[j].style.transform = 'translateX(0) translateY(0) translateZ(0)';
-	        }
 	
-	        return {
-	          x: 0,
-	          y: 0,
-	          z: 0
-	        };
+	      var x = (constraints && (constraints.x !== undefined)) ? Math.min(properties.x, constraints.x) : properties.x;
+	      var y = (constraints && (constraints.y !== undefined)) ? Math.min(properties.y, constraints.y) : properties.y;
+	      var z = (constraints && (constraints.z !== undefined)) ? Math.min(properties.z, constraints.z) : properties.z;
+	
+	      var translateX = (properties.x !== undefined) ? 'translateX(' + x + units + ')' : null;
+	      var translateY = (properties.y !== undefined) ? 'translateY(' + y + units + ')' : null;
+	      var translateZ = (properties.z !== undefined) ? 'translateZ(' + z + units + ')' : null;
+	      var transforms = '';
+	
+	      if (translateX) transforms += (transforms === '') ? translateX : ' ' + translateX;
+	      if (translateY) transforms += (transforms === '') ? translateY : ' ' + translateY;
+	      if (translateZ) transforms += (transforms === '') ? translateZ : ' ' + translateZ;
+	
+	      for (var i = 0; i < n; i++) {
+	        elements[i].style.transform = transforms;
 	      }
+	
+	      var t = {};
+	
+	      if (translateX) t.x = x;
+	      if (translateY) t.y = y;
+	      if (translateZ) t.z = z;
+	
+	      return t;
 	    }
+	    else {
+	      for (var j = 0; j < n; j++) {
+	        elements[j].style.transform = 'translateX(0) translateY(0) translateZ(0)';
+	      }
 	
-	    return translate3d;
+	      return {
+	        x: 0,
+	        y: 0,
+	        z: 0
+	      };
+	    }
 	  }
-	);
+	
+	  return translate3d;
+	});
 	
 	/**
-	 * vars
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -5062,810 +5694,109 @@
 	
 	
 	
-	define('ui',[
-	    'ui/addClass',
-	    'ui/changeElementState',
-	    'ui/getClassIndex',
-	    'ui/getElementState',
-	    'ui/getIntersectRect',
-	    'ui/getRect',
-	    'ui/getViewportRect',
-	    'ui/hasClass',
-	    'ui/hasChild',
-	    'ui/hitTestElement',
-	    'ui/hitTestRect',
-	    'ui/initDOM',
-	    'ui/removeClass',
-	    'ui/toElementArray',
-	    'ui/transform',
-	    'ui/translate',
-	    'ui/translate3d',
-	    'ui/Directives',
-	    'ui/Element',
-	    'ui/ElementUpdateDelegate',
-	    'ui/Video'
-	  ],
-	  function(
-	    addClass,
-	    changeElementState,
-	    getClassIndex,
-	    getElementState,
-	    getIntersectRect,
-	    getRect,
-	    getViewportRect,
-	    hasClass,
-	    hasChild,
-	    hitTestElement,
-	    hitTestRect,
-	    initDOM,
-	    removeClass,
-	    toElementArray,
-	    transform,
-	    translate,
-	    translate3d,
-	    Directives,
-	    Element,
-	    ElementUpdateDelegate,
-	    Video
-	  ) {
-	    var api = function(obj) {
-	      return obj;
-	    };
+	define('ui', [
+	  'ui/addClass',
+	  'ui/changeElementState',
+	  'ui/getClassIndex',
+	  'ui/getElementState',
+	  'ui/getIntersectRect',
+	  'ui/getRect',
+	  'ui/getViewportRect',
+	  'ui/hasClass',
+	  'ui/hasChild',
+	  'ui/hitTestElement',
+	  'ui/hitTestRect',
+	  'ui/initDOM',
+	  'ui/removeClass',
+	  'ui/transform',
+	  'ui/translate',
+	  'ui/translate3d',
+	  'ui/Element',
+	  'ui/ElementUpdateDelegate',
+	  'ui/Video'
+	], function(
+	  addClass,
+	  changeElementState,
+	  getClassIndex,
+	  getElementState,
+	  getIntersectRect,
+	  getRect,
+	  getViewportRect,
+	  hasClass,
+	  hasChild,
+	  hitTestElement,
+	  hitTestRect,
+	  initDOM,
+	  removeClass,
+	  transform,
+	  translate,
+	  translate3d,
+	  Element,
+	  ElementUpdateDelegate,
+	  Video
+	) {
+	  var api = {};
 	
-	    Object.defineProperty(api, 'addClass', { value: addClass, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'changeElementState', { value: changeElementState, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'hasClass', { value: hasClass, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'hasChild', { value: hasChild, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'getClassIndex', { value: getClassIndex, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'getElementState', { value: getElementState, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'getIntersectRect', { value: getIntersectRect, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'getRect', { value: getRect, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'getViewportRect', { value: getViewportRect, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'hitTestElement', { value: hitTestElement, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'hitTestRect', { value: hitTestRect, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'initDOM', { value: initDOM, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'removeClass', { value: removeClass, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'toElementArray', { value: toElementArray, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'translate', { value: translate, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'translate3d', { value: translate3d, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'transform', { value: transform, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'Directives', { value: Directives, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'Element', { value: Element, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'ElementUpdateDelegate', { value: ElementUpdateDelegate, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'Video', { value: Video, writable: false, enumerable: true });
+	  Object.defineProperty(api, 'addClass', { value: addClass, writable: false, enumerable: true });
+	  Object.defineProperty(api, 'changeElementState', { value: changeElementState, writable: false, enumerable: true });
+	  Object.defineProperty(api, 'hasClass', { value: hasClass, writable: false, enumerable: true });
+	  Object.defineProperty(api, 'hasChild', { value: hasChild, writable: false, enumerable: true });
+	  Object.defineProperty(api, 'getClassIndex', { value: getClassIndex, writable: false, enumerable: true });
+	  Object.defineProperty(api, 'getElementState', { value: getElementState, writable: false, enumerable: true });
+	  Object.defineProperty(api, 'getIntersectRect', { value: getIntersectRect, writable: false, enumerable: true });
+	  Object.defineProperty(api, 'getRect', { value: getRect, writable: false, enumerable: true });
+	  Object.defineProperty(api, 'getViewportRect', { value: getViewportRect, writable: false, enumerable: true });
+	  Object.defineProperty(api, 'hitTestElement', { value: hitTestElement, writable: false, enumerable: true });
+	  Object.defineProperty(api, 'hitTestRect', { value: hitTestRect, writable: false, enumerable: true });
+	  Object.defineProperty(api, 'initDOM', { value: initDOM, writable: false, enumerable: true });
+	  Object.defineProperty(api, 'removeClass', { value: removeClass, writable: false, enumerable: true });
+	  Object.defineProperty(api, 'translate', { value: translate, writable: false, enumerable: true });
+	  Object.defineProperty(api, 'translate3d', { value: translate3d, writable: false, enumerable: true });
+	  Object.defineProperty(api, 'transform', { value: transform, writable: false, enumerable: true });
+	  Object.defineProperty(api, 'Element', { value: Element, writable: false, enumerable: true });
+	  Object.defineProperty(api, 'ElementUpdateDelegate', { value: ElementUpdateDelegate, writable: false, enumerable: true });
+	  Object.defineProperty(api, 'Video', { value: Video, writable: false, enumerable: true });
 	
-	    return api;
-	  }
-	);
+	  return api;
+	});
 	
 	/**
-	 * vars
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
 	 * http://www.opensource.org/licenses/mit-license.php
 	 *
-	 * @type {Function}
-	 */
-	
-	
-	
-	define('utils/module',[
-	    'utils/ready'
-	  ],
-	  function(
-	    ready
-	  ) {
-	    /**
-	     * Creates a new module and attaches it to the window when DOM is ready. Option
-	     * to pass an init object to initialize the module. A typical use-case will be to
-	     * create a new Element module.
-	     *
-	     * @param {Function}   impl Module implementation.
-	     * @param {Object}     init Optional object passed into the impl.
-	     */
-	    function module(impl, init) {
-	      ready(function() {
-	        return new impl(init);
-	      });
-	    }
-	
-	    return module;
-	  }
-	);
-	
-	/**
-	 * vars
-	 * (c) VARIANTE (http://variante.io)
-	 *
-	 * This software is released under the MIT License:
-	 * http://www.opensource.org/licenses/mit-license.php
-	 *
-	 * Asset loader for images, videos, and audios.
-	 *
-	 * @type {Class}
-	 */
-	
-	
-	
-	define('utils/AssetLoader',[
-	    'utils/assert',
-	    'utils/log',
-	    'utils/inherit',
-	    'events/EventType',
-	    'events/EventDispatcher'
-	  ],
-	  function(
-	    assert,
-	    log,
-	    inherit,
-	    EventType,
-	    EventDispatcher
-	  ) {
-	    /**
-	     * @constant
-	     *
-	     * Common image file extensions.
-	     *
-	     * @type {Array}
-	     */
-	    var IMAGE_EXTENSIONS = ['jpg', 'png', 'svg', 'jpeg', 'gif'];
-	
-	    /**
-	     * @constant
-	     *
-	     * Common video file extensions.
-	     *
-	     * @type {Array}
-	     */
-	    var VIDEO_EXTENSIONS = ['mp4', 'mpeg', 'ogg', 'ogv', 'mov', 'avi', 'flv'];
-	
-	    /**
-	     * @constant
-	     *
-	     * Common audio file extensions.
-	     *
-	     * @type {Array}
-	     */
-	    var AUDIO_EXTENSIONS = ['mp3', 'mp4', 'mpeg', 'flac', 'wav', 'ogg'];
-	
-	    /**
-	     * @constant
-	     *
-	     * Mime type lookup.
-	     *
-	     * @type {Object}
-	     */
-	    var MIME_TYPES = {
-	      IMAGE: {
-	        jpg: 'image/jpeg',
-	        jpeg: 'image/jpeg',
-	        gif: 'image/gif',
-	        png: 'image/png',
-	        svg: 'image/svg'
-	      },
-	      VIDEO: {
-	        mp4: 'video/mp4',
-	        mov: 'video/quicktime',
-	        mpeg: 'video/mpeg',
-	        ogg: 'video/ogg',
-	        ogv: 'video/ogg',
-	        avi: 'video/avi',
-	        flv: 'video/x-flv'
-	      },
-	      AUDIO: {
-	        mp3: 'audio/mpeg',
-	        mpeg: 'audio/mpeg',
-	        mp4: 'audio/mp4',
-	        flac: 'audio/flac',
-	        ogg: 'audio/ogg',
-	        wav: 'audio/vnd.wave'
-	      }
-	    };
-	
-	    /**
-	     * @constructor
-	     *
-	     * Creates a new AssetLoader instance.
-	     */
-	    function AssetLoader() {
-	      AssetLoader.__super__.constructor.apply(this, arguments);
-	    }
-	    inherit(AssetLoader, EventDispatcher);
-	
-	    /**
-	     * @static
-	     *
-	     * Different states of AssetLoader.
-	     *
-	     * @type {Enum}
-	     */
-	    AssetLoader.STATE = {
-	      IDLE: 0,
-	      IN_PROGRESS: 1,
-	      COMPLETED: 2,
-	      FAILED: 3,
-	      ABORTED: 4
-	    };
-	
-	    /**
-	     * @static
-	     *
-	     * Different supported asset types of AssetLoader.
-	     *
-	     * @type {Object}
-	     */
-	    AssetLoader.TYPE = {
-	      IMAGE: 'image',
-	      VIDEO: 'video',
-	      AUDIO: 'audio'
-	    };
-	
-	    /**
-	     * Initializes this AssetLoader instance and begins loading assets in the queue.
-	     */
-	    AssetLoader.prototype.init = function() {
-	      if (this.queue.length < 1) return;
-	
-	      log('[AssetLoader]::init()');
-	
-	      var arrlen = this.queue.length;
-	
-	      this._xhrs = [];
-	      this._pending = arrlen;
-	
-	      for (var i = 0; i < arrlen; i++) {
-	        var target = this.queue[i];
-	
-	        log('[AssetLoader]::Started loading: ' + target.path);
-	
-	        var xhr = this.getXHR({
-	          id: i,
-	          path: target.path,
-	          type: target.type
-	        });
-	        xhr.send();
-	
-	        this._xhrs.push(xhr);
-	      }
-	    };
-	
-	    /**
-	     * Destroys this AssetLoader instance and resets its state to idle for recyclable use.
-	     */
-	    AssetLoader.prototype.destroy = function() {
-	      if (this._xhrs) {
-	        var arrlen = this._xhrs.length;
-	
-	        for (var i = 0; i < arrlen; i++) {
-	          var xhr = this._xhrs[i];
-	          xhr.abort();
-	          this._xhrs[i] = null;
-	        }
-	
-	        this._queue = null;
-	        this._assets = null;
-	        this._bytesLoaded = null;
-	        this._bytesTotal = null;
-	      }
-	
-	      this._state = AssetLoader.STATE.IDLE;
-	    };
-	
-	    /**
-	     * Adds target loading assets to the queue. Assumes each parameter is as follows:
-	     * Object
-	     * {
-	     *     path: {PATH_OF_ASSET},
-	     *     type: {TYPE_OF_ASSET} (can only be 'image', 'video', or 'audio')
-	     * }
-	     */
-	    AssetLoader.prototype.enqueue = function() {
-	      assert(arguments && arguments.length > 0, 'There are no arguments specified.');
-	      assert(this.state !== AssetLoader.STATE.IN_PROGRESS, 'Enqueueing is prohibited when the state is in progress.');
-	
-	      if (!arguments) return;
-	      if (arguments.length <= 0) return;
-	      if (this.state === AssetLoader.STATE.IN_PROGRESS) return;
-	
-	      log('[AssetLoader]::enqueue(' + arguments + ')');
-	
-	      var arrlen = arguments.length;
-	
-	      for (var i = 0; i < arrlen; i++) {
-	        var arg = arguments[i];
-	
-	        assert(typeof arg === 'string' || typeof arg === 'object', 'Each item to be enqueued must be a string of the target path or an object containing a "path" key and/or a "type" key');
-	        assert(typeof arg === 'string' || typeof arg.path === 'string', 'Invalid path specified: ' + arg.path + '.');
-	
-	        var path = (typeof arg === 'string') ? arg : arg.path;
-	        var type = arg.type;
-	
-	        if (!type) {
-	          var ext = path.split('.').pop().toLowerCase();
-	
-	          if (IMAGE_EXTENSIONS.indexOf(ext) > -1) {
-	            type = AssetLoader.TYPE.IMAGE;
-	          } else if (VIDEO_EXTENSIONS.indexOf(ext) > -1) {
-	            type = AssetLoader.TYPE.VIDEO;
-	          } else if (AUDIO_EXTENSIONS.indexOf(ext) > -1) {
-	            type = AssetLoader.TYPE.AUDIO;
-	          } else {
-	            throw '[AssetLoader]::Unsupported asset format: ' + path;
-	          }
-	        }
-	
-	        if (type) {
-	          this.queue.push({
-	            path: path,
-	            type: type
-	          });
-	
-	          if (!this._bytesLoaded) this._bytesLoaded = [];
-	          if (!this._bytesTotal) this._bytesTotal = [];
-	
-	          this._bytesLoaded.push(0.0);
-	          this._bytesTotal.push(0.0);
-	        }
-	      }
-	    };
-	
-	    /**
-	     * Removes loading targets from the queue. Each parameter is a path that must match one that
-	     * is already in the queue.
-	     */
-	    AssetLoader.prototype.dequeue = function() {
-	      assert(arguments && arguments.length > 0, 'There are no arguments specified.');
-	      assert(this.state !== AssetLoader.STATE.IN_PROGRESS, 'Dequeueing is prohibited when the state is in progress.');
-	
-	      if (!arguments) return;
-	      if (arguments.length <= 0) return;
-	      if (this.state === AssetLoader.STATE.IN_PROGRESS) return;
-	
-	      var arrlen = arguments.length;
-	
-	      for (var i = 0; i < arrlen; i++) {
-	        var arg = arguments[i];
-	
-	        assert(typeof arg === 'string', 'Expecting path to be a string.');
-	
-	        var n = this.queue.length;
-	
-	        for (var j = 0; j < n; j++) {
-	          var target = this.queue[j];
-	
-	          if (target.path === arg) {
-	            this.queue.splice(j, 1);
-	            this.bytesLoaded.splice(j, 1);
-	            this.bytesTotal.splice(j, 1);
-	
-	            break;
-	          }
-	        }
-	      }
-	    };
-	
-	    /**
-	     * Creates and returns a new XHR instance with prepopulated configurations.
-	     *
-	     * @param {Object} data
-	     *
-	     * @return {Object} XHR instance.
-	     */
-	    AssetLoader.prototype.getXHR = function(data) {
-	      var ext = data.path.split('.').pop().toLowerCase();
-	      var mimeType = MIME_TYPES[data.type.toUpperCase()][ext];
-	
-	      if (!mimeType) {
-	        throw '[AssetLoader]:: Unsupported asset format: ' + data.path;
-	      }
-	
-	      var xhr = new XMLHttpRequest();
-	      xhr.addEventListener('progress', this._onXHRProgress.bind(this), false);
-	      xhr.addEventListener('load', this._onXHRLoadComplete.bind(this), false);
-	      xhr.addEventListener('error', this._onXHRLoadError.bind(this), false);
-	      xhr.addEventListener('abort', this._onXHRAbort.bind(this), false);
-	
-	      xhr.open('GET', data.path, this.async);
-	      if (xhr.overrideMimeType) xhr.overrideMimeType(mimeType);
-	      xhr.data = data;
-	
-	      return xhr;
-	    };
-	
-	    /**
-	     * @private
-	     *
-	     * Handler invoked when an XHR instance is in progress.
-	     *
-	     * @param {Object} event
-	     */
-	    AssetLoader.prototype._onXHRProgress = function(event) {
-	      if (!event.lengthComputable) return;
-	
-	      var xhr = event.currentTarget;
-	      var id = xhr.data.id;
-	      var path = xhr.data.path;
-	      var type = xhr.data.type;
-	      var bytesLoaded = event.loaded;
-	      var bytesTotal = event.total;
-	
-	      // Hash progress into XHR data.
-	      xhr.data.bytesLoaded = bytesLoaded;
-	      xhr.data.bytesTotal = bytesTotal;
-	
-	      this._bytesLoaded[id] = bytesLoaded;
-	      this._bytesTotal[id] = bytesTotal;
-	
-	      if (!this._bytesLoaded) this._bytesLoaded = [];
-	
-	      log('[AssetLoader]::_onXHRProgress("' + path + '":' + bytesLoaded + '/' + bytesTotal + ')');
-	
-	      var progressEvent = document.createEvent('CustomEvent');
-	      progressEvent.initCustomEvent(EventType.OBJECT.PROGRESS, true, true, {
-	        id: id,
-	        path: path,
-	        type: type,
-	        pending: this._pending,
-	        loaded: this.bytesLoaded,
-	        total: this.bytesTotal
-	      });
-	
-	      this.dispatchEvent(progressEvent);
-	    };
-	
-	    /**
-	     * @private
-	     *
-	     * Handler invoked when an XHR instance completes its operation.
-	     *
-	     * @param {Object} event
-	     */
-	    AssetLoader.prototype._onXHRLoadComplete = function(event) {
-	      var xhr = event.currentTarget;
-	      var id = xhr.data.id;
-	      var path = xhr.data.path;
-	      var type = xhr.data.type;
-	
-	      log('[AssetLoader]::_onXHRLoadComplete("' + path + '"")');
-	
-	      this._pending--;
-	
-	      var loadEvent = document.createEvent('CustomEvent');
-	      loadEvent.initCustomEvent(EventType.OBJECT.LOAD, true, true, {
-	        id: id,
-	        path: path,
-	        type: type,
-	        pending: this._pending,
-	        loaded: this.bytesLoaded,
-	        total: this.bytesTotal
-	      });
-	
-	      this.dispatchEvent(loadEvent);
-	    };
-	
-	    /**
-	     * @private
-	     *
-	     * Handler invoked when an XHR instance fails its operation.
-	     *
-	     * @param {Object} event
-	     */
-	    AssetLoader.prototype._onXHRLoadError = function(event) {
-	      var xhr = event.currentTarget;
-	      var id = xhr.data.id;
-	      var path = xhr.data.path;
-	      var type = xhr.data.type;
-	
-	      log('[AssetLoader]::_onXHRLoadError("' + path + '"")');
-	
-	      this._pending--;
-	
-	      var errorEvent = document.createEvent('CustomEvent');
-	      errorEvent.initCustomEvent(EventType.OBJECT.ERROR, true, true, {
-	        id: id,
-	        path: path,
-	        type: type,
-	        pending: this._pending,
-	        loaded: this.bytesLoaded,
-	        total: this.bytesTotal
-	      });
-	
-	      this.dispatchEvent(errorEvent);
-	
-	      if (this._pending === 0) {
-	        var loadEvent = document.createEvent('CustomEvent');
-	        loadEvent.initCustomEvent(EventType.OBJECT.LOAD, true, true, {
-	          id: id,
-	          path: path,
-	          type: type,
-	          pending: this._pending,
-	          loaded: this.bytesLoaded,
-	          total: this.bytesTotal
-	        });
-	
-	        this.dispatchEvent(loadEvent);
-	      }
-	    };
-	
-	    /**
-	     * @private
-	     *
-	     * Handler invoked when an XHR aborts its operation.
-	     *
-	     * @param {Object} event
-	     */
-	    AssetLoader.prototype._onXHRAbort = function(event) {
-	      var xhr = event.currentTarget;
-	      var id = xhr.data.id;
-	      var path = xhr.data.path;
-	      var type = xhr.data.type;
-	
-	      log('[AssetLoader]::_onXHRLoadError("' + path + '"")');
-	
-	      this._pending--;
-	
-	      var abortEvent = document.createEvent('CustomEvent');
-	      abortEvent.initCustomEvent(EventType.OBJECT.ABORT, true, true, {
-	        id: id,
-	        path: path,
-	        type: type,
-	        pending: this._pending,
-	        loaded: this.bytesLoaded,
-	        total: this.bytesTotal
-	      });
-	
-	      this.dispatchEvent(abortEvent);
-	
-	      if (this._pending === 0) {
-	        var loadEvent = document.createEvent('CustomEvent');
-	        loadEvent.initCustomEvent(EventType.OBJECT.LOAD, true, true, {
-	          id: id,
-	          path: path,
-	          type: type,
-	          pending: this._pending,
-	          loaded: this.bytesLoaded,
-	          total: this.bytesTotal
-	        });
-	
-	        this.dispatchEvent(loadEvent);
-	      }
-	    };
-	
-	    /**
-	     * @inheritDoc
-	     */
-	    AssetLoader.prototype.__define_properties = function() {
-	      /**
-	       * @property
-	       *
-	       * Specifies the current state of this AssetLoader instance.
-	       *
-	       * @type {Number}
-	       */
-	      Object.defineProperty(this, 'state', {
-	        get: function() {
-	          if (!this._state) {
-	            Object.defineProperty(this, '_state', {
-	              value: AssetLoader.STATE.IDLE,
-	              writable: true
-	            });
-	          }
-	
-	          return this._state;
-	        }
-	      });
-	
-	      /**
-	       * @property
-	       *
-	       * View of this AssetLoader instance.
-	       *
-	       * @type {Object}
-	       */
-	      Object.defineProperty(this, 'queue', {
-	        get: function() {
-	          if (!this._queue) {
-	            Object.defineProperty(this, '_queue', {
-	              value: [],
-	              writable: true
-	            });
-	          }
-	
-	          return this._queue;
-	        }
-	      });
-	
-	      /**
-	       * @property
-	       *
-	       * Loaded assets.
-	       *
-	       * @type {Object}
-	       */
-	      Object.defineProperty(this, 'assets', {
-	        get: function() {
-	          if (!this._assets) {
-	            Object.defineProperty(this, '_assets', {
-	              value: {},
-	              writable: true
-	            });
-	          }
-	
-	          return this._assets;
-	        }
-	      });
-	
-	      /**
-	       * @property
-	       *
-	       * Specifies whether the XHR operations run in async.
-	       *
-	       * @type {Boolean}
-	       */
-	      Object.defineProperty(this, 'async', {
-	        get: function() {
-	          if (this._async === undefined) {
-	            return true;
-	          }
-	          else {
-	            return this._async;
-	          }
-	        },
-	        set: function(value) {
-	          assert(this.state !== AssetLoader.STATE.IN_PROGRESS, 'Cannot change the async mode while it is in progress.');
-	
-	          if (this.state !== AssetLoader.STATE.IN_PROGRESS) {
-	            Object.defineProperty(this, '_async', {
-	              value: value,
-	              writable: true
-	            });
-	          }
-	        }
-	      });
-	
-	      /**
-	       * @property
-	       *
-	       * Specifies the total bytes loaded for all assets in the queue.
-	       *
-	       * @type {Number}
-	       */
-	      Object.defineProperty(this, 'bytesLoaded', {
-	        get: function() {
-	          if (!this._bytesLoaded) {
-	            return 0.0;
-	          }
-	          else {
-	            var total = 0;
-	            var arrlen = this._bytesLoaded.length;
-	
-	            for (var i = 0; i < arrlen; i++) {
-	              total += this._bytesLoaded[i];
-	            }
-	
-	            return total;
-	          }
-	        }
-	      });
-	
-	      /**
-	       * @property
-	       *
-	       * Specifies the total bytes for all assets in the queue.
-	       *
-	       * @type {Number}
-	       */
-	      Object.defineProperty(this, 'bytesTotal', {
-	        get: function() {
-	          if (!this._bytesTotal) {
-	            return 0.0;
-	          }
-	          else {
-	            var total = 0;
-	            var arrlen = this._bytesTotal.length;
-	
-	            for (var i = 0; i < arrlen; i++) {
-	              total += this._bytesTotal[i];
-	            }
-	
-	            return total;
-	          }
-	        }
-	      });
-	
-	      /**
-	       * @property
-	       *
-	       * Specifies the current progress (in decimals) of the entire operation.
-	       *
-	       * @return {Number}
-	       */
-	      Object.defineProperty(this, 'progress', {
-	        get: function() {
-	          if (!this._bytesTotal || !this._bytesLoaded) return 0.0;
-	          if (this._bytesTotal.length !== this._bytesLoaded.length) return 0.0;
-	
-	          var arrlen = this._bytesTotal.length;
-	          var sum = 0.0;
-	
-	          for (var i = 0; i < arrlen; i++) {
-	            var loaded = this._bytesLoaded[i];
-	            var total = this._bytesTotal[i];
-	
-	            if (total > 0.0) {
-	              sum += loaded / total;
-	            }
-	          }
-	
-	          return sum / arrlen;
-	        }
-	      });
-	
-	      AssetLoader.__super__.__define_properties.call(this);
-	    };
-	
-	    return AssetLoader;
-	  }
-	);
-	
-	/**
-	 * vars
-	 * (c) VARIANTE (http://variante.io)
-	 *
-	 * This software is released under the MIT License:
-	 * http://www.opensource.org/licenses/mit-license.php
-	 *
-	 * Module of utility methods/classes.
+	 * Module of general-purpose utility methods/classes.
 	 *
 	 * @type {Module}
 	 */
 	
 	
 	
-	define('utils',[
-	    'utils/debounce',
-	    'utils/inherit',
-	    'utils/isNull',
-	    'utils/keyOfValue',
-	    'utils/module',
-	    'utils/namespace',
-	    'utils/ready',
-	    'utils/sizeOf',
-	    'utils/AssetLoader'
-	  ],
-	  function(
-	    debounce,
-	    inherit,
-	    isNull,
-	    keyOfValue,
-	    module,
-	    namespace,
-	    ready,
-	    sizeOf,
-	    AssetLoader
-	  ) {
-	    var api = function(obj) {
-	      return obj;
-	    };
+	define('utils', [
+	  'utils/debounce',
+	  'utils/inherit',
+	  'utils/namespace',
+	  'utils/ready'
+	], function(
+	  debounce,
+	  inherit,
+	  namespace,
+	  ready
+	) {
+	  var api = {};
 	
-	    Object.defineProperty(api, 'debounce', { value: debounce, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'inherit', { value: inherit, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'isNull', { value: isNull, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'keyOfValue', { value: keyOfValue, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'module', { value: module, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'namespace', { value: namespace, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'ready', { value: ready, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'sizeOf', { value: sizeOf, writable: false, enumerable: true });
-	    Object.defineProperty(api, 'AssetLoader', { value: AssetLoader, writable: false, enumerable: true });
+	  Object.defineProperty(api, 'debounce', { value: debounce, writable: false, enumerable: true });
+	  Object.defineProperty(api, 'inherit', { value: inherit, writable: false, enumerable: true });
+	  Object.defineProperty(api, 'namespace', { value: namespace, writable: false, enumerable: true });
+	  Object.defineProperty(api, 'ready', { value: ready, writable: false, enumerable: true });
 	
-	
-	    return api;
-	  }
-	);
+	  return api;
+	});
 	
 	/**
-	 * vars
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -5876,90 +5807,64 @@
 	
 	
 	
-	define(
-	  'vars',[
-	    'enums',
-	    'events',
-	    'math',
-	    'ui',
-	    'utils'
-	  ],
-	  function(
-	    enums,
-	    events,
-	    math,
-	    ui,
-	    utils
-	  ) {
-	    var vars = function(obj) {
-	      return obj;
-	    };
+	define('vars', [
+	  'events',
+	  'math',
+	  'net',
+	  'types',
+	  'ui',
+	  'utils'
+	], function(
+	  events,
+	  math,
+	  net,
+	  types,
+	  ui,
+	  utils
+	) {
+	  var vars = {};
 	
-	    /**
-	     * Version.
-	     *
-	     * @type {String}
-	     */
-	    Object.defineProperty(vars, 'version', {
-	      value: '0.27.0',
+	  Object.defineProperty(vars, 'name', { value: 'VARS', writable: false });
+	  Object.defineProperty(vars, 'version', { value: '1.0.0', writable: false });
+	
+	  injectModule('events', events);
+	  injectModule('math', math);
+	  injectModule('net', net);
+	  injectModule('types', types);
+	  injectModule('ui', ui);
+	  injectModule('utils', utils);
+	
+	  /**
+	   * @private
+	   *
+	   * Injects a module and all of its sub-modules into the core VARS module.
+	   *
+	   * @param {String} name    Name of the module (used as the key for the
+	   *                         key-value pair in VARS).
+	   * @param {Object} module  Module object (used as value for the key-value
+	   *                         pair in VARS).
+	   */
+	  function injectModule(name, module) {
+	    Object.defineProperty(vars, name, {
+	      value: module,
 	      writable: false
 	    });
 	
-	    /**
-	     * Inject the 'enums' module and all of its sub-modules into the main vars module.
-	     */
-	    inject('enums', enums);
-	
-	    /**
-	     * Inject the 'events' module and all of its sub-modules into the main vars module.
-	     */
-	    inject('events', events);
-	
-	    /**
-	     * Inject the 'math' module and all of its sub-modules into the main vars module.
-	     */
-	    inject('math', math);
-	
-	    /**
-	     * Inject the 'ui' module and all of its sub-modules into the main vars module.
-	     */
-	    inject('ui', ui);
-	
-	    /**
-	     * Inject the 'utils' module and all of its sub-modules into the main vars module.
-	     */
-	    inject('utils', utils);
-	
-	    /**
-	     * @private
-	     *
-	     * Injects a module and all of its sub-modules into the main vars module.
-	     *
-	     * @param {String} name   Name of the module (used as the key for the key-value pair in vars).
-	     * @param {Object} module Module object (used as value for the key-value pair in VARS).
-	     */
-	    function inject(name, module) {
-	      Object.defineProperty(vars, name, {
-	        value: module,
-	        writable: false
-	      });
-	
-	      for (var key in module) {
-	        if (module.hasOwnProperty(key)) {
-	          Object.defineProperty(vars, key, {
-	            value: module[key],
-	            writable: false
-	          });
-	        }
+	    for (var key in module) {
+	      if (module.hasOwnProperty(key)) {
+	        Object.defineProperty(vars, key, {
+	          value: module[key],
+	          writable: false
+	        });
 	      }
 	    }
-	
-	    return vars;
 	  }
-	);
+	
+	  return vars;
+	});
 	
 	/**
-	 * vars
+	 * VARS
 	 * (c) VARIANTE (http://variante.io)
 	 *
 	 * This software is released under the MIT License:
@@ -5973,7 +5878,8 @@
 	//# sourceMappingURL=vars.js.map
 
 /***/ },
-/* 2 */
+
+/***/ 161:
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -6001,7 +5907,6 @@
 	  _createClass(Playground, [{
 	    key: 'init',
 	    value: function init() {
-	      this.removeChild('a');
 	      _get(Object.getPrototypeOf(Playground.prototype), 'init', this).call(this);
 	    }
 	  }, {
@@ -6020,7 +5925,8 @@
 	module.exports = Playground;
 
 /***/ },
-/* 3 */
+
+/***/ 162:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6066,5 +5972,6 @@
 	module.exports = Bar;
 
 /***/ }
-/******/ ]);
+
+/******/ });
 //# sourceMappingURL=main.js.map

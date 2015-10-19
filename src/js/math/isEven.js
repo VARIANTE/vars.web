@@ -1,5 +1,5 @@
 /**
- * vars
+ * VARS
  * (c) VARIANTE (http://variante.io)
  *
  * This software is released under the MIT License:
@@ -10,22 +10,30 @@
 
 'use strict';
 
-define([],
-  function() {
-    /**
-     * Determines if a number is an even number. Zero is considered even by default.
-     *
-     * @param {Number}  value
-     * @param {Boolean} excludeZero
-     *
-     * @return {Boolean} True if number is even, false otherwise.
-     */
-    function isEven(value, excludeZero) {
-      if (value === 0) return (excludeZero !== false);
+define([
+  'helpers/assertType'
+],function(
+  assertType
+) {
+  /**
+   * Determines if a number is an even number. Zero is considered even by
+   * default.
+   *
+   * @param {Number}  value
+   * @param {Boolean} excludeZero:false
+   *
+   * @return {Boolean} True if number is even, false otherwise.
+   */
+  function isEven(value, excludeZero) {
+    assertType(value, 'number', false, 'Invalid value specified');
+    assertType(excludeZero, 'boolean', true, 'Invalid parameter: excludeZero');
 
-      return (value % 2) === 0;
-    }
+    if (excludeZero === undefined) excludeZero = false;
 
-    return isEven;
+    if (value === 0) return (excludeZero !== false);
+
+    return (value % 2) === 0;
   }
-);
+
+  return isEven;
+});

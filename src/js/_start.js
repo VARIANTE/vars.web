@@ -1,5 +1,5 @@
 /**
- * vars
+ * VARS
  * (c) VARIANTE (http://variante.io)
  *
  * This software is released under the MIT License:
@@ -8,6 +8,8 @@
  * Start file for r.js.
  */
 (function(root, factory, undefined) {
+  'use strict';
+
   var vars = factory;
 
   // Check if using AMD.

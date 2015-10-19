@@ -45,19 +45,26 @@
 @mixin screen-max-height($maxHeight) { @media only screen and (max-height: #{$maxHeight}px) { @content; } }
 
 /**
- * Media query for the minimum width/height threshold of the specified screen type.
+ * Media query for the minimum width/height threshold of the specified screen
+ * type.
  *
- * @param {String}  $screen        Screen type (i.e. mobile, phablet, tablet, desktop).
- * @param {Boolean} $exclusive     Specifies whether the media queries should be exclusive to this screen
- *                                  type. If false, the generated media query will use the minimum threshold
- *                                  of the selected screen type. If true, the generated media query will be
- *                                  bounded by the minimum and the maximum thresholds.
- * @param {Boolean} $invert        Inverts the generated media query.
- * @param {String}  $measurement   Specifies width or height measurement.
- * @param {Boolean} $touch         Specifues whether the condition is only valid for touch devices
- *                                  (requires Modernizr feature detection), namely the '.touch' class.
- *                                  If false (default), it does NOT use the '.no-touch' class, but
- *                                  instead applies content normally.
+ * @param {String}  $screen       Screen type (i.e. mobile, phablet, tablet,
+ *                                desktop).
+ * @param {Boolean} $exclusive    Specifies whether the media queries should be
+ *                                exclusive to this screen type. If false, the
+ *                                generated media query will use the minimum
+ *                                threshold of the selected screen type. If
+ *                                true, the generated media query will be
+ *                                bounded by the minimum and the maximum
+ *                                thresholds.
+ * @param {Boolean} $invert       Inverts the generated media query.
+ * @param {String}  $measurement  Specifies width or height measurement.
+ * @param {Boolean} $touch        Specifues whether the condition is only valid
+ *                                for touch devices(requires Modernizr feature
+ *                                detection), namely the '.touch' class. If
+ *                                false (default), it does NOT use the
+ *                                '.no-touch' class, but instead applies content
+ *                                normally.
  */
 @mixin screen($screen, $exclusive:false, $invert:false, $measurement:width, $touch:false) {
   @if $screen == mobile {
@@ -102,14 +109,14 @@
 }
 
 /**
- * Sets the background-size and background-position of a target element
- * which is using an image map to the corresponding item in the map.
+ * Sets the background-size and background-position of a target element which is
+ * using an image map to the corresponding item in the map.
  *
- * @param {String} $path      Path of sprite map.
- * @param {Number} $row-index 0-based index of the row of the target item.
- * @param {Number} $col-index 0-based index of the column of the target item.
- * @param {Number} $num-rows  Total number of rows in the image map.
- * @param {Number} $num-cols  Total number of columns in the image map.
+ * @param {String} $path       Path of sprite map.
+ * @param {Number} $row-index  0-based index of the row of the target item.
+ * @param {Number} $col-index  0-based index of the column of the target item.
+ * @param {Number} $num-rows   Total number of rows in the image map.
+ * @param {Number} $num-cols   Total number of columns in the image map.
  */
 @mixin image-map-item($path, $row-index, $col-index, $num-rows, $num-cols) {
   @if $path != null {
@@ -130,9 +137,10 @@
  * Auto generates a list of class names of the target selector, where each
  * class represents a sprite as provided by the sprite map.
  *
- * @param {String} $path Path of sprite map.
- * @param {List}   $map  List (1D or 2D) of class names. The position of each list item
- *                        directly corresponds to the sprite position on the sprite map.
+ * @param {String} $path  Path of sprite map.
+ * @param {List}   $map   List (1D or 2D) of class names. The position of each
+ *                        list item directly corresponds to the sprite position
+ *                        on the sprite map.
  *
  * @note This mixin is quite slow in performance due to the nested loop.
  */
