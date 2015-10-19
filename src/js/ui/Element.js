@@ -39,7 +39,7 @@ define([
    * Creates a new Element instance.
    *
    * @param {*} init  Optional initial properties/element of this Element
-   *                  instance.
+   *                 instance.
    */
   function Element(init) {
     this._nodeState = NodeState.IDLE;
@@ -201,7 +201,7 @@ define([
    * instance.
    *
    * @param {Object/Number}  Either the conductor or the refresh rate (if 1
-   *                         argument supplied).
+   *                        argument supplied).
    * @param {Number}         Refresh rate.
    * @param {...args}        EventType(s) which this element will respond to.
    */
@@ -235,19 +235,19 @@ define([
    * to the DOM tree of this instance.
    *
    * @param {*}      child           Single child or an array of children.
-   *                                 Child elements can be instance(s) of
-   *                                 VARS Elements, jQuery Elements or
-   *                                 HTMLElements.
+   *                                Child elements can be instance(s) of
+   *                                VARS Elements, jQuery Elements or
+   *                                HTMLElements.
    * @param {String} name:undefined  The name of the child/children to be
-   *                                 added. Typically a name is required.
-   *                                 If it is not specified, this method
-   *                                 will attempt to deduct the name from
-   *                                 the provided child/children. This
-   *                                 method fails if no name is specified
-   *                                 or deducted. If there exists another
-   *                                 child with the same name, the added
-   *                                 child will be grouped together with
-   *                                 the existing child.
+   *                                added. Typically a name is required.
+   *                                If it is not specified, this method
+   *                                will attempt to deduct the name from
+   *                                the provided child/children. This
+   *                                method fails if no name is specified
+   *                                or deducted. If there exists another
+   *                                child with the same name, the added
+   *                                child will be grouped together with
+   *                                the existing child.
    */
   Element.prototype.addChild = function(child, name) {
     if (!assert(child !== undefined, 'Parameter \'child\' must be specified')) return;
@@ -323,11 +323,11 @@ define([
    * Determines if this Element instance contains the specified child.
    *
    * @param {*} child  A child is a VARS Element, jQuery element or
-   *                   HTMLElement. It can also be a string of child name(s)
-   *                   separated by '.'.
+   *                  HTMLElement. It can also be a string of child name(s)
+   *                  separated by '.'.
    *
    * @return {Boolean} True if this Element instance has the specified child,
-   *                    false otherwise.
+   *                   false otherwise.
    */
   Element.prototype.hasChild = function(child) {
     if (!assert(child !== undefined, 'Child is undefined')) return false;
@@ -364,8 +364,8 @@ define([
    * Removes a child or multiple children from this Element instance.
    *
    * @param {*} child  A single child is a VARS Element, jQuery element or
-   *                   HTMLElement. It can also be a string of child name(s)
-   *                   separated by '.', or an array of child elements.
+   *                  HTMLElement. It can also be a string of child name(s)
+   *                  separated by '.', or an array of child elements.
    */
   Element.prototype.removeChild = function(child) {
     if (!assert(!isNull(child, true), 'No valid child specified')) return;
@@ -444,9 +444,9 @@ define([
    * immediately.
    *
    * @param {String}  name            Name of the child, depth separated by
-   *                                  '.' (i.e. 'foo.bar').
+   *                                 '.' (i.e. 'foo.bar').
    * @param {Boolean} recursive:true  Speciifies whether to search for the
-   *                                  child recursively down the tree.
+   *                                 child recursively down the tree.
    *
    * @return {Object/Array} The fetched child.
    */

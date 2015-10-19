@@ -21,7 +21,7 @@ define([
    * Removes a class(es) from DOM element(s).
    *
    * @param {Object/Array} element    HTMLElement, VARS Element, or jQuery
-   *                                  object.
+   *                                 object.
    * @param {String/Array} className
    */
   function removeClass(element, className) {

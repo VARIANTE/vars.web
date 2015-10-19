@@ -22,19 +22,19 @@ function(
    *
    * @param {*}            value                 Value used for the assertion.
    * @param {String/Class} type                  Type(s) to evaluate against.
-   *                                             If this is a string, this
-   *                                             method will use 'typeof'
-   *                                             operator. Otherwise
-   *                                             'instanceof' operator will be
-   *                                             used. If this parameter is an
-   *                                             array, all elements in the
-   *                                             array will be evaluated
-   *                                             against.
+   *                                            If this is a string, this
+   *                                            method will use 'typeof'
+   *                                            operator. Otherwise
+   *                                            'instanceof' operator will be
+   *                                            used. If this parameter is an
+   *                                            array, all elements in the
+   *                                            array will be evaluated
+   *                                            against.
    * @param {Boolean}      allowUndefined:false  Specifies whether assertion
-   *                                             should pass if the supplied
-   *                                             value is undefined.
+   *                                            should pass if the supplied
+   *                                            value is undefined.
    * @param {String}       message:undefined     Message to be displayed when
-   *                                             assertion fails.
+   *                                            assertion fails.
    *
    * @return {Boolean} True if assert passed, false otherwise.
    */

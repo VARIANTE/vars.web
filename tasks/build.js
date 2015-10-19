@@ -1,11 +1,11 @@
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * VARS
+ * (c) VARIANTE (http://variante.io)
  *
- *  Build tasks.
+ * Build tasks.
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
  */
 
 var autoprefixer = require('autoprefixer');

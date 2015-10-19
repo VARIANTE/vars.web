@@ -28,7 +28,7 @@ define('vars', [
   var vars = {};
 
   Object.defineProperty(vars, 'name', { value: 'VARS', writable: false });
-  Object.defineProperty(vars, 'version', { value: '1.2.0', writable: false });
+  Object.defineProperty(vars, 'version', { value: '1.2.1', writable: false });
 
   injectModule('events', events);
   injectModule('math', math);
@@ -43,9 +43,9 @@ define('vars', [
    * Injects a module and all of its sub-modules into the core VARS module.
    *
    * @param {String} name    Name of the module (used as the key for the
-   *                         key-value pair in VARS).
+   *                        key-value pair in VARS).
    * @param {Object} module  Module object (used as value for the key-value
-   *                         pair in VARS).
+   *                        pair in VARS).
    */
   function injectModule(name, module) {
     Object.defineProperty(vars, name, {

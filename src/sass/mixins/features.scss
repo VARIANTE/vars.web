@@ -1,9 +1,9 @@
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * VARS
+ * (c) VARIANTE (http://variante.io)
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
  */
 
 /**
@@ -11,7 +11,7 @@
  * feature (requires Modernizr).
  *
  * @param {Boolean} $enabled  Specifies whether 'csstransitions' class is
- *                            required.
+ *                           required.
  */
 @mixin transition($enabled:true) {
   @if $enabled == true and $modernizr-enabled == true {
@@ -29,7 +29,7 @@
  * (requires Modernizr).
  *
  * @param {Boolean} $enabled  Specifies whether 'cssanimations' class is
- *                            required.
+ *                           required.
  */
 @mixin animation($enabled:true) {
   @if $enabled == true and $modernizr-enabled == true {
@@ -48,7 +48,7 @@
  *
  * @param {Boolean} $enabled    Specifies whether 'touch' class is required.
  * @param {Boolean} $exclusive  Specifies whether 'no-touch' class is required
- *                              if $enabled is false.
+ *                             if $enabled is false.
  */
 @mixin touch($enabled:true, $exclusive:false) {
   @if $enabled == true and $modernizr-enabled == true {

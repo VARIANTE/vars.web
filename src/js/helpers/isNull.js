@@ -25,8 +25,8 @@ function(
    *
    * @param {*}       value            Value to evaluate.
    * @param {Boolean} recursive:false  Specifies whether to recursively
-   *                                   evaluate the supplied value's inner
-   *                                   values (i.e. an Array or Object).
+   *                                  evaluate the supplied value's inner
+   *                                  values (i.e. an Array or Object).
    *
    * @return {Boolean} True if null, false otherwise.
    */

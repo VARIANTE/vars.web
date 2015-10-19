@@ -21,20 +21,20 @@ define([
    * Translates a DOM element.
    *
    * @param {*} element           HTMLElement, VARS Element, or jQuery object.
-   *                              An array of the above is also accepted.
+   *                             An array of the above is also accepted.
    * @param {Object} properties   Translation properties: {
-   *                                {Number} x           X-coordinate
-   *                                {Number} y           Y-coordinate
-   *                                {Number} z           Z-coordinate
-   *                                {String} units:'px'  Unit of translations
-   *                              }
-   *                              (if unspecified, all translation coordinates
-   *                              will be reset to 0)
+   *                               {Number} x           X-coordinate
+   *                               {Number} y           Y-coordinate
+   *                               {Number} z           Z-coordinate
+   *                               {String} units:'px'  Unit of translations
+   *                             }
+   *                             (if unspecified, all translation coordinates
+   *                             will be reset to 0)
    * @param {Object} constraints  Translation constraints: {
-   *                                {Number} x  Bounded x-coordinate
-   *                                {Number} y  Bounded y-coordinate
-   *                                {Number} z  Bounded z-coordinate
-   *                              }
+   *                               {Number} x  Bounded x-coordinate
+   *                               {Number} y  Bounded y-coordinate
+   *                               {Number} z  Bounded z-coordinate
+   *                             }
    *
    * @return {Object} Translated properties.
    */

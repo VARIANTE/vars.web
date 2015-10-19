@@ -232,10 +232,10 @@ define([
        * @property
        *
        * Array of sources containing elements in the form of:
-       *   Object {
-       *     {String} src  Path of source.
-       *     {String} type Type of source.
-       *   }
+       *  Object {
+       *    {String} src  Path of source.
+       *    {String} type Type of source.
+       *  }
        *
        * @type {Array}
        */

@@ -20,10 +20,10 @@ function(
    * Creates the specified namespace in the specified scope.
    *
    * @param {String} identifiers   Namespace identifiers with parts separated by
-   *                               dots.
+   *                              dots.
    * @param {Object} scope:*       Object to create namespace in, which defaults
-   *                               to window if browser environment or a new
-   *                               blank object.
+   *                              to window if browser environment or a new
+   *                              blank object.
    *
    * @return {Object} Reference to the created namespace.
    */

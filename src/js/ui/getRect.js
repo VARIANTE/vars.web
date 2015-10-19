@@ -29,7 +29,7 @@ define([
    * @param {Object} reference  The reference FOV, defaults to window.
    *
    * @return {Object} Object containing top, left, bottom, right, width,
-   *                  height.
+   *                 height.
    */
   function getRect(element, reference) {
     if (!assert(window, 'This method relies on the window object, which is undefined.')) return null;

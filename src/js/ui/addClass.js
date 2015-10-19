@@ -23,7 +23,7 @@ define([
    * Adds a class(es) to DOM element(s).
    *
    * @param {Object/Array} element    HTMLElement, VARS Element, or jQuery
-   *                                  object.
+   *                                 object.
    * @param {String/Array} className
    */
   function addClass(element, className) {

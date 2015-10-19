@@ -19,7 +19,7 @@ define([
    * Gets the rect of the viewport (FOV).
    *
    * @return {Object} Object containing top, left, bottom, right, width,
-   *                  height.
+   *                 height.
    */
   function getViewportRect() {
     if (!assert(window && document, 'Window or document undefined.')) return null;

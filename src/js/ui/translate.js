@@ -21,22 +21,22 @@ define([
    * Translates a DOM element.
    *
    * @param {*} element           HTMLElement, VARS Element, or jQuery object.
-   *                              An array of the above is also accepted.
+   *                             An array of the above is also accepted.
    * @param {Object} properties   Translation properties: {
-   *                                {Number} top         Top translation value
-   *                                {Number} right       Right translation value
-   *                                {Number} bottom      Bottom translation value
-   *                                {Number} left        Left translation value
-   *                                {String} units:'px'  Unit of translation value
-   *                              }
-   *                              (if unspecified, all translation values will
-   *                              be reset to 'initial')
+   *                               {Number} top         Top translation value
+   *                               {Number} right       Right translation value
+   *                               {Number} bottom      Bottom translation value
+   *                               {Number} left        Left translation value
+   *                               {String} units:'px'  Unit of translation value
+   *                             }
+   *                             (if unspecified, all translation values will
+   *                             be reset to 'initial')
    * @param {Object} constraints  Translation constraints: {
-   *                                {Number} top     Bounded top translation value
-   *                                {Number} right   Bounded right translation value
-   *                                {Number} bottom  Bounded bottom translation value
-   *                                {Number} left    Bounded left translation value
-   *                              }
+   *                               {Number} top     Bounded top translation value
+   *                               {Number} right   Bounded right translation value
+   *                               {Number} bottom  Bounded bottom translation value
+   *                               {Number} left    Bounded left translation value
+   *                             }
    *
    * @return {Object} Translated properties.
    */

@@ -183,9 +183,9 @@ define([
    * Adds target loading assets to the queue. Assumes each parameter is as
    * follows:
    * Object {
-   *   {String} path  Path of asset.
-   *   {String} type  Type of asset (can only be 'image', 'video', or
-   *                  'audio').
+   *  {String} path  Path of asset.
+   *  {String} type  Type of asset (can only be 'image', 'video', or
+   *                 'audio').
    * }
    */
   AssetLoader.prototype.enqueue = function() {

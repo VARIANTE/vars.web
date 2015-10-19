@@ -1,9 +1,9 @@
 /**
- *  vars
- *  (c) VARIANTE (http://variante.io)
+ * VARS
+ * (c) VARIANTE (http://variante.io)
  *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
  */
 
 /**
@@ -49,22 +49,22 @@
  * type.
  *
  * @param {String}  $screen       Screen type (i.e. mobile, phablet, tablet,
- *                                desktop).
+ *                               desktop).
  * @param {Boolean} $exclusive    Specifies whether the media queries should be
- *                                exclusive to this screen type. If false, the
- *                                generated media query will use the minimum
- *                                threshold of the selected screen type. If
- *                                true, the generated media query will be
- *                                bounded by the minimum and the maximum
- *                                thresholds.
+ *                               exclusive to this screen type. If false, the
+ *                               generated media query will use the minimum
+ *                               threshold of the selected screen type. If
+ *                               true, the generated media query will be
+ *                               bounded by the minimum and the maximum
+ *                               thresholds.
  * @param {Boolean} $invert       Inverts the generated media query.
  * @param {String}  $measurement  Specifies width or height measurement.
  * @param {Boolean} $touch        Specifues whether the condition is only valid
- *                                for touch devices(requires Modernizr feature
- *                                detection), namely the '.touch' class. If
- *                                false (default), it does NOT use the
- *                                '.no-touch' class, but instead applies content
- *                                normally.
+ *                               for touch devices(requires Modernizr feature
+ *                               detection), namely the '.touch' class. If
+ *                               false (default), it does NOT use the
+ *                               '.no-touch' class, but instead applies content
+ *                               normally.
  */
 @mixin screen($screen, $exclusive:false, $invert:false, $measurement:width, $touch:false) {
   @if $screen == mobile {
@@ -139,8 +139,8 @@
  *
  * @param {String} $path  Path of sprite map.
  * @param {List}   $map   List (1D or 2D) of class names. The position of each
- *                        list item directly corresponds to the sprite position
- *                        on the sprite map.
+ *                       list item directly corresponds to the sprite position
+ *                       on the sprite map.
  *
  * @note This mixin is quite slow in performance due to the nested loop.
  */

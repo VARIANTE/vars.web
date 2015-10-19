@@ -16,7 +16,7 @@ define(function() {
    *
    * @param {Boolean} condition          Condition to validate against.
    * @param {String}  message:undefined  Message to be displayed when assertion
-   *                                     fails.
+   *                                    fails.
    *
    * @return {Boolean} True if assert passed, false otherwise.
    */

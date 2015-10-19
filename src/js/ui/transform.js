@@ -23,28 +23,28 @@ define([
    * Transforms a DOM element.
    *
    * @param {*}      element      HTMLElement, VARS Element, or jQuery object.
-   *                              Array of the above is also accepted.
+   *                             Array of the above is also accepted.
    * @param {Object} properties   Transformation properties: {
-   *                                {Number} width           Target width of
-   *                                                         the element
-   *                              	{Number} height          Target height of
-   *                                                         the element
-   *                                {String} unit:px         Unit of width/
-   *                                                         height values
-   *                                {String} type:'default'  Resizing
-   *                                                         constraint:
-   *                                                         'default',
-   *                                                         'contain',
-   *                                                         'cover'
-   *                              }
-   *                              (if unspecified, all transformation styles
-   *                              will be reset to 'initial')
+   *                               {Number} width           Target width of
+   *                                                        the element
+   *                             	{Number} height          Target height of
+   *                                                        the element
+   *                               {String} unit:px         Unit of width/
+   *                                                        height values
+   *                               {String} type:'default'  Resizing
+   *                                                        constraint:
+   *                                                        'default',
+   *                                                        'contain',
+   *                                                        'cover'
+   *                             }
+   *                             (if unspecified, all transformation styles
+   *                             will be reset to 'initial')
    * @param {Object} constraints  Transformation constraints: {
-   *                                {Number} width   Bounded width of the
-   *                                                 element.
-   *                                {Number} height  Bounded height of the
-   *                                                 element.
-   *                              }
+   *                               {Number} width   Bounded width of the
+   *                                                element.
+   *                               {Number} height  Bounded height of the
+   *                                                element.
+   *                             }
    *
    * @return {Object} Transformed properties.
    */

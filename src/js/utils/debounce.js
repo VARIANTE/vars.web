@@ -25,8 +25,8 @@ function(
    * @param {Function} method         Method to be debounced.
    * @param {Number}   delay:0        Debounce rate in milliseconds.
    * @param {Boolean}  leading:false  Indicates whether the method is triggered
-   *                                  on the leading edge instead of the
-   *                                  trailing.
+   *                                 on the leading edge instead of the
+   *                                 trailing.
    *
    * @return {Function} The debounced method.
    */

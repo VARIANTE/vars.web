@@ -27,7 +27,7 @@ define([
    * Hit tests a vector or element against other elements.
    *
    * @param {Object/Array}  Vector ({ x, y }), HTMLElement, VARS Element, or
-   *                        jQuery object.
+   *                       jQuery object.
    * @param {Object/Array}  HTMLElement, VARS Element, or jQuery object.
    *
    * @return {Boolean} True if test passes, false otherwise.
