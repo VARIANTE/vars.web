@@ -31,7 +31,6 @@ function(
    * @return {Boolean} True if null, false otherwise.
    */
   function isNull(value, recursive) {
-    assert(value !== undefined, 'Invalid value specified');
     assertType(recursive, 'boolean', true, 'Invalid parameter: recursive');
 
     if (recursive === undefined) recursive = false;

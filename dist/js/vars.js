@@ -12,9 +12,13 @@
 
   var vars = factory;
 
-  // Check if using AMD.
+  // Check if using CommonJS.
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = vars;
+  }
+  // Check if using AMD.
+  else if (typeof define === 'function' && typeof define.amd === 'object') {
+    define('vars', [], vars);
   }
   // Browser (?).
   else {
@@ -917,7 +921,7 @@ define('math/isEven',[
 
     if (excludeZero === undefined) excludeZero = false;
 
-    if (value === 0) return (excludeZero !== false);
+    if (value === 0) return !excludeZero;
 
     return (value % 2) === 0;
   }
@@ -2833,7 +2837,6 @@ function(
    * @return {Boolean} True if null, false otherwise.
    */
   function isNull(value, recursive) {
-    assert(value !== undefined, 'Invalid value specified');
     assertType(recursive, 'boolean', true, 'Invalid parameter: recursive');
 
     if (recursive === undefined) recursive = false;

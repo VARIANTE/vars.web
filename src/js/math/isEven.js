@@ -30,7 +30,7 @@ define([
 
     if (excludeZero === undefined) excludeZero = false;
 
-    if (value === 0) return (excludeZero !== false);
+    if (value === 0) return !excludeZero;
 
     return (value % 2) === 0;
   }

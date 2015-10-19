@@ -12,9 +12,13 @@
 
   var vars = factory;
 
-  // Check if using AMD.
+  // Check if using CommonJS.
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = vars;
+  }
+  // Check if using AMD.
+  else if (typeof define === 'function' && typeof define.amd === 'object') {
+    define('vars', [], vars);
   }
   // Browser (?).
   else {
