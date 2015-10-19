@@ -28,7 +28,7 @@ define('vars', [
   var vars = {};
 
   Object.defineProperty(vars, 'name', { value: 'VARS', writable: false });
-  Object.defineProperty(vars, 'version', { value: '1.1.0', writable: false });
+  Object.defineProperty(vars, 'version', { value: '1.2.0', writable: false });
 
   injectModule('events', events);
   injectModule('math', math);
