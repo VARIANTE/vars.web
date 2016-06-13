@@ -1,6 +1,6 @@
 /**
  * VARS
- * (c) VARIANTE (http://variante.io)
+ * (c) Andrew Wei
  *
  * Gulp tasks.
  *
